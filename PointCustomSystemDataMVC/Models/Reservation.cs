@@ -11,7 +11,8 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Reservation
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,12 +29,9 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Reservation_id { get; set; }
-        public string TreatmentName { get; set; }
-        public string Start { get; set; }
-        public string End { get; set; }
-        public Nullable<System.DateTime> Date { get; set; }
+       
+    
         public Nullable<int> Type { get; set; }
-        public string Note { get; set; }
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
@@ -43,7 +41,44 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> User_id { get; set; }
-    
+
+        //Lis‰tty p‰iv‰m‰‰r‰m‰‰ritykset reservation.cs
+     
+      
+
+        [Display(Name = "Palvelun nimi")]
+        public string TreatmentName { get; set; }
+
+        [Display(Name = "Alkaen klo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> Start { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Loppuu klo")]
+        public Nullable<System.DateTime> End { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Pvm")]
+        public Nullable<System.DateTime> Date { get; set; }
+
+        //Lis‰tty yhdist‰v‰t nimikent‰t
+        [Display(Name = "Huomiot")]
+        public string Note { get; set; }
+
+        [Display(Name = "Hoitajan nimi")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+        [Display(Name = "Etunimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
+        public string LastName { get; set; }
+
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
         public virtual Customer Customer1 { get; set; }

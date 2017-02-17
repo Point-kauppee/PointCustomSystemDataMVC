@@ -50,7 +50,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Student_id,FirstName,LastName,Identity,Address,Notes,Email,EnrollmentDateIN,EnrollmentDateOUT,Phone_id,Post_id,User_id,PostalCode,PostOffice")] Studentx studentx)
+        public ActionResult Create([Bind(Include = "Student_id,FirstName,LastName,Identity,Address,Notes,Email,EnrollmentDateIN,EnrollmentDateOUT,Phone_id,Post_id,User_id,PostalCode,PostOffice,FullName")] Studentx studentx)
         {
             if (ModelState.IsValid)
             {
@@ -88,7 +88,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Student_id,FirstName,LastName,Identity,Address,Notes,Email,EnrollmentDateIN,EnrollmentDateOUT,Phone_id,Post_id,User_id,PostalCode,PostOffice")] Studentx studentx)
+        public ActionResult Edit([Bind(Include = "Student_id,FirstName,LastName,Identity,Address,Notes,Email,EnrollmentDateIN,EnrollmentDateOUT,Phone_id,Post_id,User_id,PostalCode,PostOffice,FullName")] Studentx studentx)
         {
             if (ModelState.IsValid)
             {

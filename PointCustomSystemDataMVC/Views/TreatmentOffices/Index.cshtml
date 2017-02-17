@@ -3,11 +3,27 @@
 @{
     ViewBag.Title = "Index";
 }
+<title>PointCollege Ajanvarausohjelmisto</title>
+@*<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<h2>Index</h2>
+<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+<script src="~/2.7/JavaScript/daypilot-modal-2.7.js"></script>
+<script src="~/Scripts/daypilot-all.min.js"></script>
 
-<p>
-    @Html.ActionLink("Create New", "Create")
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>*@
+
+<h2>Toimipistehallinta</h2>
+
+<p style="padding-left:8px;font-size:12px">
+    @Html.ActionLink("Luo uusi toimipistetieto", "Create")
 </p>
 <table class="table">
     <tr>
@@ -20,13 +36,13 @@
         <th>
             @Html.DisplayNameFor(model => model.Note)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Customer1.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
         </th>
         <th>
@@ -44,12 +60,12 @@
         <th>
             @Html.DisplayNameFor(model => model.TreatmentOffice2.TreatmentOfficeName)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.User.UserIdentity)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Studentx.FirstName)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -64,42 +80,46 @@
         <td>
             @Html.DisplayFor(modelItem => item.Note)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Customer1.FirstName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Personnel1.FirstName)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.Phone1.PhoneNum_1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.PostOffices1.PostalCode)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Reservation1.TreatmentName)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.Treatment1.TreatmentName)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.TreatmentOffice1.TreatmentOfficeName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TreatmentOffice2.TreatmentOfficeName)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.User.UserIdentity)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Studentx.FirstName)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TreatmentOffice_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TreatmentOffice_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TreatmentOffice_id })
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.TreatmentOffice_id }) |
+            @Html.ActionLink("Tiedot", "Details", new { id=item.TreatmentOffice_id }) |
+            @Html.ActionLink("Poista", "Delete", new { id=item.TreatmentOffice_id })
         </td>
     </tr>
 }
 
 </table>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

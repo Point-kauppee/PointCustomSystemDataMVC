@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Tiedot</h2>
 
 <div>
-    <h4>TreatmentPlace</h4>
+    <h4>Hoitopaikka</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -26,7 +26,7 @@
             @Html.DisplayFor(model => model.TreatmentPlaceNumber)
         </dd>
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Customer1.FirstName)
         </dt>
 
@@ -96,11 +96,11 @@
 
         <dd>
             @Html.DisplayFor(model => model.Studentx.FirstName)
-        </dd>
+        </dd>*@
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Treatmentplace_id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Treatmentplace_id }) |
+    @Html.ActionLink("Takaisin hoitopaikkatietoihin", "Index")
 </p>

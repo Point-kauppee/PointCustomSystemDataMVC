@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Hoitopaikkatiedot</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Luo uusi hoitopaikkatieto", "Create")
 </p>
 <table class="table">
     <tr>
@@ -17,19 +17,19 @@
         <th>
             @Html.DisplayNameFor(model => model.TreatmentPlaceNumber)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Customer1.FirstName)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
         </th>
         <th>
@@ -37,13 +37,13 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.User.UserIdentity)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Studentx.FirstName)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
@@ -55,7 +55,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.TreatmentPlaceNumber)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Customer1.FirstName)
         </td>
         <td>
@@ -81,11 +81,11 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Studentx.FirstName)
-        </td>
+        </td>*@
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Treatmentplace_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Treatmentplace_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Treatmentplace_id })
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.Treatmentplace_id }) |
+            @Html.ActionLink("Tiedot", "Details", new { id=item.Treatmentplace_id }) |
+            @Html.ActionLink("Poista", "Delete", new { id=item.Treatmentplace_id })
         </td>
     </tr>
 }

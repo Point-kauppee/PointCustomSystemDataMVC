@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
+using System.Globalization;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -56,7 +57,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Reservation_id,TreatmentName,Start,End,Date,Type,Note,Personnel_id,Phone_id,Post_id,Customer_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Reservation reservation)
+        public ActionResult Create([Bind(Include = "Reservation_id,TreatmentName,Start,End,Date,Type,Note,Personnel_id,Phone_id,Post_id,Customer_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id,FullName")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -64,6 +65,9 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
+
+            // Lisätty aikamääre 1.2.12017
+            CultureInfo fiFi = new CultureInfo("fi-FI");
 
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", reservation.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
@@ -89,6 +93,10 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
+
+            // Lisätty aikamääre 1.2.12017
+            CultureInfo fiFi = new CultureInfo("fi-FI");
+
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", reservation.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", reservation.Phone_id);
@@ -106,7 +114,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Reservation_id,TreatmentName,Start,End,Date,Type,Note,Personnel_id,Phone_id,Post_id,Customer_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Reservation reservation)
+        public ActionResult Edit([Bind(Include = "Reservation_id,TreatmentName,Start,End,Date,Type,Note,Personnel_id,Phone_id,Post_id,Customer_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id,FullName")] Reservation reservation)
         {
             if (ModelState.IsValid)
             {
@@ -125,6 +133,9 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
             return View(reservation);
         }
+
+        // Lisätty aikamääre 1.2.12017
+        CultureInfo fiFi = new CultureInfo("fi-FI");
 
         // GET: Reservations/Delete/5
         public ActionResult Delete(int? id)

@@ -87,8 +87,8 @@
           </Key>
           <Property Name="Reservation_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="TreatmentName" Type="nvarchar" MaxLength="100" />
-          <Property Name="Start" Type="nvarchar" MaxLength="10" />
-          <Property Name="End" Type="nvarchar" MaxLength="10" />
+          <Property Name="Start" Type="datetime" />
+          <Property Name="End" Type="datetime" />
           <Property Name="Date" Type="datetime" />
           <Property Name="Type" Type="int" />
           <Property Name="Note" Type="nvarchar" MaxLength="300" />
@@ -1699,8 +1699,8 @@
           </Key>
           <Property Name="Reservation_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="TreatmentName" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
-          <Property Name="Start" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
-          <Property Name="End" Type="String" MaxLength="10" FixedLength="false" Unicode="true" />
+          <Property Name="Start" Type="DateTime" Precision="3" />
+          <Property Name="End" Type="DateTime" Precision="3" />
           <Property Name="Date" Type="DateTime" Precision="3" />
           <Property Name="Type" Type="Int32" />
           <Property Name="Note" Type="String" MaxLength="300" FixedLength="false" Unicode="true" />
@@ -3342,10 +3342,10 @@
           <EntitySetMapping Name="Reservation">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.Reservation">
               <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
                 <ScalarProperty Name="Reservation_id" ColumnName="Reservation_id" />
                 <ScalarProperty Name="TreatmentName" ColumnName="TreatmentName" />
-                <ScalarProperty Name="Start" ColumnName="Start" />
-                <ScalarProperty Name="End" ColumnName="End" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="Type" ColumnName="Type" />
                 <ScalarProperty Name="Note" ColumnName="Note" />

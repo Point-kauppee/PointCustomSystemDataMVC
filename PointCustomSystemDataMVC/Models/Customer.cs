@@ -41,10 +41,13 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> User_id { get; set; }
-    
+
+        //Lisätty customer.cs:
         public virtual Personnel Personnel { get; set; }
         public virtual Phone Phone { get; set; }
         public virtual PostOffices PostOffices { get; set; }
+
+     
         public virtual Reservation Reservation { get; set; }
         public virtual Treatment Treatment { get; set; }
         public virtual TreatmentOffice TreatmentOffice { get; set; }

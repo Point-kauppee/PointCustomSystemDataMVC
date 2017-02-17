@@ -11,7 +11,8 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Studentx
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,23 +29,37 @@ namespace PointCustomSystemDataMVC.Models
             this.User1 = new HashSet<User>();
         }
     
-        public int Student_id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Identity { get; set; }
-        public string Notes { get; set; }
-        public string Email { get; set; }
-        public Nullable<System.DateTime> EnrollmentDateIN { get; set; }
-        public Nullable<System.DateTime> EnrollmentDateOUT { get; set; }
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
         public Nullable<int> User_id { get; set; }
         public string Address { get; set; }
 
-        //Lis‰tty:
-        public string PhoneNum_1 { get; set; }
-        public string PostalCode { get; set; }
-        public string PostOffice { get; set; }
+        //Lis‰tty otsikkom‰‰ritykset student.cs
+        public int Student_id { get; set; }
+        [Display(Name = "Etunimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
+        public string LastName { get; set; }
+        [Display(Name = "Sotu")]
+        public string Identity { get; set; }
+        [Display(Name = "Huomiot")]
+        public string Notes { get; set; }
+        [Display(Name = "S‰hkˆposti")]
+        public string Email { get; set; }
+
+        //Lis‰tty p‰iv‰m‰‰r‰m‰‰ritykset student.cs:
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> EnrollmentDateIN { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> EnrollmentDateOUT { get; set; }
+
+        [Display(Name = "Hoitaja")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
