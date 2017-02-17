@@ -99,6 +99,15 @@
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_4" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_61" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_81" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_7" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_9" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_8" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_3" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_4" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_5" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_6" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

@@ -17,7 +17,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentOffices
         public ActionResult Index()
         {
-            var treatmentOffice = db.TreatmentOffice.Include(t => t.Customer1).Include(t => t.Personnel1).Include(t => t.Phone1).Include(t => t.PostOffices1).Include(t => t.Reservation1).Include(t => t.Treatment1).Include(t => t.TreatmentOffice1).Include(t => t.TreatmentOffice2).Include(t => t.User).Include(t => t.Studentx);
+            var treatmentOffice = db.TreatmentOffice.Include(t => t.Customer1).Include(t => t.Personnel1).Include(t => t.Phone1).Include(t => t.PostOffices1).Include(t => t.Reservation1).Include(t => t.Treatment1).Include(t => t.TreatmentOffice1).Include(t => t.TreatmentOffice2).Include(t => t.User).Include(t => t.Studentx).Include(t => t.TreatmentPlace1);
             return View(treatmentOffice.ToList());
         }
 
@@ -46,8 +46,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
             ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
             return View();
         }
 
@@ -56,7 +58,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TreatmentOffice_id,TreatmentOfficeName,Address,Note,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,Customer_id,User_id")] TreatmentOffice treatmentOffice)
+        public ActionResult Create([Bind(Include = "TreatmentOffice_id,TreatmentOfficeName,Address,Note,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,Customer_id,User_id,Treatmentplace_id")] TreatmentOffice treatmentOffice)
         {
             if (ModelState.IsValid)
             {
@@ -72,8 +74,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentOffice.Reservation_id);
             ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", treatmentOffice.Treatment_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatmentOffice.TreatmentOffice_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatmentOffice.TreatmentOffice_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentOffice.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentOffice.Student_id);
+            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatmentOffice.Treatmentplace_id);
             return View(treatmentOffice);
         }
 
@@ -96,8 +100,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentOffice.Reservation_id);
             ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", treatmentOffice.Treatment_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatmentOffice.TreatmentOffice_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatmentOffice.TreatmentOffice_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentOffice.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentOffice.Student_id);
+            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatmentOffice.Treatmentplace_id);
             return View(treatmentOffice);
         }
 
@@ -106,7 +112,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TreatmentOffice_id,TreatmentOfficeName,Address,Note,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,Customer_id,User_id")] TreatmentOffice treatmentOffice)
+        public ActionResult Edit([Bind(Include = "TreatmentOffice_id,TreatmentOfficeName,Address,Note,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,Customer_id,User_id,Treatmentplace_id")] TreatmentOffice treatmentOffice)
         {
             if (ModelState.IsValid)
             {
@@ -121,8 +127,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentOffice.Reservation_id);
             ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", treatmentOffice.Treatment_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatmentOffice.TreatmentOffice_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatmentOffice.TreatmentOffice_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentOffice.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentOffice.Student_id);
+            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatmentOffice.Treatmentplace_id);
             return View(treatmentOffice);
         }
 

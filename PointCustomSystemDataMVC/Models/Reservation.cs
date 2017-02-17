@@ -26,12 +26,14 @@ namespace PointCustomSystemDataMVC.Models
             this.TreatmentOffice1 = new HashSet<TreatmentOffice>();
             this.TreatmentPlace1 = new HashSet<TreatmentPlace>();
             this.User1 = new HashSet<User>();
+            this.Studentx1 = new HashSet<Studentx>();
         }
     
         public int Reservation_id { get; set; }
-       
-    
+   
+ 
         public Nullable<int> Type { get; set; }
+     
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
@@ -43,9 +45,6 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> User_id { get; set; }
 
         //Lis‰tty p‰iv‰m‰‰r‰m‰‰ritykset reservation.cs
-     
-      
-
         [Display(Name = "Palvelun nimi")]
         public string TreatmentName { get; set; }
 
@@ -64,9 +63,10 @@ namespace PointCustomSystemDataMVC.Models
         [Display(Name = "Pvm")]
         public Nullable<System.DateTime> Date { get; set; }
 
-        //Lis‰tty yhdist‰v‰t nimikent‰t
         [Display(Name = "Huomiot")]
         public string Note { get; set; }
+
+        //Lis‰tty yhdist‰v‰t nimikent‰t
 
         [Display(Name = "Hoitajan nimi")]
         public string FullName
@@ -77,7 +77,6 @@ namespace PointCustomSystemDataMVC.Models
         public string FirstName { get; set; }
         [Display(Name = "Sukunimi")]
         public string LastName { get; set; }
-
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
@@ -104,5 +103,7 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
         public virtual Studentx Studentx { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studentx> Studentx1 { get; set; }
     }
 }

@@ -39,6 +39,7 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Treatment_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> Customer_id { get; set; }
+        public Nullable<int> TreatmentOffice_id { get; set; }
 
         //Lisätyt User.cs:
         public string FirstName { get; set; }
@@ -79,5 +80,6 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Studentx> Studentx { get; set; }
         public virtual Studentx Studentx1 { get; set; }
+        public virtual TreatmentOffice TreatmentOffice1 { get; set; }
     }
 }

@@ -118,6 +118,12 @@
           <Property Name="Phone_id" Type="int" />
           <Property Name="Post_id" Type="int" />
           <Property Name="User_id" Type="int" />
+          <Property Name="Personnel_id" Type="int" />
+          <Property Name="Reservation_id" Type="int" />
+          <Property Name="Treatment_id" Type="int" />
+          <Property Name="Customer_id" Type="int" />
+          <Property Name="TreatmentPlace_id" Type="int" />
+          <Property Name="TreatmentOffice_id" Type="int" />
         </EntityType>
         <EntityType Name="Treatment">
           <Key>
@@ -152,6 +158,7 @@
           <Property Name="Student_id" Type="int" />
           <Property Name="Treatment_id" Type="int" />
           <Property Name="Customer_id" Type="int" />
+          <Property Name="Treatmentplace_id" Type="int" />
           <Property Name="User_id" Type="int" />
         </EntityType>
         <EntityType Name="TreatmentPlace">
@@ -186,6 +193,7 @@
           <Property Name="Treatment_id" Type="int" />
           <Property Name="TreatmentPlace_id" Type="int" />
           <Property Name="Customer_id" Type="int" />
+          <Property Name="TreatmentOffice_id" Type="int" />
         </EntityType>
         <Association Name="FK_Customer_ToTable">
           <End Role="Personnel" Type="Self.Personnel" Multiplicity="0..1" />
@@ -763,6 +771,90 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Studentx_ToTable_3">
+          <End Role="Reservation" Type="Self.Reservation" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="Reservation_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Reservation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_4">
+          <End Role="TreatmentOffice" Type="Self.TreatmentOffice" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentOffice">
+              <PropertyRef Name="TreatmentOffice_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="TreatmentOffice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_5">
+          <End Role="Treatment" Type="Self.Treatment" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="Treatment_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Treatment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_6">
+          <End Role="TreatmentPlace" Type="Self.TreatmentPlace" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentPlace">
+              <PropertyRef Name="Treatmentplace_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="TreatmentPlace_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_7">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_8">
+          <End Role="Personnel" Type="Self.Personnel" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personnel">
+              <PropertyRef Name="Personnel_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Personnel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_9">
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Treatment_ToTable">
           <End Role="Personnel" Type="Self.Personnel" Multiplicity="0..1" />
           <End Role="Treatment" Type="Self.Treatment" Multiplicity="*" />
@@ -944,14 +1036,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_TreatmentOffice_ToTable_6">
-          <End Role="TreatmentOffice" Type="Self.TreatmentOffice" Multiplicity="1" />
-          <End Role="TreatmentOffice1" Type="Self.TreatmentOffice" Multiplicity="0..1" />
+          <End Role="TreatmentPlace" Type="Self.TreatmentPlace" Multiplicity="0..1" />
+          <End Role="TreatmentOffice" Type="Self.TreatmentOffice" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="TreatmentOffice">
-              <PropertyRef Name="TreatmentOffice_id" />
+            <Principal Role="TreatmentPlace">
+              <PropertyRef Name="Treatmentplace_id" />
             </Principal>
-            <Dependent Role="TreatmentOffice1">
-              <PropertyRef Name="TreatmentOffice_id" />
+            <Dependent Role="TreatmentOffice">
+              <PropertyRef Name="Treatmentplace_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1184,14 +1276,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_User_ToTable_8">
-          <End Role="User" Type="Self.User" Multiplicity="1" />
-          <End Role="User1" Type="Self.User" Multiplicity="0..1" />
+          <End Role="TreatmentOffice" Type="Self.TreatmentOffice" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_id" />
+            <Principal Role="TreatmentOffice">
+              <PropertyRef Name="TreatmentOffice_id" />
             </Principal>
-            <Dependent Role="User1">
-              <PropertyRef Name="User_id" />
+            <Dependent Role="User">
+              <PropertyRef Name="TreatmentOffice_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1398,6 +1490,34 @@
             <End Role="User" EntitySet="User" />
             <End Role="Studentx" EntitySet="Studentx" />
           </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_3" Association="Self.FK_Studentx_ToTable_3">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_4" Association="Self.FK_Studentx_ToTable_4">
+            <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_5" Association="Self.FK_Studentx_ToTable_5">
+            <End Role="Treatment" EntitySet="Treatment" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_6" Association="Self.FK_Studentx_ToTable_6">
+            <End Role="TreatmentPlace" EntitySet="TreatmentPlace" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_7" Association="Self.FK_Studentx_ToTable_7">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_8" Association="Self.FK_Studentx_ToTable_8">
+            <End Role="Personnel" EntitySet="Personnel" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_9" Association="Self.FK_Studentx_ToTable_9">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
           <AssociationSet Name="FK_Treatment_ToTable" Association="Self.FK_Treatment_ToTable">
             <End Role="Personnel" EntitySet="Personnel" />
             <End Role="Treatment" EntitySet="Treatment" />
@@ -1459,8 +1579,8 @@
             <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
           </AssociationSet>
           <AssociationSet Name="FK_TreatmentOffice_ToTable_6" Association="Self.FK_TreatmentOffice_ToTable_6">
+            <End Role="TreatmentPlace" EntitySet="TreatmentPlace" />
             <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
-            <End Role="TreatmentOffice1" EntitySet="TreatmentOffice" />
           </AssociationSet>
           <AssociationSet Name="FK_TreatmentOffice_ToTable_7" Association="Self.FK_TreatmentOffice_ToTable_7">
             <End Role="Customer" EntitySet="Customer" />
@@ -1539,8 +1659,8 @@
             <End Role="User" EntitySet="User" />
           </AssociationSet>
           <AssociationSet Name="FK_User_ToTable_8" Association="Self.FK_User_ToTable_8">
+            <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
             <End Role="User" EntitySet="User" />
-            <End Role="User1" EntitySet="User" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -1582,6 +1702,8 @@
           <NavigationProperty Name="TreatmentPlace1" Relationship="Self.FK_TreatmentPlace_ToTable_7" FromRole="Customer" ToRole="TreatmentPlace" />
           <NavigationProperty Name="User1" Relationship="Self.FK_User_ToTable_6" FromRole="Customer" ToRole="User" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_Customer_ToTable_4" FromRole="Customer" ToRole="Studentx" />
+          <NavigationProperty Name="Studentx1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_7" FromRole="Customer" ToRole="Studentx" />
+          <NavigationProperty Name="Studentx2" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_9" FromRole="Customer" ToRole="Studentx" />
         </EntityType>
         <EntityType Name="Personnel">
           <Key>
@@ -1620,6 +1742,7 @@
           <NavigationProperty Name="TreatmentPlace1" Relationship="Self.FK_TreatmentPlace_ToTable" FromRole="Personnel" ToRole="TreatmentPlace" />
           <NavigationProperty Name="User1" Relationship="Self.FK_User_ToTable" FromRole="Personnel" ToRole="User" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_Personnel_ToTable_5" FromRole="Personnel" ToRole="Studentx" />
+          <NavigationProperty Name="Studentx1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_8" FromRole="Personnel" ToRole="Studentx" />
         </EntityType>
         <EntityType Name="Phone">
           <Key>
@@ -1730,6 +1853,7 @@
           <NavigationProperty Name="TreatmentPlace1" Relationship="Self.FK_TreatmentPlace_ToTable_3" FromRole="Reservation" ToRole="TreatmentPlace" />
           <NavigationProperty Name="User1" Relationship="Self.FK_User_ToTable_3" FromRole="Reservation" ToRole="User" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_Reservation_ToTable_4" FromRole="Reservation" ToRole="Studentx" />
+          <NavigationProperty Name="Studentx1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_3" FromRole="Reservation" ToRole="Studentx" />
         </EntityType>
         <EntityType Name="Treatment">
           <Key>
@@ -1765,6 +1889,7 @@
           <NavigationProperty Name="TreatmentPlace1" Relationship="Self.FK_TreatmentPlace_ToTable_5" FromRole="Treatment" ToRole="TreatmentPlace" />
           <NavigationProperty Name="User1" Relationship="Self.FK_User_ToTable_5" FromRole="Treatment" ToRole="User" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_Treatment_ToTable_4" FromRole="Treatment" ToRole="Studentx" />
+          <NavigationProperty Name="Studentx1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_5" FromRole="Treatment" ToRole="Studentx" />
         </EntityType>
         <EntityType Name="TreatmentOffice">
           <Key>
@@ -1799,6 +1924,10 @@
           <NavigationProperty Name="User" Relationship="Self.FK_TreatmentOffice_ToTable_8" FromRole="TreatmentOffice" ToRole="User" />
           <NavigationProperty Name="TreatmentPlace" Relationship="Self.FK_TreatmentPlace_ToTable_6" FromRole="TreatmentOffice" ToRole="TreatmentPlace" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_4" FromRole="TreatmentOffice" ToRole="Studentx" />
+          <Property Name="Treatmentplace_id" Type="Int32" />
+          <NavigationProperty Name="TreatmentPlace1" Relationship="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_61" FromRole="TreatmentOffice" ToRole="TreatmentPlace" />
+          <NavigationProperty Name="User1" Relationship="JohaMeriSQL1Model.FK_User_ToTable_81" FromRole="TreatmentOffice" ToRole="User" />
+          <NavigationProperty Name="Studentx1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_4" FromRole="TreatmentOffice" ToRole="Studentx" />
         </EntityType>
         <EntityType Name="TreatmentPlace">
           <Key>
@@ -1832,6 +1961,8 @@
           <NavigationProperty Name="User" Relationship="Self.FK_TreatmentPlace_ToTable_8" FromRole="TreatmentPlace" ToRole="User" />
           <NavigationProperty Name="User1" Relationship="Self.FK_User_ToTable_7" FromRole="TreatmentPlace" ToRole="User" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_4" FromRole="TreatmentPlace" ToRole="Studentx" />
+          <NavigationProperty Name="TreatmentOffice1" Relationship="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_61" FromRole="TreatmentPlace" ToRole="TreatmentOffice" />
+          <NavigationProperty Name="Studentx1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_6" FromRole="TreatmentPlace" ToRole="Studentx" />
         </EntityType>
         <EntityType Name="User">
           <Key>
@@ -1867,6 +1998,8 @@
           <NavigationProperty Name="User2" Relationship="Self.FK_User_ToTable_8" FromRole="User1" ToRole="User" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_2" FromRole="User" ToRole="Studentx" />
           <NavigationProperty Name="Studentx1" Relationship="JohaMeriSQL1Model.FK_User_ToTable_4" FromRole="User" ToRole="Studentx" />
+          <Property Name="TreatmentOffice_id" Type="Int32" />
+          <NavigationProperty Name="TreatmentOffice1" Relationship="JohaMeriSQL1Model.FK_User_ToTable_81" FromRole="User" ToRole="TreatmentOffice" />
         </EntityType>
         <Association Name="FK_Customer_ToTable">
           <End Role="Personnel" Type="Self.Personnel" Multiplicity="0..1" />
@@ -3079,6 +3212,42 @@
             <End Role="Studentx" EntitySet="Studentx" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_TreatmentOffice_ToTable_61" Association="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_61">
+            <End Role="TreatmentPlace" EntitySet="TreatmentPlace" />
+            <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_ToTable_81" Association="JohaMeriSQL1Model.FK_User_ToTable_81">
+            <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_7" Association="JohaMeriSQL1Model.FK_Studentx_ToTable_7">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_9" Association="JohaMeriSQL1Model.FK_Studentx_ToTable_9">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_8" Association="JohaMeriSQL1Model.FK_Studentx_ToTable_8">
+            <End Role="Personnel" EntitySet="Personnel" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_3" Association="JohaMeriSQL1Model.FK_Studentx_ToTable_3">
+            <End Role="Reservation" EntitySet="Reservation" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_4" Association="JohaMeriSQL1Model.FK_Studentx_ToTable_4">
+            <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_5" Association="JohaMeriSQL1Model.FK_Studentx_ToTable_5">
+            <End Role="Treatment" EntitySet="Treatment" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Studentx_ToTable_6" Association="JohaMeriSQL1Model.FK_Studentx_ToTable_6">
+            <End Role="TreatmentPlace" EntitySet="TreatmentPlace" />
+            <End Role="Studentx" EntitySet="Studentx" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Studentx">
           <Key>
@@ -3108,6 +3277,19 @@
           <NavigationProperty Name="TreatmentPlace" Relationship="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_4" FromRole="Studentx" ToRole="TreatmentPlace" />
           <NavigationProperty Name="User1" Relationship="JohaMeriSQL1Model.FK_User_ToTable_4" FromRole="Studentx" ToRole="User" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Personnel_id" Type="Int32" />
+          <Property Name="Reservation_id" Type="Int32" />
+          <Property Name="Treatment_id" Type="Int32" />
+          <Property Name="Customer_id" Type="Int32" />
+          <Property Name="TreatmentPlace_id" Type="Int32" />
+          <Property Name="TreatmentOffice_id" Type="Int32" />
+          <NavigationProperty Name="Customer1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_7" FromRole="Studentx" ToRole="Customer" />
+          <NavigationProperty Name="Customer2" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_9" FromRole="Studentx" ToRole="Customer" />
+          <NavigationProperty Name="Personnel1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_8" FromRole="Studentx" ToRole="Personnel" />
+          <NavigationProperty Name="Reservation1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_3" FromRole="Studentx" ToRole="Reservation" />
+          <NavigationProperty Name="TreatmentOffice1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_4" FromRole="Studentx" ToRole="TreatmentOffice" />
+          <NavigationProperty Name="Treatment1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_5" FromRole="Studentx" ToRole="Treatment" />
+          <NavigationProperty Name="TreatmentPlace1" Relationship="JohaMeriSQL1Model.FK_Studentx_ToTable_6" FromRole="Studentx" ToRole="TreatmentPlace" />
         </EntityType>
         <Association Name="FK_Customer_ToTable_4">
           <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="0..1" />
@@ -3253,6 +3435,114 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_TreatmentOffice_ToTable_61">
+          <End Type="JohaMeriSQL1Model.TreatmentPlace" Role="TreatmentPlace" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.TreatmentOffice" Role="TreatmentOffice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentPlace">
+              <PropertyRef Name="Treatmentplace_id" />
+            </Principal>
+            <Dependent Role="TreatmentOffice">
+              <PropertyRef Name="Treatmentplace_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_ToTable_81">
+          <End Type="JohaMeriSQL1Model.TreatmentOffice" Role="TreatmentOffice" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentOffice">
+              <PropertyRef Name="TreatmentOffice_id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="TreatmentOffice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_7">
+          <End Type="JohaMeriSQL1Model.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_9">
+          <End Type="JohaMeriSQL1Model.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Customer_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_8">
+          <End Type="JohaMeriSQL1Model.Personnel" Role="Personnel" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Personnel">
+              <PropertyRef Name="Personnel_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Personnel_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_3">
+          <End Type="JohaMeriSQL1Model.Reservation" Role="Reservation" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Reservation">
+              <PropertyRef Name="Reservation_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Reservation_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_4">
+          <End Type="JohaMeriSQL1Model.TreatmentOffice" Role="TreatmentOffice" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentOffice">
+              <PropertyRef Name="TreatmentOffice_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="TreatmentOffice_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_5">
+          <End Type="JohaMeriSQL1Model.Treatment" Role="Treatment" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Treatment">
+              <PropertyRef Name="Treatment_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="Treatment_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Studentx_ToTable_6">
+          <End Type="JohaMeriSQL1Model.TreatmentPlace" Role="TreatmentPlace" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TreatmentPlace">
+              <PropertyRef Name="Treatmentplace_id" />
+            </Principal>
+            <Dependent Role="Studentx">
+              <PropertyRef Name="TreatmentPlace_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -3383,6 +3673,7 @@
           <EntitySetMapping Name="TreatmentOffice">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.TreatmentOffice">
               <MappingFragment StoreEntitySet="TreatmentOffice">
+                <ScalarProperty Name="Treatmentplace_id" ColumnName="Treatmentplace_id" />
                 <ScalarProperty Name="TreatmentOffice_id" ColumnName="TreatmentOffice_id" />
                 <ScalarProperty Name="TreatmentOfficeName" ColumnName="TreatmentOfficeName" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
@@ -3419,6 +3710,7 @@
           <EntitySetMapping Name="User">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.User">
               <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="TreatmentOffice_id" ColumnName="TreatmentOffice_id" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="UserIdentity" ColumnName="UserIdentity" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
@@ -3436,6 +3728,12 @@
           <EntitySetMapping Name="Studentx">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.Studentx">
               <MappingFragment StoreEntitySet="Studentx">
+                <ScalarProperty Name="TreatmentOffice_id" ColumnName="TreatmentOffice_id" />
+                <ScalarProperty Name="TreatmentPlace_id" ColumnName="TreatmentPlace_id" />
+                <ScalarProperty Name="Customer_id" ColumnName="Customer_id" />
+                <ScalarProperty Name="Treatment_id" ColumnName="Treatment_id" />
+                <ScalarProperty Name="Reservation_id" ColumnName="Reservation_id" />
+                <ScalarProperty Name="Personnel_id" ColumnName="Personnel_id" />
                 <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="Post_id" ColumnName="Post_id" />

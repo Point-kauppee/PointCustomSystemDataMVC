@@ -17,7 +17,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var user = db.User.Include(u => u.Customer1).Include(u => u.Personnel1).Include(u => u.Phone1).Include(u => u.PostOffices1).Include(u => u.Reservation1).Include(u => u.Treatment1).Include(u => u.TreatmentPlace1).Include(u => u.User1).Include(u => u.User2).Include(u => u.Studentx1);
+            var user = db.User.Include(u => u.Customer1).Include(u => u.Personnel1).Include(u => u.Phone1).Include(u => u.PostOffices1).Include(u => u.Reservation1).Include(u => u.Treatment1).Include(u => u.TreatmentPlace1).Include(u => u.User1).Include(u => u.User2).Include(u => u.Studentx1).Include(u => u.TreatmentOffice1);
             return View(user.ToList());
         }
 
@@ -49,6 +49,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
             return View();
         }
 
@@ -57,7 +58,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "User_id,UserIdentity,Password,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentPlace_id,Customer_id")] User user)
+        public ActionResult Create([Bind(Include = "User_id,UserIdentity,Password,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentPlace_id,Customer_id,TreatmentOffice_id")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -76,6 +77,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", user.TreatmentOffice_id);
             return View(user);
         }
 
@@ -101,6 +103,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", user.TreatmentOffice_id);
             return View(user);
         }
 
@@ -109,7 +112,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "User_id,UserIdentity,Password,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentPlace_id,Customer_id")] User user)
+        public ActionResult Edit([Bind(Include = "User_id,UserIdentity,Password,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentPlace_id,Customer_id,TreatmentOffice_id")] User user)
         {
             if (ModelState.IsValid)
             {
@@ -127,6 +130,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", user.TreatmentOffice_id);
             return View(user);
         }
 

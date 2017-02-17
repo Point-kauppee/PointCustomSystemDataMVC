@@ -23,6 +23,8 @@ namespace PointCustomSystemDataMVC.Models
             this.TreatmentOffice1 = new HashSet<TreatmentOffice>();
             this.TreatmentPlace1 = new HashSet<TreatmentPlace>();
             this.User1 = new HashSet<User>();
+            this.Studentx1 = new HashSet<Studentx>();
+            this.Studentx2 = new HashSet<Studentx>();
         }
     
         public int Customer_id { get; set; }
@@ -41,13 +43,10 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> User_id { get; set; }
-
-        //Lisätty customer.cs:
+    
         public virtual Personnel Personnel { get; set; }
         public virtual Phone Phone { get; set; }
         public virtual PostOffices PostOffices { get; set; }
-
-     
         public virtual Reservation Reservation { get; set; }
         public virtual Treatment Treatment { get; set; }
         public virtual TreatmentOffice TreatmentOffice { get; set; }
@@ -66,5 +65,9 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
         public virtual Studentx Studentx { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studentx> Studentx1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studentx> Studentx2 { get; set; }
     }
 }

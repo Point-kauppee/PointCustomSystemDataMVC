@@ -34,7 +34,7 @@
             @Html.DisplayFor(model => model.Note)
         </dd>
 
-        @*<dt>
+        <dt>
             @Html.DisplayNameFor(model => model.Customer1.FirstName)
         </dt>
 
@@ -112,7 +112,15 @@
 
         <dd>
             @Html.DisplayFor(model => model.Studentx.FirstName)
-        </dd>*@
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPlace1.TreatmentPlaceName)
+        </dd>
 
     </dl>
 </div>

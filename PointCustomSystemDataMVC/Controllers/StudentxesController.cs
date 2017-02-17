@@ -42,6 +42,12 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");         
+            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             return View();
         }
 
@@ -62,6 +68,13 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", studentx.Post_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentx.User_id);
+            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", studentx.Personnel_id);
+            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);   
+            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", studentx.Reservation_id);
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", studentx.Treatment_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", studentx.TreatmentOffice_id);
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", studentx.TreatmentPlace_id);
+            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", studentx.Student_id);
             return View(studentx);
         }
 
@@ -80,6 +93,12 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", studentx.Post_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentx.User_id);
+            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", studentx.Personnel_id);
+            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);     
+            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", studentx.Reservation_id);
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", studentx.Treatment_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", studentx.TreatmentOffice_id);
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "TreatmentPlace_id", "TreatmentPlaceName", studentx.TreatmentPlace_id);
             return View(studentx);
         }
 
@@ -99,6 +118,13 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", studentx.Post_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentx.User_id);
+            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", studentx.Personnel_id);    
+            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", studentx.Reservation_id);
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", studentx.Treatment_id);
+            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", studentx.TreatmentOffice_id);
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "TreatmentPlace_id", "TreatmentPlaceName", studentx.TreatmentPlace_id);
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentx.User_id);
+         
             return View(studentx);
         }
 

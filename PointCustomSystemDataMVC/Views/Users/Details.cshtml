@@ -1,114 +1,130 @@
 ﻿@model PointCustomSystemDataMVC.Models.User
 
 @{
-    ViewBag.Title = "Details";
+    Layout = null;
 }
 
-<h2>Details</h2>
+<!DOCTYPE html>
 
-<div>
-    <h4>User</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.UserIdentity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.UserIdentity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer1.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Customer1.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Personnel1.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone1.PhoneNum_1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostOffices1.PostalCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Reservation1.TreatmentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Treatment1.TreatmentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentPlace1.TreatmentPlaceName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User1.UserIdentity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User1.UserIdentity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User2.UserIdentity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User2.UserIdentity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Studentx1.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Studentx1.FirstName)
-        </dd>
-
-    </dl>
-</div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.User_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details</title>
+</head>
+<body>
+    <div>
+        <h4>User</h4>
+        <hr />
+        <dl class="dl-horizontal">
+            <dt>
+                @Html.DisplayNameFor(model => model.UserIdentity)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.UserIdentity)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Password)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Password)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Customer1.FirstName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Customer1.FirstName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Personnel1.FirstName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Personnel1.FirstName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Phone1.PhoneNum_1)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.PostOffices1.PostalCode)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Reservation1.TreatmentName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Treatment1.TreatmentName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TreatmentPlace1.TreatmentPlaceName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.User1.UserIdentity)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.User1.UserIdentity)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.User2.UserIdentity)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.User2.UserIdentity)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Studentx1.FirstName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Studentx1.FirstName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TreatmentOffice1.TreatmentOfficeName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TreatmentOffice1.TreatmentOfficeName)
+            </dd>
+    
+        </dl>
+    </div>
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.User_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+</body>
+</html>
