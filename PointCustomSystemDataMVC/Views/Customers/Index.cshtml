@@ -3,14 +3,32 @@
 @{
     ViewBag.Title = "Index";
 }
+<title>PointCollege Ajanvarausohjelmisto</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+<script src="~/2.7/JavaScript/daypilot-modal-2.7.js"></script>
+<script src="~/Scripts/daypilot-all.min.js"></script>
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 
 <h2>Asiakas</h2>
 
-<p>
+<p style="padding-left:8px;font-size:12px">
     @Html.ActionLink("Luo uusi asiakas", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -19,19 +37,13 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Identity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
+        </th>  
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Personnel.FirstName)
-        </th>
+        </th>     
         <th>
             @Html.DisplayNameFor(model => model.Phone.PhoneNum_1)
         </th>
@@ -39,6 +51,15 @@
             @Html.DisplayNameFor(model => model.PostOffices.PostalCode)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.PostOffices.PostOffice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.Personnel.FirstName)
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
         </th>
         <th>
@@ -48,19 +69,20 @@
             @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </th>
-        <th>
+            @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)*@
+        @*</th>*@
+    
+        @*<th>
             @Html.DisplayNameFor(model => model.Studentx.FirstName)
-        </th>
+        </th>*@
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserIdentity)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstName)
         </td>
@@ -69,18 +91,12 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Identity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
+        </td>    
         <td>
             @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Personnel.FirstName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Phone.PhoneNum_1)
@@ -89,6 +105,15 @@
             @Html.DisplayFor(modelItem => item.PostOffices.PostalCode)
         </td>
         <td>
+            @Html.DisplayFor(modelItem => item.PostOffices.PostOffice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.Personnel.FirstName)
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.Reservation.TreatmentName)
         </td>
         <td>
@@ -99,19 +124,19 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TreatmentPlace.TreatmentPlaceName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserIdentity)
-        </td>
-        <td>
+        </td>*@
+        @*<td>
             @Html.DisplayFor(modelItem => item.Studentx.FirstName)
-        </td>
+        </td>*@
         <td>
             @Html.ActionLink("Muokkaa", "Edit", new { id=item.Customer_id }) |
             @Html.ActionLink("Tiedot", "Details", new { id=item.Customer_id }) |
-            @Html.ActionLink("POista", "Delete", new { id=item.Customer_id })
+            @Html.ActionLink("Poista", "Delete", new { id=item.Customer_id })
         </td>
     </tr>
 }
 
 </table>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

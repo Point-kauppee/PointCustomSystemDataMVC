@@ -290,6 +290,7 @@
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>PointSQLData.Designer.cs</LastGenOutput>
     </EntityDeploy>
+    <Content Include="Images\talvimarjat.jpg" />
     <Content Include="Models\PointSQLData.edmx.diagram">
       <DependentUpon>PointSQLData.edmx</DependentUpon>
     </Content>
@@ -379,11 +380,6 @@
     <Content Include="Views\PostOffices\Details.cshtml" />
     <Content Include="Views\PostOffices\Edit.cshtml" />
     <Content Include="Views\PostOffices\Index.cshtml" />
-    <Content Include="Views\Reservations\Create.cshtml" />
-    <Content Include="Views\Reservations\Delete.cshtml" />
-    <Content Include="Views\Reservations\Details.cshtml" />
-    <Content Include="Views\Reservations\Edit.cshtml" />
-    <Content Include="Views\Reservations\Index.cshtml" />
     <Content Include="Views\Studentxes\Create.cshtml" />
     <Content Include="Views\Studentxes\Delete.cshtml" />
     <Content Include="Views\Studentxes\Details.cshtml" />
@@ -409,9 +405,15 @@
     <Content Include="Views\Users\Details.cshtml" />
     <Content Include="Views\Users\Edit.cshtml" />
     <Content Include="Views\Users\Index.cshtml" />
+    <Content Include="Views\Reservations\Create.cshtml" />
+    <Content Include="Views\Reservations\Delete.cshtml" />
+    <Content Include="Views\Reservations\Details.cshtml" />
+    <Content Include="Views\Reservations\Edit.cshtml" />
+    <Content Include="Views\Reservations\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Database\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -4,12 +4,24 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Asiakastiedot</h2>
+
+<p>
+    @Html.ActionLink("Tee uusi varaus", "Create", "Reservations")
+</p>
 
 <div>
-    <h4>Customer</h4>
+    <h4>Asiakas</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserIdentity)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -59,14 +71,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Personnel.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Personnel.FirstName)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.Phone.PhoneNum_1)
         </dt>
 
@@ -83,6 +87,24 @@
         </dd>
 
         <dt>
+            @Html.DisplayNameFor(model => model.PostOffices.PostOffice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostOffices.PostOffice)
+        </dd>
+
+
+        @*<dt>
+            @Html.DisplayNameFor(model => model.Personnel.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personnel.FirstName)
+        </dd>*@
+
+     
+        @*<dt>
             @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
         </dt>
 
@@ -96,9 +118,9 @@
 
         <dd>
             @Html.DisplayFor(model => model.Treatment.TreatmentName)
-        </dd>
+        </dd>*@
 
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
         </dt>
 
@@ -112,27 +134,91 @@
 
         <dd>
             @Html.DisplayFor(model => model.TreatmentPlace.TreatmentPlaceName)
-        </dd>
+        </dd>*@
 
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.UserIdentity)
-        </dd>
-
-        <dt>
+        @*<dt>
             @Html.DisplayNameFor(model => model.Studentx.FirstName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Studentx.FirstName)
-        </dd>
+        </dd>*@
 
     </dl>
-</div>
+
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Customer_id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Customer_id }) |
+    @Html.ActionLink("Takaisin asiakastietoihin", "Index")
 </p>
+
+
+
+<h4>Asiakkaan hoitotiedot</h4>
+@*1.2.2017 Lisätty alitiedostot Palvelut*@
+
+<table class="table">
+    <tr>
+        <th>
+            Päivämäärä
+        </th>
+        <th>
+            Varausaika alkaa
+        </th>
+        <th>
+            Varausaika loppuu
+        </th>
+        <th>
+            Palvelun nimi
+        </th>
+        <th>
+            Palvelun kesto
+        </th>
+        <th>
+            Hoitajan etunimi
+        </th>
+        <th>
+            Hoitajan sukunimi
+        </th>
+        <th>
+            Huomiot
+        </th>
+    </tr>
+
+    @foreach (var item in Model.Reservation1)
+            {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Start)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.End)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treatment.TreatmentName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Treatment.TreatmentTime)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Studentx.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Studentx.LastName)
+            </td>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Customer1.Notes)
+            </td>
+
+            @*//Linkki asiakastietojen tallennukseen:*@
+            @Html.ActionLink("Asiakastietojen tallennus", "Index")
+
+        </tr>
+    }
+</table>
+</div>

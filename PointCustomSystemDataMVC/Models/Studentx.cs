@@ -39,7 +39,13 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
         public Nullable<int> User_id { get; set; }
-    
+        public string Address { get; set; }
+
+        //Lisätty:
+        public string PhoneNum_1 { get; set; }
+        public string PostalCode { get; set; }
+        public string PostOffice { get; set; }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

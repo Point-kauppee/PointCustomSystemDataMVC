@@ -4,12 +4,20 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Hoitajatiedot</h2>
 
 <div>
-    <h4>Studentx</h4>
+    <h4>Hoitaja</h4>
     <hr />
     <dl class="dl-horizontal">
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserIdentity)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.FirstName)
         </dt>
@@ -33,37 +41,12 @@
         <dd>
             @Html.DisplayFor(model => model.Identity)
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Notes)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Notes)
-        </dd>
-
         <dt>
             @Html.DisplayNameFor(model => model.Email)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.Email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EnrollmentDateIN)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EnrollmentDateIN)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.EnrollmentDateOUT)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.EnrollmentDateOUT)
         </dd>
 
         <dt>
@@ -83,16 +66,40 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
+            @Html.DisplayNameFor(model => model.PostOffices1.PostOffice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.User.UserIdentity)
+            @Html.DisplayFor(model => model.PostOffices1.PostOffice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd> 
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDateIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDateIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDateOUT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDateOUT)
         </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Student_id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Muokkaa hoitajatietoja", "Edit", new { id = Model.Student_id }) |
+    @Html.ActionLink("Takaisin hoitajatietoihin", "Index")
 </p>

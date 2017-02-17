@@ -110,6 +110,7 @@
           <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
           <Property Name="LastName" Type="nvarchar" MaxLength="50" />
           <Property Name="Identity" Type="nvarchar" MaxLength="20" />
+          <Property Name="Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Notes" Type="nvarchar" MaxLength="300" />
           <Property Name="Email" Type="nvarchar" MaxLength="100" />
           <Property Name="EnrollmentDateIN" Type="datetime" />
@@ -3106,6 +3107,7 @@
           <NavigationProperty Name="TreatmentOffice" Relationship="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_4" FromRole="Studentx" ToRole="TreatmentOffice" />
           <NavigationProperty Name="TreatmentPlace" Relationship="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_4" FromRole="Studentx" ToRole="TreatmentPlace" />
           <NavigationProperty Name="User1" Relationship="JohaMeriSQL1Model.FK_User_ToTable_4" FromRole="Studentx" ToRole="User" />
+          <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
         </EntityType>
         <Association Name="FK_Customer_ToTable_4">
           <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="0..1" />
@@ -3434,6 +3436,7 @@
           <EntitySetMapping Name="Studentx">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.Studentx">
               <MappingFragment StoreEntitySet="Studentx">
+                <ScalarProperty Name="Address" ColumnName="Address" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="Post_id" ColumnName="Post_id" />
                 <ScalarProperty Name="Phone_id" ColumnName="Phone_id" />
