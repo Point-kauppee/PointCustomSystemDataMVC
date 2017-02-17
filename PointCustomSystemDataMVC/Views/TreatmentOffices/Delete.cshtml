@@ -1,0 +1,128 @@
+﻿@model PointCustomSystemDataMVC.Models.TreatmentOffice
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Delete</h2>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+    <h4>TreatmentOffice</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentOfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentOfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Address)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Address)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer1.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer1.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personnel1.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personnel1.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone1.PhoneNum_1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostOffices1.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reservation1.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Treatment1.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentOffice1.TreatmentOfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentOffice1.TreatmentOfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentOffice2.TreatmentOfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentOffice2.TreatmentOfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserIdentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Studentx.FirstName)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Delete" class="btn btn-default" /> |
+            @Html.ActionLink("Back to List", "Index")
+        </div>
+    }
+</div>

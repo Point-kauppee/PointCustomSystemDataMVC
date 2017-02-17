@@ -1,0 +1,130 @@
+﻿@model PointCustomSystemDataMVC.Models.Personnel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Personnel</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Identity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Identity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personnel2.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personnel2.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone.PhoneNum_1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone.PhoneNum_1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostOffices.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostOffices.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reservation.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Treatment.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentOffice.TreatmentOfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPlace.TreatmentPlaceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserIdentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Studentx.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Personnel_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

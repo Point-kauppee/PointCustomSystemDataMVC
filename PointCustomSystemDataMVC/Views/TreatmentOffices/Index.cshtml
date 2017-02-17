@@ -1,0 +1,105 @@
+﻿@model IEnumerable<PointCustomSystemDataMVC.Models.TreatmentOffice>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentOfficeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer1.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Personnel1.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentOffice1.TreatmentOfficeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentOffice2.TreatmentOfficeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentOfficeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer1.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Personnel1.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone1.PhoneNum_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostOffices1.PostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reservation1.TreatmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Treatment1.TreatmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentOffice1.TreatmentOfficeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentOffice2.TreatmentOfficeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserIdentity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Studentx.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.TreatmentOffice_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.TreatmentOffice_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.TreatmentOffice_id })
+        </td>
+    </tr>
+}
+
+</table>

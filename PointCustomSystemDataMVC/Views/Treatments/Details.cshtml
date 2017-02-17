@@ -1,0 +1,114 @@
+﻿@model PointCustomSystemDataMVC.Models.Treatment
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Treatment</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer1.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer1.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personnel1.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personnel1.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone1.PhoneNum_1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostOffices1.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reservation1.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentOffice.TreatmentOfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPlace.TreatmentPlaceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserIdentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Studentx.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Treatment_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

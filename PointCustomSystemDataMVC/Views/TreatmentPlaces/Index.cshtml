@@ -1,0 +1,93 @@
+﻿@model IEnumerable<PointCustomSystemDataMVC.Models.TreatmentPlace>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentPlaceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentPlaceNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer1.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Personnel1.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentPlaceNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer1.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Personnel1.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Phone1.PhoneNum_1)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PostOffices1.PostalCode)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Reservation1.TreatmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Treatment1.TreatmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserIdentity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Studentx.FirstName)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Treatmentplace_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Treatmentplace_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Treatmentplace_id })
+        </td>
+    </tr>
+}
+
+</table>

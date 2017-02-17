@@ -1,0 +1,98 @@
+﻿@model PointCustomSystemDataMVC.Models.Studentx
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Studentx</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Identity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Identity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Notes)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Notes)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDateIN)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDateIN)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.EnrollmentDateOUT)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.EnrollmentDateOUT)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Phone1.PhoneNum_1)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.PostOffices1.PostalCode)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserIdentity)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.Student_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
