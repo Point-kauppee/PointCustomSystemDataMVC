@@ -17,7 +17,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Users
         public ActionResult Index()
         {
-            var user = db.User.Include(u => u.Customer1).Include(u => u.Personnel1).Include(u => u.Phone1).Include(u => u.PostOffices1).Include(u => u.Reservation1).Include(u => u.Treatment1).Include(u => u.TreatmentPlace1).Include(u => u.User1).Include(u => u.User2).Include(u => u.Studentx1).Include(u => u.TreatmentOffice1);
+            var user = db.User.Include(u => u.Customer1).Include(u => u.Personnel1).Include(u => u.Phone1).Include(u => u.PostOffices1).Include(u => u.Reservation1).Include(u => u.Studentx1).Include(u => u.Treatment1).Include(u => u.TreatmentOffice1).Include(u => u.TreatmentPlace1);
             return View(user.ToList());
         }
 
@@ -44,12 +44,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
             return View();
         }
 
@@ -72,12 +70,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", user.Phone_id);
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", user.Post_id);
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", user.Reservation_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", user.Treatment_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", user.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", user.Treatment_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", user.TreatmentOffice_id);
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", user.TreatmentPlace_id);
             return View(user);
         }
 
@@ -98,12 +94,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", user.Phone_id);
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", user.Post_id);
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", user.Reservation_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", user.Treatment_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", user.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", user.Treatment_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", user.TreatmentOffice_id);
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", user.TreatmentPlace_id);
             return View(user);
         }
 
@@ -125,12 +119,10 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", user.Phone_id);
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", user.Post_id);
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", user.Reservation_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", user.Treatment_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", user.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", user.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", user.Treatment_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", user.TreatmentOffice_id);
+            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", user.TreatmentPlace_id);
             return View(user);
         }
 

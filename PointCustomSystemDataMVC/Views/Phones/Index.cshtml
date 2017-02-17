@@ -4,10 +4,10 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Puhelin</h2>
 
 <p>
-    @Html.ActionLink("Create New", "Create")
+    @Html.ActionLink("Luo uusi puhelintieto", "Create")
 </p>
 <table class="table">
     <tr>
@@ -20,13 +20,13 @@
         <th>
             @Html.DisplayNameFor(model => model.PhoneNum_3)
         </th>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.Customer1.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-        </th>
-        <th>
+        </th>*@
+        @*<th>
             @Html.DisplayNameFor(model => model.PostOffices.PostalCode)
         </th>
         <th>
@@ -36,16 +36,16 @@
             @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
+        </th>*@
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
         </th>
         <th></th>
     </tr>
@@ -61,7 +61,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.PhoneNum_3)
         </td>
-        <td>
+        @*<td>
             @Html.DisplayFor(modelItem => item.Customer1.FirstName)
         </td>
         <td>
@@ -77,21 +77,21 @@
             @Html.DisplayFor(modelItem => item.Treatment.TreatmentName)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.TreatmentPlace.TreatmentPlaceName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserIdentity)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Studentx.FirstName)
         </td>
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Phone_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Phone_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Phone_id })
+            @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
+        </td>*@
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserIdentity)
+        </td>
+        <td>
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.Phone_id }) |
+            @Html.ActionLink("Tiedot", "Details", new { id=item.Phone_id }) |
+            @Html.ActionLink("Poista", "Delete", new { id=item.Phone_id })
         </td>
     </tr>
 }

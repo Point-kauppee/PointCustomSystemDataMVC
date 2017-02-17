@@ -22,10 +22,10 @@ namespace PointCustomSystemDataMVC.Models
             this.Phone = new HashSet<Phone>();
             this.PostOffices = new HashSet<PostOffices>();
             this.Reservation = new HashSet<Reservation>();
-            this.TreatmentOffice1 = new HashSet<TreatmentOffice>();
             this.TreatmentPlace1 = new HashSet<TreatmentPlace>();
-            this.User1 = new HashSet<User>();
             this.Studentx1 = new HashSet<Studentx>();
+            this.TreatmentOffice1 = new HashSet<TreatmentOffice>();
+            this.User1 = new HashSet<User>();
         }
     
         public int Treatment_id { get; set; }
@@ -57,17 +57,17 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
         public virtual Reservation Reservation1 { get; set; }
-        public virtual TreatmentOffice TreatmentOffice { get; set; }
         public virtual TreatmentPlace TreatmentPlace { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TreatmentPlace> TreatmentPlace1 { get; set; }
+        public virtual Studentx Studentx { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studentx> Studentx1 { get; set; }
+        public virtual TreatmentOffice TreatmentOffice { get; set; }
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TreatmentOffice> TreatmentOffice1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TreatmentPlace> TreatmentPlace1 { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
-        public virtual Studentx Studentx { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Studentx> Studentx1 { get; set; }
     }
 }

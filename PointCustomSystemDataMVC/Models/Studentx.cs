@@ -24,18 +24,17 @@ namespace PointCustomSystemDataMVC.Models
             this.PostOffices = new HashSet<PostOffices>();
             this.Reservation = new HashSet<Reservation>();
             this.Treatment = new HashSet<Treatment>();
-            this.TreatmentOffice = new HashSet<TreatmentOffice>();
             this.TreatmentPlace = new HashSet<TreatmentPlace>();
+            this.TreatmentOffice1 = new HashSet<TreatmentOffice>();
             this.User1 = new HashSet<User>();
         }
     
         public int Student_id { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Identity { get; set; }
-        public string Notes { get; set; }
-        public string Email { get; set; }
-
+     
+       
+       
+        
+       
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
         public Nullable<int> User_id { get; set; }
@@ -46,6 +45,18 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Customer_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> TreatmentOffice_id { get; set; }
+
+        //Lis‰tty otsikkom‰‰ritykset student.cs
+        [Display(Name = "Etunimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
+        public string LastName { get; set; }
+        [Display(Name = "Sotu")]
+        public string Identity { get; set; }
+        [Display(Name = "Huomiot")]
+        public string Notes { get; set; }
+        [Display(Name = "S‰hkˆposti")]
+        public string Email { get; set; }
 
         //Lis‰tty p‰iv‰m‰‰r‰m‰‰ritykset student.cs:
         [DataType(DataType.Date)]
@@ -73,21 +84,21 @@ namespace PointCustomSystemDataMVC.Models
         public virtual PostOffices PostOffices1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Treatment> Treatment { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TreatmentOffice> TreatmentOffice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TreatmentPlace> TreatmentPlace { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<User> User1 { get; set; }
         public virtual Customer Customer1 { get; set; }
         public virtual Customer Customer2 { get; set; }
         public virtual Personnel Personnel1 { get; set; }
         public virtual Reservation Reservation1 { get; set; }
-        public virtual TreatmentOffice TreatmentOffice1 { get; set; }
         public virtual Treatment Treatment1 { get; set; }
         public virtual TreatmentPlace TreatmentPlace1 { get; set; }
+        public virtual User User { get; set; }
+        public virtual TreatmentOffice TreatmentOffice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<TreatmentOffice> TreatmentOffice1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<User> User1 { get; set; }
     }
 }

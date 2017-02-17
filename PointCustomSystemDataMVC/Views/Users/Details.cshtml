@@ -1,19 +1,22 @@
 ﻿@model PointCustomSystemDataMVC.Models.User
 
 @{
-    Layout = null;
+    ViewBag.Title = "Details";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Details</title>
-</head>
-<body>
-    <div>
-        <h4>User</h4>
+
+
+   
+       <h2>Käyttäjätiedot</h2>
+
+<p>
+
+    @Html.ActionLink("Tee uusi varaus", "Create", "Reservations")
+
+</p>
+<div>
+    <h4>Käyttäjä</h4>
         <hr />
         <dl class="dl-horizontal">
             <dt>
@@ -32,7 +35,7 @@
                 @Html.DisplayFor(model => model.Password)
             </dd>
     
-            <dt>
+            @*<dt>
                 @Html.DisplayNameFor(model => model.Customer1.FirstName)
             </dt>
     
@@ -73,43 +76,19 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Treatment1.TreatmentName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.TreatmentPlace1.TreatmentPlaceName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.User1.UserIdentity)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.User1.UserIdentity)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.User2.UserIdentity)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.User2.UserIdentity)
-            </dd>
-    
-            <dt>
                 @Html.DisplayNameFor(model => model.Studentx1.FirstName)
             </dt>
     
             <dd>
                 @Html.DisplayFor(model => model.Studentx1.FirstName)
+            </dd>
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.Treatment1.TreatmentName)
             </dd>
     
             <dt>
@@ -120,11 +99,23 @@
                 @Html.DisplayFor(model => model.TreatmentOffice1.TreatmentOfficeName)
             </dd>
     
+            <dt>
+                @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
+            </dt>
+    
+            <dd>
+                @Html.DisplayFor(model => model.TreatmentPlace1.TreatmentPlaceName)
+            </dd>*@
+    
         </dl>
     </div>
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.User_id }) |
         @Html.ActionLink("Back to List", "Index")
     </p>
-</body>
-</html>
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+

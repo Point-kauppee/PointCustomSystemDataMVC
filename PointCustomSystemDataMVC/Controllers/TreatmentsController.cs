@@ -106,7 +106,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Treatment_id,TreatmentName,TreatmentTime,TreatmentPrice,Personnel_id,Phone_id,Post_id/,Reservation_id,Student_id,Customer_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Treatment treatment)
+        public ActionResult Edit([Bind(Include = "Treatment_id,TreatmentName,TreatmentTime,TreatmentPrice,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Customer_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Treatment treatment)
         {
             if (ModelState.IsValid)
             {

@@ -48,7 +48,7 @@
             <a href="/Index">Aloitussivu</a>
             <a href="/Customers">Asiakas</a>
             <a href="/Reservations">Palveluvaraukset</a>
-            <a href="/TreatmentOffices">Toimipistehallinta</a>
+            
 
             @*<a href="/Asiakaslista">AsiakasDemo&raquo;</a>*@
             <div class="w3-accordion">
@@ -58,7 +58,7 @@
                 <div id="demoAcc" class="w3-accordion-content w3-padding-large w3-medium">
                     <a href="#" class="w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Tietohallinta</a>
                     <a href="/Personnels">Henkilökuntahallinta</a>
-                    <a href="/Treatmentplaces">Hoitopaikkahallinta</a>
+                    <a href="/TreatmentPlaces">Hoitopaikkahallinta</a>
                     <a href="/Users">Käyttäjähallinta</a>
                     <a href="/PostOfficess">Osoitehallinta</a>
                     <a href="/Treatments">Palveluhallinta</a>
@@ -393,5 +393,10 @@
       
 
     </script>
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
 
 

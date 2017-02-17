@@ -1,0 +1,80 @@
+//Lis‰tyt User.cs:
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public string Identity { get; set; }
+        public string Notes { get; set; }
+        public string Email { get; set; }
+        public string Address { get; set; }
+        public string PhoneNum_1 { get; set; }
+        public string PostalCode { get; set; }
+        public string PostOffice { get; set; }
+
+
+
+//Lis‰tty p‰iv‰m‰‰r‰m‰‰ritykset reservation.cs
+        [Display(Name = "Palvelun nimi")]
+        public string TreatmentName { get; set; }
+
+        [Display(Name = "Alkaen klo")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> Start { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Loppuu klo")]
+        public Nullable<System.DateTime> End { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Pvm")]
+        public Nullable<System.DateTime> Date { get; set; }
+ 
+	[Display(Name = "Huomiot")]
+        public string Note { get; set; }
+
+        //Lis‰tty yhdist‰v‰t nimikent‰t
+        
+        [Display(Name = "Hoitajan nimi")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+        [Display(Name = "Etunimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
+        public string LastName { get; set; }
+
+     
+
+
+    //Lis‰tty otsikkom‰‰ritykset student.cs
+        [Display(Name = "Etunimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
+        public string LastName { get; set; }
+        [Display(Name = "Sotu")]
+        public string Identity { get; set; }
+        [Display(Name = "Huomiot")]
+        public string Notes { get; set; }
+        [Display(Name = "S‰hkˆposti")]
+        public string Email { get; set; }
+
+        //Lis‰tty p‰iv‰m‰‰r‰m‰‰ritykset student.cs:
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> EnrollmentDateIN { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> EnrollmentDateOUT { get; set; }
+
+  	[Display(Name = "Hoitaja")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+
+//Lis‰tty customer.cs
+		public string PhoneNum_1 { get; set; }
+        public string PostalCode { get; set; }
+        public string PostOffice { get; set; }

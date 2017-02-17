@@ -1,19 +1,41 @@
 ﻿@model IEnumerable<PointCustomSystemDataMVC.Models.User>
 
 @{
-    Layout = null;
+
+    ViewBag.Title = "Index";
+
 }
 
-<!DOCTYPE html>
+<title>PointCollege Ajanvarausohjelmisto</title>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
-    <p>
-        @Html.ActionLink("Create New", "Create")
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<script src="/Scripts/bootstrap.js"></script>
+
+<script src="/Scripts/respond.js"></script>
+
+
+<h2>Käyttäjä</h2>
+
+
+    <p style="padding-left:8px;font-size:12px">
+        @Html.ActionLink("Luo uusi käyttäjä", "Create")
     </p>
     <table class="table">
         <tr>
@@ -23,7 +45,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Password)
             </th>
-            <th>
+            @*<th>
                 @Html.DisplayNameFor(model => model.Customer1.FirstName)
             </th>
             <th>
@@ -39,23 +61,17 @@
                 @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User1.UserIdentity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User2.UserIdentity)
-            </th>
-            <th>
                 @Html.DisplayNameFor(model => model.Studentx1.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TreatmentOffice1.TreatmentOfficeName)
             </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
+            </th>*@
             <th></th>
         </tr>
     
@@ -67,7 +83,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.Customer1.FirstName)
             </td>
             <td>
@@ -83,31 +99,28 @@
                 @Html.DisplayFor(modelItem => item.Reservation1.TreatmentName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Treatment1.TreatmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentPlace1.TreatmentPlaceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User1.UserIdentity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User2.UserIdentity)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Studentx1.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Treatment1.TreatmentName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TreatmentOffice1.TreatmentOfficeName)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id=item.User_id }) |
-                @Html.ActionLink("Details", "Details", new { id=item.User_id }) |
-                @Html.ActionLink("Delete", "Delete", new { id=item.User_id })
+                @Html.DisplayFor(modelItem => item.TreatmentPlace1.TreatmentPlaceName)
+            </td>*@
+            <td>
+                @Html.ActionLink("Muokkaa", "Edit", new { id=item.User_id }) |
+                @Html.ActionLink("Tiedot", "Details", new { id=item.User_id }) |
+                @Html.ActionLink("Poista", "Delete", new { id=item.User_id })
             </td>
         </tr>
     }
     
     </table>
-</body>
-</html>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

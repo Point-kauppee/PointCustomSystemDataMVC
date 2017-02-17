@@ -1,27 +1,31 @@
 ﻿@model PointCustomSystemDataMVC.Models.User
 
 @{
-    Layout = null;
+    ViewBag.Title = "Create";
 }
 
-<!DOCTYPE html>
 
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Create</title>
-</head>
-<body>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    
+
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+
+<link href="~/Content/Site.css" rel="stylesheet" />
+
+<link href="~/Content/bootstrap.css" rel="stylesheet" />
+
+
+
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+
+<h2>Luo uusi käyttäjätieto</h2>
     
     @using (Html.BeginForm()) 
     {
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
-            <h4>User</h4>
+            <h4>Käyttäjä</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
             <div class="form-group">
@@ -40,7 +44,7 @@
                 </div>
             </div>
     
-            <div class="form-group">
+            @*<div class="form-group">
                 @Html.LabelFor(model => model.Personnel_id, "Personnel_id", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.DropDownList("Personnel_id", null, htmlAttributes: new { @class = "form-control" })
@@ -110,18 +114,35 @@
                     @Html.DropDownList("TreatmentOffice_id", null, htmlAttributes: new { @class = "form-control" })
                     @Html.ValidationMessageFor(model => model.TreatmentOffice_id, "", new { @class = "text-danger" })
                 </div>
-            </div>
+            </div>*@
     
             <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
-                    <input type="submit" value="Create" class="btn btn-default" />
+                    <input type="submit" value="Tallenna" class="btn btn-default" />
                 </div>
             </div>
         </div>
     }
+@*//Lisätty scriptit*@
+
+
+
+<script src="~/Scripts/respond.min.js"></script>
+
+<script src="~/Scripts/_references.js"></script>
+
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+
+<script src="~/Scripts/jquery.validate.min.js"></script>
     
     <div>
-        @Html.ActionLink("Back to List", "Index")
+        @Html.ActionLink("Takaisin käyttäjähallintaan", "Index")
     </div>
-</body>
-</html>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
