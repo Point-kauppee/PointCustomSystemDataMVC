@@ -77,7 +77,7 @@ namespace PointCustomSystemDataMVC.Controllers
         //public ActionResult Index(string sortOrder)
         //{
         //    ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-        //    ViewBag.DateSortParm = sortOrder == "Nam" ? "nam_desc" : "Nam";
+        //    ViewBag.NamSortParm = sortOrder == "Nam" ? "nam_desc" : "Nam";
         //    var customer = from c in db.Customer
         //                   select c;
         //    switch (sortOrder)

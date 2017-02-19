@@ -29,18 +29,18 @@
         <th>
             @Html.DisplayNameFor(model => model.User.UserIdentity)
         </th>
-        <th>
+        @*<th>
             @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.DateSortParm })
-        </th>
-        @*<th>
+            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
+        </th>*@
+        <th>
             @Html.DisplayNameFor(model => model.FirstName)
-        </th>*@
-        @*<th>
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.LastName)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Identity)
         </th>
