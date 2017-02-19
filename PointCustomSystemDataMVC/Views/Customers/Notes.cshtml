@@ -4,114 +4,83 @@
     ViewBag.Title = "Notes";
 }
 
-<h2>Notes</h2>
+<link rel="stylesheet" href="/lib/w3.css">
 
-<p>
-    @Html.ActionLink("Create New", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Identity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Personnel.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Phone.PhoneNum_1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostOffices.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Studentx.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </th>
-        <th></th>
-    </tr>
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Identity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Notes)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Email)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Address)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Personnel.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Phone.PhoneNum_1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostOffices.PostalCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reservation.TreatmentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Treatment.TreatmentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TreatmentPlace.TreatmentPlaceName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Studentx.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserIdentity)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Customer_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Customer_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Customer_id })
-        </td>
-    </tr>
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+
+<h2>Asiakastiedot</h2>
+
+<div>
+
+    @Html.ActionLink("Takaisin asiakastietoihin", "Index")
+
+</div>
+    
+<body class="w3-content" style="max-width:1200px">
+
+<div class="w3-container w3-padding-4">
+
+    <form id="Asiakasnotes">
+
+            <h2 class="w3-text-blue">Asiakkaan jalkahoitotiedot</h2>
+            <p>Asikkaan hoitotiedot</p>
+
+            <div class="form-group">
+                <div class="col-md-12">
+                    <a href="#" class="w3-btn w3-grey" onclick="TallennaAsiakasNotes()">Tallenna</a>
+                </div>
+            </div>
+
+        <div class="w3-display-container">
+            <div class="w3-display-topleft w3-padding">
+                <p>
+                    <label class="w3-text-grey"><b>Suoritetut hoidot</b></label>
+                    <input class="w3-left-align w3-input w3-border" style="width:1000px;height:500px" name="first" type="text">
+                </p>
+                <p>
+                    <label class="w3-text-grey"><b>Muut huomiot</b></label>
+                    <input class="w3-left-align w3-input w3-border" style="width:1000px;height:500px" name="last" type="text">
+                </p>
+            </div>
+        </div> 
+    </form>
+    </div>
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+</body>
+       
+
+<script src="~/Scripts/jquery-3.1.1.js"></script>
+<script type="text/javascript">
+
+    var Asiakastietotallennus = function () {
+        var data = $("#Asiakasnotes").serialize();
+
+        $.ajax({
+            type: "Post",
+            url: "/Customers/TallennaAsiakasNotes",
+            data: data,
+            success: function (response) {
+                alert("Tiedot tallennettu!");
+            }
+
+        })
+
+    }
+</script>
+
+@section Scripts {
+@Scripts.Render("~/bundles/jqueryval")
+
 }
-
-</table>

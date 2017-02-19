@@ -73,7 +73,30 @@ namespace PointCustomSystemDataMVC.Controllers
 
         //}
 
-
+        //31.1.2017 Lisätty tietokantataulujen suodatukset:
+        //public ActionResult Index(string sortOrder)
+        //{
+        //    ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+        //    ViewBag.DateSortParm = sortOrder == "Nam" ? "nam_desc" : "Nam";
+        //    var customer = from c in db.Customer
+        //                   select c;
+        //    switch (sortOrder)
+        //    {
+        //        case "name_desc":
+        //            customer = customer.OrderByDescending(c => c.FirstName);
+        //            break;
+        //        case "Nam":
+        //            customer = customer.OrderBy(c => c.LastName);
+        //            break;
+        //        case "nam_desc":
+        //            customer = customer.OrderByDescending(c => c.LastName);
+        //            break;
+        //        default:
+        //            customer = customer.OrderBy(c => c.FirstName);
+        //            break;
+        //    }
+        //    return View(customer.ToList());
+        //}
         //GET: Customers/Details/5
         public ActionResult Details(int? id)
 
@@ -345,7 +368,7 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Notes()
         {
            
-            return View(model);
+            return View();
            
         }
     }//controller

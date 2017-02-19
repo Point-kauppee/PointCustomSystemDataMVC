@@ -30,11 +30,17 @@
             @Html.DisplayNameFor(model => model.User.UserIdentity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.DateSortParm })
         </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>*@
+        @*<th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Identity)
         </th>
@@ -140,9 +146,6 @@
 </table>
 
        
-
-
-
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
