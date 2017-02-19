@@ -11,7 +11,10 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Data.Entity;
+
+   
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -26,7 +29,7 @@ namespace PointCustomSystemDataMVC.Models
             this.TreatmentOffice1 = new HashSet<TreatmentOffice>();
             this.User1 = new HashSet<User>();
         }
-    
+
         public int Customer_id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -35,8 +38,8 @@ namespace PointCustomSystemDataMVC.Models
         public string Email { get; set; }
         public string Address { get; set; }
         public Nullable<int> Personnel_id { get; set; }
-        public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
+        public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Treatment_id { get; set; }
@@ -48,6 +51,11 @@ namespace PointCustomSystemDataMVC.Models
         public string PhoneNum_1 { get; set; }
         public string PostalCode { get; set; }
         public string PostOffice { get; set; }
+        //public Nullable<int> Phone_id { get; set; }
+        public string UserIdentity { get; set; }
+        //public int Phone_id { get; set; }
+        //public int Post_id { get; set; }
+
 
         public virtual Personnel Personnel { get; set; }
         public virtual Phone Phone { get; set; }
@@ -55,8 +63,7 @@ namespace PointCustomSystemDataMVC.Models
         public virtual Reservation Reservation { get; set; }
         public virtual Treatment Treatment { get; set; }
         public virtual TreatmentPlace TreatmentPlace { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Phone> Phone1 { get; set; }
+      
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -74,5 +81,18 @@ namespace PointCustomSystemDataMVC.Models
         public virtual ICollection<TreatmentOffice> TreatmentOffice1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
+        public virtual ICollection<Phone> Phone1 { get; set; }
+        public object PhoneX { get; internal set; }
     }
+
+    //public class CustomerCroupContext:DbContext { 
+
+    //    public int? Phone_id { get; set; }
+    //    public DbSet<Customer> Customer { get; set; }
+    //    public DbSet<Phone> Phone { get; set; }
+    //}
+
+  
 }
+
+

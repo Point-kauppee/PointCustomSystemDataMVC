@@ -202,6 +202,7 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\IndexCustomerWiewController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonnelsController.cs" />
     <Compile Include="Controllers\PhonesController.cs" />
@@ -220,6 +221,7 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IndexCustomerWiew.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Personnel.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
@@ -406,11 +408,14 @@
     <Content Include="Views\PostOffices\Details.cshtml" />
     <Content Include="Views\PostOffices\Edit.cshtml" />
     <Content Include="Views\PostOffices\Index.cshtml" />
+    <Content Include="Views\Customers\IndexCustomerWiew.cshtml" />
+    <Content Include="Views\IndexCustomerWiew\Index.cshtml" />
     <Content Include="Views\TreatmentOffices\Create.cshtml" />
     <Content Include="Views\TreatmentOffices\Delete.cshtml" />
     <Content Include="Views\TreatmentOffices\Details.cshtml" />
     <Content Include="Views\TreatmentOffices\Edit.cshtml" />
     <Content Include="Views\TreatmentOffices\Index.cshtml" />
+    <Content Include="Views\Customers\Notes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -51,6 +51,9 @@ namespace PointCustomSystemDataMVC.Models
         public string PhoneNum_1 { get; set; }
         public string PostalCode { get; set; }
         public string PostOffice { get; set; }
+        //public int Phone_id { get; set; }
+        //public int Post_id { get; set; }
+        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }

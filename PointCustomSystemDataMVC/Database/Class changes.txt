@@ -78,3 +78,17 @@
 		public string PhoneNum_1 { get; set; }
         public string PostalCode { get; set; }
         public string PostOffice { get; set; }
+		public Nullable<int> Phone_id { get; set; }
+		public string UserIdentity { get; set; }
+
+		   //Lisätty TretamentOffice.cs
+        public string PhoneNum_1 { get; set; }
+        public string PostalCode { get; set; }
+        public string PostOffice { get; set; }
+
+		 //Lisätty TretamentOffice.cs
+        public string PhoneNum_1 { get; set; }
+        public string PostalCode { get; set; }
+        public string PostOffice { get; set; }
+        public int Post_id { get; set; }
+        public int Phone_id { get; set; }
