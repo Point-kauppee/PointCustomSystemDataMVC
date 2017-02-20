@@ -9,30 +9,30 @@
 <title>PointCollege Ajanvarausohjelmisto</title>
 
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
-
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-
 <script src="~/Scripts/bootstrap.min.js"></script>
-
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
 <script src="/Scripts/bootstrap.js"></script>
-
 <script src="/Scripts/respond.js"></script>
-
 
 <h2>Käyttäjä</h2>
 
+    <p style="padding-left:8px;font-size:12px">
+    @Html.ActionLink("Takaisin asiakastiedon luontiin", "Create", "Customers")
+    </p>
+
+    <p style="padding-left:8px;font-size:12px">
+    @Html.ActionLink("Takaisin hoitajatiedon luontiin", "Create", "Studentxes")
+    </p>
+
+    <p style="padding-left:8px;font-size:12px">
+    @Html.ActionLink("Takaisin henkilökunnan luontiin", "Create", "Personnels")
+    </p>
 
     <p style="padding-left:8px;font-size:12px">
         @Html.ActionLink("Luo uusi käyttäjä", "Create")

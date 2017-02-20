@@ -256,6 +256,7 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Reservation.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>

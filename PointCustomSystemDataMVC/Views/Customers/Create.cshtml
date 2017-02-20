@@ -16,7 +16,7 @@
 <h2>Luo uusi asiakastieto</h2>
 
 
-@using (Html.BeginForm("Index", "Customers", FormMethod.Post))
+@using (Html.BeginForm("Create", "Customers", FormMethod.Post))
 
 {
     @Html.AntiForgeryToken()
@@ -26,7 +26,23 @@
         <h4>Asiakas</h4>
 
         <hr />
+
+        <p>
+            @Html.ActionLink("Luo käyttäjätunnus", "Create", "Users")
+        </p>
+
+      
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @* Lisätty linkki käyttäjätunnisteen luontiin 2.2.2017 *@
+        <div class="form-group">
+            @Html.LabelFor(model => model.User.UserIdentity, "Linkki", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="col-md-offset-2 btn btn-default" style="width:280px; margin:0px; padding-left:12px">
+                    <a href="/Users/Create">Luo käyttäjätunnus</a>
+                </div>
+            </div>
+        </div>
 
         <div class="form-group">
             @Html.LabelFor(model => model.User_id, "Käyttäjätieto", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -35,6 +51,14 @@
                 @Html.ValidationMessageFor(model => model.User_id, "", new { @class = "text-danger" })
             </div>
         </div>
+
+        @*<div class="form-group">
+            @Html.LabelFor(model => model.User.UserIdentity, "Käyttäjätieto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.User.UserIdentity, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.User.UserIdentity, "Käyttäjätieto", "", new { @class = "text-danger" })
+            </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.FirstName, "Etunimi", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -52,13 +76,13 @@
             </div>
         </div>
 
-        <div class="form-group">
+        @*<div class="form-group">
             @Html.LabelFor(model => model.Identity, "Sotu", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Identity, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Identity, "", new { @class = "text-danger" })
             </div>
-        </div>
+        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.Email, "Sähköposti", htmlAttributes: new { @class = "control-label col-md-2" })

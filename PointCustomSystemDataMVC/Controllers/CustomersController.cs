@@ -19,6 +19,8 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             var customer = db.Customer.Include(c => c.Personnel).Include(c => c.Phone).Include(c => c.PostOffices).Include(c => c.Treatment).Include(c => c.TreatmentOffice).Include(c => c.TreatmentPlace).Include(c => c.User).Include(c => c.Studentx);
             return View(customer.ToList());
+
+
         }
 
         //public ActionResult IndexCustomerWiew()
@@ -49,23 +51,30 @@ namespace PointCustomSystemDataMVC.Controllers
         //    return View(icw);
         //}
 
-        // GET: Customers
+        //GET: Customers
         //public ActionResult IndexCustomerWiew(int? id)
         //{
         //    JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
-        //    List<Customer> customer = (from c in entities.Customer
-        //                               where c.Phone_id == id
-        //                               select c).ToList();
+        //    List<User> user = (from u in entities.User
+        //                               where u.User_id
+        //                               select u).ToList();
         //    entities.Dispose();
 
-        //    List<Phone> result = new List<Phone>();
-        //    foreach (Customer cust in customer)
+        //    List<IndexCustomerWiew> result = new List<IndexCustomerWiew>();
+        //    foreach (User use in user)
         //    {
-        //        Phone data = new Phone();
-        //        data.Phone_id = cust.Phone_id;
-        //        data.Customer_id = cust.Customer_id;
-        //        data.PhoneNum_1 = cust.PhoneNum_1;
+        //        IndexCustomerWiew data = new IndexCustomerWiew();
+        //        data.Customer_id = use.Customer_id;          
+        //        data.FirstName = use.FirstName;
+        //        data.LastName = use.LastName;
+        //        data.Notes = use.Notes;
+        //        data.Address = use.Address;
+        //        data.Phone_id = use.Phone_id;
+        //        data.PhoneNum_1 = use.PhoneNum_1;
+        //        data.Post_id = use.Post_id;
+        //        data.PostalCode = use.PostalCode;
+        //        data.PostOffice = use.PostOffice;
         //        result.Add(data);
         //    }
 
@@ -223,7 +232,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
             User user = new User();
             user.Identity = model.Identity;
-
+            user.User_id = model.User_id;
+            
             db.User.Add(user);
             db.SaveChanges();
 

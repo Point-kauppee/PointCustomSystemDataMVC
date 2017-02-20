@@ -4,18 +4,11 @@
     ViewBag.Title = "Create";
 }
 
-
-
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-
 <link href="~/Content/Site.css" rel="stylesheet" />
-
 <link href="~/Content/bootstrap.css" rel="stylesheet" />
 
-
-
 <script src="~/Scripts/bootstrap.min.js"></script>
-
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
 
 <h2>Luo uusi käyttäjätieto</h2>
@@ -28,6 +21,37 @@
             <h4>Käyttäjä</h4>
             <hr />
             @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+            @* Lisätty linkki käyttäjätunnisteen luontiin 2.2.2017 *@
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserIdentity, "Linkki", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="col-md-offset-2 btn btn-default" style="width:280px; margin:0px; padding-left:12px">
+                        <a href="/Customers/Create">Takaisin asiakastiedon luontiin</a>
+                    </div>
+                </div>
+            </div>
+
+            @* Lisätty linkki käyttäjätunnisteen luontiin 2.2.2017 *@
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserIdentity, "Linkki", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="col-md-offset-2 btn btn-default" style="width:280px; margin:0px; padding-left:12px">
+                        <a href="/Studentxes/Create">Takaisin hoitajatiedon luontiin</a>
+                    </div>
+                </div>
+            </div>
+
+            @* Lisätty linkki käyttäjätunnisteen luontiin 2.2.2017 *@
+            <div class="form-group">
+                @Html.LabelFor(model => model.UserIdentity, "Linkki", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="col-md-offset-2 btn btn-default" style="width:280px; margin:0px; padding-left:12px">
+                        <a href="/Personnels/Create">Takaisin henkilökuntatiedon luontiin</a>
+                    </div>
+                </div>
+            </div>
+
             <div class="form-group">
                 @Html.LabelFor(model => model.UserIdentity, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
