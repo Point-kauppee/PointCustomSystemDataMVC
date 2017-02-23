@@ -49,16 +49,15 @@
 
 
     //Lis‰tty otsikkom‰‰ritykset student.cs
+        public int Student_id { get; set; }
         [Display(Name = "Etunimi")]
         public string FirstName { get; set; }
         [Display(Name = "Sukunimi")]
         public string LastName { get; set; }
-        [Display(Name = "Sotu")]
         public string Identity { get; set; }
         [Display(Name = "Huomiot")]
         public string Notes { get; set; }
         [Display(Name = "S‰hkˆposti")]
-        public string Email { get; set; }
 
         //Lis‰tty p‰iv‰m‰‰r‰m‰‰ritykset student.cs:
         [DataType(DataType.Date)]
@@ -80,6 +79,7 @@
         public string PostOffice { get; set; }
 		public Nullable<int> Phone_id { get; set; }
 		public string UserIdentity { get; set; }
+		public string Note { get; set; }
 
 		   //Lis‰tty TretamentOffice.cs
         public string PhoneNum_1 { get; set; }

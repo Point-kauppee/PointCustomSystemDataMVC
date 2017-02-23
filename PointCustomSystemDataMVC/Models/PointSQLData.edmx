@@ -544,14 +544,14 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_PostOffices_ToTable_2">
-          <End Role="PostOffices" Type="Self.PostOffices" Multiplicity="1" />
-          <End Role="PostOffices1" Type="Self.PostOffices" Multiplicity="0..1" />
+          <End Role="Customer" Type="Self.Customer" Multiplicity="0..1" />
+          <End Role="PostOffices" Type="Self.PostOffices" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="PostOffices">
-              <PropertyRef Name="Post_id" />
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
             </Principal>
-            <Dependent Role="PostOffices1">
-              <PropertyRef Name="Post_id" />
+            <Dependent Role="PostOffices">
+              <PropertyRef Name="Customer_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1415,8 +1415,8 @@
             <End Role="PostOffices" EntitySet="PostOffices" />
           </AssociationSet>
           <AssociationSet Name="FK_PostOffices_ToTable_2" Association="Self.FK_PostOffices_ToTable_2">
+            <End Role="Customer" EntitySet="Customer" />
             <End Role="PostOffices" EntitySet="PostOffices" />
-            <End Role="PostOffices1" EntitySet="PostOffices" />
           </AssociationSet>
           <AssociationSet Name="FK_PostOffices_ToTable_3" Association="Self.FK_PostOffices_ToTable_3">
             <End Role="Reservation" EntitySet="Reservation" />
@@ -1704,6 +1704,7 @@
           <NavigationProperty Name="User" Relationship="JohaMeriSQL1Model.FK_Customer_ToTable_8" FromRole="Customer" ToRole="User" />
           <NavigationProperty Name="TreatmentOffice1" Relationship="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_7" FromRole="Customer" ToRole="TreatmentOffice" />
           <NavigationProperty Name="User1" Relationship="JohaMeriSQL1Model.FK_User_ToTable_6" FromRole="Customer" ToRole="User" />
+          <NavigationProperty Name="PostOffices1" Relationship="JohaMeriSQL1Model.FK_PostOffices_ToTable_21" FromRole="Customer" ToRole="PostOffices" />
         </EntityType>
         <EntityType Name="Personnel">
           <Key>
@@ -1815,6 +1816,7 @@
           <NavigationProperty Name="User" Relationship="JohaMeriSQL1Model.FK_PostOffices_ToTable_8" FromRole="PostOffices" ToRole="User" />
           <NavigationProperty Name="TreatmentOffice1" Relationship="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_2" FromRole="PostOffices" ToRole="TreatmentOffice" />
           <NavigationProperty Name="User1" Relationship="JohaMeriSQL1Model.FK_User_ToTable_2" FromRole="PostOffices" ToRole="User" />
+          <NavigationProperty Name="Customer1" Relationship="JohaMeriSQL1Model.FK_PostOffices_ToTable_21" FromRole="PostOffices" ToRole="Customer" />
         </EntityType>
         <EntityType Name="Reservation">
           <Key>
@@ -2805,6 +2807,10 @@
             <End Role="TreatmentPlace" EntitySet="TreatmentPlace" />
             <End Role="User" EntitySet="User" />
           </AssociationSet>
+          <AssociationSet Name="FK_PostOffices_ToTable_21" Association="JohaMeriSQL1Model.FK_PostOffices_ToTable_21">
+            <End Role="Customer" EntitySet="Customer" />
+            <End Role="PostOffices" EntitySet="PostOffices" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Studentx">
           <Key>
@@ -3504,6 +3510,18 @@
             </Principal>
             <Dependent Role="User">
               <PropertyRef Name="TreatmentPlace_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_PostOffices_ToTable_21">
+          <End Type="JohaMeriSQL1Model.Customer" Role="Customer" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.PostOffices" Role="PostOffices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Customer">
+              <PropertyRef Name="Customer_id" />
+            </Principal>
+            <Dependent Role="PostOffices">
+              <PropertyRef Name="Customer_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>

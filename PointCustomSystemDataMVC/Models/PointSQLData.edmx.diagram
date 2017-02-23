@@ -54,7 +54,7 @@
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_3" ManuallyRouted="false" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Treatment_ToTable_7" ManuallyRouted="false" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_5" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Studentx" Width="1.5" PointX="0.75" PointY="2.125" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Studentx" Width="1.5" PointX="1.5" PointY="5.625" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_5" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Phone_ToTable_4" />
@@ -106,6 +106,7 @@
         <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_8" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_8" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_7" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_PostOffices_ToTable_21" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

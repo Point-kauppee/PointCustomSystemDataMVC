@@ -13,8 +13,8 @@
 
 <h2>Luo uusi käyttäjätieto</h2>
     
-    @using (Html.BeginForm()) 
-    {
+   @using (Html.BeginForm("Create", "Customers", FormMethod.Post))
+   {
         @Html.AntiForgeryToken()
         
         <div class="form-horizontal">
@@ -152,13 +152,9 @@
 
 
 <script src="~/Scripts/respond.min.js"></script>
-
 <script src="~/Scripts/_references.js"></script>
-
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-
 <script src="~/Scripts/jquery.validate.min.js"></script>
     
     <div>
@@ -166,7 +162,5 @@
     </div>
 
 @section Scripts {
-
     @Scripts.Render("~/bundles/jqueryval")
-
 }

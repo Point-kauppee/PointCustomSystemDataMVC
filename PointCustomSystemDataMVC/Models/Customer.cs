@@ -11,10 +11,8 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity;
+    using System.ComponentModel.DataAnnotations;
 
-   
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -28,18 +26,24 @@ namespace PointCustomSystemDataMVC.Models
             this.Studentx2 = new HashSet<Studentx>();
             this.TreatmentOffice1 = new HashSet<TreatmentOffice>();
             this.User1 = new HashSet<User>();
+            this.PostOffices1 = new HashSet<PostOffices>();
         }
-
+    
         public int Customer_id { get; set; }
+        [Display(Name = "Etunimi")]
         public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
         public string LastName { get; set; }
         public string Identity { get; set; }
+        [Display(Name = "Huomiot")]
         public string Notes { get; set; }
+        [Display(Name = "Sähköposti")]
         public string Email { get; set; }
+        [Display(Name = "Osoite")]
         public string Address { get; set; }
         public Nullable<int> Personnel_id { get; set; }
+        public int? Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
-        public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Treatment_id { get; set; }
@@ -53,8 +57,17 @@ namespace PointCustomSystemDataMVC.Models
         public string PostOffice { get; set; }
         //public Nullable<int> Phone_id { get; set; }
         public string UserIdentity { get; set; }
-        //public int Phone_id { get; set; }
-        //public int Post_id { get; set; }
+        public string Note { get; set; }
+
+        //Lisätty yhdistävät nimikentät
+
+        [Display(Name = "Asiakas")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+      
+     
 
 
         public virtual Personnel Personnel { get; set; }
@@ -63,7 +76,8 @@ namespace PointCustomSystemDataMVC.Models
         public virtual Reservation Reservation { get; set; }
         public virtual Treatment Treatment { get; set; }
         public virtual TreatmentPlace TreatmentPlace { get; set; }
-      
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Phone> Phone1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -81,18 +95,7 @@ namespace PointCustomSystemDataMVC.Models
         public virtual ICollection<TreatmentOffice> TreatmentOffice1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
-        public virtual ICollection<Phone> Phone1 { get; set; }
-        public object PhoneX { get; internal set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<PostOffices> PostOffices1 { get; set; }
     }
-
-    //public class CustomerCroupContext:DbContext { 
-
-    //    public int? Phone_id { get; set; }
-    //    public DbSet<Customer> Customer { get; set; }
-    //    public DbSet<Phone> Phone { get; set; }
-    //}
-
-  
 }
-
-

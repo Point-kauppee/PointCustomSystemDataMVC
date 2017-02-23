@@ -23,6 +23,10 @@
     <script src="/Scripts/bootstrap.js"></script>
     <script src="/Scripts/respond.js"></script>
 
+@using DayPilot.Web.Mvc;
+@using DayPilot.Web.Mvc.Events.Calendar;
+@using DayPilot.Web.Mvc.Enums.Calendar;
+
     <style>
         .w3-sidenav a {
             font-family: "Roboto", sans-serif;
@@ -124,30 +128,51 @@
                 })
             </div>*@
 
+        @Html.DayPilotCalendar("dpm", new DayPilotCalendarConfig
+       {
+       BackendUrl = Url.Content("~/Reservations/Backend"),
+       //BackendUrl = Url.Action("Backend", "Calendar"),
+       ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
+       //CssOnly = true,
+       //CssClassPrefix = "calendar_white",
+       EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
+       EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
+       EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
+       EventClickJavaScript = "editEvent(e.id())",
+       TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
+       TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });",
+       //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(Alku, Loppu, { name: prompt('New Event Name:', 'New Event') });"
+       //EventDeleteHandling = EventDeleteHandlingType.CallBack
+   })
+
         <div class="w3-container w3-text-grey" id="kalenteri">
             <p>Kalenteri</p>
 
             <div style="float:left; width:150px;">
                 <div id="nav"></div>
             </div>
+
             <div style="margin-left:150px;">
                 <div id="dp"></div>
             </div>
 
-            @*<div class="space">
-                    <select id="theme">
-                        <option value="calendar_default">Default</option>
-                        <option value="calendar_g">Google-Like</option>
-                        <option value="calendar_green">Green</option>
-                        <option value="calendar_traditional">Traditional</option>
-                        <option value="calendar_transparent">Transparent</option>
-                        <option value="calendar_white">White</option>
-                    </select>
-                </div>*@
-            <br>
-            @*https://code.daypilot.org/81367/daypilot-modal*@
+            <br />
+            <hr />
+            <div>
+                <div style="float:left; width:150px;">
+                    <div id="nav"></div>
+                </div>
+            <div class="space">
+                Viikko:
+                <a href="javascript:dpm.commandCallBack('previous');">Edellinen</a>
+                <a href="javascript:dpm.commandCallBack('next');">Seuraava</a>
+            </div>
+            <div id="dpc"></div>
+        </div>  
+          
+          @*https://code.daypilot.org/81367/daypilot-modal*@
 
-        </div>
+       </div>
         <!-- Product grid -->
         @*<div class="w3-row w3-grayscale">
                 <div class="w3-col l3 s6">
@@ -307,7 +332,7 @@
                 document.getElementById("myOverlay").style.display = "none";
             }
 
-            // Script kalenterinäkymä:
+            // SCRIPT KALENTERINÄKYMÄ:
             var nav = new DayPilot.Navigator("nav");
             //editoitu
             nav.locale = "fi-fi";
@@ -336,8 +361,9 @@
 
             //event creating
             var e = new DayPilot.Event({
-                start: new DayPilot.Date("2016-05-12T12:00:00"),
-                end: new DayPilot.Date("2016-05-12T13:00:00"),
+                date: new DayPilot.Date("2016-05-12T12:00:00"),
+                start: new DayPilot.Start("2016-05-12T12:00:00"),
+                end: new DayPilot.End("2016-05-12T13:00:00"),             
                 id: DayPilot.guid(),
                 text: "EKA"
             });
@@ -345,6 +371,7 @@
             dp.events.add(e);
 
             var e = new DayPilot.Event({
+                date: new DayPilot.Date("2016-05-12T12:00:00"),
                 start: new DayPilot.Date("2016-05-13T12:00:00"),
                 end: new DayPilot.Date("2016-05-13T16:00:00"),
                 id: DayPilot.guid(),

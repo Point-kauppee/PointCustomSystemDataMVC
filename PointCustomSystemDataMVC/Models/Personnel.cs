@@ -11,7 +11,8 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class Personnel
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,10 +31,14 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Personnel_id { get; set; }
+        [Display(Name = "Etunimi")]
         public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
         public string LastName { get; set; }
         public string Identity { get; set; }
+        [Display(Name = "Huomiot")]
         public string Notes { get; set; }
+        [Display(Name = "Sähköposti")]
         public string Email { get; set; }
         public Nullable<int> User_id { get; set; }
         public Nullable<int> Customer_id { get; set; }
@@ -44,7 +49,19 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Treatment_id { get; set; }
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
-    
+
+        //Lisätty Personnels.cs
+
+            public string UserIdentity { get; set; }
+
+        //Lisätty yhdistävät nimikentät
+
+        [Display(Name = "Nimi")]
+        public string FullName
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

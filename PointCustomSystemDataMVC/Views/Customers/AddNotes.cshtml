@@ -1,7 +1,7 @@
 ﻿@model PointCustomSystemDataMVC.Models.Customer
 
 @{
-    ViewBag.Title = "Notes";
+    ViewBag.Title = "AddNotes";
 }
 
 <link rel="stylesheet" href="/lib/w3.css">
@@ -28,7 +28,7 @@
     
 <body class="w3-content" style="max-width:1200px">
 
-<div class="w3-container w3-padding-4">
+@*<div class="w3-container w3-padding-4">
 
     <form id="Asiakasnotes">
 
@@ -45,16 +45,38 @@
             <div class="w3-display-topleft w3-padding">
                 <p>
                     <label class="w3-text-grey"><b>Suoritetut hoidot</b></label>
-                    <input class="w3-left-align w3-input w3-border" style="width:1000px;height:500px" name="first" type="text">
+                        <input class="w3-left-align w3-input w3-border" style="width:1000px;height:500px" name="first" type="text">
                 </p>
+
+        
                 <p>
                     <label class="w3-text-grey"><b>Muut huomiot</b></label>
                     <input class="w3-left-align w3-input w3-border" style="width:1000px;height:500px" name="last" type="text">
                 </p>
+
+               
             </div>
         </div> 
-    </form>
+    </form>*@
+
+
+    <div class="form-group">
+        <div class="col-md-12">
+            <a href="#" class="w3-btn w3-grey" onclick="TallennaAsiakasNotes()">Tallenna</a>
+        </div>
     </div>
+  <table>
+
+        <tr>
+            <td align="right" class="htext" valign="top">Hoidot:</td>
+            <td>
+                <textarea name="hoitokertomus" rows="100" cols="100"></textarea>
+            </td>
+        </tr>
+    </table>
+
+
+    @*</div>*@
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

@@ -30,14 +30,23 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Student_id { get; set; }
-     
-       
-       
-        
-       
+        [Display(Name = "Etunimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
+        public string LastName { get; set; }
+        public string Identity { get; set; }
+        [Display(Name = "Huomiot")]
+        public string Notes { get; set; }
+        [Display(Name = "Sähköposti")]
+        public string Email { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> EnrollmentDateIN { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        public Nullable<System.DateTime> EnrollmentDateOUT { get; set; }
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
         public Nullable<int> User_id { get; set; }
+        [Display(Name = "Osoite")]
         public string Address { get; set; }
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
@@ -46,27 +55,9 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> TreatmentOffice_id { get; set; }
 
-        //Lisätty otsikkomääritykset student.cs
-        [Display(Name = "Etunimi")]
-        public string FirstName { get; set; }
-        [Display(Name = "Sukunimi")]
-        public string LastName { get; set; }
-        [Display(Name = "Sotu")]
-        public string Identity { get; set; }
-        [Display(Name = "Huomiot")]
-        public string Notes { get; set; }
-        [Display(Name = "Sähköposti")]
-        public string Email { get; set; }
+        //Lisätty yhdistävät nimikentät
 
-        //Lisätty päivämäärämääritykset student.cs:
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> EnrollmentDateIN { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        public Nullable<System.DateTime> EnrollmentDateOUT { get; set; }
-
-        [Display(Name = "Hoitaja")]
+        [Display(Name = "Nimi")]
         public string FullName
         {
             get { return FirstName + ", " + LastName; }

@@ -30,10 +30,12 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Reservation_id { get; set; }
-     
-   
-        public Nullable<int> Type { get; set; }
        
+        //public Nullable<System.DateTime> Start { get; set; }
+        //public Nullable<System.DateTime> End { get; set; }
+        //public Nullable<System.DateTime> Date { get; set; }
+        public Nullable<int> Type { get; set; }
+      
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
@@ -49,11 +51,11 @@ namespace PointCustomSystemDataMVC.Models
         public string TreatmentName { get; set; }
 
         [Display(Name = "Alkaen klo")]
-        [DataType(DataType.Date)]
+        [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public Nullable<System.DateTime> Start { get; set; }
 
-        [DataType(DataType.Date)]
+        [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
         public Nullable<System.DateTime> End { get; set; }
@@ -77,6 +79,9 @@ namespace PointCustomSystemDataMVC.Models
         public string FirstName { get; set; }
         [Display(Name = "Sukunimi")]
         public string LastName { get; set; }
+
+        public string DataDateField { get; set; }
+
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
@@ -106,4 +111,5 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
     }
+   
 }

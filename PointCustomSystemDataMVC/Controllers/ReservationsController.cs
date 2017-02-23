@@ -7,6 +7,11 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
+using DayPilot.Web.Mvc;
+using DayPilot.Web.Mvc.Enums;
+using DayPilot.Web.Mvc.Events.Calendar;
+using DayPilot.Web.Mvc.Enums.Calendar;
+using DayPilot.Web.Mvc.Utils;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -160,5 +165,156 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             base.Dispose(disposing);
         }
+
+
+        //DayPilot Month kalenterinäkymä
+        public ActionResult Backend()
+        {
+            return new Dpm().CallBack(this);
+        }
+
+        //class Dpm : DayPilotMonth
+        class Dpm : DayPilotCalendar
+        {
+            public string DataDateField { get; set; }
+
+            //kauppeedbEntities db = new kauppeedbEntities();
+
+            //protected override void OnInit(InitArgs e)
+            //{
+            //    Update(CallBackUpdateType.Full);
+            //}
+            protected override void OnInit(DayPilot.Web.Mvc.Events.Calendar.InitArgs e)
+            {
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+                Events = from ev in db.Reservation select ev;
+
+                DataIdField = "Reservation_id";
+                DataTextField = "TreatmentName";
+                DataDateField = "Date";
+                DataStartField = "Start";
+                DataEndField = "End";
+                
+
+                Update();
+            }
+
+            protected override void OnCommand(DayPilot.Web.Mvc.Events.Calendar.CommandArgs e)
+            {
+                switch (e.Command)
+                {
+                    case "previous":
+                        StartDate = StartDate.AddDays(-7);
+                        Update(CallBackUpdateType.Full);
+                        break;
+                    case "next":
+                        StartDate = StartDate.AddDays(7);
+                        Update(CallBackUpdateType.Full);
+                        break;
+                    case "refresh":
+                        Update();
+                        break;
+                }
+                //base.OnCommand(e);
+            }
+            protected override void OnEventResize(DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs e)
+            //protected override void OnInit(DayPilot.Web.Mvc.Events.Month.InitArgs e)
+            {
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+                var eid = Convert.ToInt32(e.Id);
+                //var toBeResized = (from ev in db.Varaus where ev.Varaus_id == Convert.ToInt32(e.Id) select ev).First();
+                var toBeResized = (from ev in db.Reservation where ev.Reservation_id == eid select ev).First();
+                toBeResized.Start = e.NewStart;
+                toBeResized.End = e.NewEnd;
+                //toBeResized.Alku = Convert.ToString(e.NewStart);
+                //toBeResized.Loppu = Convert.ToString(e.NewEnd);
+                //db.SubmitChanges();
+                db.SaveChanges();
+                Update();
+            }
+
+
+            //    Update();
+            //}
+            protected override void OnEventMove(DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs e)
+            {
+                //var db = new kauppeedbEntities();
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+                var eid = Convert.ToInt32(e.Id);
+                //var toBeResized = (from ev in db.Varaus where ev.Varaus_id == Convert.ToInt32(e.Id) select ev).First();
+                var toBeResized = (from ev in db.Reservation where ev.Reservation_id == eid select ev).First();
+                toBeResized.Start = e.NewStart;
+                toBeResized.End = e.NewEnd;
+                //toBeResized.Alku = Convert.ToString(e.NewStart);
+                //toBeResized.Loppu = Convert.ToString(e.NewEnd);
+                //db.SubmitChanges();
+                db.SaveChanges();
+                Update();
+            }
+
+            //protected override void OnTimeRangeSelected(TimeRangeSelectedArgs e)
+            //{
+            //    string name = (string)e.Data["name"];
+            //    if (String.IsNullOrEmpty(name))
+            //    {
+            //        name = "(default)";
+            //    }
+            //    new EventManager(Controller).EventCreate(e.Start, e.End, name);
+            //    Update();
+            //}
+
+            //protected override void OnEventDelete(EventDeleteArgs e)
+            //{
+            //    kauppeedbEntities db = new kauppeedbEntities();
+            //    var item = (from ev in db.Varaus where ev.Varaus_id == Convert.ToInt32(e.Id) select ev).First();
+            //    db.Varaus.Remove(item);
+            //    db.SaveChanges();
+            //    Update();
+            //}
+
+            protected override void OnTimeRangeSelected(DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedArgs e)
+            {
+
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+                //var edata = (string)e.Data["name"];
+                //var edata = Convert.ToString(e.Data["name"]);
+                //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
+                //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
+                var toBeCreated = new Reservation { Start = e.Start, End = e.End, TreatmentName = (string)e.Data["name"] };
+                //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = Convert.ToString(e.Data["name"]) };
+                //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
+                //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = edata};
+
+                //db.Varaus.InsertOnSubmit(toBeCreated);
+                db.Reservation.Add(toBeCreated);
+                db.SaveChanges();
+                //db.SubmitChanges();
+                Update();
+            }
+
+
+            protected override void OnFinish()
+            {
+                if (UpdateType == CallBackUpdateType.None)
+                {
+                    return;
+                }
+
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();               //Events = new EventManager(Controller).Data.AsEnumerable();
+                Events = from ev in db.Reservation select ev;
+                //Events = from varaus_id in db.Varaus select varaus_id;
+
+                DataIdField = "Reservation_id";
+                DataTextField = "TreatmentName";
+                DataDateField = "Date";
+                DataStartField = "Start";
+                DataEndField = "End";
+
+            }
+        }
     }
 }
+
+   
+

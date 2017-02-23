@@ -49,6 +49,10 @@
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="DayPilot.Web.Mvc, Version=1.5.434.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\DayPilotLiteMVC\Binary\Mvc5\DayPilot.Web.Mvc.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=2.0.7.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.2.0.7\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -220,6 +224,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\DayPilotCalendarConfig.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\IndexCustomerWiew.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
@@ -268,6 +273,7 @@
     <Compile Include="Models\TreatmentPlace.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\WebUtilities.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -275,6 +281,8 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Database\Class changes.txt" />
+    <Content Include="DayPilot.Web.Mvc.dll" />
+    <Content Include="DayPilot.Web.Mvc.xml" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -310,8 +318,10 @@
       <DependentUpon>PointSQLData.edmx</DependentUpon>
       <LastGenOutput>PointSQLData.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Application\Logic.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\DayPilot\daypilot-all.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
@@ -416,7 +426,7 @@
     <Content Include="Views\TreatmentOffices\Details.cshtml" />
     <Content Include="Views\TreatmentOffices\Edit.cshtml" />
     <Content Include="Views\TreatmentOffices\Index.cshtml" />
-    <Content Include="Views\Customers\Notes.cshtml" />
+    <Content Include="Views\Customers\AddNotes.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

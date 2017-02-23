@@ -132,83 +132,46 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Customers/Create
 
         //public ActionResult Create()
-
         //{
-
         //    ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-
         //    ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-
-        //    ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
-
+                //    ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
         //    ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-
-        //    ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-
+                //    ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
         //    ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-
-        //    ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-
+                //    ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
         //    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-
         //    ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-
         //    return View();
-
         //}
 
 
 
         //// POST: Customers/Create
-
         //// To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
         //[HttpPost]
-
         //[ValidateAntiForgeryToken]
-
         //public ActionResult Create([Bind(Include = "Customer_id,FirstName,LastName,Identity,Notes,Email,Address,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Customer customer)
-
         //{
-
         //    if (ModelState.IsValid)
-
         //    {
-
         //        db.Customer.Add(customer);
-
         //        db.SaveChanges();
-
         //        return RedirectToAction("Index");
-
         //    }
 
-
-
         //    ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", customer.Personnel_id);
-
         //    ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", customer.Phone_id);
-
         //    ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", customer.Post_id);
-
         //    ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", customer.Reservation_id);
-
         //    ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", customer.Treatment_id);
-
         //    ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", customer.TreatmentOffice_id);
-
         //    ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", customer.TreatmentPlace_id);
-
         //    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", customer.User_id);
-
         //    ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", customer.Student_id);
-
         //    return View(customer);
-
         //}
-
 
 
         // GET: Customers/Create
@@ -223,7 +186,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(User model)
+        public ActionResult Create(Customer model)
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
@@ -231,47 +194,60 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
 
             User user = new User();
-            user.Identity = model.Identity;
-            user.User_id = model.User_id;
-            
-            db.User.Add(user);
+            user.Customer_id = model.Customer_id;
+
+            //int? latestUserId = user.User_id;
+
+            //db.User.Add(user);
             db.SaveChanges();
 
-            int latestCusId = user.User_id;
+            int latestUseId = user.User_id;
 
-            Customer cus = new Customer();
-            cus.User_id = latestCusId;
+            Customer cus = new Customer();  
             cus.FirstName = model.FirstName;
             cus.LastName = model.LastName;
             cus.Identity = model.Identity;
             cus.Address = model.Address;
             cus.Email = model.Email;
             cus.Notes = model.Notes;
-            
+            cus.User_id = model.User_id;
+            cus.User_id = latestUseId;
+            //cus.Customer_id = model.Customer_id;
+                 
             db.Customer.Add(cus);
             db.SaveChanges();
 
-            int latestPhoId = user.User_id;
-
-            Phone pho = new Phone();
-            pho.User_id = latestPhoId;
-            pho.PhoneNum_1 = model.PhoneNum_1;
+            int latestCusId = cus.Customer_id;
             
+            Phone pho = new Phone();
+            pho.PhoneNum_1 = model.PhoneNum_1;
+            pho.Customer_id = latestCusId;
+            pho.Customer_id = model.Customer_id;
+          
             db.Phone.Add(pho);
             db.SaveChanges();
 
-            int latestPosId = user.User_id;
+            int latestPhoId = cus.Customer_id;
+            int latestPhoneId = pho.Phone_id;
 
-            PostOffices pos = new PostOffices();
-            pos.User_id = latestPosId;
+            PostOffices pos = new PostOffices();       
             pos.PostalCode = model.PostalCode;
-            pos.PostOffice = model.PostOffice;
-            
+            pos.PostOffice = model.PostOffice;    
+            pos.Customer_id = latestCusId;
+            pos.Customer_id = model.Customer_id;
+
             db.PostOffices.Add(pos);
             db.SaveChanges();
 
+            int latestPosId = cus.Customer_id;
+            int latestPostId = pos.Post_id;
+
             return View(model);
         }//create
+
+
+
+
 
         // GET: Customers/Edit/5
 
@@ -375,13 +351,44 @@ namespace PointCustomSystemDataMVC.Controllers
         }//dispose
 
 
-        public ActionResult Notes()
+        public ActionResult AddNotes()
         {
-           
+            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
+            //ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
+            //ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
+            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
+            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
+            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
             return View();
-           
+        }
+
+            //POST customers / notes
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Notes([Bind(Include = "Customer_id,FirstName,LastName,Identity,Notes,Email,Address,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Customer notex)
+        {
+            if (ModelState.IsValid)
+            {
+                db.Customer.Add(notex);
+                db.SaveChanges();
+                return RedirectToAction("Index");
+            }
+
+            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", customer.Personnel_id);
+            //ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", customer.Phone_id);
+            //ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", customer.Post_id);
+            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", customer.Reservation_id);
+            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", customer.Treatment_id);
+            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", customer.TreatmentOffice_id);
+            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", customer.TreatmentPlace_id);
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", customer.User_id);
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", customer.Student_id);
+            return View(notex);
         }
     }//controller
-}//namespace
+    }//namespace
 
 

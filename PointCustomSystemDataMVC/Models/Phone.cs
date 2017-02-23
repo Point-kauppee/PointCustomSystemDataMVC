@@ -11,8 +11,7 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class Phone
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -36,16 +35,13 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> User_id { get; set; }
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Customer_id { get; set; }
-        //public Nullable<int> Post_id { get; set; }
+        public Nullable<int> Post_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Treatment_id { get; set; }
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
-
-        public int Post_id { get; set; }
     
-
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
         public virtual Customer Customer1 { get; set; }

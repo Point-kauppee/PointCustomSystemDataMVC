@@ -31,7 +31,7 @@ namespace PointCustomSystemDataMVC.Models
         public int User_id { get; set; }
         public string UserIdentity { get; set; }
         public string Password { get; set; }
-        public Nullable<int> Personnel_id { get; set; }
+        public int? Personnel_id { get; set; }
         public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
@@ -51,9 +51,6 @@ namespace PointCustomSystemDataMVC.Models
         public string PhoneNum_1 { get; set; }
         public string PostalCode { get; set; }
         public string PostOffice { get; set; }
-        //public int Phone_id { get; set; }
-        //public int Post_id { get; set; }
-        
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Customer> Customer { get; set; }
