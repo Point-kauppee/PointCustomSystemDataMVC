@@ -82,16 +82,154 @@ Ei otsikkoa*@
         };
         modal.height = 250;
         modal.zIndex = 100;
-        modal.showUrl("Edit/" + id);
+        modal.showUrl("/Reservations/Edit/" + id);
         //modal.showUrl("Varaus/Asiakaslomake/" + id);
         //modal.showUrl("http://localhost:17794/Varaus/Edit/37");
         //modal.showUrl("http://localhost:17794/Varaus/Edit/" + id);
          }
 
-</script>
+
+ // SCRIPT KALENTERINÄKYMÄ:
+            var nav = new DayPilot.Navigator("nav");
+            //editoitu
+            nav.locale = "fi-fi";
+
+            nav.showMonths = 1;
+            nav.selectMode = "week";
+            nav.onTimeRangeSelected = function (args) {
+                dp.startDate = args.start;
+
+                dp.update();
 
 
+                //JSON kysely
+                LoadEvents(dp.visibleStart(), dp.visibleEnd());
+            };
+            nav.init();
 
+
+            var dp = new DayPilot.Calendar("dp");
+            //editoitu
+            dp.locale = "fi-fi";
+            dp.allowEventOverlap = false;
+
+            dp.viewType = "Week";
+            dp.init();
+
+            //event creating
+            var e = new DayPilot.Event({
+                date: new DayPilot.Date("2016-05-12T12:00:00"),
+                start: new DayPilot.Start("2016-05-12T12:00:00"),
+                end: new DayPilot.End("2016-05-12T13:00:00"),
+                id: DayPilot.guid(),
+                text: "EKA"
+            });
+
+            dp.events.add(e);
+
+            var e = new DayPilot.Event({
+                date: new DayPilot.Date("2016-05-12T12:00:00"),
+                start: new DayPilot.Date("2016-05-13T12:00:00"),
+                end: new DayPilot.Date("2016-05-13T16:00:00"),
+                id: DayPilot.guid(),
+                text: "TOKA"
+            });
+
+            //// event creating
+            //dp.onTimeRangeSelected = function (args) {
+            //    var name = prompt("New event name:", "Event");
+            //    dp.clearSelection();
+            //    if (!name) return;
+            //    var e = new DayPilot.Event({
+            //        start: args.start,
+            //        end: args.end,
+            //        id: DayPilot.guid(),
+            //        resource: args.resource,
+            //        text: name
+            //    });
+            //    dp.events.add(e);
+            //    alert("Created");
+            //};
+
+            // event creating MODAL
+            dp.onTimeRangeSelected = function (args) {
+                createEvent();
+                dp.update();
+            };
+
+            var modal = new DayPilot.Modal({
+                onClosed: function (args) {
+                    console.log("Modal dialog closed");
+                },
+                // ...
+            });
+
+            //modal.showUrl("Edit.aspx");
+
+            //var modal = new DayPilot.Modal({
+            //    onClosed: function (args) {
+            //        console.log("Modal dialog closed");
+            //    },
+            //    // ...
+            //});
+        //modal.showHtml("<h1>Hello</h1>");
+
+
+            dp.onEventClicked = function (args) {
+                //formatted = $.datepicker.formatDate("M d, yy", new Date("2014-07-08T09:02:21.377"));
+                var startDate = new Date(args.e.start());
+                var endDate = new Date(args.e.end());
+
+                var hour = "" + startDate.getHours(); if (hour.length == 1) { hour = "0" + hour; }
+                var minute = "" + startDate.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+                //var sD = (startDate.getMonth() + 1) + '.' + startDate.getDate() + '.' + startDate.getFullYear() + " " + hour + ":" + minute;
+                var sD = startDate.getDate() + '.' + (startDate.getMonth() + 1) + '.' + startDate.getFullYear() + " " + hour + ":" + minute;
+
+                var hour = "" + endDate.getHours(); if (hour.length == 1) { hour = "0" + hour; }
+                var minute = "" + endDate.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+                //var eD = (endDate.getMonth() + 1) + '.' + endDate.getDate() + '.' + endDate.getFullYear() + " " + hour + ":" + minute;
+                var eD = endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + " " + hour + ":" + minute;
+
+                editEvent(args.e.data.ID);
+
+                //alert("Event clicked: Alku: " + sD + " Loppu: " + eD);
+
+                //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
+            };
+
+            function LoadEvents(Start, End) {
+
+                url = "/Reservations/Backend/?start=" + start + "&end=" + end;
+                //Home/GetVaraukset/?alku="2016-05-20T09:02"&loppu="2016-05-29T09:02";
+
+
+                //alert("AJAX url: " + url);
+
+                $.ajax({ url: url, cache: false }).done(function (data) {
+                    i = 0;
+
+                    //alert("JSON objects: " + data);
+
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].Date = ConvertDate(data[i].Date);
+                        data[i].Start = data[i].Start;
+                        data[i].End = data[i].End;
+                        data[i].start = data[i].Date.substr(0, 11) + data[i].Start + ":00";
+                        data[i].end = data[i].Date.substr(0, 11) + data[i].End + ":00";
+
+                        //alert("Varaus alku: " + data[i].start + " Varaus loppu: " + data[i].end);
+
+                        var Date = new Date(data[i].Date);
+                        //alert("varauksen pvm: " + data[i].Date + " startTime:" + data[i].Start + " End:" + data[i].End + " sisältö: " + data[i].text)
+
+                    }
+
+                    //alert("luodaan varaus kalenteriin: " + i);
+                    CreateEvents(data);
+                });
+            }
+
+    </script>
 
 <div id="dpc"></div>
 <div class="space">
