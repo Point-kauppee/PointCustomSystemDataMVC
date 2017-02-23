@@ -65,7 +65,7 @@ Ei otsikkoa*@
             }
             db.clearSelection();
         };
-        m.showUrl('@Url.Action("Create", "Events")?start=' + start + '&end=' + end);
+        m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
     }
 
     function editEvent(id) {
@@ -93,14 +93,12 @@ Ei otsikkoa*@
             var nav = new DayPilot.Navigator("nav");
             //editoitu
             nav.locale = "fi-fi";
-
             nav.showMonths = 1;
             nav.selectMode = "week";
             nav.onTimeRangeSelected = function (args) {
                 dp.startDate = args.start;
 
                 dp.update();
-
 
                 //JSON kysely
                 LoadEvents(dp.visibleStart(), dp.visibleEnd());
@@ -112,7 +110,6 @@ Ei otsikkoa*@
             //editoitu
             dp.locale = "fi-fi";
             dp.allowEventOverlap = false;
-
             dp.viewType = "Week";
             dp.init();
 
@@ -153,7 +150,7 @@ Ei otsikkoa*@
 
             // event creating MODAL
             dp.onTimeRangeSelected = function (args) {
-                createEvent();
+                create();
                 dp.update();
             };
 
@@ -197,11 +194,11 @@ Ei otsikkoa*@
                 //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
             };
 
+    //Lisätty 22.2.2017
             function LoadEvents(Start, End) {
 
                 url = "/Reservations/Backend/?start=" + start + "&end=" + end;
                 //Home/GetVaraukset/?alku="2016-05-20T09:02"&loppu="2016-05-29T09:02";
-
 
                 //alert("AJAX url: " + url);
 
@@ -225,7 +222,7 @@ Ei otsikkoa*@
                     }
 
                     //alert("luodaan varaus kalenteriin: " + i);
-                    CreateEvents(data);
+                    Create(data);
                 });
             }
 
@@ -316,7 +313,7 @@ Ei otsikkoa*@
                 @Html.DisplayFor(modelItem => item.End)
             </td>      
             <td>
-                @Html.DisplayFor(modelItem => item.Customer1.FullName)
+                @Html.DisplayFor(modelItem => item.Customer1.FirstName)
             </td>
             @*<td>
                 @Html.DisplayFor(modelItem => item.Studentx.FirstName + item.LastName)

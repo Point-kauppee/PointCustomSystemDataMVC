@@ -35,6 +35,14 @@
         body, h1, h2, h3, h4, h5, h6, .w3-wide {
             font-family: "Montserrat", sans-serif;
         }
+
+        .modal_default_main {
+            border: 5px solid #ccc !important;
+        }
+        
+        .modal_default_inner{
+
+        padding: 10px;}
     </style>
 
 
@@ -396,7 +404,7 @@
 
             // event creating MODAL
             dp.onTimeRangeSelected = function (args) {
-                createEvent();
+                create();
                 dp.update();
             };
 
