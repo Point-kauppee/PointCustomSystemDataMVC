@@ -64,7 +64,7 @@ namespace PointCustomSystemDataMVC.Models
         [Display(Name = "Asiakas")]
         public string FullNameA
         {
-            get { return FirstName + ", " + LastName; }
+            get { return FirstName + " " + LastName; }
         }
       
      

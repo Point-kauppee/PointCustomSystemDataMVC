@@ -30,7 +30,7 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Treatmentplace_id { get; set; }
-        [Display(Name = "Hoitopaikan nimi")]
+        [Display(Name = "Hoitopaikka")]
         public string TreatmentPlaceName { get; set; }
         [Display(Name = "Hoitopaikan nro")]
         public string TreatmentPlaceNumber { get; set; }

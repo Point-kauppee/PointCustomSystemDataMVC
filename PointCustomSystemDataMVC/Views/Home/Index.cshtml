@@ -118,7 +118,7 @@
                 <h1 class="w3-jumbo w3-hide-small">Ajanvarausjärjestelmä</h1>
                 <h1 class="w3-hide-large w3-hide-medium">Etusivu</h1>
                 <h1 class="w3-hide-small">Asiakashallinta</h1>
-                <p><a href="#kalenteri" class="w3-btn w3-padding-large w3-large">Kalenteri</a></p>
+                <p><a href="#dpc" class="w3-btn w3-padding-large w3-large">Kalenteri</a></p>
             </div>
         </div>
 
@@ -166,10 +166,7 @@
 
             <br />
             <hr />
-            <div>
-                <div style="float:left; width:150px;">
-                    <div id="nav"></div>
-                </div>
+           
             <div class="space">
                 Viikko:
                 <a href="javascript:dpm.commandCallBack('previous');">Edellinen</a>
@@ -369,9 +366,12 @@
 
             //event creating
             var e = new DayPilot.Event({
-                date: new DayPilot.Date("2016-05-12T12:00:00"),
-                start: new DayPilot.Start("2016-05-12T12:00:00"),
-                end: new DayPilot.End("2016-05-12T13:00:00"),             
+                //date: new DayPilot.Date("2016-05-12T12:00:00"),
+                //start: new DayPilot.Start("2016-05-12T12:00:00"),
+                //end: new DayPilot.End("2016-05-12T13:00:00"),
+                date: new DayPilot.Date("2016-05-12"),
+                start: new DayPilot.Start("hh\:mm"),
+                end: new DayPilot.End("hh\:mm"),
                 id: DayPilot.guid(),
                 text: "EKA"
             });
@@ -379,9 +379,12 @@
             dp.events.add(e);
 
             var e = new DayPilot.Event({
-                date: new DayPilot.Date("2016-05-12T12:00:00"),
-                start: new DayPilot.Date("2016-05-13T12:00:00"),
-                end: new DayPilot.Date("2016-05-13T16:00:00"),
+                //date: new DayPilot.Date("2016-05-12T12:00:00"),
+                //start: new DayPilot.Date("2016-05-13T12:00:00"),
+                //end: new DayPilot.Date("2016-05-13T16:00:00"),
+                date: new DayPilot.Date("2016-05-12"),
+                start: new DayPilot.Start("hh\:mm"),
+                end: new DayPilot.End("hh\:mm"),
                 id: DayPilot.guid(),
                 text: "TOKA"
             });

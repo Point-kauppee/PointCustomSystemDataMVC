@@ -70,7 +70,7 @@ namespace PointCustomSystemDataMVC.Models
 
         //Lisätty yhdistävät nimikentät
 
-        [Display(Name = "Hoitajan")]
+        [Display(Name = "Hoitaja")]
         public string FullNameH
         {
             get { return FirstName + ", " + LastName; }

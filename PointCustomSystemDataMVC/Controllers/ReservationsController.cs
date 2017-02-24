@@ -12,6 +12,7 @@ using DayPilot.Web.Mvc.Enums;
 using DayPilot.Web.Mvc.Events.Calendar;
 using DayPilot.Web.Mvc.Enums.Calendar;
 using DayPilot.Web.Mvc.Utils;
+using System.Globalization;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -178,8 +179,7 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             public string DataDateField { get; set; }
 
-            //kauppeedbEntities db = new kauppeedbEntities();
-
+            CultureInfo fiFi = new CultureInfo("fi-FI");
             //protected override void OnInit(InitArgs e)
             //{
             //    Update(CallBackUpdateType.Full);
@@ -300,7 +300,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     return;
                 }
-
+                CultureInfo fiFi = new CultureInfo("fi-FI");
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();               //Events = new EventManager(Controller).Data.AsEnumerable();
                 Events = from ev in db.Reservation select ev;
                 //Events = from varaus_id in db.Varaus select varaus_id;

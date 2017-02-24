@@ -228,13 +228,22 @@ Ei otsikkoa*@
 
     </script>
 
-<div id="dpc"></div>
-<div class="space">
-    Viikko:
-    <a href="javascript:dpm.commandCallBack('previous');">Edellinen</a>
-    <a href="javascript:dpm.commandCallBack('next');">Seuraava</a>
-</div>
+<style>
+    .dpc{
+        height:600px;
+    }
 
+
+</style>
+<div>
+    <div id="dpc"></div>
+
+    <div class="space">
+        Viikko:
+        <a href="javascript:dpm.commandCallBack('previous');">Edellinen</a>
+        <a href="javascript:dpm.commandCallBack('next');">Seuraava</a>
+    </div>
+</div>
 <hr />
 
 <h2>Palveluvaraus</h2>
@@ -262,11 +271,11 @@ Ei otsikkoa*@
             @Html.DisplayNameFor(model => model.End)
         </th>     
         <th>
-            @Html.DisplayNameFor(model => model.Customer1.FirstName)
+            @Html.DisplayNameFor(model => model.Customer1.FullNameA)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Studentx.FullName)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
         </th>
@@ -313,11 +322,11 @@ Ei otsikkoa*@
                 @Html.DisplayFor(modelItem => item.End)
             </td>      
             <td>
-                @Html.DisplayFor(modelItem => item.Customer1.FirstName)
+                @Html.DisplayFor(modelItem => item.Customer1.FullNameA)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Studentx.FirstName + item.LastName)
-            </td>*@
+            <td>
+                @Html.DisplayFor(modelItem => item.Studentx.FullName)
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TreatmentPlace.TreatmentPlaceName)
             </td>

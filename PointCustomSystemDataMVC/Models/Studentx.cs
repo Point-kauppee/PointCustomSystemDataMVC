@@ -57,10 +57,10 @@ namespace PointCustomSystemDataMVC.Models
 
         //Lisätty yhdistävät nimikentät
 
-        [Display(Name = "Nimi")]
+        [Display(Name = "Hoitaja")]
         public string FullName
         {
-            get { return FirstName + ", " + LastName; }
+            get { return FirstName + " " + LastName; }
         }
 
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
