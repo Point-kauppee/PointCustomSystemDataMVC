@@ -8,6 +8,8 @@ using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using System.Collections;
+using System.Globalization;
+using PointCustomSystemDataMVC.ViewModels;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -17,70 +19,45 @@ namespace PointCustomSystemDataMVC.Controllers
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
         public ActionResult Index()
         {
-            var customer = db.Customer.Include(c => c.Personnel).Include(c => c.Phone).Include(c => c.PostOffices).Include(c => c.Treatment).Include(c => c.TreatmentOffice).Include(c => c.TreatmentPlace).Include(c => c.User).Include(c => c.Studentx);
-            return View(customer.ToList());
+            List<CustomerViewModel> model = new List<CustomerViewModel>();
 
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<Customer> customers = entities.Customer.ToList();
 
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+                foreach (Customer customer in customers)
+                {
+                    CustomerViewModel view = new CustomerViewModel();
+                    view.Customer_id = customer.Customer_id;
+                    view.FirstName = customer.FirstName;
+                    view.LastName = customer.LastName;
+                    view.Identity = customer.Identity;
+                    view.Email = customer.Email;
+                    view.Address = customer.Address;
+                    view.Notes = customer.Notes;
+
+                    //view.PhoneNum_1 = customer.Phone.PhoneNum_1;
+                    //view.PostOffice = customer.PostOffices.PostalCode;
+                    //view.PostOffice = customer.PostOffices.PostOffice;
+
+                    //view.User_id = customer.User_id;
+                    //view.UserIdentity = customer.User.UserIdentity;
+
+                    model.Add(view);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+
+            return View(model);
         }
 
-        //public ActionResult IndexCustomerWiew()
-        //{
-        //    JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
-
-        //    List<Customer> customer = db.Customer.ToList();
-
-        //    List<IndexCustomerWiew> icw = customer.Select(x => new IndexCustomerWiew
-        //    {
-        //        Customer_id = x.Customer_id,
-        //        FirstName = x.FirstName,
-        //        LastName = x.LastName,
-        //        Address = x.Address,
-        //        Notes = x.Notes,
-        //        Email = x.Email,
-        //        Identity = x.Identity,
-        //        Phone_id = x.Phone_id,
-        //        PhoneNum_1 = x.Phone.PhoneNum_1,
-        //        Post_id = x.Post_id,
-        //        PostalCode = x.PostalCode,
-        //        PostOffice = x.PostOffice,
-        //        User_id = x.User_id,
-        //        UserIdentity = x.UserIdentity
-        //    }).ToList();
-
-
-        //    return View(icw);
-        //}
-
-        //GET: Customers
-        //public ActionResult IndexCustomerWiew(int? id)
-        //{
-        //    JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-
-        //    List<User> user = (from u in entities.User
-        //                               where u.User_id
-        //                               select u).ToList();
-        //    entities.Dispose();
-
-        //    List<IndexCustomerWiew> result = new List<IndexCustomerWiew>();
-        //    foreach (User use in user)
-        //    {
-        //        IndexCustomerWiew data = new IndexCustomerWiew();
-        //        data.Customer_id = use.Customer_id;          
-        //        data.FirstName = use.FirstName;
-        //        data.LastName = use.LastName;
-        //        data.Notes = use.Notes;
-        //        data.Address = use.Address;
-        //        data.Phone_id = use.Phone_id;
-        //        data.PhoneNum_1 = use.PhoneNum_1;
-        //        data.Post_id = use.Post_id;
-        //        data.PostalCode = use.PostalCode;
-        //        data.PostOffice = use.PostOffice;
-        //        result.Add(data);
-        //    }
-
-        //    return Json(result, JsonRequestBehavior.AllowGet);
-
-        //}
 
         //31.1.2017 Lisätty tietokantataulujen suodatukset:
         //public ActionResult Index(string sortOrder)
@@ -175,75 +152,75 @@ namespace PointCustomSystemDataMVC.Controllers
 
 
         // GET: Customers/Create
-        public ActionResult Create()
-        {
-            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+        //public ActionResult Create()
+        //{
+        //    JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-            List<User> list = db.User.ToList();
-            ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
-            return View();
-        }//create
+        //    List<User> list = db.User.ToList();
+        //    ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
+        //    return View();
+        //}//create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Customer model)
-        {
-            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+        //public ActionResult Create(Customer model)
+        //{
+        //    JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-            List<User> list = db.User.ToList();
-            ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
+            //List<User> list = db.User.ToList();
+            //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
 
-            User user = new User();
-            user.Customer_id = model.Customer_id;
+            //User user = new User();
+            //user.Customer_id = model.Customer_id;
 
-            //int? latestUserId = user.User_id;
+            ////int? latestUserId = user.User_id;
 
-            //db.User.Add(user);
-            db.SaveChanges();
+            ////db.User.Add(user);
+            //db.SaveChanges();
 
-            int latestUseId = user.User_id;
+            //int latestUseId = user.User_id;
 
-            Customer cus = new Customer();  
-            cus.FirstName = model.FirstName;
-            cus.LastName = model.LastName;
-            cus.Identity = model.Identity;
-            cus.Address = model.Address;
-            cus.Email = model.Email;
-            cus.Notes = model.Notes;
-            cus.User_id = model.User_id;
-            cus.User_id = latestUseId;
-            //cus.Customer_id = model.Customer_id;
+            //Customer cus = new Customer();  
+            //cus.FirstName = model.FirstName;
+            //cus.LastName = model.LastName;
+            //cus.Identity = model.Identity;
+            //cus.Address = model.Address;
+            //cus.Email = model.Email;
+            //cus.Notes = model.Notes;
+            //cus.User_id = model.User_id;
+            //cus.User_id = latestUseId;
+            ////cus.Customer_id = model.Customer_id;
                  
-            db.Customer.Add(cus);
-            db.SaveChanges();
+            //db.Customer.Add(cus);
+            //db.SaveChanges();
 
-            int latestCusId = cus.Customer_id;
+            //int latestCusId = cus.Customer_id;
             
-            Phone pho = new Phone();
-            pho.PhoneNum_1 = model.PhoneNum_1;
-            pho.Customer_id = latestCusId;
-            pho.Customer_id = model.Customer_id;
+            //Phone pho = new Phone();
+            //pho.PhoneNum_1 = model.PhoneNum_1;
+            //pho.Customer_id = latestCusId;
+            //pho.Customer_id = model.Customer_id;
           
-            db.Phone.Add(pho);
-            db.SaveChanges();
+            //db.Phone.Add(pho);
+            //db.SaveChanges();
 
-            int latestPhoId = cus.Customer_id;
-            int latestPhoneId = pho.Phone_id;
+            //int latestPhoId = cus.Customer_id;
+            //int latestPhoneId = pho.Phone_id;
 
-            PostOffices pos = new PostOffices();       
-            pos.PostalCode = model.PostalCode;
-            pos.PostOffice = model.PostOffice;    
-            pos.Customer_id = latestCusId;
-            pos.Customer_id = model.Customer_id;
+            //PostOffices pos = new PostOffices();       
+            //pos.PostalCode = model.PostalCode;
+            //pos.PostOffice = model.PostOffice;    
+            //pos.Customer_id = latestCusId;
+            //pos.Customer_id = model.Customer_id;
 
-            db.PostOffices.Add(pos);
-            db.SaveChanges();
+            //db.PostOffices.Add(pos);
+            //db.SaveChanges();
 
-            int latestPosId = cus.Customer_id;
-            int latestPostId = pos.Post_id;
+            //int latestPosId = cus.Customer_id;
+            //int latestPostId = pos.Post_id;
 
-            return View(model);
-        }//create
+            //return View(model);
+       /* }//cr*/
 
 
 
@@ -388,6 +365,9 @@ namespace PointCustomSystemDataMVC.Controllers
             //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", customer.Student_id);
             return View(notex);
         }
+
+      
+      
     }//controller
     }//namespace
 

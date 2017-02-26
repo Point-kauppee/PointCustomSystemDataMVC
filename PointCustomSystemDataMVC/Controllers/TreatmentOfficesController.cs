@@ -115,36 +115,36 @@ namespace PointCustomSystemDataMVC.Controllers
 
         public ActionResult Create(TreatmentOffice model)
         {
-            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+            //JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-            List<TreatmentOffice> treatmentofficelist = db.TreatmentOffice.ToList();
-            ViewBag.TreatmentOfficeSeed = new SelectList(treatmentofficelist,"TreatmentOffice_id", "TreatmentOfficeName");
+            //List<TreatmentOffice> treatmentofficelist = db.TreatmentOffice.ToList();
+            //ViewBag.TreatmentOfficeSeed = new SelectList(treatmentofficelist,"TreatmentOffice_id", "TreatmentOfficeName");
 
-            TreatmentOffice treatmentoffice = new TreatmentOffice();
-            treatmentoffice.TreatmentOfficeName = model.TreatmentOfficeName;
-            treatmentoffice.Address = model.Address;
+            //TreatmentOffice treatmentoffice = new TreatmentOffice();
+            //treatmentoffice.TreatmentOfficeName = model.TreatmentOfficeName;
+            //treatmentoffice.Address = model.Address;
 
-            db.TreatmentOffice.Add(treatmentoffice);
-            db.SaveChanges();
+            //db.TreatmentOffice.Add(treatmentoffice);
+            //db.SaveChanges();
 
-            int latestTreatOffId = treatmentoffice.TreatmentOffice_id;
+            //int latestTreatOffId = treatmentoffice.TreatmentOffice_id;
 
-            Phone pho = new Phone();
-            pho.TreatmentOffice_id = latestTreatOffId;
-            pho.PhoneNum_1 = model.PhoneNum_1;
+            //Phone pho = new Phone();
+            //pho.TreatmentOffice_id = latestTreatOffId;
+            //pho.PhoneNum_1 = model.PhoneNum_1;
 
-            db.Phone.Add(pho);
-            db.SaveChanges();
+            //db.Phone.Add(pho);
+            //db.SaveChanges();
 
-            int latestPostId = treatmentoffice.TreatmentOffice_id;
+            //int latestPostId = treatmentoffice.TreatmentOffice_id;
 
-            PostOffices pos = new PostOffices();
-            pos.TreatmentOffice_id = latestPostId;
-            pos.PostalCode = model.PostalCode;
-            pos.PostOffice = model.PostOffice;
+            //PostOffices pos = new PostOffices();
+            //pos.TreatmentOffice_id = latestPostId;
+            //pos.PostalCode = model.PostalCode;
+            //pos.PostOffice = model.PostOffice;
             
-            db.PostOffices.Add(pos);
-            db.SaveChanges();
+            //db.PostOffices.Add(pos);
+            //db.SaveChanges();
 
             return View(model);
         }//create

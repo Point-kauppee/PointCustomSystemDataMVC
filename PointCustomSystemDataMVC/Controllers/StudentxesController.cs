@@ -7,6 +7,8 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
+using System.Globalization;
+using PointCustomSystemDataMVC.ViewModels;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -17,9 +19,47 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes
         public ActionResult Index()
         {
-            var studentx = db.Studentx.Include(s => s.Phone1).Include(s => s.PostOffices1).Include(s => s.User).Include(s => s.Customer1).Include(s => s.Customer2).Include(s => s.Personnel1).Include(s => s.Reservation1).Include(s => s.TreatmentOffice1).Include(s => s.Treatment1).Include(s => s.TreatmentPlace1);
-            return View(studentx.ToList());
+            List<StudentViewModel> model = new List<StudentViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<Studentx> students = entities.Studentx.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+                foreach (Studentx student in students)
+                {
+                    StudentViewModel stu = new StudentViewModel();
+                    stu.Customer_id = student.Customer_id;
+                    stu.FirstName = student.FirstName;
+                    stu.LastName = student.LastName;
+                    stu.Identity = student.Identity;
+                    stu.Email = student.Email;
+                    stu.EnrollmentDateIN = student.EnrollmentDateIN.Value;
+                    stu.EnrollmentDateOUT = student.EnrollmentDateOUT.Value;
+                    stu.Notes = student.Notes;
+                    //stu.PhoneNum_1 = student.Phone1.PhoneNum_1;
+                    //stu.PostOffice = student.PostOffices1.PostalCode;
+                    //stu.PostOffice = student.PostOffices1.PostOffice;
+
+                    //stu.UserIdentity = student.User.UserIdentity;
+
+                    model.Add(stu);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+            return View(model);
         }
+
+            //return View(model);
+            //var studentx = db.Studentx.Include(s => s.Phone1).Include(s => s.PostOffices1).Include(s => s.User).Include(s => s.Customer1).Include(s => s.Customer2).Include(s => s.Personnel1).Include(s => s.Reservation1).Include(s => s.TreatmentOffice1).Include(s => s.Treatment1).Include(s => s.TreatmentPlace1);
+            //return View(studentx.ToList());
+     
 
         // GET: Studentxes/Details/5
         public ActionResult Details(int? id)

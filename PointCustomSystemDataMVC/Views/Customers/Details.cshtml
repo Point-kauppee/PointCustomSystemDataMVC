@@ -1,4 +1,4 @@
-﻿@model PointCustomSystemDataMVC.Models.Customer
+﻿@model PointCustomSystemDataMVC.ViewModels.CustomerViewModel
 @{
     ViewBag.Title = "Details";
 }
@@ -12,7 +12,6 @@
 </p>
 
 <div>
-
     <h4>Asiakas</h4>
 
     <hr />
@@ -76,27 +75,27 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Phone.PhoneNum_1)
+            @Html.DisplayNameFor(model => model.PhoneNum_1)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Phone.PhoneNum_1)
+            @Html.DisplayFor(model => model.PhoneNum_1)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PostOffices.PostalCode)
+            @Html.DisplayNameFor(model => model.PostalCode)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PostOffices.PostalCode)
+            @Html.DisplayFor(model => model.PostalCode)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.PostOffices.PostOffice)
+            @Html.DisplayNameFor(model => model.PostOffice)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PostOffices.PostOffice)
+            @Html.DisplayFor(model => model.PostOffice)
         </dd>
 
         @*<dt>

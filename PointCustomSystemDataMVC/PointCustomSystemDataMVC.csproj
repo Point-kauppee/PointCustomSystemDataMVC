@@ -206,7 +206,6 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\IndexCustomerWiewController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PersonnelsController.cs" />
     <Compile Include="Controllers\PhonesController.cs" />
@@ -217,6 +216,7 @@
     <Compile Include="Controllers\TreatmentPlacesController.cs" />
     <Compile Include="Controllers\TreatmentsController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="DayPilotCalendarConfig.cs" />
     <Compile Include="Models\Customer.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
@@ -224,9 +224,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
-    <Compile Include="Models\DayPilotCalendarConfig.cs" />
+    <Compile Include="ViewModels\DayPilotCalendarConfig.cs" />
+    <Compile Include="ViewModels\EventManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
-    <Compile Include="Models\IndexCustomerWiew.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Personnel.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
@@ -274,6 +274,10 @@
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\WebUtilities.cs" />
+    <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\PersonnelViewModel.cs" />
+    <Compile Include="ViewModels\ReservationViewModel.cs" />
+    <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap-theme.css" />
@@ -419,14 +423,13 @@
     <Content Include="Views\PostOffices\Details.cshtml" />
     <Content Include="Views\PostOffices\Edit.cshtml" />
     <Content Include="Views\PostOffices\Index.cshtml" />
-    <Content Include="Views\Customers\IndexCustomerWiew.cshtml" />
-    <Content Include="Views\IndexCustomerWiew\Index.cshtml" />
     <Content Include="Views\TreatmentOffices\Create.cshtml" />
     <Content Include="Views\TreatmentOffices\Delete.cshtml" />
     <Content Include="Views\TreatmentOffices\Details.cshtml" />
     <Content Include="Views\TreatmentOffices\Edit.cshtml" />
     <Content Include="Views\TreatmentOffices\Index.cshtml" />
     <Content Include="Views\Customers\AddNotes.cshtml" />
+    <Content Include="Views\Reservations\BackMonthEnd.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

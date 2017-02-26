@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PointCustomSystemDataMVC.Models.Personnel>
+﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.PersonnelViewModel>
 
 @{
     ViewBag.Title = "Index";
@@ -12,9 +12,9 @@
 
 <table class="table">
     <tr>
-        <th>
+        @*<th>
             @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -24,9 +24,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>    
-        <th>
-            @Html.DisplayNameFor(model => model.Phone.PhoneNum_1)
-        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.PhoneNum_1)
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.Notes)
         </th>
@@ -64,9 +64,9 @@
     @foreach (var item in Model)
     {
         <tr>
-            <td>
+            @*<td>
                 @Html.DisplayFor(modelItem => item.User.UserIdentity)
-            </td>
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
             </td>
@@ -76,9 +76,9 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>       
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone.PhoneNum_1)
-            </td>
+            @*<td>
+                @Html.DisplayFor(modelItem => item.PhoneNum_1)
+            </td>*@
             <td>
                 @Html.DisplayFor(modelItem => item.Notes)
             </td>

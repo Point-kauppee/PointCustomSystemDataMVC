@@ -8,11 +8,86 @@ using DayPilot.Web.Mvc.Enums;
 using DayPilot.Web.Mvc.Enums.Calendar;
 using DayPilot.Web.Mvc.Events.Calendar;
 using DayPilot.Web.Mvc.Utils;
+using System.ComponentModel.DataAnnotations;
 
-namespace PointCustomSystemDataMVC.Models
+namespace PointCustomSystemDataMVC.ViewModels
 {
     public class DayPilotCalendarConfig
     {
+        public int Customer_id { get; set; }
+        [Display(Name = "Etunimi")]
+        public string FirstName { get; set; }
+        [Display(Name = "Sukunimi")]
+        public string LastName { get; set; }
+        public string Identity { get; set; }
+        [Display(Name = "Huomiot")]
+        public string Notes { get; set; }
+        [Display(Name = "Sähköposti")]
+        public string Email { get; set; }
+        [Display(Name = "Osoite")]
+        public string Address { get; set; }
+
+        public string Note { get; set; }
+
+        public int Student_id { get; set; }
+
+        public int Treatment_id { get; set; }
+        [Display(Name = "PostiNro")]
+        public string PostalCode { get; set; }
+        [Display(Name = "Postiosoite")]
+        public string PostOffice { get; set; }
+        public string PostOffices { get; set; }
+
+
+        public int? Phone_id { get; set; }
+        public string Phone { get; set; }
+        public string PhoneNum_1 { get; set; }
+
+        public Nullable<int> User_id { get; set; }
+        public string User { get; set; }
+        public string UserIdentity { get; set; }
+
+        [Display(Name = "Asiakas")]
+        public string FullNameA
+        {
+            get { return FirstName + " " + LastName; }
+        }
+        [Display(Name = "Hoitaja")]
+        public string FullNameH
+        {
+            get { return FirstName + ", " + LastName; }
+        }
+
+        public int Reservation_id { get; set; }
+
+        public string TreatmentName { get; set; }
+        [Display(Name = "Palvelu")]
+        public string TreatmentPlaceName { get; set; }
+
+        public string TreatmentOfficeName { get; set; }
+
+        public int TreatmentPlace_id { get; set; }
+
+        [Display(Name = "Alkaen klo")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+
+        public Nullable<System.DateTime> Start { get; set; }
+
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Loppuu klo")]
+        public Nullable<System.DateTime> End { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Pvm")]
+        public Nullable<System.DateTime> Date { get; set; }
+
+        public string DataDateField { get; set; }
+
+        public string EventManager { get; set; }
+
         public string BackendUrl { get; set; }
         public string BorderColor { get; set; }
         public int BusinessBeginsHour { get; set; }
@@ -119,12 +194,12 @@ namespace PointCustomSystemDataMVC.Models
 
             BorderColor = "#CED2CE";
             BusinessBeginsHour = 9;
-            BusinessEndsHour = 18;
+            BusinessEndsHour = 19;
 
             CellBackColor = "white";
 
             CellBorderColor = "#DEDFDE";
-            CellHeight = 20;
+            CellHeight = 100;
             ColumnMarginRight = 5;
             CornerBackColor = "#F3F3F9";
 
@@ -219,4 +294,4 @@ namespace PointCustomSystemDataMVC.Models
 
 
 
- 
+

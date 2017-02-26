@@ -1,13 +1,12 @@
 ﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.ReservationViewModel>
 
+@*@{
+    ViewBag.Title = "BackMonthEnd";
+}*@
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "ASP.NET MVC 5 Event Calendar";
 }
 
-@*@{
-    ViewBag.Title = "ASP.NET MVC 5 Event Calendar";
-}*@
-<title>PointCollege Ajanvarausohjelmisto</title>
 
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -24,7 +23,6 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
-
 
 @*<link href="@Url.Content("~/Themes/calendar_white.css")" rel="stylesheet" type="text/css" />*@
 @using DayPilot.Web.Mvc;
@@ -83,11 +81,11 @@
             nav.init();
 
     //muokattu 24.2.2017
-            var dp = new DayPilot.Calendar("dpc");
+            var dp = new DayPilot.Calendar("dpm");
             //editoitu
             dp.locale = "fi-fi";
             dp.allowEventOverlap = false;
-            dp.viewType = "Week";
+            dp.viewType = "Month";
             dp.init();
 
             //event creating
@@ -95,7 +93,7 @@
                 date: new DayPilot.Date("2016-05-12"),
                 start: new DayPilot.Start("hh\:mm"),
                 end: new DayPilot.End("hh\:mm"),
-                
+
                 id: DayPilot.guid(),
                 text: "EKA"
             });
@@ -203,164 +201,147 @@
                     Create(data);
                 });
             }
-    </script>
+</script>
 
-<style>
-    /*#dpc{
-        height:600px !important;
-    }*/
-
-</style>
 
 <h2>VARAUSKALENTERI</h2>
-<p>Viikko</p>
-<div id="dpc">
+<p>Kuukausi</p>
 
-    @Html.DayPilotCalendar("Dpc", new DayPilotCalendarConfig
-{
-    BackendUrl = Url.Content("~/Reservations/Backend"),
-    //BackendUrl = Url.Action("Backend", "Calendar"),
-    ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
-    //CssOnly = true,
-    //CssClassPrefix = "calendar_white",
-    EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
-    EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
-    EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
-    EventClickJavaScript = "editEvent(e.id())",
-    //TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
-    //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });",
-    TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
-    TimeRangeSelectedJavaScript = "create(start,end)"
+<div id="dpm">
 
-    //TimeRangeSelectedJavaScript = "create(e.start(), e.end())"
-    //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(Alku, Loppu, { name: prompt('New Event Name:', 'New Event') });"
-    //EventDeleteHandling = EventDeleteHandlingType.CallBack
-})
+    @*@Html.DayPilotMonth("dp_month", new DayPilotMonthConfig*@
+ @Html.DayPilotMonth("dpm", new DayPilotMonthConfig
+ {
+     BackendUrl = Url.Content("~/Reservations/BackMonthEnd"),
+     EventResizeHandling = DayPilot.Web.Mvc.Events.Month.EventResizeHandlingType.CallBack,
+     EventMoveHandling = DayPilot.Web.Mvc.Events.Month.EventMoveHandlingType.CallBack,
+     //CssOnly = true,
+     //CssClassPrefix = "month_white",
+     EventHeight = 25,
+     EventClickHandling = DayPilot.Web.Mvc.Events.Month.EventClickHandlingType.JavaScript,
+     EventClickJavaScript = "edit(e.id())",
+     TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedHandlingType.JavaScript,
+     TimeRangeSelectedJavaScript = "create(start, end)"
+ })
+
 
     <div class="space">
         Viikko:
-        <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
-        <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
+        <a href="javascript:dpm.commandCallBack('previous');">Edellinen</a>
+        <a href="javascript:dpm.commandCallBack('next');">Seuraava</a>
     </div>
 </div>
-<p>
-    @Html.ActionLink("Kuukausikalenteri", "BackMonthEnd")
-</p>
 <hr />
 
-<h2>Palveluvaraus</h2>
+    <h2>Kuukausikalenteri</h2>
 
-<p style="padding-left:8px;font-size:12px">
-    @Html.ActionLink("Luo uusi varaus", "Create")
-</p>
-
-
-<table class="table">
-
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserIdentity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FullNameA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TreatmentName)
-        <th>
-            @Html.DisplayNameFor(model => model.Date)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Start)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.End)
-        </th>     
-     
-        <th>
-            @Html.DisplayNameFor(model => model.FullNameH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.TreatmentPlaceName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-    
-        @*<th>
-                @Html.DisplayNameFor(model => model.Type)
-            </th>*@    
-        @*<th>
-                @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-            </th>*@
-        @*<th>
-                @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
-            </th>*@
-        @*<th>
-                @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
-            </th>*@
-        @*<th>
-            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-        </th>*@
-           
-        <th></th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
+    <p>
+        @Html.ActionLink("Create New", "Create")
+    </p>
+    @*<table class="table">
         <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserIdentity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FullNameA)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Date)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Start)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.End)
-            </td>            
-            <td>
-                @Html.DisplayFor(modelItem => item.FullNameH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td> 
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>*@       
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Personnel1.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Phone1.PhoneNum_1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostOffices1.PostalCode)
-                </td>*@
-           
-            @*<td>
-                @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
-            </td>*@
-               
-            <td>
-                @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |
-                @Html.ActionLink("Tiedot", "Details", new { id = item.Reservation_id }) |
-                @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id })
-            </td>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Start)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.End)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNum_1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentPlaceName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentOfficeName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.UserIdentity)
+            </th>
+            <th></th>
         </tr>
-    }
 
-</table>
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Start)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.End)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentOfficeName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserIdentity)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Reservation_id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Reservation_id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Reservation_id })
+                </td>
+            </tr>
+        }
+
+    </table>*@

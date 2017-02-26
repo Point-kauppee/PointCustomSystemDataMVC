@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PointCustomSystemDataMVC.Models.Customer>
+﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.CustomerViewModel>
 @{
     ViewBag.Title = "Index";
 }
@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="/Scripts/bootstrap.js"></script>
@@ -24,11 +23,10 @@
 </p>
 
 
-
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
+            @Html.DisplayNameFor(model => model.UserIdentity)
         </th>
         @*<th>
             @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
@@ -42,23 +40,23 @@
         <th>
             @Html.DisplayNameFor(model => model.LastName)
         </th>
-        @*<th>
+        <th>
             @Html.DisplayNameFor(model => model.Identity)
-        </th>*@
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone.PhoneNum_1)
+            @Html.DisplayNameFor(model => model.PhoneNum_1)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostOffices.PostalCode)
+            @Html.DisplayNameFor(model => model.PostalCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostOffices.PostOffice)
+            @Html.DisplayNameFor(model => model.PostOffice)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Notes)
@@ -88,7 +86,7 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User.UserIdentity)
+                @Html.DisplayFor(modelItem => item.UserIdentity)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.FirstName)
@@ -96,23 +94,23 @@
             <td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>
-            @*<td>
+            <td>
                 @Html.DisplayFor(modelItem => item.Identity)
-            </td>*@
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone.PhoneNum_1)
+                @Html.DisplayFor(modelItem => item.PhoneNum_1)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostOffices.PostalCode)
+                @Html.DisplayFor(modelItem => item.PostalCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostOffices.PostOffice)
+                @Html.DisplayFor(modelItem => item.PostOffice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Notes)
@@ -139,7 +137,7 @@
                 @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
                 @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
                 @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                @Html.ActionLink("Asiakaslistaus", "IndexCustomerWiew", new { id = item.Customer_id }) |
+                @*@Html.ActionLink("Asiakaslistaus", "IndexCustomerWiew", new { id = item.Customer_id }) |*@
                 @Html.ActionLink(item.FirstName + " " + item.LastName, "Notes", new { Customer_id = item.Customer_id }, new { @class = "w3-button btn-success w3-grey" })
             </td>
         </tr>

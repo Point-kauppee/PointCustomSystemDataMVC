@@ -11,8 +11,7 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class Customer
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -30,19 +29,14 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Customer_id { get; set; }
-        [Display(Name = "Etunimi")]
         public string FirstName { get; set; }
-        [Display(Name = "Sukunimi")]
         public string LastName { get; set; }
         public string Identity { get; set; }
-        [Display(Name = "Huomiot")]
         public string Notes { get; set; }
-        [Display(Name = "Sähköposti")]
         public string Email { get; set; }
-        [Display(Name = "Osoite")]
         public string Address { get; set; }
         public Nullable<int> Personnel_id { get; set; }
-        public int? Phone_id { get; set; }
+        public Nullable<int> Phone_id { get; set; }
         public Nullable<int> Post_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
         public Nullable<int> Student_id { get; set; }
@@ -50,26 +44,7 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> User_id { get; set; }
-
-        //Lisätty customer.cs
-        public string PhoneNum_1 { get; set; }
-        public string PostalCode { get; set; }
-        public string PostOffice { get; set; }
-        //public Nullable<int> Phone_id { get; set; }
-        public string UserIdentity { get; set; }
-        public string Note { get; set; }
-
-        //Lisätty yhdistävät nimikentät
-
-        [Display(Name = "Asiakas")]
-        public string FullNameA
-        {
-            get { return FirstName + " " + LastName; }
-        }
-      
-     
-
-
+    
         public virtual Personnel Personnel { get; set; }
         public virtual Phone Phone { get; set; }
         public virtual PostOffices PostOffices { get; set; }

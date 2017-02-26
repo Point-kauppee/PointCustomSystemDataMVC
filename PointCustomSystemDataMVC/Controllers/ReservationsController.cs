@@ -13,6 +13,9 @@ using DayPilot.Web.Mvc.Events.Calendar;
 using DayPilot.Web.Mvc.Enums.Calendar;
 using DayPilot.Web.Mvc.Utils;
 using System.Globalization;
+using DayPilot.Web.Mvc.Events.Month;
+using DayPilot.Web.Mvc.Json;
+using PointCustomSystemDataMVC.ViewModels;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -23,9 +26,56 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations
         public ActionResult Index()
         {
-            var reservation = db.Reservation.Include(r => r.Customer1).Include(r => r.Personnel1).Include(r => r.Phone1).Include(r => r.PostOffices1).Include(r => r.Treatment).Include(r => r.TreatmentOffice).Include(r => r.TreatmentPlace).Include(r => r.User).Include(r => r.Studentx);
-            return View(reservation.ToList());
-        }
+            List<ReservationViewModel> model = new List<ReservationViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<Reservation> reservations = entities.Reservation.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+                foreach (Reservation reservation in reservations)
+                {
+                    ReservationViewModel res = new ReservationViewModel();
+                    res.Reservation_id = reservation.Reservation_id;
+                    res.TreatmentName = reservation.TreatmentName;
+                    res.Start = reservation.Start.Value;
+                    res.End = reservation.End.Value;
+                    res.Date = reservation.Date.Value;
+                   
+
+                    //res.TreatmentName = reservation.Treatment.TreatmentName;
+                    //res.Customer_id = reservation.Customer_id;
+                    //res.FirstName = reservation.Customer1.FirstName;
+                    //res.LastName = reservation.Customer1.LastName;
+                    //res.Identity = reservation.Customer1.Identity;
+                    //res.Email = reservation.Customer1.Email;
+                    //res.Notes = reservation.Customer1.Notes;
+
+                    //res.Phone_id = reservation.Phone_id;
+                    //res.PhoneNum_1 = reservation.Phone1.PhoneNum_1;
+                    //res.Post_id = reservation.Post_id;
+                    //res.PostOffice = reservation.PostOffices1.PostalCode;
+                    //res.PostOffice = reservation.PostOffices1.PostOffice;
+
+                    res.User_id = reservation.User_id;
+                    res.UserIdentity = reservation.User.UserIdentity;
+
+                    model.Add(res);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+
+            return View(model);
+        
+        //var reservation = db.Reservation.Include(r => r.Customer).Include(r => r.Personnel).Include(r => r.Phone1).Include(r => r.PostOffices).Include(r => r.Treatment).Include(r => r.TreatmentOffice).Include(r => r.TreatmentPlace).Include(r => r.User).Include(r => r.Studentx);
+        //return View(reservation.ToList());
+    }
 
         // GET: Reservations/Details/5
         public ActionResult Details(int? id)
@@ -168,14 +218,14 @@ namespace PointCustomSystemDataMVC.Controllers
         }
 
 
-        //DayPilot Month kalenterinäkymä
-        public ActionResult Backend()
+        //DAYPILOT VIIKKO VIIKKONÄKYMÄ
+        public ActionResult BackEnd()
         {
-            return new Dpm().CallBack(this);
+            return new Dpc().CallBack(this);
         }
 
-        //class Dpm : DayPilotMonth
-        class Dpm : DayPilotCalendar
+        //class Dpc : DayPilotWeek
+        class Dpc : DayPilotCalendar
         {
             public string DataDateField { get; set; }
 
@@ -194,7 +244,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 DataDateField = "Date";
                 DataStartField = "Start";
                 DataEndField = "End";
-                
+
 
                 Update();
             }
@@ -218,37 +268,25 @@ namespace PointCustomSystemDataMVC.Controllers
                 //base.OnCommand(e);
             }
             protected override void OnEventResize(DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs e)
-            //protected override void OnInit(DayPilot.Web.Mvc.Events.Month.InitArgs e)
             {
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
                 var eid = Convert.ToInt32(e.Id);
-                //var toBeResized = (from ev in db.Varaus where ev.Varaus_id == Convert.ToInt32(e.Id) select ev).First();
                 var toBeResized = (from ev in db.Reservation where ev.Reservation_id == eid select ev).First();
                 toBeResized.Start = e.NewStart;
                 toBeResized.End = e.NewEnd;
-                //toBeResized.Alku = Convert.ToString(e.NewStart);
-                //toBeResized.Loppu = Convert.ToString(e.NewEnd);
-                //db.SubmitChanges();
+
                 db.SaveChanges();
                 Update();
             }
 
-
-            //    Update();
-            //}
             protected override void OnEventMove(DayPilot.Web.Mvc.Events.Calendar.EventMoveArgs e)
             {
-                //var db = new kauppeedbEntities();
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
                 var eid = Convert.ToInt32(e.Id);
-                //var toBeResized = (from ev in db.Varaus where ev.Varaus_id == Convert.ToInt32(e.Id) select ev).First();
                 var toBeResized = (from ev in db.Reservation where ev.Reservation_id == eid select ev).First();
                 toBeResized.Start = e.NewStart;
                 toBeResized.End = e.NewEnd;
-                //toBeResized.Alku = Convert.ToString(e.NewStart);
-                //toBeResized.Loppu = Convert.ToString(e.NewEnd);
-                //db.SubmitChanges();
                 db.SaveChanges();
                 Update();
             }
@@ -286,10 +324,10 @@ namespace PointCustomSystemDataMVC.Controllers
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = edata};
 
-                //db.Varaus.InsertOnSubmit(toBeCreated);
+              
                 db.Reservation.Add(toBeCreated);
                 db.SaveChanges();
-                //db.SubmitChanges();
+              
                 Update();
             }
 
@@ -303,7 +341,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 CultureInfo fiFi = new CultureInfo("fi-FI");
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();               //Events = new EventManager(Controller).Data.AsEnumerable();
                 Events = from ev in db.Reservation select ev;
-                //Events = from varaus_id in db.Varaus select varaus_id;
 
                 DataIdField = "Reservation_id";
                 DataTextField = "TreatmentName";
@@ -312,9 +349,125 @@ namespace PointCustomSystemDataMVC.Controllers
                 DataEndField = "End";
 
             }
+        }//Dpc
+
+
+            //DAYPILOT KALENTERI KUUKAUSINÄKYMÄ
+
+            public ActionResult BackMonthEnd()
+            {
+                return new Dpm().CallBack(this);
+            }
+
+            class Dpm : DayPilotMonth
+            {
+                protected override void OnTimeRangeSelected(DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedArgs e)
+                {
+                    string name = (string)e.Data["name"];
+                    if (String.IsNullOrEmpty(name))
+                    {
+                        name = "(default)";
+                    }
+                    new EventManager(Controller).EventCreate(e.Start, e.End, name);
+                    Update();
+                }
+
+                protected override void OnEventMove(DayPilot.Web.Mvc.Events.Month.EventMoveArgs e)
+                {
+                    if (new EventManager(Controller).Get(e.Id) != null)
+                    {
+                        new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
+                    }
+
+                    Update();
+                }
+
+                protected override void OnEventResize(DayPilot.Web.Mvc.Events.Month.EventResizeArgs e)
+                {
+                    new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
+                    Update();
+                }
+
+                private int i = 0;
+                protected override void OnBeforeEventRender(DayPilot.Web.Mvc.Events.Month.BeforeEventRenderArgs e)
+                {
+                    if (Id == "dp_customization")
+                    {
+                        // alternating color
+                        int colorIndex = i % 4;
+                        string[] backColors = { "#FFE599", "#9FC5E8", "#B6D7A8", "#EA9999" };
+                        string[] borderColors = { "#F1C232", "#3D85C6", "#6AA84F", "#CC0000" };
+                        e.BackgroundColor = backColors[colorIndex];
+                        e.BorderColor = borderColors[colorIndex];
+                        e.FontColor = "#000";
+                        i++;
+                    }
+                }
+
+                protected override void OnCommand(DayPilot.Web.Mvc.Events.Month.CommandArgs e)
+                {
+                    switch (e.Command)
+                    {
+                        case "navigate":
+                            StartDate = (DateTime)e.Data["start"];
+                            Update(CallBackUpdateType.Full);
+                            break;
+
+                        case "previous":
+                            StartDate = StartDate.AddMonths(-1);
+                            Update(CallBackUpdateType.Full);
+                            break;
+
+                        case "next":
+                            StartDate = StartDate.AddMonths(1);
+                            Update(CallBackUpdateType.Full);
+                            break;
+
+                        case "today":
+                            StartDate = DateTime.Today;
+                            Update(CallBackUpdateType.Full);
+                            break;
+
+                        case "refresh":
+                            Update();
+                            break;
+                    }
+                }
+
+                protected override void OnInit(DayPilot.Web.Mvc.Events.Month.InitArgs initArgs)
+                {
+                    Update(CallBackUpdateType.Full);
+                }
+
+                protected override void OnFinish()
+                {
+                    // only load the data if an update was requested by an Update() call
+                    if (UpdateType == CallBackUpdateType.None)
+                    {
+                        return;
+                    }
+
+                    // this select is a really bad example, no where clause
+                    Events = new EventManager(Controller).Data.AsEnumerable();
+
+                    DataIdField = "Reservation_id";
+                    DataTextField = "TreatmentName";
+                    //DataDateField = "Date";
+                    DataStartField = "Start";
+                    DataEndField = "End";
+                }//OnFinish
+            }//Dpm
         }
     }
-}
+
+
+        
+    
+
+    
+
+
+
 
    
 
