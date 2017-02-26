@@ -44,7 +44,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Start = reservation.Start.Value;
                     res.End = reservation.End.Value;
                     res.Date = reservation.Date.Value;
-                   
+
 
                     //res.TreatmentName = reservation.Treatment.TreatmentName;
                     //res.Customer_id = reservation.Customer_id;
@@ -60,8 +60,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     //res.PostOffice = reservation.PostOffices1.PostalCode;
                     //res.PostOffice = reservation.PostOffices1.PostOffice;
 
-                    res.User_id = reservation.User_id;
-                    res.UserIdentity = reservation.User.UserIdentity;
+                    //res.User_id = reservation.User_id;
+                    //res.UserIdentity = reservation.User.UserIdentity;
 
                     model.Add(res);
                 }
