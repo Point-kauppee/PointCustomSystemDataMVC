@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,7 @@ namespace PointCustomSystemDataMVC.Controllers
     {
         public ActionResult Index()
         {
+            CultureInfo fiFi = new CultureInfo("fi-FI");
             return View();
         }
 

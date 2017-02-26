@@ -3,6 +3,16 @@
 }
 
 @*@{ Html.RenderAction("SideMenu", "Test");}*@
+
+<!-- Multi-statement block -->
+@{
+    var greeting = "Tervetuloa Point Collegen Jalkahoitolan varaustenhallinta sivustolle! ";
+    var weekDay = DateTime.Now.DayOfWeek;
+    var pvm = DateTime.Now.Date.ToLocalTime();
+    var greetingMessage = greeting + " Tänään on: " + pvm + weekDay;
+}
+
+
  
 <title>PointCollege Ajanvarausohjelmisto</title>
 <meta charset="UTF-8">
@@ -122,9 +132,11 @@
             <img src="~/Images/talvimarjat.jpg" alt="talvimarjat" style="width:100%">
             <div class="w3-display-topleft w3-padding-xxlarge w3-text-white">
                 <h1 class="w3-jumbo w3-hide-small">Ajanvarausjärjestelmä</h1>
+                <p>@greetingMessage</p>
                 <h1 class="w3-hide-large w3-hide-medium">Etusivu</h1>
                 <h1 class="w3-hide-small">Asiakashallinta</h1>
-                <p><a href="#dpc" class="w3-btn w3-padding-large w3-large">Kalenteri</a></p>
+
+                <p><a href="/Reservations/#dpc" class="w3-btn w3-padding-large w3-large">Kalenteri</a></p>
             </div>
         </div>
 

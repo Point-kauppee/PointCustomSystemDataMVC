@@ -138,7 +138,7 @@
                 @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
                 @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
                 @*@Html.ActionLink("Asiakaslistaus", "IndexCustomerWiew", new { id = item.Customer_id }) |*@
-                @Html.ActionLink(item.FirstName + " " + item.LastName, "Notes", new { Customer_id = item.Customer_id }, new { @class = "w3-button btn-success w3-grey" })
+                @Html.ActionLink(item.FirstName + " " + item.LastName, "AddNotes", new { Customer_id = item.Customer_id }, new { @class = "w3-button btn-success w3-grey w3-tiny", @form = "form_id" })
             </td>
         </tr>
     }

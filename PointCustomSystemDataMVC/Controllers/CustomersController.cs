@@ -40,11 +40,14 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.Address = customer.Address;
                     view.Notes = customer.Notes;
 
+                    //view.Phone_id = customer.Phone.Phone_id;
                     //view.PhoneNum_1 = customer.Phone.PhoneNum_1;
+
+                    //view.Post_id = customer.PostOffices.Post_id;
                     //view.PostOffice = customer.PostOffices.PostalCode;
                     //view.PostOffice = customer.PostOffices.PostOffice;
 
-                    //view.User_id = customer.User_id;
+                    //view.User_id = customer.User.User_id;
                     //view.UserIdentity = customer.User.UserIdentity;
 
                     model.Add(view);

@@ -26,7 +26,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public string Note { get; set; }
 
-        public int? Post_id { get; set; }
+        public int Post_id { get; set; }
         [Display(Name = "PostiNro")]
         public string PostalCode { get; set; }
         [Display(Name = "Postiosoite")]
@@ -34,12 +34,14 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PostOffices { get; set; }
         
       
-        public int? Phone_id { get; set; }
+        public int Phone_id { get; set; }
         public string Phone { get; set; }
+        [Display(Name = "PuhNro")]
         public string PhoneNum_1 { get; set; }
 
-        public Nullable<int> User_id { get; set; }
+        public int User_id { get; set; }
         public string User{ get; set; }
+        [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
 
         [Display(Name = "Asiakas")]
