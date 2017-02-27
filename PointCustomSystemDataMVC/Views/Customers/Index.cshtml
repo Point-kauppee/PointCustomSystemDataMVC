@@ -1,4 +1,5 @@
 ﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.CustomerViewModel>
+
 @{
     ViewBag.Title = "Index";
 }
@@ -22,18 +23,17 @@
     @Html.ActionLink("Luo uusi asiakas", "Create")
 </p>
 
-
 <table class="table">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.UserIdentity)
         </th>
         @*<th>
-            @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
-        </th>
-        <th>
-            @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
-        </th>*@
+                @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
+            </th>
+            <th>
+                @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
+            </th>*@
         <th>
             @Html.DisplayNameFor(model => model.FirstName)
         </th>
@@ -47,7 +47,7 @@
             @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PhoneNum_1)
+           @Html.DisplayNameFor(model => model.PhoneNum_1)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
@@ -62,23 +62,23 @@
             @Html.DisplayNameFor(model => model.Notes)
         </th>
         @*<th>
-                @Html.DisplayNameFor(model => model.Personnel.FirstName)
-            </th>
-        <th>
-                @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
-            </th>
+                    @Html.DisplayNameFor(model => model.Personnel.FirstName)
+                </th>
             <th>
-                @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Studentx.FirstName)
-            </th>*@
+                    @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Studentx.FirstName)
+                </th>*@
         <th></th>
     </tr>
 
@@ -96,7 +96,7 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Identity)
-            </td>
+           </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Email)
             </td>
@@ -140,10 +140,9 @@
                 @*@Html.ActionLink("Asiakaslistaus", "IndexCustomerWiew", new { id = item.Customer_id }) |*@
                 @Html.ActionLink(item.FirstName + " " + item.LastName, "AddNotes", new { Customer_id = item.Customer_id }, new { @class = "w3-button btn-success w3-grey w3-tiny", @form = "form_id" })
             </td>
-        </tr>  
+        </tr>
     }
 </table>
-
 
 <p><a href="/Customers/AddNotes" class="w3-btn w3-padding-large w3-large">Hoitotiedot</a></p>
 
@@ -151,14 +150,13 @@
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-text-black" id="myBtn"></a>
     <a href="Customers/AddNotes">Hoitotiedot</a>
 </div>
-       
+
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
 @section Scripts {
-
     @Scripts.Render("~/bundles/jqueryval")
 
-document.getElementById("myBtn").click();
+    document.getElementById("myBtn").click();
 }

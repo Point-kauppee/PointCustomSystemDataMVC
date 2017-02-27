@@ -25,7 +25,6 @@ namespace PointCustomSystemDataMVC.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<Customer> Customer { get; set; }
         public virtual DbSet<Personnel> Personnel { get; set; }
         public virtual DbSet<Phone> Phone { get; set; }
         public virtual DbSet<PostOffices> PostOffices { get; set; }
@@ -36,5 +35,6 @@ namespace PointCustomSystemDataMVC.Models
         public virtual DbSet<TreatmentOffice> TreatmentOffice { get; set; }
         public virtual DbSet<User> User { get; set; }
         public virtual DbSet<TreatmentReport> TreatmentReport { get; set; }
+        public virtual DbSet<Customer> Customer { get; set; }
     }
 }

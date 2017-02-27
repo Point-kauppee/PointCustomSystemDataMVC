@@ -45,8 +45,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.End = reservation.End.Value;
                     res.Date = reservation.Date.Value;
 
-
-                    //res.TreatmentName = reservation.Treatment.TreatmentName;
                     //res.Customer_id = reservation.Customer_id;
                     //res.FirstName = reservation.Customer1.FirstName;
                     //res.LastName = reservation.Customer1.LastName;

@@ -7,25 +7,25 @@ var CustomerViewModel = (function () {
 function initTreatmentReport() {
     $("#TallennaAsiakasNotes").click(function () {
         //alert("Toimii!");
-        var userIdentity = $("#UserIdentity").val();
-        var phoneNum = $("#Phone.PhoneNum_1").val();
-        alert("U: " + userIdentity + ", P:" + phoneNum);
+        var customerText = $("#CustomerText").val();
+        var treatmentText = $("#TreatmentText").val();
+        alert("C: " + customerText + ", T:" + treatmentText);
         //määritetään muuttuja:
-        var data = new Personnel();
-        data.UserIdentity = userIdentity;
-        data.Phone.PhoneNum_1 = phoneNum;
+        var data = new TreatmentReport();
+        data.Customer_id = customerText;
+        data.TreatmentText = treatmentText;
         //lähetetään JSON-muotoista dataa palvelimelle
         $.ajax({
             type: "POST",
-            url: "/Personnel/PersonnelInfo",
+            url: "/Customer/SavedReport",
             data: JSON.stringify(data),
             contentType: "application/json;utf-8",
             success: function (data) {
                 if (data.success === true) {
-                    alert("Personnel successfully assigned.");
+                    alert("Hoitoraportti tallennettu.");
                 }
                 else {
-                    alert("There was an error: " + data.error);
+                    alert("Tallennusvirhe: " + data.error);
                 }
             },
             dataType: "json"

@@ -5,23 +5,12 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a986324ae9af404191cbe65506cdc912" Name="Diagram1" ZoomLevel="71">
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Customer" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Personnel" Width="1.5" PointX="7.5" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Phone" Width="1.5" PointX="5.25" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.PostOffices" Width="1.5" PointX="0.75" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Reservation" Width="1.5" PointX="9.75" PointY="1.125" IsExpanded="true" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Treatment" Width="1.5" PointX="12" PointY="1.5" IsExpanded="true" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentPlace" Width="1.5" PointX="16.5" PointY="1.625" IsExpanded="true" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_1" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_2" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_3" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_5" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_7" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Phone_ToTable_1" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Reservation_ToTable_3" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Treatment_ToTable_5" ManuallyRouted="false" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_7" ManuallyRouted="false" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_1" ManuallyRouted="false" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_2" ManuallyRouted="false" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_3" ManuallyRouted="false" />
@@ -55,7 +44,6 @@
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Treatment_ToTable_7" ManuallyRouted="false" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_5" ManuallyRouted="false" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Studentx" Width="1.5" PointX="1.5" PointY="5.625" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_5" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Phone_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable" />
@@ -64,18 +52,12 @@
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Reservation_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Treatment_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_4" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_7" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_9" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_8" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_3" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_5" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_6" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentOffice" Width="1.5" PointX="18.75" PointY="2.375" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.User" Width="1.5" PointX="21" PointY="2.5" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_6" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_8" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_7" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_6" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_7" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_9" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable" />
@@ -106,18 +88,35 @@
         <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_8" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_8" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_7" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_PostOffices_ToTable_21" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentReport" Width="1.5" PointX="5.875" PointY="9.75" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_1" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_3" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_2" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_9" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Personnel_ToTable_91" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Reservation_ToTable_9" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_4" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_91" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_9" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Customer" Width="1.5" PointX="23.25" PointY="4.25" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_1" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_2" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_3" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_4" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_5" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_6" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_7" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_8" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Customer_ToTable_9" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Phone_ToTable_1" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_PostOffices_ToTable_21" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Reservation_ToTable_3" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_ToTable_7" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Treatment_ToTable_5" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentOffice_ToTable_7" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentPlace_ToTable_7" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_1" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_6" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

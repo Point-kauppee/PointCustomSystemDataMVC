@@ -17,7 +17,6 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TreatmentPlace()
         {
-            this.Customer = new HashSet<Customer>();
             this.Personnel = new HashSet<Personnel>();
             this.Phone = new HashSet<Phone>();
             this.PostOffices = new HashSet<PostOffices>();
@@ -26,6 +25,7 @@ namespace PointCustomSystemDataMVC.Models
             this.Studentx1 = new HashSet<Studentx>();
             this.TreatmentOffice = new HashSet<TreatmentOffice>();
             this.User1 = new HashSet<User>();
+            this.Customer = new HashSet<Customer>();
         }
     
         public int Treatmentplace_id { get; set; }
@@ -41,9 +41,6 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Customer_id { get; set; }
         public Nullable<int> User_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personnel> Personnel { get; set; }
         public virtual Personnel Personnel1 { get; set; }
@@ -68,5 +65,8 @@ namespace PointCustomSystemDataMVC.Models
         public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
     }
 }

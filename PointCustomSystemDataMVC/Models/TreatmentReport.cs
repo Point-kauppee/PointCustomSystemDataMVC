@@ -17,11 +17,11 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public TreatmentReport()
         {
-            this.Customer1 = new HashSet<Customer>();
             this.Personnel1 = new HashSet<Personnel>();
             this.Reservation = new HashSet<Reservation>();
             this.Studentx1 = new HashSet<Studentx>();
             this.User1 = new HashSet<User>();
+            this.Customer = new HashSet<Customer>();
         }
     
         public int TreatmentReport_id { get; set; }
@@ -33,13 +33,11 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
+        public string TreatmentReportText { get; set; }
     
-        public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
         public virtual Studentx Studentx { get; set; }
         public virtual User User { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customer1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personnel> Personnel1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -49,5 +47,8 @@ namespace PointCustomSystemDataMVC.Models
         public virtual ICollection<Studentx> Studentx1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
     }
 }

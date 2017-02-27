@@ -77,7 +77,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentOfficeName { get; set; }
 
         public string TretamentPlace { get; set; }
-        public int Treatmentplace_id { get; set; }
+        public int? Treatmentplace_id { get; set; }
         public string TreatmentPlaceName { get; set; }
         public string TreatmentPlaceNumber { get; set; }
 
@@ -87,14 +87,14 @@ namespace PointCustomSystemDataMVC.ViewModels
 
 
         public string PostOffices { get; set; }
-        public int Post_id { get; set; }
+        public int? Post_id { get; set; }
         [Display(Name = "PostiNro")]
         public string PostalCode { get; set; }
         [Display(Name = "Postiosoite")]
         public string PostOffice { get; set; }
 
         public string Student { get; set; }
-        public int Student_id { get; set; }
+        public int? Student_id { get; set; }
         [Display(Name = "Huomiot")]
         public string Notes{get; set;}
        

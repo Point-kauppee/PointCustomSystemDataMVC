@@ -17,7 +17,6 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public User()
         {
-            this.Customer = new HashSet<Customer>();
             this.Personnel = new HashSet<Personnel>();
             this.Phone = new HashSet<Phone>();
             this.PostOffices = new HashSet<PostOffices>();
@@ -27,6 +26,7 @@ namespace PointCustomSystemDataMVC.Models
             this.TreatmentOffice = new HashSet<TreatmentOffice>();
             this.TreatmentPlace = new HashSet<TreatmentPlace>();
             this.TreatmentReport = new HashSet<TreatmentReport>();
+            this.Customer = new HashSet<Customer>();
         }
     
         public int User_id { get; set; }
@@ -43,9 +43,6 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentReport_id { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Customer> Customer { get; set; }
-        public virtual Customer Customer1 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personnel> Personnel { get; set; }
         public virtual Personnel Personnel1 { get; set; }
@@ -73,5 +70,8 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
         public virtual TreatmentReport TreatmentReport1 { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Customer> Customer { get; set; }
+        public virtual Customer Customer1 { get; set; }
     }
 }

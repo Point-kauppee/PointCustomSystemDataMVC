@@ -4,7 +4,21 @@
     ViewBag.Title = "Edit";
 }
 
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+<script src="~/Scripts/daypilot-all.min.js"></script>
+<script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
 
     <title>Tiedot</title>
 
@@ -13,12 +27,45 @@
         <h4>Palveluvaraus</h4>
         <hr />
         <dl class="dl-horizontal">
+
+            <dt>
+                @Html.DisplayNameFor(model => model.UserIdentity)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.UserIdentity)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FullNameA)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FullNameA)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.FirstName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.FirstName)
+            </dd>
+
             <dt>
                 @Html.DisplayNameFor(model => model.TreatmentName)
             </dt>
     
             <dd>
                 @Html.DisplayFor(model => model.TreatmentName)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.TreatmentPlaceName)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.TreatmentPlaceName)
             </dd>
     
             <dt>
@@ -44,6 +91,22 @@
             <dd>
                 @Html.DisplayFor(model => model.Date)
             </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.PhoneNum_1)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.PhoneNum_1)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.Notes)
+            </dt>
+
+            <dd>
+                @Html.DisplayFor(model => model.Notes)
+            </dd>
     
             @*<dt>
                 @Html.DisplayNameFor(model => model.Type)
@@ -53,22 +116,6 @@
                 @Html.DisplayFor(model => model.Type)
             </dd>*@
     
-            <dt>
-                @Html.DisplayNameFor(model => model.Notes)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.Notes)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.FullNameA)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.FullNameA)
-            </dd>
-    
             @*<dt>
                 @Html.DisplayNameFor(model => model.Personnel1.FirstName)
             </dt>
@@ -76,15 +123,7 @@
             <dd>
                 @Html.DisplayFor(model => model.Personnel1.FirstName)
             </dd>*@
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.PhoneNum_1)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.PhoneNum_1)
-            </dd>
-    
+     
             @*<dt>
                 @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
             </dt>
@@ -93,14 +132,6 @@
                 @Html.DisplayFor(model => model.PostOffices1.PostalCode)
             </dd>*@
     
-            <dt>
-                @Html.DisplayNameFor(model => model.TreatmentName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.TreatmentName)
-            </dd>
-    
             @*<dt>
                 @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
             </dt>
@@ -108,31 +139,7 @@
             <dd>
                 @Html.DisplayFor(model => model.TreatmentOffice.TreatmentOfficeName)
             </dd>*@
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.TreatmentPlaceName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.TreatmentPlaceName)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.UserIdentity)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.UserIdentity)
-            </dd>
-    
-            <dt>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </dt>
-    
-            <dd>
-                @Html.DisplayFor(model => model.FirstName)
-            </dd>
-    
+
         </dl>
     </div>
     <p>
@@ -140,4 +147,6 @@
         @Html.ActionLink("Takaisin palveluvaraukseen", "Index")
     </p>
 </body>
-
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

@@ -14,11 +14,12 @@ using Newtonsoft.Json;
 using PointCustomSystemDataMVC.Utilities;
 
 namespace PointCustomSystemDataMVC.Controllers
-{
 
+{
     public class CustomersController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
         public ActionResult Index()
         {
             List<CustomerViewModel> model = new List<CustomerViewModel>();
@@ -44,11 +45,9 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     //view.Phone_id = customer.Phone.Phone_id;
                     //view.PhoneNum_1 = customer.Phone.PhoneNum_1;
-
                     //view.Post_id = customer.PostOffices.Post_id;
                     //view.PostOffice = customer.PostOffices.PostalCode;
                     //view.PostOffice = customer.PostOffices.PostOffice;
-
                     //view.User_id = customer.User.User_id;
                     //view.UserIdentity = customer.User.UserIdentity;
 
@@ -62,7 +61,6 @@ namespace PointCustomSystemDataMVC.Controllers
 
             return View(model);
         }
-
 
         //31.1.2017 Lisätty tietokantataulujen suodatukset:
         //public ActionResult Index(string sortOrder)
@@ -86,8 +84,10 @@ namespace PointCustomSystemDataMVC.Controllers
         //            customer = customer.OrderBy(c => c.FirstName);
         //            break;
         //    }
+
         //    return View(customer.ToList());
         //}
+
         //GET: Customers/Details/5
         public ActionResult Details(int? id)
 
@@ -102,14 +102,12 @@ namespace PointCustomSystemDataMVC.Controllers
             if (customer == null)
 
             {
-
                 return HttpNotFound();
             }
 
             return View(customer);
         }//details
 
-    
 
         // GET: Customers/Create
 
@@ -117,13 +115,14 @@ namespace PointCustomSystemDataMVC.Controllers
         //{
         //    ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
         //    ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-                //    ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
+        //    ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
         //    ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-                //    ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+        //    ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
         //    ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-                //    ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+        //    ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
         //    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
         //    ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+
         //    return View();
         //}
 
@@ -155,7 +154,6 @@ namespace PointCustomSystemDataMVC.Controllers
         //    return View(customer);
         //}
 
-
         // GET: Customers/Create
         //public ActionResult Create()
         //{
@@ -163,78 +161,76 @@ namespace PointCustomSystemDataMVC.Controllers
 
         //    List<User> list = db.User.ToList();
         //    ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
+
         //    return View();
         //}//create
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //public ActionResult Create(Customer model)
-        //{
-        //    JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+                //public ActionResult Create(Customer model)
+                //{
+                //    JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+        
+        //List<User> list = db.User.ToList();
+                //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
+        
+        //User user = new User();
+                //user.Customer_id = model.Customer_id;
+        
+        ////int? latestUserId = user.User_id;
+        
+        ////db.User.Add(user);
+        //db.SaveChanges();
 
-            //List<User> list = db.User.ToList();
-            //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
+        //int latestUseId = user.User_id;
 
-            //User user = new User();
-            //user.Customer_id = model.Customer_id;
+        //Customer cus = new Customer();  
+        //cus.FirstName = model.FirstName;
+        //cus.LastName = model.LastName;
+        //cus.Identity = model.Identity;
+        //cus.Address = model.Address;
+        //cus.Email = model.Email;
+        //cus.Notes = model.Notes;
+        //cus.User_id = model.User_id;
+        //cus.User_id = latestUseId;
+        ////cus.Customer_id = model.Customer_id;
 
-            ////int? latestUserId = user.User_id;
+        //db.Customer.Add(cus);
+        //db.SaveChanges();
 
-            ////db.User.Add(user);
-            //db.SaveChanges();
+        //int latestCusId = cus.Customer_id;
 
-            //int latestUseId = user.User_id;
+        //Phone pho = new Phone();
+        //pho.PhoneNum_1 = model.PhoneNum_1;
+        //pho.Customer_id = latestCusId;
+        //pho.Customer_id = model.Customer_id;
 
-            //Customer cus = new Customer();  
-            //cus.FirstName = model.FirstName;
-            //cus.LastName = model.LastName;
-            //cus.Identity = model.Identity;
-            //cus.Address = model.Address;
-            //cus.Email = model.Email;
-            //cus.Notes = model.Notes;
-            //cus.User_id = model.User_id;
-            //cus.User_id = latestUseId;
-            ////cus.Customer_id = model.Customer_id;
-                 
-            //db.Customer.Add(cus);
-            //db.SaveChanges();
+        //db.Phone.Add(pho);
+        //db.SaveChanges();
 
-            //int latestCusId = cus.Customer_id;
-            
-            //Phone pho = new Phone();
-            //pho.PhoneNum_1 = model.PhoneNum_1;
-            //pho.Customer_id = latestCusId;
-            //pho.Customer_id = model.Customer_id;
-          
-            //db.Phone.Add(pho);
-            //db.SaveChanges();
+        //int latestPhoId = cus.Customer_id;
+        //int latestPhoneId = pho.Phone_id;
 
-            //int latestPhoId = cus.Customer_id;
-            //int latestPhoneId = pho.Phone_id;
+        //PostOffices pos = new PostOffices();       
+        //pos.PostalCode = model.PostalCode;
+        //pos.PostOffice = model.PostOffice;    
+        //pos.Customer_id = latestCusId;
+        //pos.Customer_id = model.Customer_id;
+        
+        //db.PostOffices.Add(pos);
+        //db.SaveChanges();
+        
+        //int latestPosId = cus.Customer_id;
+        //int latestPostId = pos.Post_id;
 
-            //PostOffices pos = new PostOffices();       
-            //pos.PostalCode = model.PostalCode;
-            //pos.PostOffice = model.PostOffice;    
-            //pos.Customer_id = latestCusId;
-            //pos.Customer_id = model.Customer_id;
+        //return View(model);
 
-            //db.PostOffices.Add(pos);
-            //db.SaveChanges();
-
-            //int latestPosId = cus.Customer_id;
-            //int latestPostId = pos.Post_id;
-
-            //return View(model);
-       /* }//cr*/
-
-
-
+        /* }//cr*/
 
 
         // GET: Customers/Edit/5
 
         public ActionResult Edit(int? id)
-
         {
             if (id == null)
             {
@@ -243,6 +239,7 @@ namespace PointCustomSystemDataMVC.Controllers
             Customer customer = db.Customer.Find(id);
 
             if (customer == null)
+
             {
                 return HttpNotFound();
             }
@@ -256,7 +253,6 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "TreatmentPlace_id", "TreatmentPlaceName", customer.TreatmentPlace_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", customer.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", customer.Student_id);
-
             return View(customer);
 
         }//edit
@@ -267,8 +263,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult Edit([Bind(Include = "Customer_id,FirstName,LastName,Identity,Notes,Email,Address,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Customer customer)
+
         {
             if (ModelState.IsValid)
 
@@ -290,8 +286,8 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", customer.Student_id);
 
             return View(customer);
-        }//edit
 
+        }//edit
 
         // GET: Customers/Delete/5
 
@@ -316,10 +312,12 @@ namespace PointCustomSystemDataMVC.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
+
         {
             Customer customer = db.Customer.Find(id);
             db.Customer.Remove(customer);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 
@@ -332,30 +330,35 @@ namespace PointCustomSystemDataMVC.Controllers
             base.Dispose(disposing);
         }//dispose
 
+
+
         //ASIAKKAAN HOITOTIETOJEN TALLENNUS
+
         //tehdään listaus kaikista kytkennöistä
         public ActionResult AddNotes()
         {
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+
             try
             {
-                List<Customer> customers = entities.Customer.ToList();
+                List<TreatmentReport> treatrepos = entities.TreatmentReport.ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 
                 CultureInfo fiFi = new CultureInfo("fi-FI");
-                foreach (Customer custome in customers)
+                foreach (TreatmentReport treat in treatrepos)
                 {
-                    CustomerViewModel custo = new CustomerViewModel();
-                    custo.Customer_id = custome.Customer_id;
-                    custo.FirstName = custome.FirstName;
-                    custo.LastName = custome.LastName;
-                    custo.TreatmentReport= custome.TreatmentReport;
+                    CustomerViewModel cusw = new CustomerViewModel();
+                    cusw.Customer_id = treat.Customer_id;
+                    cusw.TreatmentReport_id = treat.TreatmentReport_id;        
+                    cusw.TreatmentReportName = treat.TreatmentReportName;
+                    cusw.TreatmentTime = treat.TreatmentTime.Value;
+                    cusw.TreatmentDate = treat.TreatmentDate.Value;
                     //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);
 
-                    model.Add(custo);
+                    model.Add(cusw);
                 }
             }
             finally
@@ -365,36 +368,42 @@ namespace PointCustomSystemDataMVC.Controllers
 
             return View(model);
         }
+
         public ActionResult ListJson()
+
         {
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<Customer> customers = entities.Customer.ToList();
+                List<TreatmentReport> treatrepos = entities.TreatmentReport.ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
                 CultureInfo fiFi = new CultureInfo("fi-FI");
-                foreach (Customer custome in customers)
+                foreach (TreatmentReport treat in treatrepos)
                 {
-                    CustomerViewModel custo = new CustomerViewModel();
-                    custo.Customer_id = custome.Customer_id;
-                    custo.FirstName = custome.FirstName;
-                    custo.LastName = custome.LastName;
-                    custo.TreatmentReport = custome.TreatmentReport;
+                    CustomerViewModel cusw = new CustomerViewModel();
+                    cusw.Customer_id = treat.Customer_id;
+                    cusw.TreatmentReport_id = treat.TreatmentReport_id;
+                    cusw.TreatmentReportName = treat.TreatmentReportName;
+                    cusw.TreatmentTime = treat.TreatmentTime.Value;
+                    cusw.TreatmentDate = treat.TreatmentDate.Value;
                     //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);
 
-                    model.Add(custo);
+                    model.Add(cusw);
                 }
             }
+
             finally
+
             {
                 entities.Dispose();
             }
 
             return Json(model, JsonRequestBehavior.AllowGet);
         }
+
         [HttpPost]
         //CustomerViewModel.cs - ASIAKASRAPORTIN TALLENTAMINEN (SQL) TIETOKANTAAN
         public JsonResult SavedReport(string TreatmentReport)
@@ -412,25 +421,24 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 //haetaan ensin asiakkaan id-numero koodin perusteella:
                 int customerId = (from c in entities.Customer
-                                  where c.TreatmentReport == inputData.TreatmentReport
+                                  where c.Customer_id == inputData.Customer_id
                                   select c.Customer_id).FirstOrDefault();
-              
 
-                ////haetaan laitteen id-numero koodin perusteella:
-                //int assetId = (from a in entities.Assets
-                //               where a.Code == inputData.AssetCode
-                //               select a.Id).FirstOrDefault();
 
-                if ((customerId > 0)) /*&& (assetId > 0))*/
+                //haetaan TreatmentReport id-numero koodin perusteella:
+                int treatmentrepoId = (from t in entities.TreatmentReport
+                               where t.TreatmentReportText == inputData.TreatmentReportText
+                               select t.TreatmentReport_id).FirstOrDefault();
+
+                if ((customerId > 0) && (treatmentrepoId > 0))
                 {
                     //tallennetaan asikaan hoitotiedot tietokantaan:
-                    Customer newEntry = new Customer();
+                    TreatmentReport newEntry = new TreatmentReport();
                     newEntry.Customer_id = customerId;
-                    newEntry.TreatmentReport = TreatmentReport;
-                    //newEntry.AssetId = assetId;
-                    //newEntry.LastSeen = DateTime.Now;
+                    newEntry.TreatmentReport_id = treatmentrepoId;
+                    newEntry.TreatmentDate = DateTime.Now;
 
-                    entities.Customer.Add(newEntry);
+                    entities.TreatmentReport.Add(newEntry);
                     entities.SaveChanges();
 
                     success = true;
@@ -449,10 +457,5 @@ namespace PointCustomSystemDataMVC.Controllers
             var result = new { success = success, error = error };
             return Json(result);
         }
-
-
-
     }//controller
-    }//namespace
-
-
+}//namespace

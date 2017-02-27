@@ -1,0 +1,90 @@
+﻿@model PointCustomSystemDataMVC.Models.TreatmentReport
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>TreatmentReport</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentReportName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentReportName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentTime)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentTime)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentReportText)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentReportText)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Personnel.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Personnel.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Studentx.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.User.UserIdentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Reservation1.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Customer1.FirstName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Customer1.FirstName)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.TreatmentReport_id }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
