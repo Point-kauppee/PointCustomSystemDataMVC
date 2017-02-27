@@ -35,5 +35,6 @@ namespace PointCustomSystemDataMVC.Models
         public virtual DbSet<Studentx> Studentx { get; set; }
         public virtual DbSet<TreatmentOffice> TreatmentOffice { get; set; }
         public virtual DbSet<User> User { get; set; }
+        public virtual DbSet<TreatmentReport> TreatmentReport { get; set; }
     }
 }

@@ -56,11 +56,11 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     //res.Phone_id = reservation.Phone_id;
                     //res.PhoneNum_1 = reservation.Phone1.PhoneNum_1;
-                    //res.Post_id = reservation.Post_id;
+                    //res.Post_id = reservation.PostOffices1.Post_id;
                     //res.PostOffice = reservation.PostOffices1.PostalCode;
                     //res.PostOffice = reservation.PostOffices1.PostOffice;
 
-                    //res.User_id = reservation.User_id;
+                    //res.User_id = reservation.User.User_id;
                     //res.UserIdentity = reservation.User.UserIdentity;
 
                     model.Add(res);

@@ -224,6 +224,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\TreatmentReport.cs">
+      <DependentUpon>PointSQLData.tt</DependentUpon>
+    </Compile>
     <Compile Include="ViewModels\DayPilotCalendarConfig.cs" />
     <Compile Include="ViewModels\EventManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -261,7 +264,6 @@
     <Compile Include="Models\User.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\View.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Models\Reservation.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
@@ -280,6 +282,7 @@
     <Compile Include="ViewModels\StudentViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Application\Logic.js" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
@@ -322,6 +325,7 @@
       <DependentUpon>PointSQLData.edmx</DependentUpon>
       <LastGenOutput>PointSQLData.cs</LastGenOutput>
     </Content>
+    <Content Include="Scripts\Application\CustoLog.js" />
     <Content Include="Scripts\Application\Logic.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

@@ -87,7 +87,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
 
         public string PostOffices { get; set; }
-        public int? Post_id { get; set; }
+        public int Post_id { get; set; }
         [Display(Name = "PostiNro")]
         public string PostalCode { get; set; }
         [Display(Name = "Postiosoite")]

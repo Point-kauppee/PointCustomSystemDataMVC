@@ -14,6 +14,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string FirstName { get; set; }
         [Display(Name = "Sukunimi")]
 
+
         public string LastName { get; set; }
         [Display(Name = "Syntymäaika")]
         public string Identity { get; set; }
@@ -23,7 +24,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Email { get; set; }
         [Display(Name = "Osoite")]
         public string Address { get; set; }
-
+        [Display(Name = "Hoitokertomus")]
+        public string TreatmentReport { get; set; }
         public string Note { get; set; }
 
         public int Post_id { get; set; }

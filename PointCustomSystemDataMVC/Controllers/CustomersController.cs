@@ -10,6 +10,8 @@ using PointCustomSystemDataMVC.Models;
 using System.Collections;
 using System.Globalization;
 using PointCustomSystemDataMVC.ViewModels;
+using Newtonsoft.Json;
+using PointCustomSystemDataMVC.Utilities;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -330,47 +332,126 @@ namespace PointCustomSystemDataMVC.Controllers
             base.Dispose(disposing);
         }//dispose
 
-
+        //ASIAKKAAN HOITOTIETOJEN TALLENNUS
+        //tehdään listaus kaikista kytkennöistä
         public ActionResult AddNotes()
         {
-            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-            //ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-            //ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
-            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            return View();
-        }
+            List<CustomerViewModel> model = new List<CustomerViewModel>();
 
-            //POST customers / notes
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Notes([Bind(Include = "Customer_id,FirstName,LastName,Identity,Notes,Email,Address,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Customer notex)
-        {
-            if (ModelState.IsValid)
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
             {
-                db.Customer.Add(notex);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                List<Customer> customers = entities.Customer.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+                foreach (Customer custome in customers)
+                {
+                    CustomerViewModel custo = new CustomerViewModel();
+                    custo.Customer_id = custome.Customer_id;
+                    custo.FirstName = custome.FirstName;
+                    custo.LastName = custome.LastName;
+                    custo.TreatmentReport= custome.TreatmentReport;
+                    //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);
+
+                    model.Add(custo);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
             }
 
-            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", customer.Personnel_id);
-            //ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", customer.Phone_id);
-            //ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", customer.Post_id);
-            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", customer.Reservation_id);
-            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", customer.Treatment_id);
-            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", customer.TreatmentOffice_id);
-            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", customer.TreatmentPlace_id);
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", customer.User_id);
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", customer.Student_id);
-            return View(notex);
+            return View(model);
+        }
+        public ActionResult ListJson()
+        {
+            List<CustomerViewModel> model = new List<CustomerViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<Customer> customers = entities.Customer.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+                foreach (Customer custome in customers)
+                {
+                    CustomerViewModel custo = new CustomerViewModel();
+                    custo.Customer_id = custome.Customer_id;
+                    custo.FirstName = custome.FirstName;
+                    custo.LastName = custome.LastName;
+                    custo.TreatmentReport = custome.TreatmentReport;
+                    //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);
+
+                    model.Add(custo);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+
+            return Json(model, JsonRequestBehavior.AllowGet);
+        }
+        [HttpPost]
+        //CustomerViewModel.cs - ASIAKASRAPORTIN TALLENTAMINEN (SQL) TIETOKANTAAN
+        public JsonResult SavedReport(string TreatmentReport)
+        {
+            string json = Request.InputStream.ReadToEnd();
+            CustomerViewModel inputData =
+                JsonConvert.DeserializeObject<CustomerViewModel>(json);
+
+            bool success = false;
+            string error = "";
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+
+            try
+            {
+                //haetaan ensin asiakkaan id-numero koodin perusteella:
+                int customerId = (from c in entities.Customer
+                                  where c.TreatmentReport == inputData.TreatmentReport
+                                  select c.Customer_id).FirstOrDefault();
+              
+
+                ////haetaan laitteen id-numero koodin perusteella:
+                //int assetId = (from a in entities.Assets
+                //               where a.Code == inputData.AssetCode
+                //               select a.Id).FirstOrDefault();
+
+                if ((customerId > 0)) /*&& (assetId > 0))*/
+                {
+                    //tallennetaan asikaan hoitotiedot tietokantaan:
+                    Customer newEntry = new Customer();
+                    newEntry.Customer_id = customerId;
+                    newEntry.TreatmentReport = TreatmentReport;
+                    //newEntry.AssetId = assetId;
+                    //newEntry.LastSeen = DateTime.Now;
+
+                    entities.Customer.Add(newEntry);
+                    entities.SaveChanges();
+
+                    success = true;
+                }
+            }
+            catch (Exception ex)
+            {
+                error = ex.GetType().Name + ": " + ex.Message;
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+
+            //palautetaan JSON-muotoinen tulos kutsujalle
+            var result = new { success = success, error = error };
+            return Json(result);
         }
 
-      
-      
+
+
     }//controller
     }//namespace
 
