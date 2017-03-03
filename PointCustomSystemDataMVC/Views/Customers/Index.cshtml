@@ -18,145 +18,127 @@
 <script src="/Scripts/respond.js"></script>
 
 <h2>Asiakas</h2>
+<br />
+<p>Asiakkaita yhteensä: @Model.Count()</p>
 
-<p style="padding-left:8px;font-size:12px">
-    @Html.ActionLink("Luo uusi asiakas", "Create")
+
+@*<p style="padding-left:8px;font-size:12px">*@
+<p style="padding-left:8px">
+    @Html.ActionLink("Uusi asiakas", "Create", new { @class = "w3-btn w3-small", @form = "form_id" })
 </p>
 
+<p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
+
 <table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserIdentity)
-        </th>
-        @*<th>
-                @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.UserIdentity)
+            </th>
+            @*<th>
+                    @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
+                </th>*@
+            <th>
+                @Html.DisplayNameFor(model => model.FirstName)
             </th>
             <th>
-                @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
-            </th>*@
-        <th>
-            @Html.DisplayNameFor(model => model.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Identity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-           @Html.DisplayNameFor(model => model.PhoneNum_1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Address)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostOffice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        @*<th>
-                    @Html.DisplayNameFor(model => model.Personnel.FirstName)
-                </th>
+                @Html.DisplayNameFor(model => model.LastName)
+            </th>
             <th>
-                    @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Studentx.FirstName)
-                </th>*@
-        <th></th>
-    </tr>
+                @Html.DisplayNameFor(model => model.Identity)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PhoneNum_1)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostalCode)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PostOffice)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Notes)
+            </th>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserIdentity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Identity)
-           </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNum_1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Address)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostOffice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            @*<td>
-                        @Html.DisplayFor(modelItem => item.Personnel.FirstName)
-                    </td>
-                <td>
-                        @Html.DisplayFor(modelItem => item.Reservation.TreatmentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Treatment.TreatmentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentPlace.TreatmentPlaceName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Studentx.FirstName)
-                    </td>*@
-            <td>
-                @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
-                @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
-                @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                @*@Html.ActionLink("Asiakaslistaus", "IndexCustomerWiew", new { id = item.Customer_id }) |*@
-                @Html.ActionLink(item.FirstName + " " + item.LastName, "AddNotes", new { Customer_id = item.Customer_id }, new { @class = "w3-button btn-success w3-grey w3-tiny", @form = "form_id" })
-            </td>
+            <th></th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.UserIdentity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Identity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Email)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostalCode)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PostOffice)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Notes)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
+                    @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
+                    @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
+                    @Html.ActionLink(item.FirstName + " " + item.LastName, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
+                 
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
-<p><a href="/Customers/AddNotes" class="w3-btn w3-padding-large w3-large">Hoitotiedot</a></p>
+
+
+<p><a href="/TreatmentReports/Details" class="w3-btn w3-small">Hoitotiedot</a></p>
 
 <div class="w3-accordion">
     <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-text-black" id="myBtn"></a>
-    <a href="Customers/AddNotes">Hoitotiedot</a>
+    <a href="/TreatmentReports/Create">Hoitotiedot#</a>
 </div>
+
+
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
 @section Scripts {
+
     @Scripts.Render("~/bundles/jqueryval")
 
-    document.getElementById("myBtn").click();
+    @*document.getElementById("myBtn").click();*@
+
+    @*document.getElementById("myAccFunc").click();*@
 }

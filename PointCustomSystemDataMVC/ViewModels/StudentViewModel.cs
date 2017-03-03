@@ -9,14 +9,22 @@ namespace PointCustomSystemDataMVC.ViewModels
     public class StudentViewModel
     {
         public int Student_id { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Opintojen aloitus pvm")]
-        public DateTime EnrollmentDateIN { get; set; }
+        public DateTime? EnrollmentDateIN { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Valmistunut pvm")]
-        public DateTime EnrollmentDateOUT { get; set; }
+        public DateTime? EnrollmentDateOUT { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Opinnot keskeytyneet pvm")]
+        public DateTime? EnrollmentDateOFF { get; set; }
+       
         public int? Personnel_id { get; set; }
         public string Personnel { get; set; }
         public int? Customer_id { get; set; }
@@ -32,7 +40,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Osoite")]
         public string Address { get; set; }
 
-        public string Note { get; set; }
+       
 
         public int? Post_id { get; set; }
         [Display(Name = "PostiNro")]

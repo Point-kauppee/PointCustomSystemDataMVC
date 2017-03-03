@@ -1,21 +1,37 @@
-﻿@model PointCustomSystemDataMVC.Models.TreatmentReport
+﻿@model PointCustomSystemDataMVC.ViewModels.TreatmentReportsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Asiakkaan hoitotiedot</h2>
 
 <div>
-    <h4>TreatmentReport</h4>
+    <h4>Hoitoraportti</h4>
     <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserIdentity)
+        </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.TreatmentReportName)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.TreatmentReportName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullNameA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullNameA)
         </dd>
 
         <dt>
@@ -43,48 +59,88 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Personnel.FirstName)
+            @Html.DisplayNameFor(model => model.FullNameH)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Personnel.FirstName)
+            @Html.DisplayFor(model => model.FullNameH)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Studentx.FirstName)
-        </dt>
+        @*<dt>
+                @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
+            </dt>
 
-        <dd>
-            @Html.DisplayFor(model => model.Studentx.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.UserIdentity)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Reservation1.TreatmentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer1.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Customer1.FirstName)
-        </dd>
+            <dd>
+                @Html.DisplayFor(model => model.Reservation.TreatmentName)
+            </dd>*@
 
     </dl>
+
+    <p>
+        @Html.ActionLink("Edit", "Edit", new { id = Model.TreatmentReport_id }) |
+        @Html.ActionLink("Back to List", "Index")
+    </p>
+
+    <hr />
+
+    <h4>Asiakkaan hoitokertomukset</h4>
+
+    @*1.2.2017 Lisätty alitiedostot TreatmentReservations*@
+
+    <table class="table">
+        <tr>
+            <th>
+                Päivämäärä
+            </th>
+            <th>
+                Hoitoaika
+            </th>
+            <th>
+                Hoitoraportin nimi
+            </th>
+            <th>
+                Hoitaja
+            </th>
+            <th>
+                Hoitoraportti
+            </th>
+          
+        </tr>
+
+        @foreach (var item in Model.TreatmentReservations)
+
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentDate)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentTime)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentReportName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullNameH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentReportText)
+                </td>
+              
+
+    @*//Linkki asiakkaiden hoitotieto raportteihin:*@
+    @Html.ActionLink("Asiakas hoitoraportit", "Index")
+
+    </tr>
+            }
+
+        </table>
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.TreatmentReport_id }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

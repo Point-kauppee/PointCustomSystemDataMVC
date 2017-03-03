@@ -8,10 +8,10 @@ namespace PointCustomSystemDataMVC.ViewModels
 {
     public class ReservationViewModel
     {
-        public int Reservation_id { get; set; }
-
+        public int? Reservation_id { get; set; }
+     
         public string Customer { get; set; }
-        public string Customer1 { get; set; }
+       
         public int? Customer_id { get; set; }       
         public string Identity { get; set; }
         [Display(Name = "Sähköposti")]

@@ -4,10 +4,10 @@
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Tiedot</h2>
 
 <div>
-    <h4>PostOffices</h4>
+    <h4>Postitoimipaikat</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -26,97 +26,10 @@
             @Html.DisplayFor(model => model.PostOffice)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Customer_id)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Customer_id)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Personnel1.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Phone1.PhoneNum_1)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostOffices1.PostalCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.PostOffices2.PostalCode)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.PostOffices2.PostalCode)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Reservation.TreatmentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Treatment.TreatmentName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentPlace.TreatmentPlaceName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.Studentx.FirstName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Studentx.FirstName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentOffice.TreatmentOfficeName)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.User.UserIdentity)
-        </dd>
 
     </dl>
 </div>
 <p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.Post_id }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Post_id }) |
+    @Html.ActionLink("Takaisin postitietoihin", "Index")
 </p>

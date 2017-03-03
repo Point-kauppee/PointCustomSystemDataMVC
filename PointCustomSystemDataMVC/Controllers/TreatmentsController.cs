@@ -17,8 +17,33 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Treatments
         public ActionResult Index()
         {
-            var treatment = db.Treatment.Include(t => t.Customer1).Include(t => t.Personnel1).Include(t => t.Phone1).Include(t => t.PostOffices1).Include(t => t.Reservation1).Include(t => t.TreatmentOffice).Include(t => t.TreatmentPlace).Include(t => t.User).Include(t => t.Studentx);
-            return View(treatment.ToList());
+            List<Treatment> model = new List<Treatment>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+
+            try
+            {
+                List<Treatment> treatoffs = entities.Treatment.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                foreach (Treatment treatoff in treatoffs)
+                {
+                    Treatment view = new Treatment();
+                    view.Treatment_id = treatoff.Treatment_id;
+                    view.TreatmentName = treatoff.TreatmentName;
+                    view.TreatmentTime = treatoff.TreatmentTime;
+                    view.TreatmentPrice = treatoff.TreatmentPrice;
+
+                    model.Add(view);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+
+            return View(model);
         }
 
         // GET: Treatments/Details/5
@@ -67,8 +92,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", treatment.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", treatment.Post_id);
+           
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatment.Reservation_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
             ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
@@ -91,8 +115,8 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", treatment.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", treatment.Post_id);
+         
+       
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatment.Reservation_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
             ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
@@ -116,8 +140,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", treatment.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", treatment.Post_id);
+           
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatment.Reservation_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
             ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);

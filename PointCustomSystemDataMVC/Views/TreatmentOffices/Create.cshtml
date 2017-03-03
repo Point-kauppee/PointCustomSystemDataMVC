@@ -1,8 +1,8 @@
-﻿@model PointCustomSystemDataMVC.Models.TreatmentOffice
+﻿@model PointCustomSystemDataMVC.ViewModels.TreatmentOfficeViewModel
 
 @{
-    //ViewBag.Title = "Create";
-    ViewBag.Title = "TreatmentOfficeSeed";
+    ViewBag.Title = "Create";
+    //ViewBag.Title = "TreatmentOfficeSeed";
 }
 
 <h2>Lisää toimipiste</h2>
@@ -14,16 +14,9 @@
     @Html.AntiForgeryToken()
 
     <div class="form-horizontal">
-        <h4>Toimipiste</h4>
+        <h4>Toimipistehallinta</h4>
         <hr />
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.TreatmentOffice_id, "Toimipisteen nimi", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownListFor(model => model.TreatmentOffice_id, ViewBag.TreatmentOfficeSeed as SelectList, "**Valitse toimipisteId**", new { @class = "form-control", @placeholder = "User" })
-                @Html.ValidationMessageFor(model => model.TreatmentOffice_id, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
@@ -35,10 +28,10 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Phone1.PhoneNum_1, "PuhNro", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PhoneNum_1, "PuhNro", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Phone1.PhoneNum_1, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Phone1.PhoneNum_1, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PhoneNum_1, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNum_1, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -51,18 +44,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PostOffices1.PostalCode, "PostiNro", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PostalCode, "PostiNro", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PostOffices1.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostOffices1.PostalCode, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PostalCode, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostalCode, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.PostOffices1.PostOffice, "Postiosoite", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.PostOffice, "Postiosoite", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.PostOffices1.PostOffice, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.PostOffices1.PostOffice, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.PostOffice, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PostOffice, "", new { @class = "text-danger" })
             </div>
         </div>
 
@@ -74,77 +67,7 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Personnel_id, "Personnel_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Personnel_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Personnel_id, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
 
-        @*<div class="form-group">
-                @Html.LabelFor(model => model.Phone_id, "Phone_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Phone_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Phone_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Post_id, "Post_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Post_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Post_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Reservation_id, "Reservation_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Reservation_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Reservation_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Student_id, "Student_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Student_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Student_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Treatment_id, "Treatment_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Treatment_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Treatment_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Customer_id, "Customer_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Customer_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Customer_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Treatmentplace_id, "Treatmentplace_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("Treatmentplace_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.Treatmentplace_id, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.User_id, "User_id", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("User_id", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.User_id, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -155,7 +78,7 @@
 }
 
 <div>
-    @Html.ActionLink("Takaisin toimipistetietoihin", "Index")
+    @Html.ActionLink("Takaisin toimipistehallintaan", "Index")
 </div>
 
 @section Scripts {

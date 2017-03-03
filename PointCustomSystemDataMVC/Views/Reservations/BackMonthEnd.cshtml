@@ -209,7 +209,7 @@
 
 <div id="dpm">
 
-    @*@Html.DayPilotMonth("dp_month", new DayPilotMonthConfig*@
+ @*@Html.DayPilotMonth("dp_month", new DayPilotMonthConfig*@
  @Html.DayPilotMonth("dpm", new DayPilotMonthConfig
  {
      BackendUrl = Url.Content("~/Reservations/BackMonthEnd"),
@@ -238,10 +238,22 @@
     <p>
         @Html.ActionLink("Create New", "Create")
     </p>
-    @*<table class="table">
+    <table class="table">
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.UserIdentity)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.TreatmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FullNameA)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TreatmentPlaceName)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Start)
@@ -253,38 +265,15 @@
                 @Html.DisplayNameFor(model => model.Date)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Type)
+                @Html.DisplayNameFor(model => model.FullNameH)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Notes)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNum_1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentPlaceName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
+            </th>   
             <th>
                 @Html.DisplayNameFor(model => model.TreatmentOfficeName)
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.UserIdentity)
-            </th>
+         
             <th></th>
         </tr>
 
@@ -292,7 +281,19 @@
         {
             <tr>
                 <td>
+                    @Html.DisplayFor(modelItem => item.UserIdentity)
+                </td>
+                <td>
                     @Html.DisplayFor(modelItem => item.TreatmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FullNameA)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Start)
@@ -304,38 +305,12 @@
                     @Html.DisplayFor(modelItem => item.Date)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Type)
+                    @Html.DisplayFor(modelItem => item.FullNameH)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.Notes)
                 </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNum_1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostalCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreatmentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreatmentOfficeName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserIdentity)
-                </td>
+             
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Reservation_id }) |
                     @Html.ActionLink("Details", "Details", new { id = item.Reservation_id }) |
@@ -344,4 +319,4 @@
             </tr>
         }
 
-    </table>*@
+    </table>

@@ -9,7 +9,10 @@ namespace PointCustomSystemDataMVC.ViewModels
     public class CustomerViewModel
     {
         public int? Personnel_id { get; set; }
-        public int? Customer_id { get; set; }
+        public int Customer_id { get; set; }
+        public int? Student_id { get; set; }
+        public string Studentx { get; set; }
+
         [Display(Name = "Etunimi")]
         public string FirstName { get; set; }
         [Display(Name = "Sukunimi")]
@@ -31,8 +34,24 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Postiosoite")]
         public string PostOffice { get; set; }
         public string PostOffices { get; set; }
-        
-      
+
+        public string Reservation { get; set; }
+        public int? Reservation_id { get; set; }
+
+        [Display(Name = "Alkaen klo")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public DateTime? Start { get; set; }
+        [Display(Name = "Loppuu klo")]
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        public DateTime? End { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "HoitoPvm")]
+        public DateTime? Date { get; set; }
+
         public int? Phone_id { get; set; }
         public string Phone { get; set; }
         [Display(Name = "PuhNro")]
@@ -43,14 +62,9 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
 
-        [Display(Name = "Hoitoaika")]
-        [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
-        public DateTime TreatmentTime { get; set; }
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "HoitoPvm")]
-        public DateTime TreatmentDate { get; set; }
+
+        public DateTime? TreatmentDate { get; set; }
+        public DateTime? TreatmentTime { get; set; }
 
         public string TreatmentReport { get; set; }
         public string TreatmentReportName { get; set; }
@@ -68,5 +82,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         {
             get { return FirstName + ", " + LastName; }
         }
+
+        public virtual ICollection<ReservationViewModel> Reservations { get; set; }
     }
 }

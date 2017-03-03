@@ -32,19 +32,22 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Studentx student in students)
                 {
                     StudentViewModel stu = new StudentViewModel();
-                    stu.Customer_id = student.Customer_id;
+                    stu.Student_id = student.Student_id;
                     stu.FirstName = student.FirstName;
                     stu.LastName = student.LastName;
                     stu.Identity = student.Identity;
                     stu.Email = student.Email;
                     stu.EnrollmentDateIN = student.EnrollmentDateIN.Value;
                     stu.EnrollmentDateOUT = student.EnrollmentDateOUT.Value;
+                    stu.EnrollmentDateOFF = student.EnrollmentDateOFF.Value;
                     stu.Notes = student.Notes;
-                    //stu.PhoneNum_1 = student.Phone1.PhoneNum_1;
-                    //stu.PostOffice = student.PostOffices1.PostalCode;
-                    //stu.PostOffice = student.PostOffices1.PostOffice;
 
-                    //stu.UserIdentity = student.User.UserIdentity;
+                    stu.PhoneNum_1 = student.Phone?.FirstOrDefault()?.PhoneNum_1;
+                    stu.PostOffice = student.PostOffices?.FirstOrDefault()?.PostalCode;
+                    stu.PostOffice = student.PostOffices?.FirstOrDefault()?.PostOffice;
+
+                    stu.User_id = student.User?.FirstOrDefault()?.User_id;
+                    stu.UserIdentity = student.User?.FirstOrDefault()?.UserIdentity;
 
                     model.Add(stu);
                 }
@@ -106,16 +109,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", studentx.Post_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentx.User_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", studentx.Customer_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", studentx.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", studentx.Personnel_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", studentx.Reservation_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", studentx.TreatmentOffice_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", studentx.Treatment_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", studentx.TreatmentPlace_id);
+       
+       
             return View(studentx);
         }
 
@@ -131,16 +126,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", studentx.Post_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentx.User_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", studentx.Customer_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", studentx.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", studentx.Personnel_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", studentx.Reservation_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", studentx.TreatmentOffice_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", studentx.Treatment_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", studentx.TreatmentPlace_id);
+  
             return View(studentx);
         }
 
@@ -157,16 +143,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", studentx.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", studentx.Post_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentx.User_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", studentx.Customer_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", studentx.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", studentx.Personnel_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", studentx.Reservation_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", studentx.TreatmentOffice_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", studentx.Treatment_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", studentx.TreatmentPlace_id);
+     
+      
             return View(studentx);
         }
 

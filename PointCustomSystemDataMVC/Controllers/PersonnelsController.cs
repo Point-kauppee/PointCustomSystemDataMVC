@@ -34,17 +34,20 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Personnel personnel in personnels)
                 {
                     PersonnelViewModel per = new PersonnelViewModel();
-                    per.Customer_id = personnel.Customer_id;
+                    per.Personnel_id = personnel.Personnel_id;
                     per.FirstName = personnel.FirstName;
                     per.LastName = personnel.LastName;
                     per.Identity = personnel.Identity;
                     per.Email = personnel.Email;
 
-                    //per.PhoneNum_1 = personnel.Phone.PhoneNum_1;
-                    //per.PostOffice = personnel.PostOffices.PostalCode;
-                    //per.PostOffice = personnel.PostOffices.PostOffice;
+                    per.Phone_id = personnel.Phone?.FirstOrDefault()?.Phone_id;
+                    per.PhoneNum_1 = personnel.Phone?.FirstOrDefault()?.PhoneNum_1;
 
-                    //per.UserIdentity = personnel.User.UserIdentity;
+                    per.Post_id = personnel.PostOffices?.FirstOrDefault()?.Post_id;
+                    per.PostOffice = personnel.PostOffices?.FirstOrDefault()?.PostalCode;
+                    per.PostOffice = personnel.PostOffices?.FirstOrDefault()?.PostOffice;
+
+                    per.UserIdentity = personnel.User?.FirstOrDefault()?.UserIdentity;
 
                     model.Add(per);
                 }
@@ -175,15 +178,8 @@ public ActionResult Details(int? id)
             {
                 return HttpNotFound();
             }
-            ViewBag.Customer_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", personnel.Customer_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", personnel.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", personnel.Post_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", personnel.Reservation_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", personnel.Treatment_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", personnel.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", personnel.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", personnel.User_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", personnel.Student_id);
+          
+         
             return View(personnel);
         }
 
@@ -200,15 +196,7 @@ public ActionResult Details(int? id)
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Customer_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", personnel.Customer_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", personnel.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", personnel.Post_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", personnel.Reservation_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", personnel.Treatment_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", personnel.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", personnel.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", personnel.User_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", personnel.Student_id);
+          
             return View(personnel);
         }
 

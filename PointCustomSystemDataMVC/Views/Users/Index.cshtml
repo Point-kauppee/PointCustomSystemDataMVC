@@ -1,9 +1,7 @@
 ﻿@model IEnumerable<PointCustomSystemDataMVC.Models.User>
 
 @{
-
     ViewBag.Title = "Index";
-
 }
 
 <title>PointCollege Ajanvarausohjelmisto</title>
@@ -45,33 +43,7 @@
             <th>
                 @Html.DisplayNameFor(model => model.Password)
             </th>
-            @*<th>
-                @Html.DisplayNameFor(model => model.Customer1.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Studentx1.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentOffice1.TreatmentOfficeName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentPlace1.TreatmentPlaceName)
-            </th>*@
+            
             <th></th>
         </tr>
     
@@ -83,33 +55,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Password)
             </td>
-            @*<td>
-                @Html.DisplayFor(modelItem => item.Customer1.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Personnel1.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Phone1.PhoneNum_1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostOffices1.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Reservation1.TreatmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Studentx1.FirstName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Treatment1.TreatmentName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentOffice1.TreatmentOfficeName)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TreatmentPlace1.TreatmentPlaceName)
-            </td>*@
+           
             <td>
                 @Html.ActionLink("Muokkaa", "Edit", new { id=item.User_id }) |
                 @Html.ActionLink("Tiedot", "Details", new { id=item.User_id }) |
@@ -120,7 +66,5 @@
     
     </table>
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-
 <script src="~/Scripts/jquery.validate.min.js"></script>
-
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

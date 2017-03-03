@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
+using PointCustomSystemDataMVC.ViewModels;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -17,8 +18,8 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentReports
         public ActionResult Index()
         {
-            var treatmentReport = db.TreatmentReport.Include(t => t.Personnel).Include(t => t.Studentx).Include(t => t.User).Include(t => t.Reservation1).Include(t => t.Customer1);
-            return View(treatmentReport.ToList());
+            
+            return View();
         }
 
         // GET: TreatmentReports/Details/5
@@ -39,11 +40,15 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentReports/Create
         public ActionResult Create()
         {
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            TreatmentReportsViewModel model = new TreatmentReportsViewModel();
+            return View(model);
+
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
+            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
             return View();
         }
 
@@ -52,21 +57,46 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "TreatmentReport_id,TreatmentReportName,TreatmentDate,TreatmentTime,User_id,Customer_id,Student_id,Personnel_id,Reservation_id,TreatmentReportText")] TreatmentReport treatmentReport)
+        public ActionResult Create(TreatmentReportsViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                db.TreatmentReport.Add(treatmentReport);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatmentReport.Personnel_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentReport.Student_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentReport.User_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentReport.Reservation_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatmentReport.Customer_id);
-            return View(treatmentReport);
+            Customer cus = new Customer();
+            
+            db.Customer.Add(cus);
+
+
+            TreatmentReport tre = new TreatmentReport();
+            tre.TreatmentReportName = model.TreatmentReportName;
+            tre.TreatmentReportText= model.TreatmentReportText;
+            tre.TreatmentDate = model.TreatmentDate;
+            tre.TreatmentTime = model.TreatmentTime;
+            tre.Customer = cus;
+
+            db.TreatmentReport.Add(tre);
+
+            User usr = new User();
+            usr.UserIdentity = model.UserIdentity;
+            usr.Customer = cus;
+
+            db.User.Add(usr);
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+            //if (ModelState.IsValid)
+            //{
+            //    db.TreatmentReport.Add(treatmentReport);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+
+
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentReport.Student_id);
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentReport.User_id);
+            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentReport.Reservation_id);
+            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatmentReport.Customer_id);
+            //return View(treatmentReport);
         }
 
         // GET: TreatmentReports/Edit/5
@@ -81,7 +111,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatmentReport.Personnel_id);
+          
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentReport.Student_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentReport.User_id);
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentReport.Reservation_id);
@@ -94,7 +124,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TreatmentReport_id,TreatmentReportName,TreatmentDate,TreatmentTime,User_id,Customer_id,Student_id,Personnel_id,Reservation_id,TreatmentReportText")] TreatmentReport treatmentReport)
+        public ActionResult Edit([Bind(Include = "TreatmentReport_id,TreatmentReportName,TreatmentDate,TreatmentTime,User_id,Customer_id,Student_id,Reservation_id,TreatmentReportText")] TreatmentReport treatmentReport)
         {
             if (ModelState.IsValid)
             {
@@ -102,7 +132,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatmentReport.Personnel_id);
+            
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentReport.Student_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentReport.User_id);
             ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentReport.Reservation_id);

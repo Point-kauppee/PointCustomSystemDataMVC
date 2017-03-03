@@ -225,6 +225,15 @@
     <Compile Include="Models\Customer.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\Personnel.cs">
+      <DependentUpon>PointSQLData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Reservation.cs">
+      <DependentUpon>PointSQLData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Studentx.cs">
+      <DependentUpon>PointSQLData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TreatmentReport.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
@@ -232,9 +241,6 @@
     <Compile Include="ViewModels\EventManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
-    <Compile Include="Models\Personnel.cs">
-      <DependentUpon>PointSQLData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Phone.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
@@ -256,9 +262,6 @@
     <Compile Include="Models\PostOffices.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\Studentx.cs">
-      <DependentUpon>PointSQLData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\TreatmentOffice.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
@@ -266,9 +269,6 @@
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Models\Reservation.cs">
-      <DependentUpon>PointSQLData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Startup.cs" />
     <Compile Include="Models\Treatment.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
@@ -281,6 +281,8 @@
     <Compile Include="ViewModels\PersonnelViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
+    <Compile Include="ViewModels\TreatmentOfficeViewModel.cs" />
+    <Compile Include="ViewModels\TreatmentReportsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Application\Logic.js" />

@@ -1,10 +1,10 @@
-﻿@model IEnumerable<PointCustomSystemDataMVC.Models.TreatmentOffice>
+﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.TreatmentOfficeViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Toimipiste</h2>
+<h2>Toimipistehallinta</h2>
 
 <p>
     @Html.ActionLink("Lisää uusi toimipiste", "Create")
@@ -15,43 +15,21 @@
             @Html.DisplayNameFor(model => model.TreatmentOfficeName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
+            @Html.DisplayNameFor(model => model.PhoneNum_1)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.PostOffices1.PostOffice)
+            @Html.DisplayNameFor(model => model.PostalCode)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PostOffice)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Note)
         </th>
-        @*<th>
-                @Html.DisplayNameFor(model => model.Customer1.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-            </th>*@
-
-
-        @*<th>
-                @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Studentx1.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.User.UserIdentity)
-            </th>*@
+        
         <th></th>
     </tr>
 
@@ -62,41 +40,21 @@
                 @Html.DisplayFor(modelItem => item.TreatmentOfficeName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Phone1.PhoneNum_1)
-            </td>
-            <td>
                 @Html.DisplayFor(modelItem => item.Address)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostOffices1.PostalCode)
+                @Html.DisplayFor(modelItem => item.PhoneNum_1)
+            </td>    
+            <td>
+                @Html.DisplayFor(modelItem => item.PostalCode)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.PostOffices1.PostOffice)
+                @Html.DisplayFor(modelItem => item.PostOffice)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Note)
             </td>
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Customer1.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Personnel1.FirstName)
-                </td>*@
-            @*<td>
-                    @Html.DisplayFor(modelItem => item.Reservation1.TreatmentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Studentx1.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Treatment1.TreatmentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreatmentPlace.TreatmentPlaceName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.User.UserIdentity)
-                </td>*@
+           
             <td>
                 @Html.ActionLink("Muokkaa", "Edit", new { id = item.TreatmentOffice_id }) |
                 @Html.ActionLink("Tiedot", "Details", new { id = item.TreatmentOffice_id }) |

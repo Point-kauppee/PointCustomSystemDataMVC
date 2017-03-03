@@ -1,16 +1,22 @@
-﻿@model IEnumerable<PointCustomSystemDataMVC.Models.TreatmentReport>
+﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.TreatmentReportsViewModel>
 
 @{
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Asiakkaiden hoitotiedot</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
 </p>
 <table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.UserIdentity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.FullNameA)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.TreatmentReportName)
         </th>
@@ -22,28 +28,23 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TreatmentReportText)
-        </th>
+        </th>       
         <th>
-            @Html.DisplayNameFor(model => model.Personnel.FirstName)
+            @Html.DisplayNameFor(model => model.FullNameH)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Studentx.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Customer1.FirstName)
-        </th>
+     
         <th></th>
     </tr>
 
 @foreach (var item in Model) {
     <tr>
         <td>
+            @Html.DisplayFor(modelItem => item.UserIdentity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FullNameA)
+        </td>
+          <td>
             @Html.DisplayFor(modelItem => item.TreatmentReportName)
         </td>
         <td>
@@ -56,20 +57,9 @@
             @Html.DisplayFor(modelItem => item.TreatmentReportText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Personnel.FirstName)
+            @Html.DisplayFor(modelItem => item.FullNameH)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Studentx.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserIdentity)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Reservation1.TreatmentName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Customer1.FirstName)
-        </td>
+    
         <td>
             @Html.ActionLink("Edit", "Edit", new { id=item.TreatmentReport_id }) |
             @Html.ActionLink("Details", "Details", new { id=item.TreatmentReport_id }) |

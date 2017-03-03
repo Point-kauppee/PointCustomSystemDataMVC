@@ -16,6 +16,7 @@ using System.Globalization;
 using DayPilot.Web.Mvc.Events.Month;
 using DayPilot.Web.Mvc.Json;
 using PointCustomSystemDataMVC.ViewModels;
+using PointCustomSystemDataMVC.Utilities;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -45,21 +46,11 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.End = reservation.End.Value;
                     res.Date = reservation.Date.Value;
 
-                    //res.Customer_id = reservation.Customer_id;
-                    //res.FirstName = reservation.Customer1.FirstName;
-                    //res.LastName = reservation.Customer1.LastName;
-                    //res.Identity = reservation.Customer1.Identity;
-                    //res.Email = reservation.Customer1.Email;
-                    //res.Notes = reservation.Customer1.Notes;
 
-                    //res.Phone_id = reservation.Phone_id;
-                    //res.PhoneNum_1 = reservation.Phone1.PhoneNum_1;
-                    //res.Post_id = reservation.PostOffices1.Post_id;
-                    //res.PostOffice = reservation.PostOffices1.PostalCode;
-                    //res.PostOffice = reservation.PostOffices1.PostOffice;
+                    res.Treatment_id = reservation.Treatment?.FirstOrDefault()?.Treatment_id;
+                    res.TreatmentName = reservation.Treatment?.FirstOrDefault()?.TreatmentName;
+                    res.TreatmentTime = reservation.Treatment?.FirstOrDefault()?.TreatmentTime;
 
-                    //res.User_id = reservation.User.User_id;
-                    //res.UserIdentity = reservation.User.UserIdentity;
 
                     model.Add(res);
                 }
@@ -119,14 +110,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", reservation.Customer_id);
+         
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", reservation.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", reservation.Post_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", reservation.Treatment_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", reservation.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", reservation.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", reservation.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
             return View(reservation);
         }
@@ -143,14 +128,8 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", reservation.Customer_id);
+           
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", reservation.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", reservation.Post_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", reservation.Treatment_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", reservation.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", reservation.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", reservation.User_id);
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
             return View(reservation);
         }
@@ -168,15 +147,9 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", reservation.Customer_id);
+        
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1", reservation.Phone_id);
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", reservation.Post_id);
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName", reservation.Treatment_id);
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", reservation.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", reservation.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", reservation.User_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
+             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
             return View(reservation);
         }
 

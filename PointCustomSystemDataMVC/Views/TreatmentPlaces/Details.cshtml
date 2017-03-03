@@ -1,202 +1,30 @@
 ﻿@model PointCustomSystemDataMVC.Models.TreatmentPlace
 
-
-
 @{
-
     ViewBag.Title = "Details";
-
 }
-
-
 
 <h2>Tiedot</h2>
 
-
-
 <div>
-
     <h4>Hoitopaikka</h4>
-
     <hr />
-
     <dl class="dl-horizontal">
-
         <dt>
-
             @Html.DisplayNameFor(model => model.TreatmentPlaceName)
-
         </dt>
 
-
-
         <dd>
-
             @Html.DisplayFor(model => model.TreatmentPlaceName)
-
         </dd>
-
-
 
         <dt>
-
             @Html.DisplayNameFor(model => model.TreatmentPlaceNumber)
-
         </dt>
 
-
-
         <dd>
-
             @Html.DisplayFor(model => model.TreatmentPlaceNumber)
-
         </dd>
-
-
-
-        @*<dt>
-
-                @Html.DisplayNameFor(model => model.Customer1.FirstName)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.Customer1.FirstName)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.Personnel1.FirstName)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.Personnel1.FirstName)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.Phone1.PhoneNum_1)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.Phone1.PhoneNum_1)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.PostOffices1.PostalCode)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.PostOffices1.PostalCode)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.Reservation1.TreatmentName)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.Reservation1.TreatmentName)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.Treatment1.TreatmentName)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.Treatment1.TreatmentName)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.TreatmentOffice.TreatmentOfficeName)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.User.UserIdentity)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.User.UserIdentity)
-
-            </dd>
-
-
-
-            <dt>
-
-                @Html.DisplayNameFor(model => model.Studentx.FirstName)
-
-            </dt>
-
-
-
-            <dd>
-
-                @Html.DisplayFor(model => model.Studentx.FirstName)
-
-            </dd>*@
-
-
 
     </dl>
 
@@ -206,6 +34,6 @@
 
     @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Treatmentplace_id }) |
 
-    @Html.ActionLink("Takaisin hoitopaikkatietoihin", "Index")
+    @Html.ActionLink("Takaisin hoitopaikkahallintaan", "Index")
 
 </p>
