@@ -67,67 +67,151 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            List<StudentViewModel> model = new List<StudentViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                List<Studentx> students = entities.Studentx.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+                foreach (Studentx studetail in students)
+                {
+
+                    StudentViewModel stu = new StudentViewModel();
+                    stu.Student_id = studetail.Student_id;
+                    stu.FirstName = studetail.FirstName;
+                    stu.LastName = studetail.LastName;
+                    stu.Identity = studetail.Identity;
+                    stu.Email = studetail.Email;
+                    stu.EnrollmentDateIN = studetail.EnrollmentDateIN.Value;
+                    stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT.Value;
+                    stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF.Value;
+                    stu.Notes = studetail.Notes;
+
+                    stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+                    stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
+                    stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
+
+                    stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
+                    stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+
+                    model.Add(stu);
+                }
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+
+                    Studentx studentx = db.Studentx.Find(id);
+
+                    if (studentx == null)
+
+                    {
+                        return HttpNotFound();
+                    }
             }
-            Studentx studentx = db.Studentx.Find(id);
-            if (studentx == null)
+            finally
             {
-                return HttpNotFound();
+                entities.Dispose();
             }
-            return View(studentx);
+            return View(model);
         }
 
         // GET: Studentxes/Create
         public ActionResult Create()
         {
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            return View();
-        }
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-        // POST: Studentxes/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+            StudentViewModel model = new StudentViewModel();
+            return View(model);
+        }//create
+
+   
+
+    // POST: Studentxes/Create
+    // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+    // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Student_id,FirstName,LastName,Identity,Notes,Email,EnrollmentDateIN,EnrollmentDateOUT,Phone_id,Post_id,User_id,Address,Personnel_id,Reservation_id,Treatment_id,Customer_id,TreatmentPlace_id,TreatmentOffice_id")] Studentx studentx)
+        public ActionResult Create(StudentViewModel model)
         {
-            if (ModelState.IsValid)
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            Studentx stu = new Studentx();
+            stu.FirstName = model.FirstName;
+            stu.LastName = model.LastName;
+            stu.Identity = model.Identity;
+            stu.Address = model.Address;
+            stu.Email = model.Email;
+            stu.Notes = model.Notes;
+
+            db.Studentx.Add(stu);
+
+            User usr = new User();
+            usr.UserIdentity = model.UserIdentity;
+            usr.Password = "Student";
+            usr.Studentx = stu;
+
+            db.User.Add(usr);
+
+            Phone pho = new Phone();
+            pho.PhoneNum_1 = model.PhoneNum_1;
+            pho.Studentx = stu;
+
+            db.Phone.Add(pho);
+
+            PostOffices pos = new PostOffices();
+            pos.PostalCode = model.PostalCode;
+            pos.PostOffice = model.PostOffice;
+            pos.Studentx = stu;
+
+            db.PostOffices.Add(pos);
+
+            try { db.SaveChanges(); }
+
+            catch (Exception ex)
             {
-                db.Studentx.Add(studentx);
-                db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-       
-       
-            return View(studentx);
-        }
+            return RedirectToAction("Index");
+    }//cr*/
 
-        // GET: Studentxes/Edit/5
-        public ActionResult Edit(int? id)
+    // GET: Studentxes/Edit/5
+    public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Studentx studentx = db.Studentx.Find(id);
-            if (studentx == null)
+            Studentx studetail = db.Studentx.Find(id);
+            if (studetail == null)
             {
                 return HttpNotFound();
             }
-  
-            return View(studentx);
+            StudentViewModel stu = new StudentViewModel();
+            stu.Student_id = studetail.Student_id;
+            stu.FirstName = studetail.FirstName;
+            stu.LastName = studetail.LastName;
+            stu.Identity = studetail.Identity;
+            stu.Email = studetail.Email;
+            stu.EnrollmentDateIN = studetail.EnrollmentDateIN.Value;
+            stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT.Value;
+            stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF.Value;
+            stu.Notes = studetail.Notes;
+
+            stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+            stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
+            stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
+
+            stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
+            stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+
+
+            return View(stu);
         }
 
         // POST: Studentxes/Edit/5
@@ -135,18 +219,57 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Student_id,FirstName,LastName,Identity,Notes,Email,EnrollmentDateIN,EnrollmentDateOUT,Phone_id,Post_id,User_id,Address,Personnel_id,Reservation_id,Treatment_id,Customer_id,TreatmentPlace_id,TreatmentOffice_id")] Studentx studentx)
+        public ActionResult Edit(StudentViewModel model)
         {
-            if (ModelState.IsValid)
+            Studentx stu = db.Studentx.Find(model.Student_id);
+
+            stu.Student_id = model.Student_id;
+            stu.FirstName = model.FirstName;
+            stu.LastName = model.LastName;
+            stu.Identity = model.Identity;
+            stu.Email = model.Email;
+            stu.EnrollmentDateIN = model.EnrollmentDateIN.Value;
+            stu.EnrollmentDateOUT = model.EnrollmentDateOUT.Value;
+            stu.EnrollmentDateOFF = model.EnrollmentDateOFF.Value;
+            stu.Notes = model.Notes;
+
+            if (stu.Phone == null)
             {
-                db.Entry(studentx).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                Phone pho = new Phone();
+                pho.PhoneNum_1 = model.PhoneNum_1;
+                pho.Studentx = stu;
+
+                db.Phone.Add(pho);
             }
-     
-      
-            return View(studentx);
-        }
+            else
+            {
+                stu.Phone.FirstOrDefault().PhoneNum_1 = model.PhoneNum_1;
+            }
+            if (stu.PostOffices == null)
+            {
+                PostOffices pos = new PostOffices();
+                pos.PostalCode = model.PostalCode;
+                pos.PostOffice = model.PostOffice;
+                pos.Studentx = stu;
+
+                db.PostOffices.Add(pos);
+            }
+            else
+            {
+                PostOffices po = stu.PostOffices.FirstOrDefault();
+
+                if (po != null)
+                {
+                    po.PostalCode = model.PostalCode;
+                    po.PostOffice = model.PostOffice;
+                }
+            }
+
+            db.SaveChanges();
+            return View(model);
+
+        }//edit
+ 
 
         // GET: Studentxes/Delete/5
         public ActionResult Delete(int? id)
