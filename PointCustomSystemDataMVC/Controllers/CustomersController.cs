@@ -60,9 +60,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.End = customer.Reservation?.FirstOrDefault()?.End.Value;
                     view.Date = customer.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    //view.Student_id = customer.Studentx?.FirstOrDefault()?.Student_id;
-                    //view.FirstName = customer.Studentx?.FirstOrDefault()?.FirstName;
-                    //view.LastName = customer.Studentx?.FirstOrDefault()?.LastName;
+                  
 
                     model.Add(view);
                 }
@@ -131,7 +129,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
                     view.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
-                    view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
+                    view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
@@ -142,9 +140,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
                     view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    view.Student_id = custdetail.Studentx?.FirstOrDefault()?.Student_id;
-                    view.FirstName = custdetail.Studentx?.FirstOrDefault()?.FirstName;
-                    view.LastName = custdetail.Studentx?.FirstOrDefault()?.LastName;
+               
 
                     model.Add(view);
                 }
@@ -296,16 +292,37 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customer.Find(id);
+            Customer custdetail = db.Customer.Find(id);
 
-            if (customer == null)
+            if (custdetail == null)
 
             {
                 return HttpNotFound();
             }
 
-                      
-            return View(customer);
+            CustomerViewModel view = new CustomerViewModel();
+            view.Customer_id = custdetail.Customer_id;
+            view.FirstName = custdetail.FirstName;
+            view.LastName = custdetail.LastName;
+            view.Identity = custdetail.Identity;
+            view.Email = custdetail.Email;
+            view.Address = custdetail.Address;
+            view.Notes = custdetail.Notes;
+
+            view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
+            view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+            view.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
+            view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
+            view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
+
+            view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
+            view.UserIdentity = custdetail.User.FirstOrDefault()?.UserIdentity;
+
+            view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
+            view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
+            view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
+            view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
+            return View(view);
 
         }//edit
 
