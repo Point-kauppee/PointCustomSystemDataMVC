@@ -262,7 +262,10 @@
             @Html.DisplayNameFor(model => model.UserIdentity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullNameA)
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TreatmentName)
@@ -280,14 +283,15 @@
             @Html.DisplayNameFor(model => model.End)
         </th>       
         <th>
-            @Html.DisplayNameFor(model => model.FullNameH)
+            @Html.DisplayNameFor(model => model.FirstName)
         </th>
-     
+        <th>
+            @Html.DisplayNameFor(model => model.LastName)
+        </th>   
         <th>
             @Html.DisplayNameFor(model => model.Notes)
         </th>
-    
-           
+             
         <th></th>
     </tr>
 
@@ -298,7 +302,10 @@
                 @Html.DisplayFor(modelItem => item.UserIdentity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FullNameA)
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TreatmentName)
@@ -316,13 +323,15 @@
                 @Html.DisplayFor(modelItem => item.End)
             </td>            
             <td>
-                @Html.DisplayFor(modelItem => item.FullNameH)
-            </td>   
+                @Html.DisplayFor(modelItem => item.FirstName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastName)
+            </td>  
             <td>
                 @Html.DisplayFor(modelItem => item.Notes)
             </td> 
-  
-               
+             
             <td>
                 @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |
                 @Html.ActionLink("Tiedot", "Details", new { id = item.Reservation_id }) |

@@ -52,7 +52,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostOffice = customer.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
-                    view.UserIdentity = customer.User.FirstOrDefault()?.UserIdentity;
+                    view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
 
                     //haetaan seuraava varaus:
                     view.Reservation_id = customer.Reservation?.FirstOrDefault()?.Reservation_id;
@@ -162,11 +162,9 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(model);
 
         }//details
-
-        
+      
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
        
-
         //Oma kaava:
         // GET: Customers/Create
         public ActionResult Create()
@@ -216,7 +214,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.PostOffices.Add(pos);
 
-            try { db.SaveChanges(); }
+            try { db.SaveChanges();
+            }
 
             catch (Exception ex)
             {
@@ -250,6 +249,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+
             view.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
             view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
             view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
@@ -272,7 +272,6 @@ namespace PointCustomSystemDataMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CustomerViewModel model)
-
         {
             Customer cus = db.Customer.Find(model.Customer_id);
 
@@ -309,8 +308,8 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 PostOffices po = cus.PostOffices.FirstOrDefault();
 
-                if (po != null) { 
-                    po.PostalCode = model.PostalCode;
+            if (po != null) { 
+                po.PostalCode = model.PostalCode;
                 po.PostOffice = model.PostOffice;
                 }
             }

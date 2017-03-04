@@ -46,11 +46,23 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.End = reservation.End.Value;
                     res.Date = reservation.Date.Value;
 
+                    res.Treatment_id = reservation.Treatment?.Treatment_id;
+                    res.TreatmentName = reservation.Treatment?.TreatmentName;
+                
+                    res.Customer_id = reservation.Customer?.Customer_id;
+                    res.FirstName = reservation.Customer?.FirstName;
+                    res.LastName = reservation.Customer?.LastName;
 
-                    res.Treatment_id = reservation.Treatment?.FirstOrDefault()?.Treatment_id;
-                    res.TreatmentName = reservation.Treatment?.FirstOrDefault()?.TreatmentName;
-                    res.TreatmentTime = reservation.Treatment?.FirstOrDefault()?.TreatmentTime;
+                    res.Student_id = reservation.Studentx?.Student_id;
+                    res.FirstName = reservation.Studentx?.FirstName;
+                    res.LastName = reservation.Studentx?.LastName;
 
+                    res.Treatmentplace_id = reservation.TreatmentPlace?.Treatmentplace_id;
+                    res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
+                    res.TreatmentPlaceNumber = reservation.TreatmentPlace?.TreatmentPlaceNumber;
+
+                    res.User_id = reservation.User?.User_id;
+                    res.UserIdentity = reservation.User?.UserIdentity;
 
                     model.Add(res);
                 }
@@ -61,97 +73,306 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             return View(model);
-        
-        //var reservation = db.Reservation.Include(r => r.Customer).Include(r => r.Personnel).Include(r => r.Phone1).Include(r => r.PostOffices).Include(r => r.Treatment).Include(r => r.TreatmentOffice).Include(r => r.TreatmentPlace).Include(r => r.User).Include(r => r.Studentx);
-        //return View(reservation.ToList());
-    }
+
+        }
 
         // GET: Reservations/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            List<ReservationViewModel> model = new List<ReservationViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                List<Reservation> reservations = entities.Reservation.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+                foreach (Reservation resdetail in reservations)
+                {
+
+                    ReservationViewModel res = new ReservationViewModel();
+                    res.Reservation_id = resdetail.Reservation_id;
+                    res.Start = resdetail.Start.Value;
+                    res.End = resdetail.End.Value;
+                    res.Date = resdetail.Date.Value;
+
+                    res.Treatment_id = resdetail.Treatment?.Treatment_id;
+                    res.TreatmentName = resdetail.Treatment?.TreatmentName;
+                    res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
+
+                    res.Treatmentplace_id = resdetail.TreatmentPlace?.Treatmentplace_id;
+                    res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
+                    res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
+
+                    res.Customer_id = resdetail.Customer_id;
+                    res.FirstName = resdetail.Customer?.FirstName;
+                    res.LastName = resdetail.Customer?.LastName;
+
+                    res.Student_id = resdetail.Student_id;
+                    res.FirstName = resdetail.Studentx?.FirstName;
+                    res.LastName = resdetail.Studentx?.LastName;
+
+                    res.User_id = resdetail.User?.User_id;
+                    res.UserIdentity = resdetail.User.UserIdentity;
+
+                    model.Add(res);
+
+                }
+
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Reservation reservation = db.Reservation.Find(id);
+                if (reservation == null)
+                {
+                    return HttpNotFound();
+                }
             }
-            Reservation reservation = db.Reservation.Find(id);
-            if (reservation == null)
+            finally
             {
-                return HttpNotFound();
+                entities.Dispose();
             }
-            return View(reservation);
-        }
+
+            return View(model);
+
+        }//details
+
 
         // GET: Reservations/Create
         public ActionResult Create()
         {
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            return View();
-        }
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            ReservationViewModel model = new ReservationViewModel();
+            return View(model);
+        }//create
 
         // POST: Reservations/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Reservation_id,TreatmentName,Start,End,Date,Type,Note,Personnel_id,Phone_id,Post_id,Customer_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Reservation reservation)
+        public ActionResult Create(ReservationViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                db.Reservation.Add(reservation);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            CultureInfo fiFi = new CultureInfo("fi-FI");
+
+            Customer cus = new Customer();
+            cus.FirstName = model.FirstName;
+            cus.LastName = model.LastName;
+            cus.Notes = model.Notes;
+          
+            db.Customer.Add(cus);
+
+            User usr = new User();
+            usr.UserIdentity = model.UserIdentity;
+            usr.Password = "Customer";
+            usr.Customer = cus;
+
+            db.User.Add(usr);
+
+            Reservation res = new Reservation();
+            res.Start = model.Start;
+            res.End = model.End;
+            res.Date = model.Date;
+            res.Note = model.Note;
+            res.Customer = cus;
+            
+            db.Reservation.Add(res);
+
+            Studentx stu = new Studentx();
+            stu.FirstName = model.FirstName;
+            stu.LastName = model.LastName;
+            stu.Notes = model.Notes;
+            stu.Customer = cus;
+
+            db.Studentx.Add(stu);
+
+            Treatment tre = new Treatment();       
+            tre.TreatmentName = model.TreatmentName;
+            tre.Customer = cus;
+
+            db.Treatment.Add(tre);
+
+            TreatmentPlace trp = new TreatmentPlace();
+            trp.TreatmentPlaceName = model.TreatmentPlaceName;
+            trp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+            trp.Customer = cus;
+
+            db.TreatmentPlace.Add(trp);
+
+            try { db.SaveChanges();
             }
 
-         
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
-            return View(reservation);
-        }
+            catch (Exception ex)
+            {
+            }
+
+            return RedirectToAction("Index");
+        }//cr*/;
+
 
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
+            CultureInfo fiFi = new CultureInfo("fi-FI");
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Reservation reservation = db.Reservation.Find(id);
-            if (reservation == null)
+            Reservation resdetail = db.Reservation.Find(id);
+            if (resdetail == null)
             {
                 return HttpNotFound();
             }
-           
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
-            return View(reservation);
-        }
+
+            ReservationViewModel res = new ReservationViewModel();
+            res.Reservation_id = resdetail.Reservation_id;
+            res.Start = resdetail.Start.Value;
+            res.End = resdetail.End.Value;
+            res.Date = resdetail.Date.Value;
+
+            res.Customer_id = resdetail.Customer_id;
+            res.FirstName = resdetail.Customer?.FirstName;
+            res.LastName = resdetail.Customer?.LastName;
+
+            res.Student_id = resdetail.Student_id;
+            res.FirstName = resdetail.Studentx.FirstName;
+            res.LastName = resdetail.Studentx?.LastName;
+
+            res.User_id = resdetail.User?.User_id;
+            res.UserIdentity = resdetail.User.UserIdentity;
+
+            res.Treatment_id = resdetail.Treatment?.Treatment_id;
+            res.TreatmentName = resdetail.Treatment?.TreatmentName;
+            res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
+
+            res.Treatmentplace_id = resdetail.TreatmentPlace?.Treatmentplace_id;
+            res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
+            res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
+
+            return View(res);
+
+        }//edit
 
         // POST: Reservations/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Reservation_id,TreatmentName,Start,End,Date,Type,Note,Personnel_id,Phone_id,Post_id,Customer_id,Student_id,Treatment_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Reservation reservation)
+        public ActionResult Edit(ReservationViewModel model)
         {
-            if (ModelState.IsValid)
+            Customer cus = db.Customer.Find(model.Customer_id);
+           
+            cus.FirstName = model.FirstName;
+            cus.LastName = model.LastName;
+            cus.Notes = model.Notes;
+       
+            if (cus.Reservation == null)
             {
-                db.Entry(reservation).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+
+                Reservation res = new Reservation();
+                res.Start = model.Start;
+                res.End = model.End;
+                res.Date = model.Date;
+                res.Note = model.Note;
+                res.Customer = cus;
+
+                db.Reservation.Add(res);
             }
-        
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", reservation.Personnel_id);
-             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", reservation.Student_id);
-            return View(reservation);
-        }
+            else
+            {
+                cus.Reservation.FirstOrDefault().Start = model.Start;
+                cus.Reservation.FirstOrDefault().End = model.End;
+                cus.Reservation.FirstOrDefault().Date = model.Date;
+                cus.Reservation.FirstOrDefault().Note = model.Note;
+            }
+
+            if (cus.Studentx == null)
+            {
+                Studentx stu = new Studentx();
+                stu.FirstName = model.FirstName;
+                stu.LastName = model.LastName;
+                stu.Customer = cus;
+
+                db.Studentx.Add(stu);
+            }
+            else
+            {
+                Studentx st = cus.Studentx.FirstOrDefault();
+
+                if (st != null)
+                {
+                    st.FirstName = model.FirstName;
+                    st.LastName = model.LastName;
+                }
+            }
+
+            if (cus.User == null)
+            {
+                User usr = new User();             
+                usr.UserIdentity = model.UserIdentity;
+                usr.Password = "Customer";
+                usr.Customer = cus;
+
+                db.User.Add(usr);
+            }
+            else
+            {
+                Studentx st = cus.Studentx.FirstOrDefault();
+
+                if (st != null)
+                {
+                    st.FirstName = model.FirstName;
+                    st.LastName = model.LastName;
+                }
+            }
+
+            if (cus.Treatment == null)
+             {
+                 Treatment tre = new Treatment();
+                    tre.TreatmentName = model.TreatmentName;
+
+                    db.Treatment.Add(tre);
+             }
+             else
+             {
+                 Treatment tr = cus.Treatment.FirstOrDefault();
+
+                 if (tr != null){
+                     tr.TreatmentName = model.TreatmentName;                   
+                 }
+             }
+           
+            if (cus.TreatmentPlace == null)
+            {
+                TreatmentPlace trp = new TreatmentPlace();
+                trp.TreatmentPlaceName = model.TreatmentPlaceName;
+                trp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+
+                db.TreatmentPlace.Add(trp);
+            }
+            else
+            {
+                TreatmentPlace tp = cus.TreatmentPlace.FirstOrDefault();
+
+                if (tp != null)
+                {
+                    tp.TreatmentPlaceName = model.TreatmentPlaceName;
+                    tp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+                }
+            }
+
+            db.SaveChanges();
+              return View(model);
+
+        }//edit
 
         // GET: Reservations/Delete/5
         public ActionResult Delete(int? id)

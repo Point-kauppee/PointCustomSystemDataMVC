@@ -25,10 +25,10 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
     
-        public virtual User User { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
-        public virtual Studentx Studentx { get; set; }
         public virtual Reservation Reservation { get; set; }
+        public virtual Studentx Studentx { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual User User { get; set; }
     }
 }

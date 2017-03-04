@@ -36,14 +36,16 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.FirstName = student.FirstName;
                     stu.LastName = student.LastName;
                     stu.Identity = student.Identity;
+                    stu.Address = student.Address;
                     stu.Email = student.Email;
                     stu.EnrollmentDateIN = student.EnrollmentDateIN.Value;
                     stu.EnrollmentDateOUT = student.EnrollmentDateOUT.Value;
-                    stu.EnrollmentDateOFF = student.EnrollmentDateOFF.Value;
+                    stu.EnrollmentDateOFF = student.EnrollmentDateOFF;
                     stu.Notes = student.Notes;
 
                     stu.PhoneNum_1 = student.Phone?.FirstOrDefault()?.PhoneNum_1;
-                    stu.PostOffice = student.PostOffices?.FirstOrDefault()?.PostalCode;
+
+                    stu.PostalCode = student.PostOffices?.FirstOrDefault()?.PostalCode;
                     stu.PostOffice = student.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     stu.User_id = student.User?.FirstOrDefault()?.User_id;
@@ -86,18 +88,21 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.FirstName = studetail.FirstName;
                     stu.LastName = studetail.LastName;
                     stu.Identity = studetail.Identity;
+                    stu.Address = studetail.Address;
                     stu.Email = studetail.Email;
-                    stu.EnrollmentDateIN = studetail.EnrollmentDateIN.Value;
-                    stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT.Value;
-                    stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF.Value;
+                    stu.EnrollmentDateIN = studetail.EnrollmentDateIN;
+                    stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT;
+                    stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
                     stu.Notes = studetail.Notes;
 
                     stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
-                    stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
+
+                    stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
                     stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+                    stu.Password = studetail.User?.FirstOrDefault()?.Password;
 
                     model.Add(stu);
                 }
@@ -119,7 +124,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 entities.Dispose();
             }
             return View(model);
-        }
+        }//details
 
         // GET: Studentxes/Create
         public ActionResult Create()
@@ -131,7 +136,6 @@ namespace PointCustomSystemDataMVC.Controllers
         }//create
 
    
-
     // POST: Studentxes/Create
     // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
@@ -148,6 +152,9 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.Address = model.Address;
             stu.Email = model.Email;
             stu.Notes = model.Notes;
+            stu.EnrollmentDateIN = model.EnrollmentDateIN;
+            stu.EnrollmentDateOUT = model.EnrollmentDateOUT;
+            stu.EnrollmentDateOFF = model.EnrollmentDateOFF;
 
             db.Studentx.Add(stu);
 
@@ -197,19 +204,20 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.FirstName = studetail.FirstName;
             stu.LastName = studetail.LastName;
             stu.Identity = studetail.Identity;
+            stu.Address = studetail.Address;
             stu.Email = studetail.Email;
-            stu.EnrollmentDateIN = studetail.EnrollmentDateIN.Value;
-            stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT.Value;
-            stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF.Value;
+            stu.EnrollmentDateIN = studetail.EnrollmentDateIN;
+            stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT;
+            stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
             stu.Notes = studetail.Notes;
 
             stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
-            stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
+            stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
             stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
             stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
             stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
-
+            stu.Password = studetail.User?.FirstOrDefault()?.Password;
 
             return View(stu);
         }
@@ -227,10 +235,11 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.FirstName = model.FirstName;
             stu.LastName = model.LastName;
             stu.Identity = model.Identity;
+            stu.Address = model.Address;
             stu.Email = model.Email;
-            stu.EnrollmentDateIN = model.EnrollmentDateIN.Value;
-            stu.EnrollmentDateOUT = model.EnrollmentDateOUT.Value;
-            stu.EnrollmentDateOFF = model.EnrollmentDateOFF.Value;
+            stu.EnrollmentDateIN = model.EnrollmentDateIN;
+            stu.EnrollmentDateOUT = model.EnrollmentDateOUT;
+            stu.EnrollmentDateOFF = model.EnrollmentDateOFF;
             stu.Notes = model.Notes;
 
             if (stu.Phone == null)
@@ -245,7 +254,28 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 stu.Phone.FirstOrDefault().PhoneNum_1 = model.PhoneNum_1;
             }
-            if (stu.PostOffices == null)
+
+            if (stu.User == null)
+            {
+                User usr = new User();
+                usr.UserIdentity = model.UserIdentity;
+                usr.Password = "Student";
+                usr.Studentx = stu;
+
+                db.User.Add(usr);
+            }
+            else
+            {
+                User us = stu.User.FirstOrDefault();
+
+                if (us != null) {
+
+                    us.UserIdentity = model.UserIdentity;
+                    us.Password = "Student";
+                }
+            }
+
+            if (stu.PostOffices == null) 
             {
                 PostOffices pos = new PostOffices();
                 pos.PostalCode = model.PostalCode;

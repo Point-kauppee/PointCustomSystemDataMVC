@@ -93,7 +93,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
            
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatment.Reservation_id);
+          
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
             ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatment.User_id);
@@ -117,7 +117,6 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
          
        
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatment.Reservation_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
             ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatment.User_id);
@@ -141,7 +140,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
            
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatment.Reservation_id);
+         
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
             ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatment.User_id);

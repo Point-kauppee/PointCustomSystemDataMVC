@@ -90,7 +90,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
          
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentPlace.Reservation_id);
+            
         
            
             return View(treatmentPlace);
@@ -108,8 +108,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-          
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentPlace.Reservation_id);
+    
      
             return View(treatmentPlace);
         }
@@ -128,7 +127,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 return RedirectToAction("Index");
             }
        
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentPlace.Reservation_id);
+         
           
             return View(treatmentPlace);
         }

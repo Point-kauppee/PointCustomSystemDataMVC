@@ -14,24 +14,30 @@ namespace PointCustomSystemDataMVC.Models
     
     public partial class Treatment
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Treatment()
+        {
+            this.Reservation = new HashSet<Reservation>();
+        }
+    
         public int Treatment_id { get; set; }
         public string TreatmentName { get; set; }
         public string TreatmentTime { get; set; }
         public string TreatmentPrice { get; set; }
         public Nullable<int> Personnel_id { get; set; }
-        public Nullable<int> Reservation_id { get; set; }
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Customer_id { get; set; }
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> User_id { get; set; }
     
-        public virtual User User { get; set; }
-        public virtual TreatmentOffice TreatmentOffice { get; set; }
-        public virtual TreatmentPlace TreatmentPlace { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Reservation> Reservation { get; set; }
         public virtual Studentx Studentx { get; set; }
-        public virtual Reservation Reservation { get; set; }
+        public virtual TreatmentOffice TreatmentOffice { get; set; }
+        public virtual Customer Customer { get; set; }
+        public virtual TreatmentPlace TreatmentPlace { get; set; }
+        public virtual User User { get; set; }
     }
 }

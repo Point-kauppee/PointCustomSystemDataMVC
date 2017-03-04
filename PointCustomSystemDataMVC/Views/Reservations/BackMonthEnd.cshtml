@@ -1,11 +1,11 @@
 ﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.ReservationViewModel>
 
-@*@{
-    ViewBag.Title = "BackMonthEnd";
-}*@
 @{
-    ViewBag.Title = "ASP.NET MVC 5 Event Calendar";
+    ViewBag.Title = "BackMonthEnd";
 }
+@*@{
+    ViewBag.Title = "ASP.NET MVC 5 Event Calendar";
+}*@
 
 
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
@@ -173,7 +173,7 @@
     //Lisätty 22.2.2017
             function LoadEvents(Start, End) {
 
-                url = "/Reservations/Backend/?start=" + start + "&end=" + end;
+                url = "/Reservations/BackMonthEnd/?start=" + start + "&end=" + end;
                 //Home/GetVaraukset/?alku="2016-05-20T09:02"&loppu="2016-05-29T09:02";
 
                 //alert("AJAX url: " + url);

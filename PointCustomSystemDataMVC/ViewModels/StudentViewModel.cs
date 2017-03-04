@@ -58,6 +58,9 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string User { get; set; }
         public string UserIdentity { get; set; }
 
+        public string Password { get; set; }
+        
+
         [Display(Name = "Asiakas")]
         public string FullNameA
         {
