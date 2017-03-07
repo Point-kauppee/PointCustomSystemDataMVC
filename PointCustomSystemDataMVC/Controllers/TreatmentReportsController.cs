@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using PointCustomSystemDataMVC.ViewModels;
+using System.Globalization;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -18,24 +19,91 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentReports
         public ActionResult Index()
         {
-            
-            return View();
+            List<TreatmentReportsViewModel> model = new List<TreatmentReportsViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<TreatmentReport> treatreports = entities.TreatmentReport.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+
+                foreach (TreatmentReport treatreport in treatreports)
+                {
+                    TreatmentReportsViewModel view = new TreatmentReportsViewModel();
+
+                    view.TreatmentReport_id = treatreport.TreatmentReport_id;
+                    view.TreatmentReportName = treatreport.TreatmentReportName;
+                    view.TreatmentReportText = treatreport.TreatmentReportText;
+                    view.TreatmentDate = treatreport.TreatmentDate.Value;
+                    view.TreatmentTime = treatreport.TreatmentTime.Value;
+
+                    view.User_id = treatreport.User?.User_id;
+                    view.UserIdentity = treatreport.User?.UserIdentity;
+                    model.Add(view);
+                }
+            }
+
+            finally
+            {
+                entities.Dispose();
+            }
+
+            return View(model);
         }
 
         // GET: TreatmentReports/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            List<TreatmentReportsViewModel> model = new List<TreatmentReportsViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                List<TreatmentReport> treatrepos = entities.TreatmentReport.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+                CultureInfo fiFi = new CultureInfo("fi-FI");
+
+                foreach (TreatmentReport treatrepdetail in treatrepos)
+                {
+                    TreatmentReportsViewModel view = new TreatmentReportsViewModel();
+
+                    view.TreatmentReport_id = treatrepdetail.TreatmentReport_id;
+                    view.TreatmentReportName = treatrepdetail.TreatmentReportName;
+                    view.TreatmentReportText = treatrepdetail.TreatmentReportText;
+                    view.TreatmentDate = treatrepdetail.TreatmentDate.Value;
+                    view.TreatmentTime = treatrepdetail.TreatmentTime.Value;
+
+                    view.User_id = treatrepdetail.User?.User_id;
+                    view.UserIdentity = treatrepdetail.User?.UserIdentity;
+
+                    model.Add(view);
+                }
+
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+
+                TreatmentReport treatmentReport = db.TreatmentReport.Find(id);
+
+                if (treatmentReport == null)
+                {
+                    return HttpNotFound();
+                }
             }
-            TreatmentReport treatmentReport = db.TreatmentReport.Find(id);
-            if (treatmentReport == null)
+            finally
             {
-                return HttpNotFound();
+                entities.Dispose();
             }
-            return View(treatmentReport);
-        }
+
+            return View(model);
+
+        }//details
 
         // GET: TreatmentReports/Create
         public ActionResult Create()
@@ -44,13 +112,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             TreatmentReportsViewModel model = new TreatmentReportsViewModel();
             return View(model);
-
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            return View();
-        }
+        }//create
 
         // POST: TreatmentReports/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -61,42 +123,22 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-            Customer cus = new Customer();
-            
-            db.Customer.Add(cus);
-
+            User usr = new User();
+            usr.UserIdentity = model.UserIdentity;
+        
+            db.User.Add(usr);
 
             TreatmentReport tre = new TreatmentReport();
             tre.TreatmentReportName = model.TreatmentReportName;
             tre.TreatmentReportText= model.TreatmentReportText;
             tre.TreatmentDate = model.TreatmentDate;
             tre.TreatmentTime = model.TreatmentTime;
-            tre.Customer = cus;
+            tre.User = usr;
 
             db.TreatmentReport.Add(tre);
 
-            User usr = new User();
-            usr.UserIdentity = model.UserIdentity;
-            usr.Customer = cus;
-
-            db.User.Add(usr);
-
             db.SaveChanges();
             return RedirectToAction("Index");
-
-            //if (ModelState.IsValid)
-            //{
-            //    db.TreatmentReport.Add(treatmentReport);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-
-
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentReport.Student_id);
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentReport.User_id);
-            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentReport.Reservation_id);
-            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatmentReport.Customer_id);
-            //return View(treatmentReport);
         }
 
         // GET: TreatmentReports/Edit/5
@@ -106,42 +148,68 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TreatmentReport treatmentReport = db.TreatmentReport.Find(id);
-            if (treatmentReport == null)
+
+            TreatmentReport treatrepdetail = db.TreatmentReport.Find(id);
+            if (treatrepdetail == null)
             {
                 return HttpNotFound();
             }
-          
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentReport.Student_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentReport.User_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentReport.Reservation_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatmentReport.Customer_id);
-            return View(treatmentReport);
-        }
+
+            TreatmentReportsViewModel view = new TreatmentReportsViewModel();
+
+            view.TreatmentReport_id = treatrepdetail.TreatmentReport_id;
+            view.TreatmentReportName = treatrepdetail.TreatmentReportName;
+            view.TreatmentReportText = treatrepdetail.TreatmentReportText;
+            view.TreatmentDate = treatrepdetail.TreatmentDate.Value;
+            view.TreatmentTime = treatrepdetail.TreatmentTime.Value;
+
+            view.User_id = treatrepdetail.User?.User_id;
+            view.UserIdentity = treatrepdetail.User?.UserIdentity;
+            return View(view);
+
+        }//edit
 
         // POST: TreatmentReports/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "TreatmentReport_id,TreatmentReportName,TreatmentDate,TreatmentTime,User_id,Customer_id,Student_id,Reservation_id,TreatmentReportText")] TreatmentReport treatmentReport)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(treatmentReport).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatmentReport.Student_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatmentReport.User_id);
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName", treatmentReport.Reservation_id);
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatmentReport.Customer_id);
-            return View(treatmentReport);
-        }
+        public ActionResult Edit(TreatmentReportsViewModel model)
+        { 
 
-        // GET: TreatmentReports/Delete/5
-        public ActionResult Delete(int? id)
+            User usr = db.User.Find(model.User_id);
+
+            usr.UserIdentity = model.UserIdentity;
+
+       
+
+            if (usr.TreatmentReport == null)
+            {
+                TreatmentReport tre = new TreatmentReport();
+                tre.TreatmentReportName = model.TreatmentReportName;
+                tre.TreatmentReportText = model.TreatmentReportText;
+                tre.TreatmentDate = model.TreatmentDate;
+                tre.TreatmentTime = model.TreatmentTime;
+                tre.User = usr;
+
+                db.TreatmentReport.Add(tre);
+            }
+            else
+            {
+                usr.TreatmentReport.FirstOrDefault().TreatmentReportName = model.TreatmentReportName;
+                usr.TreatmentReport.FirstOrDefault().TreatmentReportText = model.TreatmentReportText;
+                usr.TreatmentReport.FirstOrDefault().TreatmentDate = model.TreatmentDate;
+                usr.TreatmentReport.FirstOrDefault().TreatmentTime = model.TreatmentTime;
+            }
+
+            db.SaveChanges();
+            return View(model);
+
+        }//edit
+
+
+// GET: TreatmentReports/Delete/5
+public ActionResult Delete(int? id)
         {
             if (id == null)
             {

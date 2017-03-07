@@ -62,7 +62,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.TreatmentPlaceNumber = reservation.TreatmentPlace?.TreatmentPlaceNumber;
 
                     res.User_id = reservation.User?.User_id;
-                    res.UserIdentity = reservation.User?.UserIdentity;
+                    res.UserIdentity = reservation.User.UserIdentity;
 
                     model.Add(res);
                 }

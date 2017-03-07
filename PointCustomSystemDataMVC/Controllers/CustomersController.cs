@@ -12,10 +12,12 @@ using System.Globalization;
 using PointCustomSystemDataMVC.ViewModels;
 using Newtonsoft.Json;
 using PointCustomSystemDataMVC.Utilities;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 
 {
+    [Authorize(Roles = "Personnel User,Student User")]
     public class CustomersController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -23,6 +25,10 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Customers
         public ActionResult Index()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
+
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -98,7 +104,7 @@ namespace PointCustomSystemDataMVC.Controllers
         //    return View(customer.ToList());
         //}
 
-            //Lisätty 1.3.2017 oma koodi:
+        //Lisätty 1.3.2017 oma koodi:
         //GET: Customers/Details/5
         public ActionResult Details(int? id)
 
@@ -162,20 +168,21 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(model);
 
         }//details
-      
+
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-       
+
         //Oma kaava:
         // GET: Customers/Create
         public ActionResult Create()
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
-    
+
             //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
             CustomerViewModel model = new CustomerViewModel();
             return View(model);
         }//create
 
+        // POST: Customers/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CustomerViewModel model)
@@ -193,20 +200,20 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Notes = model.Notes;
 
             db.Customer.Add(cus);
-           
+
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
             usr.Password = "Customer";
             usr.Customer = cus;
-         
+
             db.User.Add(usr);
-          
+
             Phone pho = new Phone();
             pho.PhoneNum_1 = model.PhoneNum_1;
             pho.Customer = cus;
 
             db.Phone.Add(pho);
-           
+
             PostOffices pos = new PostOffices();
             pos.PostalCode = model.PostalCode;
             pos.PostOffice = model.PostOffice;
@@ -214,7 +221,9 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.PostOffices.Add(pos);
 
-            try { db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
             }
 
             catch (Exception ex)
@@ -225,13 +234,15 @@ namespace PointCustomSystemDataMVC.Controllers
         }//cr*/
 
 
-            // GET: Customers/Edit/5
+        //[AllowAnonymous]
+        // GET: Customers/Edit/5
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Customer custdetail = db.Customer.Find(id);
             if (custdetail == null)
             {
@@ -268,7 +279,6 @@ namespace PointCustomSystemDataMVC.Controllers
         // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CustomerViewModel model)
@@ -292,7 +302,11 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             else
             {
-                cus.Phone.FirstOrDefault().PhoneNum_1 = model.PhoneNum_1;
+                Phone phone = cus.Phone.FirstOrDefault();
+                if (phone != null)
+                {
+                    phone.PhoneNum_1 = model.PhoneNum_1;
+                }
             }
 
             if (cus.PostOffices == null)
@@ -302,18 +316,18 @@ namespace PointCustomSystemDataMVC.Controllers
                 pos.PostOffice = model.PostOffice;
                 pos.Customer = cus;
 
-                db.PostOffices.Add(pos);                          
+                db.PostOffices.Add(pos);
             }
             else
             {
                 PostOffices po = cus.PostOffices.FirstOrDefault();
-
-            if (po != null) { 
-                po.PostalCode = model.PostalCode;
-                po.PostOffice = model.PostOffice;
+                if (po != null)
+                {
+                    po.PostalCode = model.PostalCode;
+                    po.PostOffice = model.PostOffice;
                 }
             }
-    
+
             db.SaveChanges();
             return View(model);
 
@@ -327,14 +341,39 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Customer customer = db.Customer.Find(id);
+            Customer custdetail = db.Customer.Find(id);
 
-            if (customer == null)
+            if (custdetail == null)
 
             {
                 return HttpNotFound();
             }
-            return View(customer);
+
+            CustomerViewModel view = new CustomerViewModel();
+            view.Customer_id = custdetail.Customer_id;
+            view.FirstName = custdetail.FirstName;
+            view.LastName = custdetail.LastName;
+            view.Identity = custdetail.Identity;
+            view.Email = custdetail.Email;
+            view.Address = custdetail.Address;
+            view.Notes = custdetail.Notes;
+
+            view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
+            view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+            view.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
+            view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
+            view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
+
+            view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
+            view.UserIdentity = custdetail.User.FirstOrDefault()?.UserIdentity;
+
+            view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
+            view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
+            view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
+            view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
+
+
+            return View(view);
         }//delete
 
         // POST: Customers/Delete/5

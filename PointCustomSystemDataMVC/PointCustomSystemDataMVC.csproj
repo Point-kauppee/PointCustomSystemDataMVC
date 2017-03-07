@@ -249,6 +249,7 @@
     <Compile Include="Models\TreatmentReport.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\Authentication.cs" />
     <Compile Include="ViewModels\DayPilotCalendarConfig.cs" />
     <Compile Include="ViewModels\EventManager.cs" />
     <Compile Include="Models\IdentityModels.cs" />

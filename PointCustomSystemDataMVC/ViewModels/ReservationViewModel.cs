@@ -101,5 +101,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string DataDateField { get; set; }
 
         public string EventManager { get; set; }
+       
+      
     }
 }

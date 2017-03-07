@@ -211,18 +211,18 @@
 
  @*@Html.DayPilotMonth("dp_month", new DayPilotMonthConfig*@
  @Html.DayPilotMonth("dpm", new DayPilotMonthConfig
- {
-     BackendUrl = Url.Content("~/Reservations/BackMonthEnd"),
-     EventResizeHandling = DayPilot.Web.Mvc.Events.Month.EventResizeHandlingType.CallBack,
-     EventMoveHandling = DayPilot.Web.Mvc.Events.Month.EventMoveHandlingType.CallBack,
-     //CssOnly = true,
-     //CssClassPrefix = "month_white",
-     EventHeight = 25,
-     EventClickHandling = DayPilot.Web.Mvc.Events.Month.EventClickHandlingType.JavaScript,
-     EventClickJavaScript = "edit(e.id())",
-     TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedHandlingType.JavaScript,
-     TimeRangeSelectedJavaScript = "create(start, end)"
- })
+{
+    BackendUrl = Url.Content("~/Reservations/BackMonthEnd"),
+    EventResizeHandling = DayPilot.Web.Mvc.Events.Month.EventResizeHandlingType.CallBack,
+    EventMoveHandling = DayPilot.Web.Mvc.Events.Month.EventMoveHandlingType.CallBack,
+    //CssOnly = true,
+    //CssClassPrefix = "month_white",
+    EventHeight = 25,
+    EventClickHandling = DayPilot.Web.Mvc.Events.Month.EventClickHandlingType.JavaScript,
+    EventClickJavaScript = "edit(e.id())",
+    TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedHandlingType.JavaScript,
+    TimeRangeSelectedJavaScript = "create(start, end)"
+})
 
 
     <div class="space">

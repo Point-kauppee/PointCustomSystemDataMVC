@@ -199,7 +199,7 @@ namespace PointCustomSystemDataMVC.ViewModels
             CellBackColor = "white";
 
             CellBorderColor = "#DEDFDE";
-            CellHeight = 100;
+            CellHeight = 500;
             ColumnMarginRight = 5;
             CornerBackColor = "#F3F3F9";
 
