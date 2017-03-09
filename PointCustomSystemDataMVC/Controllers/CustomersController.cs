@@ -253,6 +253,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             CustomerViewModel view = new CustomerViewModel();
+
             view.Customer_id = custdetail.Customer_id;
             view.FirstName = custdetail.FirstName;
             view.LastName = custdetail.LastName;
@@ -269,7 +270,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
             view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
-            view.UserIdentity = custdetail.User.FirstOrDefault()?.UserIdentity;
+            view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
 
             view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
             view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
@@ -338,7 +339,6 @@ namespace PointCustomSystemDataMVC.Controllers
         }//edit
 
         // GET: Customers/Delete/5
-
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -381,7 +381,6 @@ namespace PointCustomSystemDataMVC.Controllers
         }//delete
 
         // POST: Customers/Delete/5
-
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)

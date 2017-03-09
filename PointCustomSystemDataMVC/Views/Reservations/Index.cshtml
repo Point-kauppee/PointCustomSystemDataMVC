@@ -211,7 +211,7 @@
     }*/
    /*.calendar_default_rowheader{
          height:100px !important;*/
-    }
+    
 </style>
 
 <h2>VARAUSKALENTERI</h2>
@@ -261,19 +261,19 @@
 
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.User)
+            @Html.DisplayNameFor(model => model.UserIdentity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.FirstNameA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.LastNameA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Treatment)
+            @Html.DisplayNameFor(model => model.TreatmentName)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.TreatmentPlace)
+            @Html.DisplayNameFor(model => model.TreatmentPlaceName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Date)
@@ -285,7 +285,7 @@
             @Html.DisplayNameFor(model => model.End)
         </th>       
         <th>
-            @Html.DisplayNameFor(model => model.Studentx)
+            @Html.DisplayNameFor(model => model.FullNameH)
         </th>
         @*<th>
             @Html.DisplayNameFor(model => model.LastName)
@@ -301,19 +301,19 @@
     {
         <tr>
             <td>
-                @Html.DisplayFor(modelItem => item.User)
+                @Html.DisplayFor(modelItem => item.UserIdentity)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.FirstName)
+                @Html.DisplayFor(modelItem => item.FirstNameA)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.LastName)
+                @Html.DisplayFor(modelItem => item.LastNameA)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Treatment)
+                @Html.DisplayFor(modelItem => item.TreatmentName)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TreatmentPlace)
+                @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Date)
@@ -325,8 +325,9 @@
                 @Html.DisplayFor(modelItem => item.End)
             </td>            
             <td>
-                @Html.DisplayFor(modelItem => item.Studentx)
+                @Html.DisplayFor(modelItem => item.FullNameH)
             </td>
+
             @*<td>
                 @Html.DisplayFor(modelItem => item.LastName)
             </td>*@  

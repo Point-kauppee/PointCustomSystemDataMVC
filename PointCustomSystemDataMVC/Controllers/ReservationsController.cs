@@ -36,10 +36,20 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 
-                CultureInfo fiFi = new CultureInfo("fi-FI");
                 foreach (Reservation reservation in reservations)
                 {
+                    CultureInfo fiFi = new CultureInfo("fi-FI");
+
                     ReservationViewModel res = new ReservationViewModel();
+
+                    res.User_id = reservation.User?.User_id;
+                    res.UserIdentity = reservation.User?.UserIdentity;
+
+                    res.Customer_id = reservation.Customer?.Customer_id;
+                    res.FirstNameA = reservation.Customer?.FirstName;
+                    res.LastNameA = reservation.Customer?.LastName;
+                    res.Notes = reservation.Customer?.Notes;
+
                     res.Reservation_id = reservation.Reservation_id;
                     res.TreatmentName = reservation.TreatmentName;
                     res.Start = reservation.Start.Value;
@@ -48,21 +58,14 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
                     res.TreatmentName = reservation.Treatment?.TreatmentName;
-                
-                    res.Customer_id = reservation.Customer?.Customer_id;
-                    res.FirstName = reservation.Customer?.FirstName;
-                    res.LastName = reservation.Customer?.LastName;
-
-                    res.Student_id = reservation.Studentx?.Student_id;
-                    res.FirstName = reservation.Studentx?.FirstName;
-                    res.LastName = reservation.Studentx?.LastName;
 
                     res.Treatmentplace_id = reservation.TreatmentPlace?.Treatmentplace_id;
                     res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
                     res.TreatmentPlaceNumber = reservation.TreatmentPlace?.TreatmentPlaceNumber;
 
-                    res.User_id = reservation.User?.User_id;
-                    res.UserIdentity = reservation.User.UserIdentity;
+                    res.Student_id = reservation.Studentx?.Student_id;
+                    res.FirstNameH = reservation.Studentx?.FirstName;
+                    res.LastNameH = reservation.Studentx?.LastName;
 
                     model.Add(res);
                 }
@@ -93,6 +96,15 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
 
                     ReservationViewModel res = new ReservationViewModel();
+
+                    res.User_id = resdetail.User?.User_id;
+                    res.UserIdentity = resdetail.User?.UserIdentity;
+
+                    res.Customer_id = resdetail.Customer?.Customer_id;
+                    res.FirstNameA = resdetail.Customer?.FirstName;
+                    res.LastNameA = resdetail.Customer?.LastName;
+                    res.Notes = resdetail.Customer?.Notes;
+
                     res.Reservation_id = resdetail.Reservation_id;
                     res.Start = resdetail.Start.Value;
                     res.End = resdetail.End.Value;
@@ -106,17 +118,11 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
                     res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
 
-                    res.Customer_id = resdetail.Customer_id;
-                    res.FirstName = resdetail.Customer?.FirstName;
-                    res.LastName = resdetail.Customer?.LastName;
+                    res.Student_id = resdetail.Studentx?.Student_id;
+                    res.FirstNameH = resdetail.Studentx?.FirstName;
+                    res.LastNameH = resdetail.Studentx?.LastName;
 
-                    res.Student_id = resdetail.Student_id;
-                    res.FirstName = resdetail.Studentx?.FirstName;
-                    res.LastName = resdetail.Studentx?.LastName;
-
-                    res.User_id = resdetail.User?.User_id;
-                    res.UserIdentity = resdetail.User.UserIdentity;
-
+                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
                     model.Add(res);
 
                 }
@@ -149,21 +155,16 @@ namespace PointCustomSystemDataMVC.Controllers
             ReservationViewModel model = new ReservationViewModel();
 
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.User = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            ViewBag.Studentx = new SelectList((from s in db.Studentx
-                                               select new
-                                               {
-                                                   Student_id = s.Student_id,
-                                                   FullNameH = s.FirstName + " " + s.LastName
-                                               }), "Student_id", "FullNameH", null);
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new {Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName}), "Student_id", "FullNameH", null);
 
             ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.Treatment = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
 
             ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.TreatmentPlace = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
 
             return View(model);
         }//create
@@ -180,8 +181,8 @@ namespace PointCustomSystemDataMVC.Controllers
             CultureInfo fiFi = new CultureInfo("fi-FI");
 
             Customer cus = new Customer();
-            cus.FirstName = model.FirstName;
-            cus.LastName = model.LastName;
+            cus.FirstName = model.FirstNameA;
+            cus.LastName = model.LastNameA;
             cus.Notes = model.Notes;
 
             db.Customer.Add(cus);
@@ -190,7 +191,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Start = model.Start;
             res.End = model.End;
             res.Date = model.Date;
-            res.Note = model.Note;
+           
 
             res.Treatment_id = model.Treatment_id;
             res.TreatmentPlace_id = model.Treatmentplace_id;
@@ -206,8 +207,8 @@ namespace PointCustomSystemDataMVC.Controllers
             db.User.Add(usr);
 
             Studentx stu = new Studentx();
-            stu.FirstName = model.FirstName;
-            stu.LastName = model.LastName;
+            stu.FirstName = model.FirstNameH;
+            stu.LastName = model.LastNameH;
             stu.Notes = model.Notes;
             stu.Customer = cus;
 
@@ -227,20 +228,20 @@ namespace PointCustomSystemDataMVC.Controllers
             //db.TreatmentPlace.Add(trp);
 
             //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            //ViewBag.User = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FullNameH");
-            //ViewBag.Studentx = new SelectList((from s in db.Studentx select new
+            //ViewBag.FullNameH = new SelectList((from s in db.Studentx select new
             //    {
             //        Student_id = s.Student_id,
             //        FullNameH = s.FirstName + " " + s.LastName
             //    }),"Student_id","FullNameH",null);
 
             //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            //ViewBag.Treatment = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+            //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
 
             //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            //ViewBag.TreatmentPlace = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+            //ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
 
             try { db.SaveChanges();
             }
@@ -270,30 +271,38 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             ReservationViewModel res = new ReservationViewModel();
+
             res.Reservation_id = resdetail.Reservation_id;
             res.Start = resdetail.Start.Value;
             res.End = resdetail.End.Value;
             res.Date = resdetail.Date.Value;
 
-            res.Customer_id = resdetail.Customer_id;
-            res.FirstName = resdetail.Customer?.FirstName;
-            res.LastName = resdetail.Customer?.LastName;
-
-            res.Student_id = resdetail.Student_id;
-            res.FirstName = resdetail.Studentx.FirstName;
-            res.LastName = resdetail.Studentx?.LastName;
-
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             res.User_id = resdetail.User?.User_id;
-            res.UserIdentity = resdetail.User.UserIdentity;
+            res.UserIdentity = resdetail.User?.UserIdentity;
 
+            res.Customer_id = resdetail.Customer?.Customer_id;
+            res.FirstNameA = resdetail.Customer?.FirstName;
+            res.LastNameA = resdetail.Customer?.LastName;
+            res.Notes = resdetail.Customer?.Notes;
+
+            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            res.Student_id = resdetail.Studentx?.Student_id;
+            res.FirstNameH = resdetail.Studentx?.FirstName;
+            res.LastNameH = resdetail.Studentx?.LastName;
+
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             res.Treatment_id = resdetail.Treatment?.Treatment_id;
             res.TreatmentName = resdetail.Treatment?.TreatmentName;
-            res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
 
+            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
             res.Treatmentplace_id = resdetail.TreatmentPlace?.Treatmentplace_id;
             res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
-            res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
-
+    
             return View(res);
 
         }//edit
@@ -306,18 +315,22 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Edit(ReservationViewModel model)
         {
             CultureInfo fiFi = new CultureInfo("fi-FI");
-
+          
             Customer cus = db.Customer.Find(model.Customer_id);
 
-            cus.FirstName = model.FirstName;
-            cus.LastName = model.LastName;
+            cus.FirstName = model.FirstNameA;
+            cus.LastName = model.LastNameA;
             cus.Notes = model.Notes;
 
-            Reservation res = db.Reservation.Find(model.Reservation_id);
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+            //Reservation res = db.Reservation.Find(model.Reservation_id);
+
             if (cus.Reservation == null)
             {
-               
-                //Reservation res = new Reservation();
+                Reservation res = new Reservation();
                 res.Start = model.Start;
                 res.End = model.End;
                 res.Date = model.Date;
@@ -328,17 +341,24 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             else
             {
-                cus.Reservation.FirstOrDefault().Start = model.Start;
-                cus.Reservation.FirstOrDefault().End = model.End;
-                cus.Reservation.FirstOrDefault().Date = model.Date;
-                cus.Reservation.FirstOrDefault().Note = model.Note;
+                Reservation res = cus.Reservation.FirstOrDefault();
+                if (res != null)
+                {
+                    res.Start = model.Start;
+                    res.End = model.End;
+                    res.Date = model.Date;
+                    res.Note = model.Note;
+                }
             }
             //Studentx
+            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
             if (cus.Studentx == null)
             {
                 Studentx stu = new Studentx();
-                stu.FirstName = model.FirstName;
-                stu.LastName = model.LastName;
+                stu.FirstName = model.FirstNameH;
+                stu.LastName = model.LastNameH;
+              
                 stu.Customer = cus;
 
                 db.Studentx.Add(stu);
@@ -349,10 +369,14 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 if (st != null)
                 {
-                    st.FirstName = model.FirstName;
-                    st.LastName = model.LastName;
+                    st.FirstName = model.FirstNameH;
+                    st.LastName = model.LastNameH;
                 }
             }
+
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+           
 
             if (cus.User == null)
             {
@@ -360,18 +384,19 @@ namespace PointCustomSystemDataMVC.Controllers
                 usr.UserIdentity = model.UserIdentity;
                 usr.Password = "joku@joku.fi";
                 usr.Customer = cus;
+
                 db.User.Add(usr);
             }
             else
             {
-                Studentx st = cus.Studentx.FirstOrDefault();
-                if (st != null)
+                User user = cus.User.FirstOrDefault();
+                if (user != null)
                 {
-                    st.FirstName = model.FirstName;
-                    st.LastName = model.LastName;
+                    user.UserIdentity = model.UserIdentity;
+                  
                 }
             }
-
+           
             //if (res.Treatment == null)
             //{
             //    Treatment tre = new Treatment();
@@ -406,13 +431,14 @@ namespace PointCustomSystemDataMVC.Controllers
 
             //    if (tp != null)
             //    {
-            //       tp.TreatmentPlaceName = model.TreatmentPlaceName;
-            //       tp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+            //        tp.TreatmentPlaceName = model.TreatmentPlaceName;
+            //        tp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
             //    }
             //}
 
             db.SaveChanges();
-            return View(model);
+            //return View(model);
+            return RedirectToAction("Index");
 
         }//edit
 
@@ -428,9 +454,35 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(reservation);
-        }
+           
+            ReservationViewModel res = new ReservationViewModel();
 
+            res.Reservation_id = reservation.Reservation_id;
+            res.Start = reservation.Start.Value;
+            res.End = reservation.End.Value;
+            res.Date = reservation.Date.Value;
+
+            res.User_id = reservation.User?.User_id;
+            res.UserIdentity = reservation.User?.UserIdentity;
+
+            res.Customer_id = reservation.Customer?.Customer_id;
+            res.FirstNameA = reservation.Customer?.FirstName;
+            res.LastNameA = reservation.Customer?.LastName;
+            res.Notes = reservation.Customer?.Notes;
+
+            res.Student_id = reservation.Studentx?.Student_id;
+            res.FirstNameH = reservation.Studentx?.FirstName;
+            res.LastNameH = reservation.Studentx?.LastName;
+
+            res.Treatment_id = reservation.Treatment?.Treatment_id;
+            res.TreatmentName = reservation.Treatment?.TreatmentName;
+          
+            res.Treatmentplace_id = reservation.TreatmentPlace?.Treatmentplace_id;
+            res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
+
+
+            return View(res);
+        }
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -449,7 +501,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }//dispose
 
 
         //DAYPILOT VIIKKO VIIKKONÄKYMÄ

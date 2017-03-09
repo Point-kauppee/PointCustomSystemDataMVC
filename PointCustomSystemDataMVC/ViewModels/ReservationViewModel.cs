@@ -16,27 +16,48 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Identity { get; set; }
         [Display(Name = "Sähköposti")]
         public string Email { get; set; }
-
-        [Display(Name = "Etunimi")]
-        public string FirstName { get; set; }
-        [Display(Name = "Sukunimi")]
-        public string LastName { get; set; }
         [Display(Name = "Huomiot")]
         public string Note { get; set; }
 
-        //Lisätty yhdistävät nimikentät
+        [Display(Name = "Asiakas Etunimi")]
+        public string FirstNameA { get; set; }
+        [Display(Name = "Asiakas Sukunimi")]
+        public string LastNameA { get; set; }
 
-        [Display(Name = "Hoitaja")]
-        public string FullNameH
-        {
-            get { return FirstName + ", " + LastName; }
-        }
+
+        [Display(Name = "Hoitaja Etunimi")]
+        public string FirstNameH { get; set; }
+        [Display(Name = "Hoitaja Sukunimi")]
+        public string LastNameH { get; set; }
+
+
+
+        
+
+
+        [Display(Name = "Henkilökunta Etunimi")]
+        public string FirstName { get; set; }
+
+        [Display(Name = "Henkilökunta Sukunimi")]
+        public string LastName { get; set; }
+
+   
+
+        //Lisätty yhdistävät nimikentät
 
         [Display(Name = "Asiakas")]
         public string FullNameA
         {
-            get { return FirstName + ", " + LastName; }
+            get { return FirstNameA + " " + LastNameA; }
         }
+
+        [Display(Name = "Hoitaja")]
+        public string FullNameH
+        {
+            get { return FirstNameH + " " + LastNameH; }
+        }
+
+   
 
         //public IEnumerable<StudentViewModel> Studentx { get; set; }
         public IEnumerable<StudentViewModel> Customers { get; set; }
@@ -66,7 +87,9 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Asiakastunnus")] 
         public string User { get; set; }
+
         //public int? User_id { get; set; }
+        [Display(Name = "Asiakastunnus")]
         public string UserIdentity { get; set; }
         public string Password { get; set; }
         [Display(Name = "Hoito")]
@@ -74,6 +97,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public int? Treatment_id { get; set; }
         [Display(Name = "Palvelu")]
         public string TreatmentTime { get; set; }
+        [Display(Name = "Hoito")]
         public string TreatmentName { get; set; }
         public string TreatmentPrice { get; set; }
 
@@ -83,6 +107,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Hoitopaikka")]
         public string TreatmentPlace { get; set; }
         public int? Treatmentplace_id { get; set; }
+        [Display(Name = "Hoitopaikka")]
         public string TreatmentPlaceName { get; set; }
         public string TreatmentPlaceNumber { get; set; }
 

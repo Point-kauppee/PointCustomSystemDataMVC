@@ -27,6 +27,7 @@
 @using DayPilot.Web.Mvc.Events.Calendar;
 @using DayPilot.Web.Mvc.Enums.Calendar;
 
+
 <!-- Multi-statement block -->
 @{
     var greeting = "Tervetuloa Point Collegen Jalkahoitolan varaustenhallinta sivustolle! ";
@@ -150,7 +151,7 @@
 
             @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
             {
-            BackendUrl = Url.Content("~/Reservations/Backend"),
+            BackendUrl = Url.Content("~/Reservations/BackEnd"),
             //BackendUrl = Url.Action("Backend", "Calendar"),
             ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
             //CssOnly = true,
@@ -167,8 +168,8 @@
             <br />
             <div class="space">
                 Viikko:
-                <a href="javascript:dpm.commandCallBack('previous');">Edellinen</a>
-                <a href="javascript:dpm.commandCallBack('next');">Seuraava</a>
+                <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
+                <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
             </div>
             <br />
             <hr />
