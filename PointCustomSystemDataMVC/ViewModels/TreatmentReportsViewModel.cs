@@ -33,6 +33,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public int? Personnel_id { get; set; }
         public int? Reservation_id { get; set; }
 
+        [Display(Name = "Asiakastunnus")]
         public string UserIdentity { get; set; }
         public string Customer { get; set; }
 
@@ -40,16 +41,30 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
-        [Display(Name = "Hoitaja")]
-        public string FullNameH
-        {
-            get { return FirstName + ", " + LastName; }
-        }
+
+        [Display(Name = "Asiakas Etunimi")]
+        public string FirstNameA { get; set; }
+        [Display(Name = "Asiakas Sukunimi")]
+        public string LastNameA { get; set; }
+
+
+        [Display(Name = "Hoitaja Etunimi")]
+        public string FirstNameH { get; set; }
+        [Display(Name = "Hoitaja Sukunimi")]
+        public string LastNameH { get; set; }
+
+        //Lisätty yhdistävät nimikentät
 
         [Display(Name = "Asiakas")]
         public string FullNameA
         {
-            get { return FirstName + ", " + LastName; }
+            get { return FirstNameA + " " + LastNameA; }
+        }
+
+        [Display(Name = "Hoitaja")]
+        public string FullNameH
+        {
+            get { return FirstNameH + " " + LastNameH; }
         }
         public virtual ICollection<TreatmentReportsViewModel> TreatmentReservations { get; set; }
     }

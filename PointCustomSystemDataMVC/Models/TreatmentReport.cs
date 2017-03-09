@@ -11,7 +11,8 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    
+    using System.ComponentModel.DataAnnotations;
+
     public partial class TreatmentReport
     {
         public int TreatmentReport_id { get; set; }
@@ -30,5 +31,8 @@ namespace PointCustomSystemDataMVC.Models
         public virtual Reservation Reservation { get; set; }
         public virtual Studentx Studentx { get; set; }
         public virtual User User { get; set; }
+
+
+     
     }
 }

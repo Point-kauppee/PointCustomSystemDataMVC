@@ -40,8 +40,15 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.TreatmentDate = treatreport.TreatmentDate.Value;
                     view.TreatmentTime = treatreport.TreatmentTime.Value;
 
+                    view.Customer_id = treatreport.Customer?.Customer_id;
+                    view.FirstNameA = treatreport.Customer?.FirstName;
+                    view.LastNameA = treatreport.Customer?.LastName;
+
                     view.User_id = treatreport.User?.User_id;
                     view.UserIdentity = treatreport.User?.UserIdentity;
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+
                     model.Add(view);
                 }
             }
@@ -77,6 +84,10 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.TreatmentReportText = treatrepdetail.TreatmentReportText;
                     view.TreatmentDate = treatrepdetail.TreatmentDate.Value;
                     view.TreatmentTime = treatrepdetail.TreatmentTime.Value;
+
+                    view.Customer_id = treatrepdetail.Customer?.Customer_id;
+                    view.FirstNameA = treatrepdetail.Customer?.FirstName;
+                    view.LastNameA = treatrepdetail.Customer?.LastName;
 
                     view.User_id = treatrepdetail.User?.User_id;
                     view.UserIdentity = treatrepdetail.User?.UserIdentity;
@@ -123,6 +134,12 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
+            Customer cus = new Customer();
+            cus.FirstName = model.FirstNameA;
+            cus.LastName = model.LastNameA;
+
+            db.Customer.Add(cus);
+
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
         
@@ -163,6 +180,12 @@ namespace PointCustomSystemDataMVC.Controllers
             view.TreatmentDate = treatrepdetail.TreatmentDate.Value;
             view.TreatmentTime = treatrepdetail.TreatmentTime.Value;
 
+            view.Customer_id = treatrepdetail.Customer?.Customer_id;
+            view.FirstNameA = treatrepdetail.Customer?.FirstName;
+            view.LastNameA = treatrepdetail.Customer?.LastName;
+
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = treatrepdetail.User?.User_id;
             view.UserIdentity = treatrepdetail.User?.UserIdentity;
             return View(view);
@@ -175,33 +198,54 @@ namespace PointCustomSystemDataMVC.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(TreatmentReportsViewModel model)
-        { 
+        {
+            Customer cus = db.Customer.Find(model.Customer_id);
 
-            User usr = db.User.Find(model.User_id);
+            cus.FirstName = model.FirstNameA;
+            cus.LastName = model.LastNameA;
 
-            usr.UserIdentity = model.UserIdentity;
 
-       
+            if (cus.User == null)
+            {
+                User usr = new User();
+                usr.UserIdentity = model.UserIdentity;
+                usr.Password = "joku@joku.fi";
+                usr.Customer = cus;
 
-            if (usr.TreatmentReport == null)
+                db.User.Add(usr);
+            }
+            else
+            {
+                User user = cus.User.FirstOrDefault();
+                if (user != null)
+                {
+                    user.UserIdentity = model.UserIdentity;
+                }
+            }
+
+            if (cus.TreatmentReport == null)
             {
                 TreatmentReport tre = new TreatmentReport();
                 tre.TreatmentReportName = model.TreatmentReportName;
                 tre.TreatmentReportText = model.TreatmentReportText;
                 tre.TreatmentDate = model.TreatmentDate;
                 tre.TreatmentTime = model.TreatmentTime;
-                tre.User = usr;
+                tre.Customer = cus;
 
                 db.TreatmentReport.Add(tre);
             }
             else
             {
-                usr.TreatmentReport.FirstOrDefault().TreatmentReportName = model.TreatmentReportName;
-                usr.TreatmentReport.FirstOrDefault().TreatmentReportText = model.TreatmentReportText;
-                usr.TreatmentReport.FirstOrDefault().TreatmentDate = model.TreatmentDate;
-                usr.TreatmentReport.FirstOrDefault().TreatmentTime = model.TreatmentTime;
+                TreatmentReport tre = cus.TreatmentReport.FirstOrDefault();
+                if (tre != null)
+                {
+                    tre.TreatmentReportName = model.TreatmentReportName;
+                    tre.TreatmentReportText = model.TreatmentReportText;
+                    tre.TreatmentDate = model.TreatmentDate;
+                    tre.TreatmentTime = model.TreatmentTime;
+                }
             }
-
+          
             db.SaveChanges();
             //return View(model);
             return RedirectToAction("Index");

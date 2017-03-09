@@ -15,10 +15,10 @@
             @Html.DisplayNameFor(model => model.UserIdentity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.FirstNameA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.FullNameA)
+            @Html.DisplayNameFor(model => model.LastNameA)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TreatmentReportName)
@@ -45,10 +45,10 @@
             @Html.DisplayFor(modelItem => item.UserIdentity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.FirstNameA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.LastNameA)
         </td>
           <td>
             @Html.DisplayFor(modelItem => item.TreatmentReportName)
@@ -63,16 +63,14 @@
             @Html.DisplayFor(modelItem => item.TreatmentReportText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.FullNameH)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.LastName)
-        </td>
+      
     
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.TreatmentReport_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.TreatmentReport_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.TreatmentReport_id })
+            @Html.ActionLink("Muokkaa", "Edit", new { id=item.TreatmentReport_id }) |
+            @Html.ActionLink("Tiedot", "Details", new { id=item.TreatmentReport_id }) |
+            @Html.ActionLink("Poista", "Delete", new { id=item.TreatmentReport_id })
         </td>
     </tr>
 }
