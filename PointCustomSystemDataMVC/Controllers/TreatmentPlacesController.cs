@@ -19,29 +19,36 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             List<TreatmentPlace> model = new List<TreatmentPlace>();
 
-            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try { 
 
-            try
-            {
-                List<TreatmentPlace> treatplas = entities.TreatmentPlace.ToList();
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+                model = entities.TreatmentPlace.ToList();
+                entities.Dispose();
+                //List<TreatmentPlace> treatplas = entities.TreatmentPlace.ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 
-                foreach (TreatmentPlace treatpla in treatplas)
-                {
-                    TreatmentPlace view = new TreatmentPlace();
-                    view.Treatmentplace_id = treatpla.Treatmentplace_id;
-                    view.TreatmentPlaceName = treatpla.TreatmentPlaceName;
-                    view.TreatmentPlaceNumber = treatpla.TreatmentPlaceNumber;
+                //foreach (TreatmentPlace treatpla in treatplas)
+                //{
+                //    TreatmentPlace view = new TreatmentPlace();
+                //    view.Treatmentplace_id = treatpla.Treatmentplace_id;
+                //    view.TreatmentPlaceName = treatpla.TreatmentPlaceName;
+                //    view.TreatmentPlaceNumber = treatpla.TreatmentPlaceNumber;
 
-                    model.Add(view);
-                }
+                //    model.Add(view);
+                //}
+                //}
+                //finally
+                //{
+                //    entities.Dispose();
+                //}
             }
-            finally
+            catch (Exception ex)
             {
-                entities.Dispose();
+                ViewBag.ErrorMessage = ex.GetType() + ": " + ex.Message;
             }
-
+            //malliolion (model) välitys näkymälle- antaa instanssin asiakastietolistasta:
+       
             return View(model);
         }
 
@@ -63,16 +70,13 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentPlaces/Create
         public ActionResult Create()
         {
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            return View();
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            List<TreatmentPlace> model = new List<TreatmentPlace>();
+            return View(model);
+
+            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");     
+            //return View();
         }
 
         // POST: TreatmentPlaces/Create
@@ -80,21 +84,38 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Treatmentplace_id,TreatmentPlaceName,TreatmentPlaceNumber,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,Customer_id,User_id")] TreatmentPlace treatmentPlace)
+        public ActionResult Create(TreatmentPlace model)
         {
-            if (ModelState.IsValid)
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            TreatmentPlace trp = new TreatmentPlace();
+            trp.TreatmentPlaceName = model.TreatmentPlaceName;
+            trp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+
+            db.TreatmentPlace.Add(trp);
+
+            try
             {
-                db.TreatmentPlace.Add(treatmentPlace);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-         
-            
-        
-           
-            return View(treatmentPlace);
+            catch (Exception ex)
+            {
+            }
+            //return View(user);
+            return RedirectToAction("Index");
         }
+
+        //if (ModelState.IsValid)
+        //{
+        //    db.TreatmentPlace.Add(treatmentPlace);
+        //    db.SaveChanges();
+        //    return RedirectToAction("Index");
+        //}
+
+
+        //return View(treatmentPlace);
+    
 
         // GET: TreatmentPlaces/Edit/5
         public ActionResult Edit(int? id)
@@ -118,7 +139,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Treatmentplace_id,TreatmentPlaceName,TreatmentPlaceNumber,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentOffice_id,Customer_id,User_id")] TreatmentPlace treatmentPlace)
+        public ActionResult Edit([Bind(Include = "Treatmentplace_id,TreatmentPlaceName,TreatmentPlaceNumber")] TreatmentPlace treatmentPlace)
         {
             if (ModelState.IsValid)
             {

@@ -252,7 +252,11 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             else
             {
-                stu.Phone.FirstOrDefault().PhoneNum_1 = model.PhoneNum_1;
+                Phone pho = stu.Phone.FirstOrDefault();
+                if (pho != null)
+                {
+                    pho.PhoneNum_1 = model.PhoneNum_1;
+                }
             }
 
             if (stu.User == null)

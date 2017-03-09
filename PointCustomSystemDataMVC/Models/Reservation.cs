@@ -34,13 +34,13 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Treatment_id { get; set; }
         public Nullable<int> User_id { get; set; }
     
+        public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
         public virtual Studentx Studentx { get; set; }
+        public virtual TreatmentPlace TreatmentPlace { get; set; }
         public virtual Treatment Treatment { get; set; }
+        public virtual User User { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
-        public virtual Customer Customer { get; set; }
-        public virtual TreatmentPlace TreatmentPlace { get; set; }
-        public virtual User User { get; set; }
     }
 }

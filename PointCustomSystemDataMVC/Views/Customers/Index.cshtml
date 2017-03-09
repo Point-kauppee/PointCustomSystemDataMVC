@@ -10,6 +10,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/w3.css">
+<script src="/lib/w3.js"></script>
 
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -29,116 +31,153 @@
 
 <p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserIdentity)
-            </th>
-            @*<th>
-                    @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
+<td class="gsc-search-button"><input title="search" class="gsc-search-button gsc-search-button-v2" type="image" src="https://www.google.com/uds/css/v2/search_box_icon.png"></td>
+
+<div class="w3-container">
+    <p>Etsi</p>
+
+    <input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi käyttäjätunnuksella..." id="myInput" onkeyup="myFunction()"><i class="fa fa-search"></i>
+    <p>
+        <input oninput="w3.filterHTML('#myTable', 'model', this.value)" placeholder="Etsi nimellä..">
+    </p>
+
+    
+
+    <table class="table" id="myTable" >
+        <thead>
+           
+            <tr>
+                @*<th onclick="w3.sortHTML('#myTable','.item', 'td:nth-child(2)')">Etunimi</th>
+                <th onclick="w3.sortHTML('#myTable','.item', 'td:nth-child(3)')">Sukunimi</th>*@
+         
+                <th>
+                    @Html.DisplayNameFor(model => model.UserIdentity)
+                </th>
+                @*<th>
+                        @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
+                    </th>*@
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstName)
                 </th>
                 <th>
-                    @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
-                </th>*@
-            <th>
-                @Html.DisplayNameFor(model => model.FirstName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.LastName)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Identity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhoneNum_1)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Address)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostalCode)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PostOffice)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Notes)
-            </th>
+                    @Html.DisplayNameFor(model => model.LastName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Identity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNum_1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostOffice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
 
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserIdentity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.FirstName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.LastName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Identity)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNum_1)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostalCode)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PostOffice)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notes)
-                </td>
-
-                <td>
-                    @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
-                    @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
-                    @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                    @Html.ActionLink(item.FirstName + " " + item.LastName, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
-                 
-                </td>
+                <th></th>
             </tr>
-        }
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserIdentity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Identity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostalCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostOffice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
 
+                    <td>
+                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
+                        @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
+                        @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
+                        @Html.ActionLink(item.FirstName + " " + item.LastName, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
 
-
-<p><a href="/TreatmentReports/Details" class="w3-btn w3-small">Hoitotiedot</a></p>
-
-<div class="w3-accordion">
-    <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-text-black" id="myBtn"></a>
-    <a href="/TreatmentReports/Create">Hoitotiedot#</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
 
 
+    <p><a href="/TreatmentReports/Details" class="w3-btn w3-small">Hoitotiedot</a></p>
 
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+    <div class="w3-accordion">
+        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-text-black" id="myBtn"></a>
+        <a href="/TreatmentReports/Create">Hoitotiedot#</a>
+    </div>
 
-@section Scripts {
+    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+    <script src="~/Scripts/jquery.validate.min.js"></script>
+    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
-    @Scripts.Render("~/bundles/jqueryval")
 
-    @*document.getElementById("myBtn").click();*@
-
-    @*document.getElementById("myAccFunc").click();*@
+    <script>
+        //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen. 
+        //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
+function myFunction() {
+  var input, filter, table, tr, td, i;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td = tr[i].getElementsByTagName("td")[0-5];
+    if (td) {
+      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
 }
+    </script>
+
+    @section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+        @*document.getElementById("myBtn").click();*@
+
+        @*document.getElementById("myAccFunc").click();*@
+    }

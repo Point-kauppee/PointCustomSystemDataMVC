@@ -47,7 +47,9 @@
             <th></th>
         </tr>
     
-    @foreach (var item in Model) {
+    @foreach (var item in Model)
+    {
+        @*@foreach (PointCustomSystemDataMVC.Models.User use in Model)*@
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.UserIdentity)

@@ -9,10 +9,10 @@ namespace PointCustomSystemDataMVC.ViewModels
     public class ReservationViewModel
     {
         public int? Reservation_id { get; set; }
-     
+
         public string Customer { get; set; }
-       
-        public int? Customer_id { get; set; }       
+
+        public int? Customer_id { get; set; }
         public string Identity { get; set; }
         [Display(Name = "Sähköposti")]
         public string Email { get; set; }
@@ -38,6 +38,10 @@ namespace PointCustomSystemDataMVC.ViewModels
             get { return FirstName + ", " + LastName; }
         }
 
+        //public IEnumerable<StudentViewModel> Studentx { get; set; }
+        public IEnumerable<StudentViewModel> Customers { get; set; }
+        //public IEnumerable<StudentViewModel> Treatment { get; set; }
+
         //Lisätty päivämäärämääritykset reservation.cs
 
 
@@ -56,15 +60,16 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Pvm")]
         public DateTime Date { get; set; }
 
-        
-       
 
 
+        public virtual int?  User_id {get; set; }
+
+        [Display(Name = "Asiakastunnus")] 
         public string User { get; set; }
-        public int? User_id { get; set; }
+        //public int? User_id { get; set; }
         public string UserIdentity { get; set; }
         public string Password { get; set; }
-
+        [Display(Name = "Hoito")]
         public string Treatment { get; set; }
         public int? Treatment_id { get; set; }
         [Display(Name = "Palvelu")]
@@ -75,8 +80,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TretamentOffice { get; set; }
         public int? TreatmentOffice_id { get; set; }    
         public string TreatmentOfficeName { get; set; }
-
-        public string TretamentPlace { get; set; }
+        [Display(Name = "Hoitopaikka")]
+        public string TreatmentPlace { get; set; }
         public int? Treatmentplace_id { get; set; }
         public string TreatmentPlaceName { get; set; }
         public string TreatmentPlaceNumber { get; set; }
@@ -92,8 +97,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PostalCode { get; set; }
         [Display(Name = "Postiosoite")]
         public string PostOffice { get; set; }
-
-        public string Student { get; set; }
+        [Display(Name = "Hoitaja")]
+        public string Studentx { get; set; }
         public int? Student_id { get; set; }
         [Display(Name = "Huomiot")]
         public string Notes{get; set;}

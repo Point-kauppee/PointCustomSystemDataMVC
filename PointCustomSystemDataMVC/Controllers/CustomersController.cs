@@ -178,6 +178,8 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+
             CustomerViewModel model = new CustomerViewModel();
             return View(model);
         }//create
@@ -190,6 +192,7 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             ////ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
 
             Customer cus = new Customer();
             cus.FirstName = model.FirstName;
@@ -203,7 +206,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
-            usr.Password = "Customer";
+            //usr.Password = "Customer";
             usr.Customer = cus;
 
             db.User.Add(usr);
@@ -329,7 +332,8 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             db.SaveChanges();
-            return View(model);
+            //return View(model);
+            return RedirectToAction("Index");
 
         }//edit
 

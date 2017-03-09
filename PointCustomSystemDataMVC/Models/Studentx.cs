@@ -21,7 +21,6 @@ namespace PointCustomSystemDataMVC.Models
             this.Phone = new HashSet<Phone>();
             this.PostOffices = new HashSet<PostOffices>();
             this.Reservation = new HashSet<Reservation>();
-            this.Treatment = new HashSet<Treatment>();
             this.TreatmentReport = new HashSet<TreatmentReport>();
             this.User = new HashSet<User>();
         }
@@ -38,6 +37,7 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<System.DateTime> EnrollmentDateOFF { get; set; }
         public Nullable<int> Customer_id { get; set; }
     
+        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Personnel> Personnel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -47,10 +47,7 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Treatment> Treatment { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
-        public virtual Customer Customer { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<User> User { get; set; }
     }

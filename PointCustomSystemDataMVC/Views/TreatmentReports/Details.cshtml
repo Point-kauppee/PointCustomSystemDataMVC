@@ -27,12 +27,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FullNameA)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FullNameA)
+            @Html.DisplayFor(model => model.FirstName)
         </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
 
         <dt>
             @Html.DisplayNameFor(model => model.TreatmentDate)
@@ -59,11 +66,19 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.FullNameH)
+            @Html.DisplayNameFor(model => model.FirstName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.FullNameH)
+            @Html.DisplayFor(model => model.FirstName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastName)
         </dd>
 
         @*<dt>
@@ -99,7 +114,10 @@
                 Hoitoraportin nimi
             </th>
             <th>
-                Hoitaja
+                HoitajaEtunimi
+            </th>
+            <th>
+                HoitajaSukunimi
             </th>
             <th>
                 Hoitoraportti
@@ -122,7 +140,10 @@
                     @Html.DisplayFor(modelItem => item.TreatmentReportName)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.FullNameH)
+                    @Html.DisplayFor(modelItem => item.FirstName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LastName)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.TreatmentReportText)

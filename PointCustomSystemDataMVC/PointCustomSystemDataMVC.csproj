@@ -243,10 +243,16 @@
     <Compile Include="Models\Treatment.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\TreatmentOffice.cs">
+      <DependentUpon>PointSQLData.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\TreatmentPlace.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\TreatmentReport.cs">
+      <DependentUpon>PointSQLData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\User.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
     <Compile Include="Utilities\Authentication.cs" />
@@ -268,12 +274,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>PointSQLData.edmx</DependentUpon>
-    </Compile>
-    <Compile Include="Models\TreatmentOffice.cs">
-      <DependentUpon>PointSQLData.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\User.cs">
-      <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 
+
 namespace PointCustomSystemDataMVC.Controllers
 {
     public class UsersController : Controller
@@ -17,8 +18,19 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Users
         public ActionResult Index()
         {
-          
-            return View();
+            List<User> model = new List<User>();
+
+            try { 
+                 JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+                model = entities.User.ToList();
+                entities.Dispose();
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.GetType() + ": " + ex.Message;
+            }
+            //malliolion (model) välitys näkymälle- antaa instanssin asiakastietolistasta:
+            return View(model);
         }
 
         // GET: Users/Details/5
@@ -39,16 +51,13 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Users/Create
         public ActionResult Create()
         {
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            return View();
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
+            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
+
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            List<User> model = new List<User>();
+            return View(model);
         }
 
         // POST: Users/Create
@@ -56,20 +65,35 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "User_id,UserIdentity,Password,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentPlace_id,Customer_id,TreatmentOffice_id")] User user)
+        public ActionResult Create(User model)
         {
-            if (ModelState.IsValid)
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            User usr = new User();   
+            usr.UserIdentity = model.UserIdentity;
+            usr.Password = "Customer";
+        
+            db.User.Add(usr);
+            //if (ModelState.IsValid)
+            //{
+            //    db.User.Add(user);
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+
+            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
+            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            try
             {
-                db.User.Add(user);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
-     
-            return View(user);
+            catch (Exception ex)
+            {
+            }
+            //return View(user);
+            return RedirectToAction("Index");
         }
 
         // GET: Users/Edit/5
@@ -79,16 +103,22 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.User.Find(id);
-            if (user == null)
+            User userdetail = db.User.Find(id);
+            if (userdetail == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
-                   
-            return View(user);
+
+            User usr = new User();
+            usr.User_id = userdetail.User_id;
+            usr.UserIdentity = userdetail.UserIdentity;
+            //usr.Password = "Customer";
+
+            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
+            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+
+            return View(usr);
 
     }//edit
 
@@ -97,23 +127,32 @@ namespace PointCustomSystemDataMVC.Controllers
     // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "User_id,UserIdentity,Password,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Treatment_id,TreatmentPlace_id,Customer_id,TreatmentOffice_id")] User user)
+        public ActionResult Edit(User model)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+            User usr = db.User.Find(model.User_id);
 
-            return View(user);
-    }//edit
+            usr.UserIdentity = model.UserIdentity;
 
-    // GET: Users/Delete/5
-    public ActionResult Delete(int? id)
+
+
+            //if (ModelState.IsValid)
+            //{
+            //    db.Entry(user).State = EntityState.Modified;
+            //    db.SaveChanges();
+            //    return RedirectToAction("Index");
+            //}
+            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
+            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+
+            db.SaveChanges();
+            //return View(model);
+            return RedirectToAction("Index");
+
+        }//edit
+
+        // GET: Users/Delete/5
+        public ActionResult Delete(int? id)
         {
             if (id == null)
             {

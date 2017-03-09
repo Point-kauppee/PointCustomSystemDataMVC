@@ -4,18 +4,6 @@
 
 @*@{ Html.RenderAction("SideMenu", "Test");}*@
 
-<!-- Multi-statement block -->
-@{
-    var greeting = "Tervetuloa Point Collegen Jalkahoitolan varaustenhallinta sivustolle! ";
-    var weekDay = DateTime.Now.DayOfWeek;
-    var pvm = DateTime.Now.Date.ToLocalTime();
-  
-    var greetingMessage = greeting + " Tänään on: " + pvm + weekDay;
-}
-
-
- 
-<title>PointCollege Ajanvarausohjelmisto</title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
@@ -28,17 +16,25 @@
 <script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
 <script src="~/2.7/JavaScript/daypilot-modal-2.7.js"></script>
 
-
-
 <script src="~/Scripts/modernizr-2.8.3.js"></script>    
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
+<title>PointCollege Ajanvarausohjelmisto</title>
 
 @using DayPilot.Web.Mvc;
 @using DayPilot.Web.Mvc.Events.Calendar;
 @using DayPilot.Web.Mvc.Enums.Calendar;
+
+<!-- Multi-statement block -->
+@{
+    var greeting = "Tervetuloa Point Collegen Jalkahoitolan varaustenhallinta sivustolle! ";
+    var weekDay = DateTime.Now.DayOfWeek;
+    var pvm = DateTime.Now.Date.ToLocalTime();
+
+    var greetingMessage = greeting + " Tänään on: " + pvm + weekDay;
+}
 
     <style>
         .w3-sidenav a {
@@ -302,7 +298,7 @@
         <div class="w3-black w3-center w3-padding-24">Point College <a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank" class="w3-hover-opacity">jalkahoitola</a></div>
 
         <!-- End page content -->
-    </div>
+    
 
     <!-- Newsletter Modal -->
     <div id="newsletter" class="w3-modal">
@@ -365,7 +361,7 @@
             nav.init();
 
         //muokattu 24.2.2017
-            var dp = new DayPilot.Calendar("dpm");
+            var dp = new DayPilot.Calendar("dpc");
             //editoitu
             dp.locale = "fi-fi";
             dp.allowEventOverlap = false;

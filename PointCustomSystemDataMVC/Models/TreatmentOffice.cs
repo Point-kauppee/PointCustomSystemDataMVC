@@ -19,7 +19,6 @@ namespace PointCustomSystemDataMVC.Models
         {
             this.Phone = new HashSet<Phone>();
             this.PostOffices = new HashSet<PostOffices>();
-            this.Treatment = new HashSet<Treatment>();
         }
     
         public int TreatmentOffice_id { get; set; }
@@ -32,8 +31,6 @@ namespace PointCustomSystemDataMVC.Models
         public virtual ICollection<Phone> Phone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<PostOffices> PostOffices { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Treatment> Treatment { get; set; }
         public virtual TreatmentPlace TreatmentPlace { get; set; }
     }
 }

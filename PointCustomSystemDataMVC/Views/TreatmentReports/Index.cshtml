@@ -15,6 +15,9 @@
             @Html.DisplayNameFor(model => model.UserIdentity)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.FirstName)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FullNameA)
         </th>
         <th>
@@ -42,7 +45,10 @@
             @Html.DisplayFor(modelItem => item.UserIdentity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FullNameA)
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
         </td>
           <td>
             @Html.DisplayFor(modelItem => item.TreatmentReportName)
@@ -57,7 +63,10 @@
             @Html.DisplayFor(modelItem => item.TreatmentReportText)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.FullNameH)
+            @Html.DisplayFor(modelItem => item.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastName)
         </td>
     
         <td>

@@ -203,7 +203,8 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             db.SaveChanges();
-            return View(model);
+            //return View(model);
+            return RedirectToAction("Index");
 
         }//edit
 

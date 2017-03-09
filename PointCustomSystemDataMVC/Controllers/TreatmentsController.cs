@@ -19,29 +19,37 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             List<Treatment> model = new List<Treatment>();
 
-            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-
             try
             {
-                List<Treatment> treatoffs = entities.Treatment.ToList();
+                JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-
-                foreach (Treatment treatoff in treatoffs)
-                {
-                    Treatment view = new Treatment();
-                    view.Treatment_id = treatoff.Treatment_id;
-                    view.TreatmentName = treatoff.TreatmentName;
-                    view.TreatmentTime = treatoff.TreatmentTime;
-                    view.TreatmentPrice = treatoff.TreatmentPrice;
-
-                    model.Add(view);
-                }
-            }
-            finally
-            {
+                model = entities.Treatment.ToList();
                 entities.Dispose();
             }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = ex.GetType() + ": " + ex.Message;
+            }
+
+            //    List<Treatment> treatoffs = entities.Treatment.ToList();
+
+            //    // muodostetaan näkymämalli tietokannan rivien pohjalta
+
+            //    foreach (Treatment treatoff in treatoffs)
+            //    {
+            //        Treatment view = new Treatment();
+            //        view.Treatment_id = treatoff.Treatment_id;
+            //        view.TreatmentName = treatoff.TreatmentName;
+            //        view.TreatmentTime = treatoff.TreatmentTime;
+            //        view.TreatmentPrice = treatoff.TreatmentPrice;
+
+            //        model.Add(view);
+            //    }
+            //}
+            //finally
+            //{
+            //    entities.Dispose();
+            //}
 
             return View(model);
         }
@@ -64,16 +72,11 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Treatments/Create
         public ActionResult Create()
         {
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-            ViewBag.Phone_id = new SelectList(db.Phone, "Phone_id", "PhoneNum_1");
-            ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode");
-            ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName");
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            return View();
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            List<Treatment> model = new List<Treatment>();
+        
+            return View(model);
         }
 
         // POST: Treatments/Create
@@ -81,25 +84,32 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "Treatment_id,TreatmentName,TreatmentTime,TreatmentPrice,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Customer_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Treatment treatment)
+        public ActionResult Create(Treatment model)
         {
-            if (ModelState.IsValid)
+            JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
+            Treatment treatment = new Treatment();
+            treatment.TreatmentName = model.TreatmentName;
+            treatment.TreatmentTime = model.TreatmentTime;
+            treatment.TreatmentPrice = model.TreatmentPrice;
+
+            db.Treatment.Add(treatment);
+            //if (ModelState.IsValid)
+            //{
+            try
             {
-                db.Treatment.Add(treatment);
                 db.SaveChanges();
-                return RedirectToAction("Index");
             }
 
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
+            catch (Exception ex)
+            {
+            }
+                return RedirectToAction("Index");
+            }
+       
+            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
            
-          
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatment.User_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatment.Student_id);
-            return View(treatment);
-        }
+            //return View(treatment);
 
         // GET: Treatments/Edit/5
         public ActionResult Edit(int? id)
@@ -113,14 +123,10 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
-         
+      
        
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatment.User_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatment.Student_id);
+            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
+        
             return View(treatment);
         }
 
@@ -129,7 +135,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Treatment_id,TreatmentName,TreatmentTime,TreatmentPrice,Personnel_id,Phone_id,Post_id,Reservation_id,Student_id,Customer_id,TreatmentOffice_id,TreatmentPlace_id,User_id")] Treatment treatment)
+        public ActionResult Edit([Bind(Include = "Treatment_id,TreatmentName,TreatmentTime,TreatmentPrice")] Treatment treatment)
         {
             if (ModelState.IsValid)
             {
@@ -137,14 +143,11 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", treatment.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", treatment.Personnel_id);
-           
          
-            ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
-            ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", treatment.User_id);
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", treatment.Student_id);
+         
+            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
+            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
+         
             return View(treatment);
         }
 
