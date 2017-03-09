@@ -218,9 +218,9 @@
 <p>Viikko</p>
 <div id="dpc">
 
-    @Html.DayPilotCalendar("Dpc", new DayPilotCalendarConfig
+    @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
 {
-    BackendUrl = Url.Content("~/Reservations/Backend"),
+    BackendUrl = Url.Content("~/Reservations/BackEnd"),
     //BackendUrl = Url.Action("Backend", "Calendar"),
     ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
     //CssOnly = true,
@@ -241,8 +241,8 @@
 
     <div class="space">
         Viikko:
-        <a href="javascript:dpm.commandCallBack('previous');">Edellinen</a>
-        <a href="javascript:dpm.commandCallBack('next');">Seuraava</a>
+        <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
+        <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
     </div>
 </div>
 <p>
