@@ -11,10 +11,43 @@ namespace PointCustomSystemDataMVC.ViewModels
         public int Personnel_id { get; set; }
         public string Personnel { get; set; }
         public int? Customer_id { get; set; }
-        [Display(Name = "Etunimi")]
-        public string FirstName { get; set; }
-        [Display(Name = "Sukunimi")]
-        public string LastName { get; set; }
+
+        //Lisätty yhdistävät nimikentät
+
+        [Display(Name = "Asiakas Etunimi")]
+        public string FirstNameA { get; set; }
+        [Display(Name = "Asiakas Sukunimi")]
+        public string LastNameA { get; set; }
+
+        [Display(Name = "Asiakas")]
+        public string FullNameA
+        {
+            get { return FirstNameA + " " + LastNameA; }
+        }
+
+        [Display(Name = "Hoitaja Etunimi")]
+        public string FirstNameH { get; set; }
+        [Display(Name = "Hoitaja Sukunimi")]
+        public string LastNameH { get; set; }
+        [Display(Name = "Hoitaja")]
+        public string FullNameH
+        {
+            get { return FirstNameH + " " + LastNameH; }
+        }
+
+        [Display(Name = "Henkilökunta Etunimi")]
+        public string FirstNameP { get; set; }
+
+        [Display(Name = "Henkilökunta Sukunimi")]
+        public string LastNameP { get; set; }
+
+        [Display(Name = "Henkilökunta")]
+        public string FullNameP
+        {
+            get { return FirstNameP + " " + LastNameP; }
+        }
+
+
         public string Identity { get; set; }
         [Display(Name = "Huomiot")]
         public string Notes { get; set; }
@@ -35,16 +68,16 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public int? Phone_id { get; set; }
         public string Phone { get; set; }
+        [Display(Name = "PuhNro")]
         public string PhoneNum_1 { get; set; }
 
         public int? User_id { get; set; }
         public string User { get; set; }
+        [Display(Name = "Käyttäjätieto")]
         public string UserIdentity { get; set; }
 
-        [Display(Name = "Asiakas")]
-        public string FullNameA
-        {
-            get { return FirstName + " " + LastName; }
-        }
+        public string Password { get; set; }
+        
+
     }
 }

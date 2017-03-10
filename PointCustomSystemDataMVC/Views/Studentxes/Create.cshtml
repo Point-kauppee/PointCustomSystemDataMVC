@@ -26,18 +26,18 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.FirstName, "Etunimi", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.FirstNameH, "Etunimi", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.FirstNameH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.FirstNameH, "", new { @class = "text-danger" })
             </div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LastName, "Sukunimi", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LastNameH, "Sukunimi", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.LastNameH, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.LastNameH, "", new { @class = "text-danger" })
             </div>
         </div>
 

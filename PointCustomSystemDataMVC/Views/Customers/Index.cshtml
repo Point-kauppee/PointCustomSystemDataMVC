@@ -24,10 +24,7 @@
 <p>Asiakkaita yhteensä: @Model.Count()</p>
 
 
-@*<p style="padding-left:8px;font-size:12px">*@
-<p style="padding-left:8px">
-    @Html.ActionLink("Uusi asiakas", "Create", new { @class = "w3-btn w3-small", @form = "form_id" })
-</p>
+
 
 <p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
 
@@ -60,10 +57,10 @@
                         @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
                     </th>*@
                 <th>
-                    @Html.DisplayNameFor(model => model.FirstName)
+                    @Html.DisplayNameFor(model => model.FirstNameA)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.LastName)
+                    @Html.DisplayNameFor(model => model.LastNameA)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Identity)
@@ -98,10 +95,10 @@
                         @Html.DisplayFor(modelItem => item.UserIdentity)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.FirstName)
+                        @Html.DisplayFor(modelItem => item.FirstNameA)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.LastName)
+                        @Html.DisplayFor(modelItem => item.LastNameA)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Identity)
@@ -129,7 +126,7 @@
                         @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
                         @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
                         @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                        @Html.ActionLink(item.FirstName + " " + item.LastName, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
+                        @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
 
                     </td>
                 </tr>

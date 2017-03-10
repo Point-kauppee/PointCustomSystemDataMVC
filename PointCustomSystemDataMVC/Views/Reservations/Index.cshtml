@@ -34,39 +34,39 @@
 
 <script type="text/javascript">
 
-    function create(start, end) {
-        var m = new DayPilot.Modal();
-        m.closed = function () {
-            if (this.result == "OK") {
-                db.commandCallBack('refresh');
+            function create(start, end) {
+            var m = new DayPilot.Modal();
+            m.closed = function () {
+                if (this.result == "OK") {
+                        db.commandCallBack('refresh');
+                    }
+                    db.clearSelection();
+                };
+                m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
             }
-            db.clearSelection();
-        };
-        m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
-    }
 
-    function editEvent(id) {
-        var modal = new DayPilot.Modal();
-        modal.top = 60;
-        modal.width = 300;
-        modal.opacity = 70;
-        modal.border = "10px solid #d0d0d0";
-        modal.closed = function () {
-            if (this.result == "OK") {
-                db.commandCallBack('refresh');
-            }
-            db.clearSelection();
-        };
-        modal.height = 250;
-        modal.zIndex = 100;
-        modal.showUrl("/Reservations/Edit/" + id);
-        //modal.showUrl("Varaus/Asiakaslomake/" + id);
-        //modal.showUrl("http://localhost:17794/Varaus/Edit/37");
-        //modal.showUrl("http://localhost:17794/Varaus/Edit/" + id);
-         }
+            function editEvent(id) {
+            var modal = new DayPilot.Modal();
+            modal.top = 60;
+            modal.width = 300;
+            modal.opacity = 70;
+            modal.border = "10px solid #d0d0d0";
+            modal.closed = function () {
+                if (this.result == "OK") {
+                    db.commandCallBack('refresh');
+                }
+                db.clearSelection();
+            };
+            modal.height = 250;
+            modal.zIndex = 100;
+            modal.showUrl("/Reservations/Edit/" + id);
+            //modal.showUrl("Varaus/Asiakaslomake/" + id);
+            //modal.showUrl("http://localhost:17794/Varaus/Edit/37");
+            //modal.showUrl("http://localhost:17794/Varaus/Edit/" + id);
+             }
 
 
- // SCRIPT KALENTERINÄKYMÄ:
+            // SCRIPT KALENTERINÄKYMÄ:
             var nav = new DayPilot.Navigator("nav");
             //editoitu
             nav.locale = "fi-fi";
@@ -82,7 +82,7 @@
             };
             nav.init();
 
-    //muokattu 24.2.2017
+            //muokattu 24.2.2017
             var dp = new DayPilot.Calendar("dpc");
             //editoitu
             dp.locale = "fi-fi";
@@ -147,7 +147,7 @@
             //    },
             //    // ...
             //});
-        //modal.showHtml("<h1>Hello</h1>");
+            //modal.showHtml("<h1>Hello</h1>");
 
 
             dp.onEventClicked = function (args) {
@@ -172,12 +172,11 @@
                 //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
             };
 
-    //Lisätty 22.2.2017
+            //Lisätty 22.2.2017
             function LoadEvents(Start, End) {
 
                 url = "/Reservations/Backend/?start=" + start + "&end=" + end;
                 //Home/GetVaraukset/?alku="2016-05-20T09:02"&loppu="2016-05-29T09:02";
-
                 //alert("AJAX url: " + url);
 
                 $.ajax({ url: url, cache: false }).done(function (data) {
@@ -196,14 +195,12 @@
 
                         var Date = new Date(data[i].Date);
                         //alert("varauksen pvm: " + data[i].Date + " startTime:" + data[i].Start + " End:" + data[i].End + " sisältö: " + data[i].text)
-
                     }
-
                     //alert("luodaan varaus kalenteriin: " + i);
                     Create(data);
                 });
             }
-    </script>
+</script>
 
 <style>
     /*#dpc{
@@ -286,10 +283,7 @@
         </th>       
         <th>
             @Html.DisplayNameFor(model => model.FullNameH)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.LastName)
-        </th>*@   
+        </th> 
         <th>
             @Html.DisplayNameFor(model => model.Notes)
         </th>
@@ -326,11 +320,7 @@
             </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.FullNameH)
-            </td>
-
-            @*<td>
-                @Html.DisplayFor(modelItem => item.LastName)
-            </td>*@  
+            </td> 
             <td>
                 @Html.DisplayFor(modelItem => item.Notes)
             </td> 

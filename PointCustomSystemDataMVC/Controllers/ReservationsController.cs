@@ -124,9 +124,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
                     model.Add(res);
-
                 }
-
                 if (id == null)
                 {
                     return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -187,18 +185,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.Customer.Add(cus);
 
-            Reservation res = new Reservation();
-            res.Start = model.Start;
-            res.End = model.End;
-            res.Date = model.Date;
-           
-
-            res.Treatment_id = model.Treatment_id;
-            res.TreatmentPlace_id = model.Treatmentplace_id;
-            res.Customer = cus;
-
-            db.Reservation.Add(res);
-
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
             usr.Password = "joku@joku.fi";
@@ -206,14 +194,19 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.User.Add(usr);
 
-            Studentx stu = new Studentx();
-            stu.FirstName = model.FirstNameH;
-            stu.LastName = model.LastNameH;
-            stu.Notes = model.Notes;
-            stu.Customer = cus;
+            Reservation res = new Reservation();
+            res.Start = model.Start;
+            res.End = model.End;
+            res.Date = model.Date;
+           
+            res.Treatment_id = model.Treatment_id;
+            res.TreatmentPlace_id = model.Treatmentplace_id;
+            res.Student_id = model.Student_id;
+            res.Customer = cus;
 
-            db.Studentx.Add(stu);
+            db.Reservation.Add(res);
 
+       
             //Treatment tre = new Treatment();
             //tre.TreatmentName = model.TreatmentName;
             //tre.Reservation = res;
@@ -226,9 +219,6 @@ namespace PointCustomSystemDataMVC.Controllers
             //trp.Reservation = res;
 
             //db.TreatmentPlace.Add(trp);
-
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FullNameH");
             //ViewBag.FullNameH = new SelectList((from s in db.Studentx select new
@@ -322,12 +312,35 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.LastName = model.LastNameA;
             cus.Notes = model.Notes;
 
+          
+
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+
+
+            if (cus.User == null)
+            {
+                User usr = new User();
+                usr.UserIdentity = model.UserIdentity;
+                usr.Password = "joku@joku.fi";
+                usr.Customer = cus;
+
+                db.User.Add(usr);
+            }
+            else
+            {
+                User user = cus.User.FirstOrDefault();
+                if (user != null)
+                {
+                    user.UserIdentity = model.UserIdentity;
+
+                }
+            }
             ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
             //Reservation res = db.Reservation.Find(model.Reservation_id);
-
             if (cus.Reservation == null)
             {
                 Reservation res = new Reservation();
@@ -348,55 +361,12 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.End = model.End;
                     res.Date = model.Date;
                     res.Note = model.Note;
+                    res.Treatment_id = model.Treatment_id;
+                    res.TreatmentPlace_id = model.Treatmentplace_id;
+                    res.Student_id = model.Student_id;
                 }
             }
-            //Studentx
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
-            if (cus.Studentx == null)
-            {
-                Studentx stu = new Studentx();
-                stu.FirstName = model.FirstNameH;
-                stu.LastName = model.LastNameH;
-              
-                stu.Customer = cus;
-
-                db.Studentx.Add(stu);
-            }
-            else
-            {
-                Studentx st = cus.Studentx.FirstOrDefault();
-
-                if (st != null)
-                {
-                    st.FirstName = model.FirstNameH;
-                    st.LastName = model.LastNameH;
-                }
-            }
-
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-           
-
-            if (cus.User == null)
-            {
-                User usr = new User();
-                usr.UserIdentity = model.UserIdentity;
-                usr.Password = "joku@joku.fi";
-                usr.Customer = cus;
-
-                db.User.Add(usr);
-            }
-            else
-            {
-                User user = cus.User.FirstOrDefault();
-                if (user != null)
-                {
-                    user.UserIdentity = model.UserIdentity;
-                  
-                }
-            }
-           
+        
             //if (res.Treatment == null)
             //{
             //    Treatment tre = new Treatment();

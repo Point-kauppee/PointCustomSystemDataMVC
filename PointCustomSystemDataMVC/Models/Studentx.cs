@@ -17,7 +17,6 @@ namespace PointCustomSystemDataMVC.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Studentx()
         {
-            this.Personnel = new HashSet<Personnel>();
             this.Phone = new HashSet<Phone>();
             this.PostOffices = new HashSet<PostOffices>();
             this.Reservation = new HashSet<Reservation>();
@@ -35,11 +34,7 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<System.DateTime> EnrollmentDateIN { get; set; }
         public Nullable<System.DateTime> EnrollmentDateOUT { get; set; }
         public Nullable<System.DateTime> EnrollmentDateOFF { get; set; }
-        public Nullable<int> Customer_id { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Personnel> Personnel { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Phone> Phone { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

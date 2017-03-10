@@ -42,18 +42,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string LastName { get; set; }
 
 
+        //Lisätty yhdistävät nimikentät
+
         [Display(Name = "Asiakas Etunimi")]
         public string FirstNameA { get; set; }
         [Display(Name = "Asiakas Sukunimi")]
         public string LastNameA { get; set; }
-
-
-        [Display(Name = "Hoitaja Etunimi")]
-        public string FirstNameH { get; set; }
-        [Display(Name = "Hoitaja Sukunimi")]
-        public string LastNameH { get; set; }
-
-        //Lisätty yhdistävät nimikentät
 
         [Display(Name = "Asiakas")]
         public string FullNameA
@@ -61,10 +55,26 @@ namespace PointCustomSystemDataMVC.ViewModels
             get { return FirstNameA + " " + LastNameA; }
         }
 
+        [Display(Name = "Hoitaja Etunimi")]
+        public string FirstNameH { get; set; }
+        [Display(Name = "Hoitaja Sukunimi")]
+        public string LastNameH { get; set; }
         [Display(Name = "Hoitaja")]
         public string FullNameH
         {
             get { return FirstNameH + " " + LastNameH; }
+        }
+
+        [Display(Name = "Henkilökunta Etunimi")]
+        public string FirstNameP { get; set; }
+
+        [Display(Name = "Henkilökunta Sukunimi")]
+        public string LastNameP { get; set; }
+
+        [Display(Name = "Henkilökunta")]
+        public string FullNameP
+        {
+            get { return FirstNameP + " " + LastNameP; }
         }
         public virtual ICollection<TreatmentReportsViewModel> TreatmentReservations { get; set; }
     }

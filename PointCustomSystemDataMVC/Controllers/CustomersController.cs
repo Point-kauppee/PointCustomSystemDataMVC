@@ -42,9 +42,13 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Customer customer in customers)
                 {
                     CustomerViewModel view = new CustomerViewModel();
+
+                    view.User_id = customer.User?.FirstOrDefault()?.User_id;
+                    view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
+
                     view.Customer_id = customer.Customer_id;
-                    view.FirstName = customer.FirstName;
-                    view.LastName = customer.LastName;
+                    view.FirstNameA = customer.FirstName;
+                    view.LastNameA = customer.LastName;
                     view.Identity = customer.Identity;
                     view.Email = customer.Email;
                     view.Address = customer.Address;
@@ -56,9 +60,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.Post_id = customer.PostOffices?.FirstOrDefault()?.Post_id;
                     view.PostalCode = customer.PostOffices?.FirstOrDefault()?.PostalCode;
                     view.PostOffice = customer.PostOffices?.FirstOrDefault()?.PostOffice;
-
-                    view.User_id = customer.User?.FirstOrDefault()?.User_id;
-                    view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
 
                     //haetaan seuraava varaus:
                     view.Reservation_id = customer.Reservation?.FirstOrDefault()?.Reservation_id;
@@ -107,7 +108,6 @@ namespace PointCustomSystemDataMVC.Controllers
         //Lisätty 1.3.2017 oma koodi:
         //GET: Customers/Details/5
         public ActionResult Details(int? id)
-
         {
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
@@ -122,9 +122,15 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Customer custdetail in customers)
                 {
                     CustomerViewModel view = new CustomerViewModel();
+
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                    view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
+                    view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+
                     view.Customer_id = custdetail.Customer_id;
-                    view.FirstName = custdetail.FirstName;
-                    view.LastName = custdetail.LastName;
+                    view.FirstNameA = custdetail.FirstName;
+                    view.LastNameA = custdetail.LastName;
                     view.Identity = custdetail.Identity;
                     view.Email = custdetail.Email;
                     view.Address = custdetail.Address;
@@ -136,9 +142,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
-                    view.UserIdentity = custdetail.User.FirstOrDefault()?.UserIdentity;
-
                     view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
                     view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
                     view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
@@ -147,25 +150,22 @@ namespace PointCustomSystemDataMVC.Controllers
                     model.Add(view);
                 }
 
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
+                    if (id == null)
+                    {
+                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    }
+                    Customer customer = db.Customer.Find(id);
+                    if (customer == null)
+                    {
+                        return HttpNotFound();
+                    }
+                    }
+                    finally
+                    {
+                        entities.Dispose();
+                    }
 
-                Customer customer = db.Customer.Find(id);
-
-                if (customer == null)
-
-                {
-                    return HttpNotFound();
-                }
-            }
-            finally
-            {
-                entities.Dispose();
-            }
-
-            return View(model);
+                    return View(model);
 
         }//details
 
@@ -177,10 +177,12 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
+            CustomerViewModel model = new CustomerViewModel();
+
             //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
-            CustomerViewModel model = new CustomerViewModel();
             return View(model);
         }//create
 
@@ -192,11 +194,10 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             ////ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-
+        
             Customer cus = new Customer();
-            cus.FirstName = model.FirstName;
-            cus.LastName = model.LastName;
+            cus.FirstName = model.FirstNameA;
+            cus.LastName = model.LastNameA;
             cus.Identity = model.Identity;
             cus.Address = model.Address;
             cus.Email = model.Email;
@@ -204,9 +205,12 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.Customer.Add(cus);
 
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
-            //usr.Password = "Customer";
+            usr.Password = "joku@joku.fi";
             usr.Customer = cus;
 
             db.User.Add(usr);
@@ -253,10 +257,9 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             CustomerViewModel view = new CustomerViewModel();
-
             view.Customer_id = custdetail.Customer_id;
-            view.FirstName = custdetail.FirstName;
-            view.LastName = custdetail.LastName;
+            view.FirstNameA = custdetail.FirstName;
+            view.LastNameA = custdetail.LastName;
             view.Identity = custdetail.Identity;
             view.Email = custdetail.Email;
             view.Address = custdetail.Address;
@@ -269,6 +272,8 @@ namespace PointCustomSystemDataMVC.Controllers
             view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
             view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
             view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
 
@@ -289,12 +294,33 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             Customer cus = db.Customer.Find(model.Customer_id);
 
-            cus.FirstName = model.FirstName;
-            cus.LastName = model.LastName;
+            cus.FirstName = model.FirstNameA;
+            cus.LastName = model.LastNameA;
             cus.Identity = model.Identity;
             cus.Address = model.Address;
             cus.Email = model.Email;
             cus.Notes = model.Notes;
+
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            if (cus.User == null)
+            {
+                User usr = new User();
+                usr.UserIdentity = model.UserIdentity;
+                usr.Password = "joku@joku.fi";
+                usr.Customer = cus;
+
+                db.User.Add(usr);
+            }
+            else
+            {
+                User user = cus.User.FirstOrDefault();
+                if (user != null)
+                {
+                    user.UserIdentity = model.UserIdentity;
+
+                }
+            }
 
             if (cus.Phone == null)
             {
@@ -355,8 +381,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
             CustomerViewModel view = new CustomerViewModel();
             view.Customer_id = custdetail.Customer_id;
-            view.FirstName = custdetail.FirstName;
-            view.LastName = custdetail.LastName;
+            view.FirstNameA = custdetail.FirstName;
+            view.LastNameA = custdetail.LastName;
             view.Identity = custdetail.Identity;
             view.Email = custdetail.Email;
             view.Address = custdetail.Address;
@@ -369,7 +395,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
             view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
-            view.UserIdentity = custdetail.User.FirstOrDefault()?.UserIdentity;
+            view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
 
             view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
             view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;

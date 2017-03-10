@@ -15,10 +15,7 @@ namespace PointCustomSystemDataMVC.ViewModels
     public class DayPilotCalendarConfig
     {
         public int Customer_id { get; set; }
-        [Display(Name = "Etunimi")]
-        public string FirstName { get; set; }
-        [Display(Name = "Sukunimi")]
-        public string LastName { get; set; }
+    
         public string Identity { get; set; }
         [Display(Name = "Huomiot")]
         public string Notes { get; set; }
@@ -28,6 +25,41 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Address { get; set; }
 
         public string Note { get; set; }
+
+        //Lisätty yhdistävät nimikentät
+
+        [Display(Name = "Asiakas Etunimi")]
+        public string FirstNameA { get; set; }
+        [Display(Name = "Asiakas Sukunimi")]
+        public string LastNameA { get; set; }
+
+        [Display(Name = "Asiakas")]
+        public string FullNameA
+        {
+            get { return FirstNameA + " " + LastNameA; }
+        }
+
+        [Display(Name = "Hoitaja Etunimi")]
+        public string FirstNameH { get; set; }
+        [Display(Name = "Hoitaja Sukunimi")]
+        public string LastNameH { get; set; }
+        [Display(Name = "Hoitaja")]
+        public string FullNameH
+        {
+            get { return FirstNameH + " " + LastNameH; }
+        }
+
+        [Display(Name = "Henkilökunta Etunimi")]
+        public string FirstNameP { get; set; }
+
+        [Display(Name = "Henkilökunta Sukunimi")]
+        public string LastNameP { get; set; }
+
+        [Display(Name = "Henkilökunta")]
+        public string FullNameP
+        {
+            get { return FirstNameP + " " + LastNameP; }
+        }
 
         public int Student_id { get; set; }
 
@@ -47,16 +79,6 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string User { get; set; }
         public string UserIdentity { get; set; }
 
-        [Display(Name = "Asiakas")]
-        public string FullNameA
-        {
-            get { return FirstName + " " + LastName; }
-        }
-        [Display(Name = "Hoitaja")]
-        public string FullNameH
-        {
-            get { return FirstName + ", " + LastName; }
-        }
 
         public int Reservation_id { get; set; }
 

@@ -32,24 +32,27 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Studentx student in students)
                 {
                     StudentViewModel stu = new StudentViewModel();
-                    stu.Student_id = student.Student_id;
-                    stu.FirstName = student.FirstName;
-                    stu.LastName = student.LastName;
-                    stu.Identity = student.Identity;
-                    stu.Address = student.Address;
-                    stu.Email = student.Email;
-                    stu.EnrollmentDateIN = student.EnrollmentDateIN.Value;
-                    stu.EnrollmentDateOUT = student.EnrollmentDateOUT.Value;
-                    stu.EnrollmentDateOFF = student.EnrollmentDateOFF;
-                    stu.Notes = student.Notes;
-
-                    stu.PhoneNum_1 = student.Phone?.FirstOrDefault()?.PhoneNum_1;
-
-                    stu.PostalCode = student.PostOffices?.FirstOrDefault()?.PostalCode;
-                    stu.PostOffice = student.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     stu.User_id = student.User?.FirstOrDefault()?.User_id;
                     stu.UserIdentity = student.User?.FirstOrDefault()?.UserIdentity;
+
+                    stu.Student_id = student.Student_id;
+                    stu.FirstNameH = student.FirstName;
+                    stu.LastNameH = student.LastName;
+                    stu.Identity = student.Identity;
+                    stu.Address = student.Address;
+                    stu.Email = student.Email;
+                    stu.EnrollmentDateIN = student.EnrollmentDateIN.GetValueOrDefault();
+                    stu.EnrollmentDateOUT = student.EnrollmentDateOUT.GetValueOrDefault();
+                    stu.EnrollmentDateOFF = student.EnrollmentDateOFF.GetValueOrDefault();
+                    stu.Notes = student.Notes;
+
+                    stu.Phone_id = student.Phone?.FirstOrDefault()?.Phone_id;
+                    stu.PhoneNum_1 = student.Phone?.FirstOrDefault()?.PhoneNum_1;
+
+                    stu.Post_id = student.PostOffices?.FirstOrDefault()?.Post_id;
+                    stu.PostalCode = student.PostOffices?.FirstOrDefault()?.PostalCode;
+                    stu.PostOffice = student.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     model.Add(stu);
                 }
@@ -84,9 +87,15 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
 
                     StudentViewModel stu = new StudentViewModel();
+
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
+                    stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+                    stu.Password = studetail.User?.FirstOrDefault()?.Password; 
+
                     stu.Student_id = studetail.Student_id;
-                    stu.FirstName = studetail.FirstName;
-                    stu.LastName = studetail.LastName;
+                    stu.FirstNameH = studetail.FirstName;
+                    stu.LastNameH = studetail.LastName;
                     stu.Identity = studetail.Identity;
                     stu.Address = studetail.Address;
                     stu.Email = studetail.Email;
@@ -95,14 +104,12 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
                     stu.Notes = studetail.Notes;
 
+                    stu.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
                     stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
 
+                    stu.Post_id = studetail.PostOffices?.FirstOrDefault()?.Post_id;
                     stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
-
-                    stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
-                    stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
-                    stu.Password = studetail.User?.FirstOrDefault()?.Password;
 
                     model.Add(stu);
                 }
@@ -132,6 +139,9 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             StudentViewModel model = new StudentViewModel();
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+
             return View(model);
         }//create
 
@@ -146,8 +156,8 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             Studentx stu = new Studentx();
-            stu.FirstName = model.FirstName;
-            stu.LastName = model.LastName;
+            stu.FirstName = model.FirstNameH;
+            stu.LastName = model.LastNameH;
             stu.Identity = model.Identity;
             stu.Address = model.Address;
             stu.Email = model.Email;
@@ -158,6 +168,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.Studentx.Add(stu);
 
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
             usr.Password = "Student";
@@ -201,8 +213,8 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             StudentViewModel stu = new StudentViewModel();
             stu.Student_id = studetail.Student_id;
-            stu.FirstName = studetail.FirstName;
-            stu.LastName = studetail.LastName;
+            stu.FirstNameH = studetail.FirstName;
+            stu.LastNameH = studetail.LastName;
             stu.Identity = studetail.Identity;
             stu.Address = studetail.Address;
             stu.Email = studetail.Email;
@@ -211,13 +223,19 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
             stu.Notes = studetail.Notes;
 
-            stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
-            stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
-            stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
-
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
             stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
             stu.Password = studetail.User?.FirstOrDefault()?.Password;
+
+
+            stu.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
+            stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+
+            stu.Post_id = studetail.PostOffices?.FirstOrDefault()?.Post_id;
+            stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
+            stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
             return View(stu);
         }
@@ -231,9 +249,8 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             Studentx stu = db.Studentx.Find(model.Student_id);
 
-            stu.Student_id = model.Student_id;
-            stu.FirstName = model.FirstName;
-            stu.LastName = model.LastName;
+            stu.FirstName = model.FirstNameH;
+            stu.LastName = model.LastNameH;
             stu.Identity = model.Identity;
             stu.Address = model.Address;
             stu.Email = model.Email;
@@ -241,6 +258,29 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.EnrollmentDateOUT = model.EnrollmentDateOUT;
             stu.EnrollmentDateOFF = model.EnrollmentDateOFF;
             stu.Notes = model.Notes;
+
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            if (stu.User == null)
+            {
+                User usr = new User();
+                usr.UserIdentity = model.UserIdentity;
+                usr.Password = "Student";
+                usr.Studentx = stu;
+
+                db.User.Add(usr);
+            }
+            else
+            {
+                User us = stu.User.FirstOrDefault();
+
+                if (us != null)
+                {
+
+                    us.UserIdentity = model.UserIdentity;
+                    us.Password = "Student";
+                }
+            }
 
             if (stu.Phone == null)
             {
@@ -256,26 +296,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 if (pho != null)
                 {
                     pho.PhoneNum_1 = model.PhoneNum_1;
-                }
-            }
-
-            if (stu.User == null)
-            {
-                User usr = new User();
-                usr.UserIdentity = model.UserIdentity;
-                usr.Password = "Student";
-                usr.Studentx = stu;
-
-                db.User.Add(usr);
-            }
-            else
-            {
-                User us = stu.User.FirstOrDefault();
-
-                if (us != null) {
-
-                    us.UserIdentity = model.UserIdentity;
-                    us.Password = "Student";
                 }
             }
 
@@ -312,12 +332,39 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Studentx studentx = db.Studentx.Find(id);
-            if (studentx == null)
+            Studentx studetail = db.Studentx.Find(id);
+            if (studetail == null)
             {
                 return HttpNotFound();
             }
-            return View(studentx);
+
+            StudentViewModel stu = new StudentViewModel();
+            stu.Student_id = studetail.Student_id;
+            stu.FirstNameH = studetail.FirstName;
+            stu.LastNameH = studetail.LastName;
+            stu.Identity = studetail.Identity;
+            stu.Address = studetail.Address;
+            stu.Email = studetail.Email;
+            stu.EnrollmentDateIN = studetail.EnrollmentDateIN;
+            stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT;
+            stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
+            stu.Notes = studetail.Notes;
+
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
+            stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+            stu.Password = studetail.User?.FirstOrDefault()?.Password;
+
+
+            stu.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
+            stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+
+            stu.Post_id = studetail.PostOffices?.FirstOrDefault()?.Post_id;
+            stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
+            stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
+
+            return View(stu);
         }
 
         // POST: Studentxes/Delete/5
@@ -338,9 +385,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
-
-
-      
+        }   
     }
 }
