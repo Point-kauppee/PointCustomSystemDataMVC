@@ -27,13 +27,18 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Customer_id { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> LastModifiedAt { get; set; }
+        public Nullable<System.DateTime> DeletedAt { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public string Information { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
         public virtual Studentx Studentx { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

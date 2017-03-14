@@ -135,6 +135,10 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.Email = custdetail.Email;
                     view.Address = custdetail.Address;
                     view.Notes = custdetail.Notes;
+                    view.CreatedAt = custdetail.CreatedAt;
+                    view.LastModifiedAt = custdetail.LastModifiedAt;
+                    view.DeletedAt = custdetail.DeletedAt;
+                    view.Active = custdetail.Active;
 
                     view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -207,7 +211,6 @@ namespace PointCustomSystemDataMVC.Controllers
 
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
             usr.Password = "joku@joku.fi";
@@ -318,7 +321,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 if (user != null)
                 {
                     user.UserIdentity = model.UserIdentity;
-
+   
                 }
             }
 

@@ -27,8 +27,8 @@ namespace PointCustomSystemDataMVC.Models
     
         public virtual Reservation Reservation { get; set; }
         public virtual User User { get; set; }
-        public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
         public virtual Studentx Studentx { get; set; }
+        public virtual Customer Customer { get; set; }
     }
 }

@@ -33,6 +33,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     StudentViewModel stu = new StudentViewModel();
 
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     stu.User_id = student.User?.FirstOrDefault()?.User_id;
                     stu.UserIdentity = student.User?.FirstOrDefault()?.UserIdentity;
 

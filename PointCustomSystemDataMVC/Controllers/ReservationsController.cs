@@ -42,6 +42,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     ReservationViewModel res = new ReservationViewModel();
 
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     res.User_id = reservation.User?.User_id;
                     res.UserIdentity = reservation.User?.UserIdentity;
 
@@ -58,6 +60,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
                     res.TreatmentName = reservation.Treatment?.TreatmentName;
+                    res.TreatmentPrice = reservation.Treatment?.TreatmentPrice;
 
                     res.Treatmentplace_id = reservation.TreatmentPlace?.Treatmentplace_id;
                     res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
@@ -97,6 +100,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     ReservationViewModel res = new ReservationViewModel();
 
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     res.User_id = resdetail.User?.User_id;
                     res.UserIdentity = resdetail.User?.UserIdentity;
 
@@ -118,11 +123,11 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
                     res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
 
+                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
                     res.Student_id = resdetail.Studentx?.Student_id;
                     res.FirstNameH = resdetail.Studentx?.FirstName;
                     res.LastNameH = resdetail.Studentx?.LastName;
 
-                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
                     model.Add(res);
                 }
                 if (id == null)
@@ -147,21 +152,22 @@ namespace PointCustomSystemDataMVC.Controllers
 
         // GET: Reservations/Create
         public ActionResult Create()
+
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             ReservationViewModel model = new ReservationViewModel();
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
-            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new {Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName}), "Student_id", "FullNameH", null);
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
 
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
 
-            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
 
             return View(model);
@@ -178,35 +184,61 @@ namespace PointCustomSystemDataMVC.Controllers
 
             CultureInfo fiFi = new CultureInfo("fi-FI");
 
-            Customer cus = new Customer();
-            cus.FirstName = model.FirstNameA;
-            cus.LastName = model.LastNameA;
-            cus.Notes = model.Notes;
-
-            db.Customer.Add(cus);
-
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-            User usr = new User();
-            usr.UserIdentity = model.UserIdentity;
-            usr.Password = "joku@joku.fi";
-            usr.Customer = cus;
-
-            db.User.Add(usr);
-
             Reservation res = new Reservation();
             res.Start = model.Start;
             res.End = model.End;
             res.Date = model.Date;
-           
-            res.Treatment_id = model.Treatment_id;
-            res.TreatmentPlace_id = model.Treatmentplace_id;
-            res.Student_id = model.Student_id;
-            res.Customer = cus;
+            res.Note = model.Notes;
+            //res.Treatment_id = model.Treatment_id;
+            //res.TreatmentPlace_id = model.Treatmentplace_id;
 
+            //res.Student_id = model.Student_id;
+            //res.User_id = model.User_id;
             db.Reservation.Add(res);
 
-       
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+
+            // etsitään User-rivi kannasta valitun nimen perusteella
+            int userId = int.Parse(model.UserIdentity);
+            if (userId > 0)
+            {
+                User usr = db.User.Find(userId);
+                res.User_id = userId;
+                res.Customer_id = usr.Customer_id;
+            }
+
+            // etsitään Treatment-rivi kannasta valitun nimen perusteella
+            int treatmentId = int.Parse(model.TreatmentName);
+            if (treatmentId > 0)
+            {
+                Treatment trtm = db.Treatment.Find(treatmentId);
+                res.Treatment_id = trtm.Treatment_id;
+            }
+
+            // etsitään TreatmentPlace-rivi kannasta valitun nimen perusteella
+            int treatmentPlaceId = int.Parse(model.TreatmentPlaceName);
+            if (treatmentPlaceId > 0)
+            {
+                TreatmentPlace tp = db.TreatmentPlace.Find(treatmentPlaceId);
+                res.TreatmentPlace_id = tp.Treatmentplace_id;
+            }
+
+            // etsitään Student-rivi kannasta valitun nimen perusteella
+            int studentId = int.Parse(model.FullNameH2);
+            if (studentId > 0)
+            {
+                Studentx stu = db.Studentx.Find(studentId);
+                res.Student_id = stu.Student_id;
+            }
+
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FullNameH");
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+            //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+
             //Treatment tre = new Treatment();
             //tre.TreatmentName = model.TreatmentName;
             //tre.Reservation = res;
@@ -220,28 +252,17 @@ namespace PointCustomSystemDataMVC.Controllers
 
             //db.TreatmentPlace.Add(trp);
 
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FullNameH");
-            //ViewBag.FullNameH = new SelectList((from s in db.Studentx select new
-            //    {
-            //        Student_id = s.Student_id,
-            //        FullNameH = s.FirstName + " " + s.LastName
-            //    }),"Student_id","FullNameH",null);
-
-            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-
-            //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            //ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-
-            try { db.SaveChanges();
+            try
+            {
+                db.SaveChanges();
             }
 
             catch (Exception ex)
             {
             }
 
-            return RedirectToAction("Index");   
-        
+            return RedirectToAction("Index");
+
         }//cr*/;
 
 
@@ -262,20 +283,20 @@ namespace PointCustomSystemDataMVC.Controllers
 
             ReservationViewModel res = new ReservationViewModel();
 
-            res.Reservation_id = resdetail.Reservation_id;
-            res.Start = resdetail.Start.Value;
-            res.End = resdetail.End.Value;
-            res.Date = resdetail.Date.Value;
+            res.Customer_id = resdetail.Customer?.Customer_id;
+            res.FirstNameA = resdetail.Customer?.FirstName;
+            res.LastNameA = resdetail.Customer?.LastName;
+            res.Notes = resdetail.Customer?.Notes;
 
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             res.User_id = resdetail.User?.User_id;
             res.UserIdentity = resdetail.User?.UserIdentity;
 
-            res.Customer_id = resdetail.Customer?.Customer_id;
-            res.FirstNameA = resdetail.Customer?.FirstName;
-            res.LastNameA = resdetail.Customer?.LastName;
-            res.Notes = resdetail.Customer?.Notes;
+            res.Reservation_id = resdetail.Reservation_id;
+            res.Start = resdetail.Start.Value;
+            res.End = resdetail.End.Value;
+            res.Date = resdetail.Date.Value;
 
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
@@ -292,7 +313,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
             res.Treatmentplace_id = resdetail.TreatmentPlace?.Treatmentplace_id;
             res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
-    
+
             return View(res);
 
         }//edit
@@ -304,113 +325,128 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ReservationViewModel model)
         {
+
             CultureInfo fiFi = new CultureInfo("fi-FI");
-          
-            Customer cus = db.Customer.Find(model.Customer_id);
 
-            cus.FirstName = model.FirstNameA;
-            cus.LastName = model.LastNameA;
-            cus.Notes = model.Notes;
+            Reservation res = db.Reservation.Find(model.Reservation_id);
 
-          
-
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-
-
-            if (cus.User == null)
-            {
-                User usr = new User();
-                usr.UserIdentity = model.UserIdentity;
-                usr.Password = "joku@joku.fi";
-                usr.Customer = cus;
-
-                db.User.Add(usr);
-            }
-            else
-            {
-                User user = cus.User.FirstOrDefault();
-                if (user != null)
-                {
-                    user.UserIdentity = model.UserIdentity;
-
-                }
-            }
-            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-            //Reservation res = db.Reservation.Find(model.Reservation_id);
-            if (cus.Reservation == null)
-            {
-                Reservation res = new Reservation();
-                res.Start = model.Start;
-                res.End = model.End;
-                res.Date = model.Date;
-                res.Note = model.Note;
-                res.Customer = cus;
-
-                db.Reservation.Add(res);
-            }
-            else
-            {
-                Reservation res = cus.Reservation.FirstOrDefault();
-                if (res != null)
-                {
-                    res.Start = model.Start;
-                    res.End = model.End;
-                    res.Date = model.Date;
-                    res.Note = model.Note;
-                    res.Treatment_id = model.Treatment_id;
-                    res.TreatmentPlace_id = model.Treatmentplace_id;
-                    res.Student_id = model.Student_id;
-                }
-            }
-        
-            //if (res.Treatment == null)
-            //{
-            //    Treatment tre = new Treatment();
-            //    tre.TreatmentName = model.TreatmentName;
-            //    tre.TreatmentTime = model.TreatmentTime;
-
-            //    db.Treatment.Add(tre);
-            //}
-            //else
-            //{
-            //    Treatment tr = res.Treatment.FirstOrDefault();
-
-            //    if (tr != null)
-            //    {
-            //        tr.TreatmentName = model.TreatmentName;
-            //    }
-            //}
-
-            //if (res.TreatmentPlace == null)
-            //{
-            //    TreatmentPlace trp = new TreatmentPlace();
-            //    trp.TreatmentPlaceName = model.TreatmentPlaceName;
-            //    trp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
-
-            //    db.TreatmentPlace.Add(trp);
-            //}
-
-            //else
-
-            //{
-            //    TreatmentPlace tp = res.TreatmentPlace.FirstOrDefault();
-
-            //    if (tp != null)
-            //    {
-            //        tp.TreatmentPlaceName = model.TreatmentPlaceName;
-            //        tp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
-            //    }
-            //}
+            res.Start = model.Start;
+            res.End = model.End;
+            res.Date = model.Date;
+            res.Note = model.Note;
+            res.Treatment_id = model.Treatment_id;
+            res.TreatmentPlace_id = model.Treatmentplace_id;
+            res.Customer_id = model.Customer_id;
+            res.Student_id = model.Student_id;
+            res.User_id = model.User_id;
 
             db.SaveChanges();
-            //return View(model);
+
             return RedirectToAction("Index");
 
         }//edit
+
+        //Customer cus = db.Customer.Find(model.Customer_id);
+
+        //cus.FirstName = model.FirstNameA;
+        //cus.LastName = model.LastNameA;
+        //cus.Notes = model.Notes;
+
+
+        //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+
+        //if (cus.User == null)
+        //{
+        //    User usr = new User();
+        //    usr.UserIdentity = model.UserIdentity;
+        //    usr.Password = "joku@joku.fi";
+        //    usr.Customer = cus;
+
+        //    db.User.Add(usr);
+        //}
+        //else
+        //{
+        //    User user = cus.User.FirstOrDefault();
+        //    if (user != null)
+        //    {
+        //        user.UserIdentity = model.UserIdentity;
+
+        //    }
+        //}
+
+        //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+
+        //ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+        ////Reservation res = db.Reservation.Find(model.Reservation_id);
+        //if (cus.Reservation == null)
+        //{
+        //    Reservation res = new Reservation();
+        //    res.Start = model.Start;
+        //    res.End = model.End;
+        //    res.Date = model.Date;
+        //    res.Note = model.Note;
+        //    res.Treatment_id = model.Treatment_id;
+        //    res.TreatmentPlace_id = model.Treatmentplace_id;
+        //    res.Student_id = model.Student_id;
+        //    res.Customer = cus;
+
+        //    db.Reservation.Add(res);
+        //}
+        //else
+        //{
+        //    Reservation res = cus.Reservation.FirstOrDefault();
+        //    if (res != null)
+        //    {
+        //        res.Start = model.Start;
+        //        res.End = model.End;
+        //        res.Date = model.Date;
+        //        res.Note = model.Note;
+        //        res.Treatment_id = model.Treatment_id;
+        //        res.TreatmentPlace_id = model.Treatmentplace_id;
+        //        res.Student_id = model.Student_id;
+        //    }
+        //}
+
+        //if (res.Treatment == null)
+        //{
+        //    Treatment tre = new Treatment();
+        //    tre.TreatmentName = model.TreatmentName;
+        //    tre.TreatmentTime = model.TreatmentTime;
+
+        //    db.Treatment.Add(tre);
+        //}
+        //else
+        //{
+        //    Treatment tr = res.Treatment.FirstOrDefault();
+
+        //    if (tr != null)
+        //    {
+        //        tr.TreatmentName = model.TreatmentName;
+        //    }
+        //}
+
+        //if (res.TreatmentPlace == null)
+        //{
+        //    TreatmentPlace trp = new TreatmentPlace();
+        //    trp.TreatmentPlaceName = model.TreatmentPlaceName;
+        //    trp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+
+        //    db.TreatmentPlace.Add(trp);
+        //}
+
+        //else
+
+        //{
+        //    TreatmentPlace tp = res.TreatmentPlace.FirstOrDefault();
+
+        //    if (tp != null)
+        //    {
+        //        tp.TreatmentPlaceName = model.TreatmentPlaceName;
+        //        tp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+        //    }
+        //}
+
+
 
         // GET: Reservations/Delete/5
         public ActionResult Delete(int? id)
@@ -424,7 +460,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-           
+
             ReservationViewModel res = new ReservationViewModel();
 
             res.Reservation_id = reservation.Reservation_id;
@@ -446,10 +482,9 @@ namespace PointCustomSystemDataMVC.Controllers
 
             res.Treatment_id = reservation.Treatment?.Treatment_id;
             res.TreatmentName = reservation.Treatment?.TreatmentName;
-          
+
             res.Treatmentplace_id = reservation.TreatmentPlace?.Treatmentplace_id;
             res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
-
 
             return View(res);
         }
@@ -580,10 +615,10 @@ namespace PointCustomSystemDataMVC.Controllers
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = edata};
 
-              
+
                 db.Reservation.Add(toBeCreated);
                 db.SaveChanges();
-              
+
                 Update();
             }
 
@@ -608,122 +643,122 @@ namespace PointCustomSystemDataMVC.Controllers
         }//Dpc
 
 
-            //DAYPILOT KALENTERI KUUKAUSINÄKYMÄ
+        //DAYPILOT KALENTERI KUUKAUSINÄKYMÄ
 
-            public ActionResult BackMonthEnd()
+        public ActionResult BackMonthEnd()
+        {
+            return new Dpm().CallBack(this);
+        }
+
+        class Dpm : DayPilotMonth
+        {
+            protected override void OnTimeRangeSelected(DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedArgs e)
             {
-                return new Dpm().CallBack(this);
+                string name = (string)e.Data["name"];
+                if (String.IsNullOrEmpty(name))
+                {
+                    name = "(default)";
+                }
+                new EventManager(Controller).EventCreate(e.Start, e.End, name);
+                Update();
             }
 
-            class Dpm : DayPilotMonth
+            protected override void OnEventMove(DayPilot.Web.Mvc.Events.Month.EventMoveArgs e)
             {
-                protected override void OnTimeRangeSelected(DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedArgs e)
-                {
-                    string name = (string)e.Data["name"];
-                    if (String.IsNullOrEmpty(name))
-                    {
-                        name = "(default)";
-                    }
-                    new EventManager(Controller).EventCreate(e.Start, e.End, name);
-                    Update();
-                }
-
-                protected override void OnEventMove(DayPilot.Web.Mvc.Events.Month.EventMoveArgs e)
-                {
-                    if (new EventManager(Controller).Get(e.Id) != null)
-                    {
-                        new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
-                    }
-
-                    Update();
-                }
-
-                protected override void OnEventResize(DayPilot.Web.Mvc.Events.Month.EventResizeArgs e)
+                if (new EventManager(Controller).Get(e.Id) != null)
                 {
                     new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
-                    Update();
                 }
 
-                private int i = 0;
-                protected override void OnBeforeEventRender(DayPilot.Web.Mvc.Events.Month.BeforeEventRenderArgs e)
+                Update();
+            }
+
+            protected override void OnEventResize(DayPilot.Web.Mvc.Events.Month.EventResizeArgs e)
+            {
+                new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
+                Update();
+            }
+
+            private int i = 0;
+            protected override void OnBeforeEventRender(DayPilot.Web.Mvc.Events.Month.BeforeEventRenderArgs e)
+            {
+                if (Id == "dp_customization")
                 {
-                    if (Id == "dp_customization")
-                    {
-                        // alternating color
-                        int colorIndex = i % 4;
-                        string[] backColors = { "#FFE599", "#9FC5E8", "#B6D7A8", "#EA9999" };
-                        string[] borderColors = { "#F1C232", "#3D85C6", "#6AA84F", "#CC0000" };
-                        e.BackgroundColor = backColors[colorIndex];
-                        e.BorderColor = borderColors[colorIndex];
-                        e.FontColor = "#000";
-                        i++;
-                    }
+                    // alternating color
+                    int colorIndex = i % 4;
+                    string[] backColors = { "#FFE599", "#9FC5E8", "#B6D7A8", "#EA9999" };
+                    string[] borderColors = { "#F1C232", "#3D85C6", "#6AA84F", "#CC0000" };
+                    e.BackgroundColor = backColors[colorIndex];
+                    e.BorderColor = borderColors[colorIndex];
+                    e.FontColor = "#000";
+                    i++;
+                }
+            }
+
+            protected override void OnCommand(DayPilot.Web.Mvc.Events.Month.CommandArgs e)
+            {
+                switch (e.Command)
+                {
+                    case "navigate":
+                        StartDate = (DateTime)e.Data["start"];
+                        Update(CallBackUpdateType.Full);
+                        break;
+
+                    case "previous":
+                        StartDate = StartDate.AddMonths(-1);
+                        Update(CallBackUpdateType.Full);
+                        break;
+
+                    case "next":
+                        StartDate = StartDate.AddMonths(1);
+                        Update(CallBackUpdateType.Full);
+                        break;
+
+                    case "today":
+                        StartDate = DateTime.Today;
+                        Update(CallBackUpdateType.Full);
+                        break;
+
+                    case "refresh":
+                        Update();
+                        break;
+                }
+            }
+
+            protected override void OnInit(DayPilot.Web.Mvc.Events.Month.InitArgs initArgs)
+            {
+                Update(CallBackUpdateType.Full);
+            }
+
+            protected override void OnFinish()
+            {
+                // only load the data if an update was requested by an Update() call
+                if (UpdateType == CallBackUpdateType.None)
+                {
+                    return;
                 }
 
-                protected override void OnCommand(DayPilot.Web.Mvc.Events.Month.CommandArgs e)
-                {
-                    switch (e.Command)
-                    {
-                        case "navigate":
-                            StartDate = (DateTime)e.Data["start"];
-                            Update(CallBackUpdateType.Full);
-                            break;
+                // this select is a really bad example, no where clause
+                Events = new EventManager(Controller).Data.AsEnumerable();
 
-                        case "previous":
-                            StartDate = StartDate.AddMonths(-1);
-                            Update(CallBackUpdateType.Full);
-                            break;
-
-                        case "next":
-                            StartDate = StartDate.AddMonths(1);
-                            Update(CallBackUpdateType.Full);
-                            break;
-
-                        case "today":
-                            StartDate = DateTime.Today;
-                            Update(CallBackUpdateType.Full);
-                            break;
-
-                        case "refresh":
-                            Update();
-                            break;
-                    }
-                }
-
-                protected override void OnInit(DayPilot.Web.Mvc.Events.Month.InitArgs initArgs)
-                {
-                    Update(CallBackUpdateType.Full);
-                }
-
-                protected override void OnFinish()
-                {
-                    // only load the data if an update was requested by an Update() call
-                    if (UpdateType == CallBackUpdateType.None)
-                    {
-                        return;
-                    }
-
-                    // this select is a really bad example, no where clause
-                    Events = new EventManager(Controller).Data.AsEnumerable();
-
-                    DataIdField = "Reservation_id";
-                    DataTextField = "TreatmentName";
-                    //DataDateField = "Date";
-                    DataStartField = "Start";
-                    DataEndField = "End";
-                }//OnFinish
-            }//Dpm
-        }
+                DataIdField = "Reservation_id";
+                DataTextField = "TreatmentName";
+                //DataDateField = "Date";
+                DataStartField = "Start";
+                DataEndField = "End";
+            }//OnFinish
+        }//Dpm
     }
-
-
-        
-    
-
-    
+}
 
 
 
 
-   
+
+
+
+
+
+
+
 

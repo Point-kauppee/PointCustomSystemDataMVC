@@ -31,6 +31,10 @@ namespace PointCustomSystemDataMVC.Models
         public string Notes { get; set; }
         public string Email { get; set; }
         public string Address { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> LastModifiedAt { get; set; }
+        public Nullable<System.DateTime> DeletedAt { get; set; }
+        public Nullable<bool> Active { get; set; }
         public string Information { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

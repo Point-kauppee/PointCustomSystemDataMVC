@@ -34,6 +34,11 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<System.DateTime> EnrollmentDateIN { get; set; }
         public Nullable<System.DateTime> EnrollmentDateOUT { get; set; }
         public Nullable<System.DateTime> EnrollmentDateOFF { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> LastModifiedAt { get; set; }
+        public Nullable<System.DateTime> DeletedAt { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public string Information { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Phone> Phone { get; set; }

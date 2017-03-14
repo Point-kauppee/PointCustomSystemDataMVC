@@ -291,6 +291,10 @@
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Database\Class changes.txt" />
+    <Content Include="Database\dbo.Customer.sql" />
+    <Content Include="Database\dbo.Personnel.sql" />
+    <Content Include="Database\dbo.Studentx.sql" />
+    <Content Include="Database\dbo.User.sql" />
     <Content Include="DayPilot.Web.Mvc.dll" />
     <Content Include="DayPilot.Web.Mvc.xml" />
     <Content Include="favicon.ico" />

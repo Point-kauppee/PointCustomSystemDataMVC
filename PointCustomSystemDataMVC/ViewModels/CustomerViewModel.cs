@@ -58,6 +58,10 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Address { get; set; }
         [Display(Name = "Hoitokertomus")]
         public string Note { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? LastModifiedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
+        public bool? Active { get; set; }
 
         public int? Post_id { get; set; }
         [Display(Name = "PostiNro")]
