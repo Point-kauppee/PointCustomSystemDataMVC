@@ -14,9 +14,11 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+
 <script src="~/Scripts/daypilot-all.min.js"></script>
 <script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
+<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
@@ -25,8 +27,10 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
+<script src="@Url.Content("~/Scripts/DayPilot/daypilot-all.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Themes/calendar_white.css")" rel="stylesheet" type="text/css" />
 
-@*<link href="@Url.Content("~/Themes/calendar_white.css")" rel="stylesheet" type="text/css" />*@
+
 @using DayPilot.Web.Mvc;
 @using DayPilot.Web.Mvc.Events.Calendar;
 @using DayPilot.Web.Mvc.Enums.Calendar;
@@ -218,9 +222,9 @@
     @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
 {
     BackendUrl = Url.Content("~/Reservations/BackEnd"),
-    //BackendUrl = Url.Action("Backend", "Calendar"),
+
     ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
-    //CssOnly = true,
+    CssOnly = true,
     //CssClassPrefix = "calendar_white",
     EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
     EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
@@ -285,7 +289,7 @@
             @Html.DisplayNameFor(model => model.FullNameH)
         </th> 
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
+            @Html.DisplayNameFor(model => model.Note)
         </th>
              
         <th></th>
@@ -322,7 +326,7 @@
                 @Html.DisplayFor(modelItem => item.FullNameH)
             </td> 
             <td>
-                @Html.DisplayFor(modelItem => item.Notes)
+                @Html.DisplayFor(modelItem => item.Note)
             </td> 
              
             <td>

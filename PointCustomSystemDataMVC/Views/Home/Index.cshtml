@@ -14,7 +14,7 @@
 <script src="~/Scripts/DayPilot/daypilot-all.min.js"></script> 
 <script src="~/Scripts/daypilot-all.min.js"></script>
 <script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
-<script src="~/2.7/JavaScript/daypilot-modal-2.7.js"></script>
+
 
 <script src="~/Scripts/modernizr-2.8.3.js"></script>    
 <script src="~/Scripts/bootstrap.min.js"></script>
@@ -31,10 +31,10 @@
 <!-- Multi-statement block -->
 @{
     var greeting = "Tervetuloa Point Collegen Jalkahoitolan varaustenhallinta sivustolle! ";
-    var weekDay = DateTime.Now.DayOfWeek;
+    var weekDay = DateTime.UtcNow.ToLocalTime().DayOfWeek;
     var pvm = DateTime.Now.Date.ToLocalTime();
 
-    var greetingMessage = greeting + " Tänään on: " + pvm + weekDay;
+    var greetingMessage = greeting + " Tänään on: " + pvm +" "+ weekDay;
 }
 
     <style>
@@ -149,22 +149,27 @@
 
         <div id="dpc" class="w3-container w3-text-grey">
 
+
+
             @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
-            {
-            BackendUrl = Url.Content("~/Reservations/BackEnd"),
-            //BackendUrl = Url.Action("Backend", "Calendar"),
-            ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
-            //CssOnly = true,
-            //CssClassPrefix = "calendar_white",
-            EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
-            EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
-            EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
-            EventClickJavaScript = "editEvent(e.id())",
-            TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
-            TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });",
-            //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(Alku, Loppu, { name: prompt('New Event Name:', 'New Event') });"
-            //EventDeleteHandling = EventDeleteHandlingType.CallBack
-            })
+       {
+           BackendUrl = Url.Content("~/Reservations/BackEnd"),
+           //BackendUrl = Url.Action("Backend", "Calendar"),
+           ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
+           //CssOnly = true,
+           //CssClassPrefix = "calendar_white",
+           EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
+           EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
+           EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
+           EventClickJavaScript = "editEvent(e.id())",
+           TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
+           TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });",
+           //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(Alku, Loppu, { name: prompt('New Event Name:', 'New Event') });"
+           //EventDeleteHandling = EventDeleteHandlingType.CallBack
+           HeightSpec = HeightSpec.BusinessHours,
+           
+
+       })
             <br />
             <div class="space">
                 Viikko:
@@ -466,7 +471,6 @@
 
                 $.ajax({ url: url, cache: false }).done(function (data) {
                     i = 0;
-
                     //alert("JSON objects: " + data);
 
                     for (var i = 0; i < data.length; i++) {
@@ -480,15 +484,11 @@
 
                         var Date = new Date(data[i].Date);
                         //alert("varauksen pvm: " + data[i].Date + " startTime:" + data[i].Start + " End:" + data[i].End + " sisältö: " + data[i].text)
-
                     }
-
                     //alert("luodaan varaus kalenteriin: " + i);
                     Create(data);
                 });
             }
-
-
     </script>
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

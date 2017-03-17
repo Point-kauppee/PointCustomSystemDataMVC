@@ -284,6 +284,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
             view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
             view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
+
             return View(view);
 
         }//edit

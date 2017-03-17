@@ -75,11 +75,11 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         public DateTime? Start { get; set; }
         [Display(Name = "Loppuu klo")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]

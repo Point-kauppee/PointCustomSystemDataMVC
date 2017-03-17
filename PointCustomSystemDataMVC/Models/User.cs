@@ -40,5 +40,10 @@ namespace PointCustomSystemDataMVC.Models
         public virtual Personnel Personnel { get; set; }
         public virtual Studentx Studentx { get; set; }
         public virtual Customer Customer { get; set; }
+
+        internal int FirstOrDefault()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

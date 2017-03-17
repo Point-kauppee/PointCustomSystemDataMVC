@@ -9,6 +9,8 @@ namespace PointCustomSystemDataMVC.Controllers
 {
     public class HomeController : Controller
     {
+
+
         public ActionResult Index()
         {
             CultureInfo fiFi = new CultureInfo("fi-FI");

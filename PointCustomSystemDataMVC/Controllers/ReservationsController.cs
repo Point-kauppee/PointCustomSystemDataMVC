@@ -46,17 +46,20 @@ namespace PointCustomSystemDataMVC.Controllers
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     res.User_id = reservation.User?.User_id;
                     res.UserIdentity = reservation.User?.UserIdentity;
+                
+
 
                     res.Customer_id = reservation.Customer?.Customer_id;
                     res.FirstNameA = reservation.Customer?.FirstName;
                     res.LastNameA = reservation.Customer?.LastName;
-                    res.Notes = reservation.Customer?.Notes;
+                    //res.Notes = reservation.Customer?.Notes;
 
                     res.Reservation_id = reservation.Reservation_id;
                     res.TreatmentName = reservation.TreatmentName;
-                    res.Start = reservation.Start.Value;
-                    res.End = reservation.End.Value;
-                    res.Date = reservation.Date.Value;
+                    res.Start = reservation.Start.GetValueOrDefault();
+                    res.End = reservation.End.GetValueOrDefault();
+                    res.Date = reservation.Date.GetValueOrDefault();
+                    res.Note = reservation.Note;
 
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
                     res.TreatmentName = reservation.Treatment?.TreatmentName;
@@ -99,6 +102,11 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
 
                     ReservationViewModel res = new ReservationViewModel();
+                    res.Reservation_id = resdetail.Reservation_id;
+                    res.Start = resdetail.Start.Value;
+                    res.End = resdetail.End.Value;
+                    res.Date = resdetail.Date.Value;
+                    res.Note = resdetail.Note;
 
                     ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -109,11 +117,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.FirstNameA = resdetail.Customer?.FirstName;
                     res.LastNameA = resdetail.Customer?.LastName;
                     res.Notes = resdetail.Customer?.Notes;
-
-                    res.Reservation_id = resdetail.Reservation_id;
-                    res.Start = resdetail.Start.Value;
-                    res.End = resdetail.End.Value;
-                    res.Date = resdetail.Date.Value;
 
                     res.Treatment_id = resdetail.Treatment?.Treatment_id;
                     res.TreatmentName = resdetail.Treatment?.TreatmentName;
@@ -188,16 +191,13 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Start = model.Start;
             res.End = model.End;
             res.Date = model.Date;
-            res.Note = model.Notes;
-            //res.Treatment_id = model.Treatment_id;
-            //res.TreatmentPlace_id = model.Treatmentplace_id;
-
-            //res.Student_id = model.Student_id;
-            //res.User_id = model.User_id;
+            res.Note = model.Note;
             db.Reservation.Add(res);
 
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+              
+            //res.Customer_id = model.Customer_id;
+            //Customer cus = new Customer();
+            //cus.Notes = model.Notes;
 
             // etsitään User-rivi kannasta valitun nimen perusteella
             int userId = int.Parse(model.UserIdentity);
@@ -239,18 +239,6 @@ namespace PointCustomSystemDataMVC.Controllers
             //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
 
-            //Treatment tre = new Treatment();
-            //tre.TreatmentName = model.TreatmentName;
-            //tre.Reservation = res;
-
-            //db.Treatment.Add(tre);
-
-            //TreatmentPlace trp = new TreatmentPlace();
-            //trp.TreatmentPlaceName = model.TreatmentPlaceName;
-            //trp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
-            //trp.Reservation = res;
-
-            //db.TreatmentPlace.Add(trp);
 
             try
             {
@@ -282,6 +270,10 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             ReservationViewModel res = new ReservationViewModel();
+            res.Reservation_id = resdetail.Reservation_id;
+            res.Start = resdetail.Start.Value;
+            res.End = resdetail.End.Value;
+            res.Date = resdetail.Date.Value;
 
             res.Customer_id = resdetail.Customer?.Customer_id;
             res.FirstNameA = resdetail.Customer?.FirstName;
@@ -292,11 +284,6 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             res.User_id = resdetail.User?.User_id;
             res.UserIdentity = resdetail.User?.UserIdentity;
-
-            res.Reservation_id = resdetail.Reservation_id;
-            res.Start = resdetail.Start.Value;
-            res.End = resdetail.End.Value;
-            res.Date = resdetail.Date.Value;
 
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
@@ -334,6 +321,8 @@ namespace PointCustomSystemDataMVC.Controllers
             res.End = model.End;
             res.Date = model.Date;
             res.Note = model.Note;
+
+
             res.Treatment_id = model.Treatment_id;
             res.TreatmentPlace_id = model.Treatmentplace_id;
             res.Customer_id = model.Customer_id;
@@ -488,6 +477,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             return View(res);
         }
+
         // POST: Reservations/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
@@ -748,6 +738,231 @@ namespace PointCustomSystemDataMVC.Controllers
                 DataEndField = "End";
             }//OnFinish
         }//Dpm
+
+        //Daypilot Calendar:
+        public ActionResult Light()
+        {
+            return RedirectToAction("ThemeTransparent");
+        }
+
+        public ActionResult Red()
+        {
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult Green()
+        {
+            return RedirectToAction("ThemeGreen");
+        }
+
+        public ActionResult ThemeGreen()
+        {
+            return View();
+        }
+
+        public ActionResult ThemeWhite()
+        {
+            return View();
+        }
+
+        public ActionResult ThemeTransparent()
+        {
+            return View();
+        }
+
+        public ActionResult ThemeGoogleLike()
+        {
+            return View();
+        }
+
+        public ActionResult ThemeTraditional()
+        {
+            return View();
+        }
+
+        public ActionResult ThemeBlue()
+        {
+            return View();
+        }
+
+        public ActionResult NextPrevious()
+        {
+            return View();
+        }
+        public ActionResult JQuery()
+        {
+            return View();
+        }
+
+        public ActionResult EventCreating()
+        {
+            return View();
+        }
+
+        public ActionResult EventMoving()
+        {
+            return View();
+        }
+
+        public ActionResult EventCustomization()
+        {
+            return View();
+        }
+
+        public ActionResult EventResizing()
+        {
+            return View();
+        }
+
+        public ActionResult NoEventHeader()
+        {
+            return RedirectToAction("Index");
+        }
+
+        public ActionResult CellHeight()
+        {
+            return View();
+        }
+
+        public ActionResult Hours24()
+        {
+            return View();
+        }
+
+        public ActionResult Day()
+        {
+            return RedirectToActionPermanent("ViewDay");
+        }
+
+        public ActionResult WorkWeek()
+        {
+            return RedirectToActionPermanent("ViewWorkWeek");
+        }
+
+        public ActionResult Week()
+        {
+            return RedirectToActionPermanent("ViewWeek");
+        }
+
+        public ActionResult ViewDay()
+        {
+            return View();
+        }
+
+        public ActionResult ViewWorkWeek()
+        {
+            return View();
+        }
+
+        public ActionResult ViewWeek()
+        {
+            return View();
+        }
+
+        public ActionResult ViewResources()
+        {
+            return View();
+        }
+
+        public ActionResult ViewDaysResources()
+        {
+            return View();
+        }
+
+        public ActionResult Rtl()
+        {
+            return View();
+        }
+
+        public ActionResult EventsAllDay()
+        {
+            return View();
+        }
+
+        public ActionResult EventActiveAreas()
+        {
+            return View();
+        }
+
+        public ActionResult EventArrangement()
+        {
+            return View();
+        }
+
+        public ActionResult EventContextMenu()
+        {
+            return View();
+        }
+
+        public ActionResult EventSelecting()
+        {
+            return View();
+        }
+
+        public ActionResult ExternalDragDrop()
+        {
+            return View();
+        }
+
+        public ActionResult RecurringEvents()
+        {
+            return View();
+        }
+
+        public ActionResult Crosshair()
+        {
+            return View();
+        }
+
+        public ActionResult Today()
+        {
+            return View();
+        }
+
+        public ActionResult FixedColumnWidth()
+        {
+            return View();
+        }
+
+        public ActionResult AutoRefresh()
+        {
+            return View();
+        }
+
+        public ActionResult Notify()
+        {
+            return View();
+        }
+
+        public ActionResult HeaderAutoFit()
+        {
+            return View();
+        }
+
+        public ActionResult TimeHeaderCellDuration()
+        {
+            return View();
+        }
+
+        public ActionResult DayRange()
+        {
+            return View();
+        }
+
+        public ActionResult AutoHide()
+        {
+            return View();
+        }
+
+        public ActionResult Message()
+        {
+            return View();
+        }
+
+        public ActionResult Height100Pct()
+        {
+            return View();
+        }
     }
 }
 

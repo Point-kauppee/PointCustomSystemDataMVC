@@ -39,6 +39,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string LastNameH { get; set; }
         [Display(Name = "Hoitaja")]
         public string FullNameH2 { get; set; }
+        [Display(Name = "Hoitaja")]
         public string FullNameH
         {
             get { return FirstNameH + " " + LastNameH;}
@@ -67,13 +68,13 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
-        public DateTime Start { get; set; }
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        public DateTime? Start { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Päättyen klo")]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
@@ -82,7 +83,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
 
 
-        public virtual int?  User_id {get; set; }
+        public int? User_id { get; set; }
 
         [Display(Name = "Asiakastunnus")] 
         public string User { get; set; }

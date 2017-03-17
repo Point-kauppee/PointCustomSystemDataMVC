@@ -92,12 +92,12 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
 
         public Nullable<System.DateTime> Start { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
         public Nullable<System.DateTime> End { get; set; }
 
@@ -139,6 +139,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public int EventHeaderHeight { get; set; }
         public bool EventHeaderVisible { get; set; }
 
+        public int Height { get; set; }
         public string HeaderDateFormat { get; set; }
         public string HeaderFontSize { get; set; }
         public string HeaderFontFamily { get; set; }
@@ -245,6 +246,7 @@ namespace PointCustomSystemDataMVC.ViewModels
             HeaderFontColor = "#42658C";
             HeaderFontFamily = "Tahoma, Arial, Helvetica, sans-serif";
             HeaderHeight = 21;
+            Height = 400;
             HeightSpec = HeightSpec.BusinessHours;
             HourHalfBorderColor = "#EBEDEB";
             HourBorderColor = "#DEDFDE";
