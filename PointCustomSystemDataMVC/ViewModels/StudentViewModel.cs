@@ -64,6 +64,7 @@ namespace PointCustomSystemDataMVC.ViewModels
             get { return FirstNameP + " " + LastNameP; }
         }
 
+        [Display(Name = "Syntymäaika")]
         public string Identity { get; set; }
         [Display(Name = "Huomiot")]
         public string Notes { get; set; }
@@ -84,10 +85,12 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public int? Phone_id { get; set; }
         public string Phone { get; set; }
+        [Display(Name = "PuhNro")]
         public string PhoneNum_1 { get; set; }
 
         public int? User_id { get; set; }
         public string User { get; set; }
+        [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
 
         public string Password { get; set; }
@@ -97,11 +100,11 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         public DateTime Start { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
         public DateTime End { get; set; }
 

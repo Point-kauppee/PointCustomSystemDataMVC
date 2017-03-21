@@ -34,7 +34,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Personnel personnel in personnels)
                 {
                     PersonnelViewModel per = new PersonnelViewModel();
-
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     per.User_id = personnel.User?.FirstOrDefault()?.User_id;
                     per.UserIdentity = personnel.User?.FirstOrDefault()?.UserIdentity;
 
@@ -158,7 +159,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);        
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
-            usr.Password = "joku@joku.fi";
+            usr.Password = "point@point.fi";
             usr.Personnel = per;
 
             db.User.Add(usr);
@@ -247,7 +248,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 User usr = new User();
                 usr.UserIdentity = model.UserIdentity;
-                usr.Password = "joku@joku.fi";
+                usr.Password = "point@point.fi";
                 usr.Personnel = per;
 
                 db.User.Add(usr);
@@ -258,7 +259,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 if (usr != null)
                 {
                     usr.UserIdentity = model.UserIdentity;
-                    usr.Password = "joku@joku.fi";
+                    usr.Password = "point@point.fi";
                 }
             }
 

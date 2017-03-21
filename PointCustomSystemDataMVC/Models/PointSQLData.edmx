@@ -74,6 +74,7 @@
           <Property Name="Date" Type="datetime" />
           <Property Name="Type" Type="int" />
           <Property Name="Note" Type="nvarchar" MaxLength="300" />
+          <Property Name="CalendarTitle" Type="nvarchar" MaxLength="2000" />
           <Property Name="Personnel_id" Type="int" />
           <Property Name="Student_id" Type="int" />
           <Property Name="Customer_id" Type="int" />
@@ -706,6 +707,7 @@
           <NavigationProperty Name="Personnel" Relationship="JohaMeriSQL1Model.FK_Reservation_ToTable" FromRole="Reservation" ToRole="Personnel" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_Reservation_ToTable_1" FromRole="Reservation" ToRole="Studentx" />
           <NavigationProperty Name="Customer" Relationship="JohaMeriSQL1Model.FK_Reservation_ToTable_2" FromRole="Reservation" ToRole="Customer" />
+          <Property Name="CalendarTitle" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="Treatment">
           <Key>
@@ -1161,6 +1163,7 @@
           <EntitySetMapping Name="Reservation">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.Reservation">
               <MappingFragment StoreEntitySet="Reservation">
+                <ScalarProperty Name="CalendarTitle" ColumnName="CalendarTitle" />
                 <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="Treatment_id" ColumnName="Treatment_id" />
                 <ScalarProperty Name="TreatmentPlace_id" ColumnName="TreatmentPlace_id" />

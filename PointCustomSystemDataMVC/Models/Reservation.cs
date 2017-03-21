@@ -33,6 +33,7 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> Treatment_id { get; set; }
         public Nullable<int> User_id { get; set; }
+        public string CalendarTitle { get; set; }
     
         public virtual TreatmentPlace TreatmentPlace { get; set; }
         public virtual Treatment Treatment { get; set; }

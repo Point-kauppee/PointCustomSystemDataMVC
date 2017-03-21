@@ -73,7 +73,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public int? User_id { get; set; }
         public string User { get; set; }
-        [Display(Name = "Käyttäjätieto")]
+        [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
 
         public string Password { get; set; }

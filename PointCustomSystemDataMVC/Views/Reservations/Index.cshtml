@@ -96,7 +96,7 @@
 
             //event creating
             var e = new DayPilot.Event({
-                date: new DayPilot.Date("2016-05-12"),
+                date: new DayPilot.Date("2017-03-21"),
                 start: new DayPilot.Start("hh\:mm"),
                 end: new DayPilot.End("hh\:mm"),
                 
@@ -107,7 +107,7 @@
             dp.events.add(e);
 
             var e = new DayPilot.Event({
-                date: new DayPilot.Date("2016-05-12"),
+                date: new DayPilot.Date("2017-03-21"),
                 start: new DayPilot.Date("hh\:mm"),
                 end: new DayPilot.Date("hh\:mm"),
                 id: DayPilot.guid(),
@@ -194,6 +194,8 @@
                         data[i].End = data[i].End;
                         data[i].start = data[i].Date.substr(0, 11) + data[i].Start + ":00";
                         data[i].end = data[i].Date.substr(0, 11) + data[i].End + ":00";
+                        data[i].text = "testi";
+                        data[i].Text = "testi2";
 
                         //alert("Varaus alku: " + data[i].start + " Varaus loppu: " + data[i].end);
 

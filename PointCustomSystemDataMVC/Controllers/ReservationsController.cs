@@ -47,8 +47,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.User_id = reservation.User?.User_id;
                     res.UserIdentity = reservation.User?.UserIdentity;
                 
-
-
                     res.Customer_id = reservation.Customer?.Customer_id;
                     res.FirstNameA = reservation.Customer?.FirstName;
                     res.LastNameA = reservation.Customer?.LastName;
@@ -88,7 +86,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/Details/5
         public ActionResult Details(int? id)
         {
-            List<ReservationViewModel> model = new List<ReservationViewModel>();
+            ReservationViewModel model = new ReservationViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
@@ -131,7 +129,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.FirstNameH = resdetail.Studentx?.FirstName;
                     res.LastNameH = resdetail.Studentx?.LastName;
 
-                    model.Add(res);
+                    model = res;
                 }
                 if (id == null)
                 {
@@ -322,9 +320,14 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Date = model.Date;
             res.Note = model.Note;
 
-
+            ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             res.Treatment_id = model.Treatment_id;
+
+            ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
             res.TreatmentPlace_id = model.Treatmentplace_id;
+
             res.Customer_id = model.Customer_id;
             res.Student_id = model.Student_id;
             res.User_id = model.User_id;
@@ -502,7 +505,8 @@ namespace PointCustomSystemDataMVC.Controllers
         //DAYPILOT VIIKKO VIIKKONÄKYMÄ
         public ActionResult BackEnd()
         {
-            return new Dpc().CallBack(this);
+            var data = new Dpc().CallBack(this);
+            return data;
         }
 
         //class Dpc : DayPilotWeek
@@ -521,7 +525,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 Events = from ev in db.Reservation select ev;
 
                 DataIdField = "Reservation_id";
-                DataTextField = "TreatmentName";
+                DataTextField = "CalendarTitle";
                 DataDateField = "Date";
                 DataStartField = "Start";
                 DataEndField = "End";
@@ -624,7 +628,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 Events = from ev in db.Reservation select ev;
 
                 DataIdField = "Reservation_id";
-                DataTextField = "TreatmentName";
+                DataTextField = "CalendarTitle";
                 DataDateField = "Date";
                 DataStartField = "Start";
                 DataEndField = "End";

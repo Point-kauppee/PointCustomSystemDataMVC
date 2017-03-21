@@ -42,7 +42,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Hoitaja")]
         public string FullNameH
         {
-            get { return FirstNameH + " " + LastNameH;}
+            get { return FirstNameH + " " + LastNameH; }
             set { FullNameH2 = value; }
         }
 
@@ -58,6 +58,12 @@ namespace PointCustomSystemDataMVC.ViewModels
             get { return FirstNameP + " " + LastNameP; }
         }
 
+
+        public string CalendarTitle
+        {
+            get { return FullNameA + " " + Start + " " + TreatmentName + " " + FullNameH2; }
+            set { CalendarTitle = value; }
+        }
 
         //public IEnumerable<StudentViewModel> Studentx { get; set; }
         public IEnumerable<StudentViewModel> Customers { get; set; }
