@@ -456,6 +456,7 @@
     <Content Include="Views\StudentGroups\Details.cshtml" />
     <Content Include="Views\StudentGroups\Edit.cshtml" />
     <Content Include="Views\StudentGroups\Index.cshtml" />
+    <Content Include="Views\Shared\SideMenu.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

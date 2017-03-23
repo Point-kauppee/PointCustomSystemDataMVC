@@ -19,10 +19,10 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
+@{ Html.RenderAction("SideMenu", "Customers");}
 <h2>Asiakas</h2>
 <br />
 <p>Asiakkaita yhteensä: @Model.Count()</p>
-
 
 
 
@@ -32,13 +32,10 @@
 
 <div class="w3-container">
     <p>Etsi</p>
-
     <input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi käyttäjätunnuksella..." id="myInput" onkeyup="myFunction()"><i class="fa fa-search"></i>
     <p>
         <input oninput="w3.filterHTML('#myTable', 'model', this.value)" placeholder="Etsi nimellä..">
     </p>
-
-   
 
     <table class="table" id="myTable" >
         <thead>
@@ -82,19 +79,11 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.Notes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CreatedAt)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastModifiedAt)
-                </th>
+                </th>        
                 <th><select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Information)
-                </th>
+             
 
                 <th></th>
             </tr>
@@ -133,17 +122,8 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Notes)
                     </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CreatedAt)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastModifiedAt)
-                    </td>
                     <td><select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
                         @Html.DisplayFor(modelItem => item.Active)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Information)
                     </td>
 
                     <td>

@@ -458,6 +458,12 @@ namespace PointCustomSystemDataMVC.Controllers
         }//dispose
 
 
+        //SideMenu:
+        public ActionResult SideMenu()
+        {
+            return PartialView("SideMenu");
+        }
+
 
         //ASIAKKAAN HOITOTIETOJEN TALLENNUS
 
