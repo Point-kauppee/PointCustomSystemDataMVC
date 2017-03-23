@@ -18,7 +18,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Email { get; set; }
         [Display(Name = "Huomiot")]
         public string Note { get; set; }
-
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hoito maksettu pvm")]
+        public DateTime? TreatmentPaidDate { get; set; }
+        [Display(Name = "Maksettu")]
+        public bool? TreatmentPaid { get; set; }
 
         //Lisätty yhdistävät nimikentät
 
@@ -71,6 +76,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         //Lisätty päivämäärämääritykset reservation.cs
 
+       
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
@@ -85,9 +91,9 @@ namespace PointCustomSystemDataMVC.ViewModels
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Pvm")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
 
-
+        public string TreatmentplaceName { get; set; }
 
         public int? User_id { get; set; }
 
@@ -98,11 +104,13 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Asiakastunnus")]
         public string UserIdentity { get; set; }
         public string Password { get; set; }
+
         [Display(Name = "Hoito")]
         public string Treatment { get; set; }
         public int? Treatment_id { get; set; }
         [Display(Name = "Palvelu")]
         public string TreatmentTime { get; set; }
+
         [Display(Name = "Hoito")]
         public string TreatmentName { get; set; }
         public string TreatmentPrice { get; set; }
@@ -110,6 +118,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TretamentOffice { get; set; }
         public int? TreatmentOffice_id { get; set; }    
         public string TreatmentOfficeName { get; set; }
+
         [Display(Name = "Hoitopaikka")]
         public string TreatmentPlace { get; set; }
         public int? Treatmentplace_id { get; set; }

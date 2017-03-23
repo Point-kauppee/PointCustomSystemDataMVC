@@ -22,9 +22,9 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> TreatmentOffice_id { get; set; }
     
-        public virtual TreatmentOffice TreatmentOffice { get; set; }
+        public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
         public virtual Studentx Studentx { get; set; }
-        public virtual Customer Customer { get; set; }
+        public virtual TreatmentOffice TreatmentOffice { get; set; }
     }
 }

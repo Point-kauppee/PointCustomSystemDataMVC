@@ -62,6 +62,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public DateTime? LastModifiedAt { get; set; }
         public DateTime? DeletedAt { get; set; }
         public bool? Active { get; set; }
+        public string Information { get; set; }
 
         public int? Post_id { get; set; }
         [Display(Name = "PostiNro")]

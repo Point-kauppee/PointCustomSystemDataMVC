@@ -17,6 +17,8 @@ using DayPilot.Web.Mvc.Events.Month;
 using DayPilot.Web.Mvc.Json;
 using PointCustomSystemDataMVC.ViewModels;
 using PointCustomSystemDataMVC.Utilities;
+using System.Collections;
+
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -57,6 +59,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Start = reservation.Start.GetValueOrDefault();
                     res.End = reservation.End.GetValueOrDefault();
                     res.Date = reservation.Date.GetValueOrDefault();
+                    res.TreatmentPaid = reservation.TreatmentPaid;
+                    res.TreatmentPaidDate = reservation.TreatmentPaidDate.GetValueOrDefault();
                     res.Note = reservation.Note;
 
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
@@ -105,6 +109,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.End = resdetail.End.Value;
                     res.Date = resdetail.Date.Value;
                     res.Note = resdetail.Note;
+                    res.TreatmentPaid = resdetail.TreatmentPaid;
+                    res.TreatmentPaidDate = resdetail.TreatmentPaidDate;
 
                     ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -272,6 +278,8 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Start = resdetail.Start.Value;
             res.End = resdetail.End.Value;
             res.Date = resdetail.Date.Value;
+            res.TreatmentPaid = resdetail.TreatmentPaid;
+            res.TreatmentPaidDate = resdetail.TreatmentPaidDate;
 
             res.Customer_id = resdetail.Customer?.Customer_id;
             res.FirstNameA = resdetail.Customer?.FirstName;
@@ -319,16 +327,20 @@ namespace PointCustomSystemDataMVC.Controllers
             res.End = model.End;
             res.Date = model.Date;
             res.Note = model.Note;
+            res.TreatmentPaid = model.TreatmentPaid;
+            res.TreatmentPaidDate = model.TreatmentPaidDate;
 
             ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-            res.Treatment_id = model.Treatment_id;
+         
 
             ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
             res.TreatmentPlace_id = model.Treatmentplace_id;
+            
 
             res.Customer_id = model.Customer_id;
+
             res.Student_id = model.Student_id;
             res.User_id = model.User_id;
 
@@ -459,6 +471,8 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Start = reservation.Start.Value;
             res.End = reservation.End.Value;
             res.Date = reservation.Date.Value;
+            res.TreatmentPaid = reservation.TreatmentPaid;
+            res.TreatmentPaidDate = reservation.TreatmentPaidDate;
 
             res.User_id = reservation.User?.User_id;
             res.UserIdentity = reservation.User?.UserIdentity;
@@ -554,7 +568,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             protected override void OnEventResize(DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs e)
             {
-                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();          
                 var eid = Convert.ToInt32(e.Id);
                 var toBeResized = (from ev in db.Reservation where ev.Reservation_id == eid select ev).First();
                 toBeResized.Start = e.NewStart;
@@ -572,6 +586,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 var toBeResized = (from ev in db.Reservation where ev.Reservation_id == eid select ev).First();
                 toBeResized.Start = e.NewStart;
                 toBeResized.End = e.NewEnd;
+
                 db.SaveChanges();
                 Update();
             }
@@ -604,12 +619,16 @@ namespace PointCustomSystemDataMVC.Controllers
                 //var edata = Convert.ToString(e.Data["name"]);
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
+
+               
                 var toBeCreated = new Reservation { Start = e.Start, End = e.End, TreatmentName = (string)e.Data["name"] };
+
+
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = Convert.ToString(e.Data["name"]) };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = edata};
 
-
+               
                 db.Reservation.Add(toBeCreated);
                 db.SaveChanges();
 
@@ -674,6 +693,9 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             private int i = 0;
+
+            public string DataDateField { get; set; }
+
             protected override void OnBeforeEventRender(DayPilot.Web.Mvc.Events.Month.BeforeEventRenderArgs e)
             {
                 if (Id == "dp_customization")
@@ -737,7 +759,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 DataIdField = "Reservation_id";
                 DataTextField = "TreatmentName";
-                //DataDateField = "Date";
+                DataDateField = "Date";
                 DataStartField = "Start";
                 DataEndField = "End";
             }//OnFinish

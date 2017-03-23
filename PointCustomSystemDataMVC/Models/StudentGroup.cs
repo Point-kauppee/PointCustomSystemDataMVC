@@ -12,22 +12,17 @@ namespace PointCustomSystemDataMVC.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class TreatmentReport
+    public partial class StudentGroup
     {
-        public int TreatmentReport_id { get; set; }
-        public string TreatmentReportName { get; set; }
-        public string TreatmentReportText { get; set; }
-        public Nullable<System.DateTime> TreatmentDate { get; set; }
-        public Nullable<System.DateTime> TreatmentTime { get; set; }
+        public int StudentGroup_id { get; set; }
+        public string StudentGroupName { get; set; }
+        public Nullable<bool> Active { get; set; }
+        public Nullable<System.DateTime> CreatedAt { get; set; }
+        public Nullable<System.DateTime> LastModifiedAt { get; set; }
+        public Nullable<System.DateTime> DeletedAt { get; set; }
         public Nullable<int> User_id { get; set; }
-        public Nullable<int> Customer_id { get; set; }
         public Nullable<int> Student_id { get; set; }
-        public Nullable<int> Personnel_id { get; set; }
-        public Nullable<int> Reservation_id { get; set; }
     
-        public virtual Customer Customer { get; set; }
-        public virtual Personnel Personnel { get; set; }
-        public virtual Reservation Reservation { get; set; }
         public virtual Studentx Studentx { get; set; }
         public virtual User User { get; set; }
     }

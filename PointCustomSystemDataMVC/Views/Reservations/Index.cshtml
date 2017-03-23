@@ -97,8 +97,8 @@
             //event creating
             var e = new DayPilot.Event({
                 date: new DayPilot.Date("2017-03-21"),
-                start: new DayPilot.Start("hh\:mm"),
-                end: new DayPilot.End("hh\:mm"),
+                start: new DayPilot.Start("HH\:MM"),
+                end: new DayPilot.End("HH\:MM"),
                 
                 id: DayPilot.guid(),
                 text: "EKA"
@@ -108,8 +108,8 @@
 
             var e = new DayPilot.Event({
                 date: new DayPilot.Date("2017-03-21"),
-                start: new DayPilot.Date("hh\:mm"),
-                end: new DayPilot.Date("hh\:mm"),
+                start: new DayPilot.Date("HH\:MM"),
+                end: new DayPilot.Date("HH\:MM"),
                 id: DayPilot.guid(),
                 text: "TOKA"
             });
@@ -293,6 +293,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Note)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentPaid)
+        </th>
              
         <th></th>
     </tr>
@@ -319,17 +322,20 @@
                 @Html.DisplayFor(modelItem => item.Date)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.Start)
+                @Html.DisplayFor(modelItem => item.Start.Value)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.End)
+                @Html.DisplayFor(modelItem => item.End.Value)
             </td>            
             <td>
                 @Html.DisplayFor(modelItem => item.FullNameH)
             </td> 
             <td>
                 @Html.DisplayFor(modelItem => item.Note)
-            </td> 
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TreatmentPaid)
+            </td>  
              
             <td>
                 @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |

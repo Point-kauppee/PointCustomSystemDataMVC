@@ -11,8 +11,6 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-
-
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -63,6 +61,21 @@
         <th>
             @Html.DisplayNameFor(model => model.EnrollmentDateOFF)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModifiedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentGroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Information)
+        </th>
         <th></th>
     </tr>
 
@@ -104,6 +117,21 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.EnrollmentDateOFF)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CreatedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.LastModifiedAt)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.StudentGroupName)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Information)
             </td>
 
             <td>

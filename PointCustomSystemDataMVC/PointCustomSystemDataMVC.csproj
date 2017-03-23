@@ -211,6 +211,7 @@
     <Compile Include="Controllers\PhonesController.cs" />
     <Compile Include="Controllers\PostOfficesController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
+    <Compile Include="Controllers\StudentGroupsController.cs" />
     <Compile Include="Controllers\StudentxesController.cs" />
     <Compile Include="Controllers\TreatmentOfficesController.cs" />
     <Compile Include="Controllers\TreatmentPlacesController.cs" />
@@ -235,6 +236,9 @@
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Reservation.cs">
+      <DependentUpon>PointSQLData.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\StudentGroup.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Studentx.cs">
@@ -320,6 +324,7 @@
     <Content Include="Models\PointSQLData.edmx.diagram">
       <DependentUpon>PointSQLData.edmx</DependentUpon>
     </Content>
+    <None Include="Properties\PublishProfiles\PointCustomSystemData - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Models\PointSQLData.Context.tt">
@@ -446,6 +451,11 @@
     <Content Include="Views\TreatmentReports\Details.cshtml" />
     <Content Include="Views\TreatmentReports\Edit.cshtml" />
     <Content Include="Views\TreatmentReports\Index.cshtml" />
+    <Content Include="Views\StudentGroups\Create.cshtml" />
+    <Content Include="Views\StudentGroups\Delete.cshtml" />
+    <Content Include="Views\StudentGroups\Details.cshtml" />
+    <Content Include="Views\StudentGroups\Edit.cshtml" />
+    <Content Include="Views\StudentGroups\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

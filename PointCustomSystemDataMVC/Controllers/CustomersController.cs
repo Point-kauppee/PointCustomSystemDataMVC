@@ -43,6 +43,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     CustomerViewModel view = new CustomerViewModel();
 
+                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
 
@@ -53,6 +55,10 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.Email = customer.Email;
                     view.Address = customer.Address;
                     view.Notes = customer.Notes;
+                    view.CreatedAt = customer.CreatedAt;
+                    view.DeletedAt = customer.DeletedAt;
+                    view.Active = customer.Active;
+                    view.Information = customer.Information;
 
                     view.Phone_id = customer.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = customer.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -139,6 +145,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.LastModifiedAt = custdetail.LastModifiedAt;
                     view.DeletedAt = custdetail.DeletedAt;
                     view.Active = custdetail.Active;
+                    view.Information = custdetail.Information;
 
                     view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -206,6 +213,10 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Address = model.Address;
             cus.Email = model.Email;
             cus.Notes = model.Notes;
+            cus.CreatedAt = model.CreatedAt.Value.Date;
+            cus.DeletedAt = model.DeletedAt;
+            cus.Active = model.Active;
+            cus.Information = model.Information;
 
             db.Customer.Add(cus);
 
@@ -267,6 +278,11 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Email = custdetail.Email;
             view.Address = custdetail.Address;
             view.Notes = custdetail.Notes;
+            view.CreatedAt = custdetail.CreatedAt;
+            view.LastModifiedAt = custdetail.LastModifiedAt;
+            view.DeletedAt = custdetail.DeletedAt;
+            view.Active = custdetail.Active;
+            view.Information = custdetail.Information;
 
             view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -304,6 +320,10 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Address = model.Address;
             cus.Email = model.Email;
             cus.Notes = model.Notes;
+            cus.CreatedAt = model.CreatedAt;
+            cus.DeletedAt = model.DeletedAt;
+            cus.Active = model.Active;
+            cus.Information = model.Information;
 
             ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -391,6 +411,11 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Email = custdetail.Email;
             view.Address = custdetail.Address;
             view.Notes = custdetail.Notes;
+            view.CreatedAt = custdetail.CreatedAt;
+            view.LastModifiedAt = custdetail.LastModifiedAt;
+            view.DeletedAt = custdetail.DeletedAt;
+            view.Active = custdetail.Active;
+            view.Information = custdetail.Information;
 
             view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;

@@ -1,0 +1,63 @@
+﻿@model IEnumerable<PointCustomSystemDataMVC.Models.StudentGroup>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.StudentGroupName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CreatedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.LastModifiedAt)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.DeletedAt)
+        </th>
+        @*<th>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </th>*@
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.StudentGroupName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Active)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CreatedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModifiedAt)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.DeletedAt)
+        </td>
+        @*<td>
+            @Html.DisplayFor(modelItem => item.User.UserIdentity)
+        </td>*@
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.StudentGroup_id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.StudentGroup_id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.StudentGroup_id })
+        </td>
+    </tr>
+}
+
+</table>

@@ -29,6 +29,16 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Personnel { get; set; }
         public int? Customer_id { get; set; }
 
+        public int? StudentGroup_id { get; set; }
+        public string StudentGroupName { get; set; }
+        public string StudentGroup { get; set; }
+
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? LastModifiedAt { get; set; }
+        public DateTime? DeletedAt { get; set; }
+        public bool? Active { get; set; }
+        public string Information { get; set; }
+
         //Lisätty yhdistävät nimikentät
 
         [Display(Name = "Asiakas Etunimi")]
@@ -96,21 +106,19 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Password { get; set; }
         
 
-
-
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
-        public DateTime Start { get; set; }
+        public DateTime? Start { get; set; }
 
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
-        public DateTime End { get; set; }
+        public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Pvm")]
-        public DateTime Date { get; set; }
+        public DateTime? Date { get; set; }
     }
 }

@@ -14,6 +14,8 @@ namespace PointCustomSystemDataMVC.ViewModels
 {
     public class DayPilotCalendarConfig
     {
+
+     
         public int Customer_id { get; set; }
     
         public string Identity { get; set; }
@@ -93,20 +95,20 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
-
-        public Nullable<System.DateTime> Start { get; set; }
+        public DateTime? Start { get; set; }
 
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
-        public Nullable<System.DateTime> End { get; set; }
+        public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Pvm")]
-        public Nullable<System.DateTime> Date { get; set; }
+        public DateTime? Date { get; set; }
 
         public string DataDateField { get; set; }
+      
 
         public string EventManager { get; set; }
 
