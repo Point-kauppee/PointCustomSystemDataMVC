@@ -42,7 +42,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Customer customer in customers)
                 {
                     CustomerViewModel view = new CustomerViewModel();
-
                     ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
@@ -69,7 +68,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     //haetaan seuraava varaus:
                     view.Reservation_id = customer.Reservation?.FirstOrDefault()?.Reservation_id;
-                    view.Start = customer.Reservation?.FirstOrDefault()?.Start.Value;
+                    view.Start = customer.Reservation?.FirstOrDefault()?.Start;
                     view.End = customer.Reservation?.FirstOrDefault()?.End.Value;
                     view.Date = customer.Reservation?.FirstOrDefault()?.Date.Value;
 
@@ -133,6 +132,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+                    view.Password = custdetail.User?.FirstOrDefault()?.Password;
 
                     view.Customer_id = custdetail.Customer_id;
                     view.FirstNameA = custdetail.FirstName;

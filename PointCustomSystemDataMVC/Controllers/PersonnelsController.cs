@@ -11,9 +11,11 @@ using PointCustomSystemDataMVC.Utilities;
 using System.Globalization;
 using Newtonsoft.Json;
 using PointCustomSystemDataMVC.ViewModels;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    [Authorize(Roles = "Personnel User,Student User")]
     public class PersonnelsController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -21,6 +23,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Personnels
         public ActionResult Index()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             List<PersonnelViewModel> model = new List<PersonnelViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -50,7 +55,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     per.PhoneNum_1 = personnel.Phone?.FirstOrDefault()?.PhoneNum_1;
 
                     per.Post_id = personnel.PostOffices?.FirstOrDefault()?.Post_id;
-                    per.PostOffice = personnel.PostOffices?.FirstOrDefault()?.PostalCode;
+                    per.PostalCode = personnel.PostOffices?.FirstOrDefault()?.PostalCode;
                     per.PostOffice = personnel.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     model.Add(per);

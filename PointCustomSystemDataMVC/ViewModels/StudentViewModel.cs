@@ -29,14 +29,21 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Personnel { get; set; }
         public int? Customer_id { get; set; }
 
+      
         public int? StudentGroup_id { get; set; }
+        [Display(Name = "Kurssi")]
         public string StudentGroupName { get; set; }
         public string StudentGroup { get; set; }
 
+        [Display(Name = "Tieto tallennettu")]
         public DateTime? CreatedAt { get; set; }
+        [Display(Name = "Viimeksi muokattu pvm")]
         public DateTime? LastModifiedAt { get; set; }
+        [Display(Name = "Arkistointi pvm")]
         public DateTime? DeletedAt { get; set; }
+        [Display(Name = "Tila")]
         public bool? Active { get; set; }
+        [Display(Name = "Tiedot")]
         public string Information { get; set; }
 
         //Lisätty yhdistävät nimikentät

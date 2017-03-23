@@ -9,9 +9,13 @@ using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using System.Globalization;
 using PointCustomSystemDataMVC.ViewModels;
+using Newtonsoft.Json;
+using PointCustomSystemDataMVC.Utilities;
+using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    [Authorize(Roles = "Personnel User,Student User")]
     public class StudentxesController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -19,6 +23,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes
         public ActionResult Index()
         {
+            string username = User.Identity.Name;
+            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             List<StudentViewModel> model = new List<StudentViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -61,7 +68,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.PostalCode = student.PostOffices?.FirstOrDefault()?.PostalCode;
                     stu.PostOffice = student.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    ViewBag.StudentGroup_id = new SelectList(db.StudentGroup, "StudentGroup_id", "StudentGroupName");
+                    //ViewBag.StudentGroup_id = new SelectList(db.StudentGroup, "StudentGroup_id", "StudentGroupName");
                     ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
                     stu.StudentGroup_id = student.StudentGroup?.FirstOrDefault()?.StudentGroup_id;
                     stu.StudentGroupName = student.StudentGroup?.FirstOrDefault()?.StudentGroupName;
@@ -141,9 +148,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     }
 
                     Studentx studentx = db.Studentx.Find(id);
-
                     if (studentx == null)
-
                     {
                         return HttpNotFound();
                     }

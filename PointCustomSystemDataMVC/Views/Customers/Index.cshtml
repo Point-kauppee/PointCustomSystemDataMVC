@@ -38,7 +38,7 @@
         <input oninput="w3.filterHTML('#myTable', 'model', this.value)" placeholder="Etsi nimellä..">
     </p>
 
-    
+   
 
     <table class="table" id="myTable" >
         <thead>
@@ -89,7 +89,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.LastModifiedAt)
                 </th>
-                <th>
+                <th><select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
                 <th>
@@ -139,7 +139,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.LastModifiedAt)
                     </td>
-                    <td>
+                    <td><select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
                         @Html.DisplayFor(modelItem => item.Active)
                     </td>
                     <td>

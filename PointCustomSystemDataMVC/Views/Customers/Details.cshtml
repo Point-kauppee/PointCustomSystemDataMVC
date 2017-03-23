@@ -12,11 +12,8 @@
 
 <div>
         <h4>Asiakas</h4>
-  
     <hr />
-
     <dl class="dl-horizontal">
-
         <dt>
             @Html.DisplayNameFor(model => model.UserIdentity)
         </dt>
@@ -163,6 +160,9 @@
                 Palvelun kesto
             </th>
             <th>
+                Palvelun hinta
+            </th>
+            <th>
                 Hoitaja
             </th>
             <th>
@@ -192,6 +192,10 @@
 
                 <td>
                     @Html.DisplayFor(modelItem => item.TreatmentTime)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TreatmentPrice)
                 </td>
 
                 <td>

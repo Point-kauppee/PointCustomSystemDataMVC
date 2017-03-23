@@ -97,7 +97,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string User{ get; set; }
         [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
-
+        public string Password { get; set; }
 
         public DateTime? TreatmentDate { get; set; }
         public DateTime? TreatmentTime { get; set; }
