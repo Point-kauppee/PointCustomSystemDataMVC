@@ -17,7 +17,7 @@ using System.Security.Claims;
 namespace PointCustomSystemDataMVC.Controllers
 
 {
-    [Authorize(Roles = "Personnel User,Student User")]
+    //[Authorize(Roles = "Personnel User,Student User")]
     public class CustomersController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -25,8 +25,8 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Customers
         public ActionResult Index()
         {
-            string username = User.Identity.Name;
-            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
 
             List<CustomerViewModel> model = new List<CustomerViewModel>();
@@ -132,7 +132,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
-                    view.Password = custdetail.User?.FirstOrDefault()?.Password;
 
                     view.Customer_id = custdetail.Customer_id;
                     view.FirstNameA = custdetail.FirstName;

@@ -1,41 +1,82 @@
-﻿
+﻿<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<div class="panel panel-primary">
-    <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidenav">
-        <div class="w3-container w3-padding-16">
-            <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-closebtn w3-hover-text-red"></i>
-            <h3 class="w3-wide" style="margin-top:100px"><b>PointCollege</b></h3>
-        </div>
-        <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
-            <a href="/Studentxes/Details" class="w3-bar-item w3-button">Omat tietoni</a>
-            <a href="/Studentxes" class="w3-bar-item w3-button">Hoitaja</a>
-            <a href="/Index" class="w3-bar-item w3-button">Aloitussivu</a>
-            <a href="/Customers" class="w3-bar-item w3-button">Asiakas</a>
-            <a href="/TreatmentReports" class="w3-bar-item w3-button">Hoitoraportit</a>
-            <a href="/TreatmentReports/" class="w3-bar-item w3-button">Asiakkaan hoitotiedot</a>
-            <a href="/Reservations" class="w3-bar-item w3-button">Palveluvaraukset</a>
-            <a href="/Customers/Details" class="w3-bar-item w3-button">Asiakaslistaus</a>
-            <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
-                Tietohallinta <i class="fa fa-caret-down"></i>
-            </a>
-            <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
-                <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Tietohallinta</a>
-                <a href="/Personnels" class="w3-bar-item w3-button">Henkilökuntahallinta</a>
-                <a href="/TreatmentPlaces" class="w3-bar-item w3-button">Hoitopaikkahallinta</a>
-                <a href="/Users" class="w3-bar-item w3-button">Käyttäjähallinta</a>
-                <a href="/PostOfficess" class="w3-bar-item w3-button">Osoitehallinta</a>
-                <a href="/Treatments" class="w3-bar-item w3-button">Palveluhallinta</a>
-                <a href="/TreatmentOffices" class="w3-bar-item w3-button">Toimipistehallinta</a>
-                <a href="/StudentGroups" class="w3-bar-item w3-button">Hoitajaryhmähallinta</a>
-                @*<a href="#">#</a>*@
+<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+<script src="~/Scripts/daypilot-all.min.js"></script>
+<script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
+
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+<style>
+    .container{
+        margin-right:2500px;
+        margin-left:0px;
+
+    }
+    .body-content{
+    padding-left:100px;
+    padding-right:0px;
+    }
+
+
+</style>
+<div class="body">
+    <div class="panel panel-primary">
+        <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidenav">
+            <div class="w3-container w3-padding-16">
+                <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-closebtn w3-hover-text-red"></i>
+                <h3 class="w3-wide" style="margin-top:100px"><b>PointCollege</b></h3>
             </div>
-        </div>
-       
+            <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+                <a href="/Studentxes/Details" class="w3-bar-item w3-button">Omat tietoni</a>
+                <a href="/Studentxes" class="w3-bar-item w3-button">Hoitaja</a>
+                <a href="/Index" class="w3-bar-item w3-button">Aloitussivu</a>
+                <a href="/Customers" class="w3-bar-item w3-button">Asiakas</a>
+                <a href="/TreatmentReports" class="w3-bar-item w3-button">Hoitoraportit</a>
+                <a href="/TreatmentReports/" class="w3-bar-item w3-button">Asiakkaan hoitotiedot</a>
+                <a href="/Reservations" class="w3-bar-item w3-button">Palveluvaraukset</a>
+                <a href="/Customers/Details" class="w3-bar-item w3-button">Asiakaslistaus</a>
+                <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+                    Tietohallinta <i class="fa fa-caret-down"></i>
+                </a>
+                <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+                    <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Tietohallinta</a>
+                    <a href="/Personnels" class="w3-bar-item w3-button">Henkilökuntahallinta</a>
+                    <a href="/TreatmentPlaces" class="w3-bar-item w3-button">Hoitopaikkahallinta</a>
+                    <a href="/Users" class="w3-bar-item w3-button">Käyttäjähallinta</a>
+                    <a href="/PostOfficess" class="w3-bar-item w3-button">Osoitehallinta</a>
+                    <a href="/Treatments" class="w3-bar-item w3-button">Palveluhallinta</a>
+                    <a href="/TreatmentOffices" class="w3-bar-item w3-button">Toimipistehallinta</a>
+                    <a href="/StudentGroups" class="w3-bar-item w3-button">Hoitajaryhmähallinta</a>
+                    @*<a href="#">#</a>*@
+                </div>
+            </div>
 
-        @*<a href="#">#</a>*@
 
-        <a href="#footer" class="w3-padding">Yhteystiedot</a>
-        <a href="javascript:void(0)" class="w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Tiedotteet</a>
-        <a href="#footer" class="w3-padding">Kirjaudu</a>
-    </nav>
+            @*<a href="#">#</a>*@
+
+            <a href="#footer" class="w3-padding">Yhteystiedot</a>
+            <a href="javascript:void(0)" class="w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Tiedotteet</a>
+            <a href="#footer" class="w3-padding">Kirjaudu</a>
+        </nav>
+    </div>
+
+    <div class="container body-content">
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - PointCollege Jalkahoitola</p>
+        </footer>
+    </div>
 </div>

@@ -15,7 +15,7 @@ using System.Security.Claims;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
-    [Authorize(Roles = "Personnel User,Student User")]
+    //[Authorize(Roles = "Personnel User,Student User")]
     public class PersonnelsController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -23,8 +23,8 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Personnels
         public ActionResult Index()
         {
-            string username = User.Identity.Name;
-            string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
             List<PersonnelViewModel> model = new List<PersonnelViewModel>();
 

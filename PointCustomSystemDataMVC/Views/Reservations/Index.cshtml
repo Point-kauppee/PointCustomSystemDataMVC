@@ -194,7 +194,7 @@
                         data[i].End = data[i].End;
                         data[i].start = data[i].Date.substr(0, 11) + data[i].Start + ":00";
                         data[i].end = data[i].Date.substr(0, 11) + data[i].End + ":00";
-                        data[i].text = "testi";
+                        data[i].text = "CalendarTitle";
                         data[i].Text = "testi2";
 
                         //alert("Varaus alku: " + data[i].start + " Varaus loppu: " + data[i].end);
@@ -296,6 +296,9 @@
         <th>
             @Html.DisplayNameFor(model => model.TreatmentPaid)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CalendarTitle)
+        </th>
              
         <th></th>
     </tr>
@@ -335,7 +338,10 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TreatmentPaid)
-            </td>  
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CalendarTitle)
+            </td>   
              
             <td>
                 @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |

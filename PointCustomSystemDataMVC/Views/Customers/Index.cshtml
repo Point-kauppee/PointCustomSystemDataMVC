@@ -20,6 +20,7 @@
 <script src="/Scripts/respond.js"></script>
 
 @{ Html.RenderAction("SideMenu", "Customers");}
+
 <h2>Asiakas</h2>
 <br />
 <p>Asiakkaita yhteensä: @Model.Count()</p>
@@ -80,8 +81,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Notes)
                 </th>        
-                <th><select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
-                    @Html.DisplayNameFor(model => model.Active)
+                <th>
                 </th>
              
 
@@ -162,7 +162,7 @@ function myFunction() {
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0-5];
+    td = tr[i].getElementsByTagName("td")[0];
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";

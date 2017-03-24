@@ -130,7 +130,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Active, "Asiakas status", new { @class = "control-label col-md-2", @placeholder = "Huomiot" })
+            @Html.LabelFor(model => model.Active, "Aktiivinen", new { @class = "control-label col-md-2", @placeholder = "Huomiot" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Active)
@@ -139,7 +139,6 @@
             </div>
         </div>
 
-   
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Tallenna" class="btn btn-default" />
