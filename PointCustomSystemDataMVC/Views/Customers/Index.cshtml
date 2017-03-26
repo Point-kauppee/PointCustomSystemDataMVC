@@ -3,9 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <title>PointCollege Ajanvarausohjelmisto</title>
-
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -19,130 +17,122 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-@*@{ Html.RenderAction("SideMenu", "Customers");}*@
+    <!-- !SIDEMENU CONTENT! -->
+@{ Html.RenderAction("SideMenu", "Customers");}
 
-<h2>Asiakas</h2>
-<br />
-<p>Asiakkaita yhteensä: @Model.Count()</p>
+   <!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
 
+    <!-- Push down content on small screens -->
+<div class="w3-hide-large" style="margin-top:83px"></div>
 
+    <!-- Container -->
+ <div class="w3-container">
 
-<p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
+        <h2>Asiakas</h2>
+        <br />
+        <p>Asiakkaita yhteensä: @Model.Count()</p>
 
-<td class="gsc-search-button"><input title="search" class="gsc-search-button gsc-search-button-v2" type="image" src="https://www.google.com/uds/css/v2/search_box_icon.png"></td>
+        <p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
 
-<div class="w3-container">
-    @*<p>Etsi</p>*@
+        <div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>
 
-    <div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>
-
-
-    @*<p>
-        <input oninput="w3.filterHTML('#myTable', 'model', this.value)" placeholder="Etsi nimellä..">
-    </p>*@
-
-    <table class="table" id="myTable" >
-        <thead>          
-            <tr>      
-                <th>
-                    @Html.DisplayNameFor(model => model.UserIdentity)
-                </th>
-                <th>
-                    @Html.ActionLink("FirstNameA", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("LastNameA", "Index", new { sortOrder = ViewBag.LastnameSortParm })
-                </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.FirstNameA)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastNameA)
-                </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.Identity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PhoneNum_1)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Address)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostalCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostOffice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Notes)
-                </th>        
-                <th>
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
+        <table class="table" id="myTable">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserIdentity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstNameA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastNameA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Identity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PhoneNum_1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Address)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostalCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostOffice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Notes)
-                    </td>
-                    <td><select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
-                        @Html.DisplayFor(modelItem => item.Active)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
-                        @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
-                        @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                        @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
-
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserIdentity)
+                    </th>
+                    <th>
+                        @Html.ActionLink("FirstNameA", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("LastNameA", "Index", new { sortOrder = ViewBag.LastnameSortParm })
+                    </th>
+                    @*<th>
+                            @Html.DisplayNameFor(model => model.FirstNameA)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(model => model.LastNameA)
+                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.Identity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNum_1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Address)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostalCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostOffice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Notes)
+                    </th>
+                    <th>
+                    </th>
+                    <th></th>
                 </tr>
-            }
-        </tbody>
-    </table>
-</div>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserIdentity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstNameA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastNameA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Identity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Address)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostalCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostOffice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                        <td>
+                            <select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
+                            @Html.DisplayFor(modelItem => item.Active)
+                        </td>
 
+                        <td>
+                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
+                            @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
+                            @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
+                            @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
 
-    <p><a href="/TreatmentReports/Details" class="w3-btn w3-small">Hoitotiedot</a></p>
-
-    <div class="w3-accordion">
-        <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-text-black" id="myBtn"></a>
-        <a href="/TreatmentReports/Create">Hoitotiedot#</a>
-    </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div><!-- End content -->
+</div><!-- End page content -->
 
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
@@ -150,34 +140,31 @@
 
 
     <script>
-        //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen. 
+        //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen.
         //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
-function searchByCustomer() {
-  var input, filter, table, tr, td, i;
-  input = document.getElementById("myInput");
-  filter = input.value.toUpperCase();
-  table = document.getElementById("myTable");
-  tr = table.getElementsByTagName("tr");
-  for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0,1,2,3,4,5,6,7,8,9];
-    if (td) {
-      if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-        tr[i].style.display = "";
-      } else {
-        tr[i].style.display = "none";
-      }
-    }
-  }
-}
-
+        function searchByCustomer() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
 
     </script>
 
     @section Scripts {
 
         @Scripts.Render("~/bundles/jqueryval")
-
         @*document.getElementById("myBtn").click();*@
-
         @*document.getElementById("myAccFunc").click();*@
     }

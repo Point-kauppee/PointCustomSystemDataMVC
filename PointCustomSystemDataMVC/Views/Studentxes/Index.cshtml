@@ -3,9 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <title>PointCollege Ajanvarausohjelmisto</title>
-
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -17,114 +15,154 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-<h2>Hoitaja</h2>
+<!-- !SIDEMENU CONTENT! -->
+@{ Html.RenderAction("SideMenu", "Customers");}
 
-<p style="padding-left:8px;font-size:12px">
-    @Html.ActionLink("Luo uusi hoitajatieto", "Create")
-</p>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserIdentity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstNameH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastNameH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Identity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNum_1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostOffice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnrollmentDateIN)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnrollmentDateOUT)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.EnrollmentDateOFF)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.StudentGroupName)
-        </th>
-        <th></th>
-    </tr>
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserIdentity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstNameH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastNameH)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Identity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNum_1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostOffice)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDateIN)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDateOUT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.EnrollmentDateOFF)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.StudentGroupName)
-            </td>
+    <!-- Container -->
+    <div class="w3-container">
+        <h2>Hoitaja</h2>
+        <p>Hoitajia yhteensä: @Model.Count()</p>
 
-            <td>
-                @Html.ActionLink("Muokkaa", "Edit", new { id = item.Student_id }) |
-                @Html.ActionLink("Tiedot", "Details", new { id = item.Student_id }) |
-                @Html.ActionLink("Poista", "Delete", new { id = item.Student_id })
-            </td>
-        </tr>
-    }
+        <p><a href="/Studentxes/Create" class="w3-btn w3-small">Uusi hoitaja</a></p>
 
-</table>
+        <p style="padding-left:8px;font-size:12px">
+            @Html.ActionLink("Luo uusi hoitajatieto", "Create")
+        </p>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserIdentity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstNameH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastNameH)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Identity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNum_1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostOffice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnrollmentDateIN)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnrollmentDateOUT)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.EnrollmentDateOFF)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Active)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.StudentGroupName)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserIdentity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstNameH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastNameH)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Identity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostalCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostOffice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnrollmentDateIN)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnrollmentDateOUT)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.EnrollmentDateOFF)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentGroupName)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Student_id }) |
+                        @Html.ActionLink("Tiedot", "Details", new { id = item.Student_id }) |
+                        @Html.ActionLink("Poista", "Delete", new { id = item.Student_id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div><!-- End content -->
+</div><!-- End page content -->
+
+
+<script>
+        //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen.
+        //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
+        function searchByCustomer() {
+            var input, filter, table, tr, td, i;
+            input = document.getElementById("myInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                if (td) {
+                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+</script>
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
+<title>PointCollege Ajanvarausohjelmisto</title>
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -15,92 +15,104 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-<h2>Henkilökunta</h2>
+<!-- !SIDEMENU CONTENT! -->
+@{ Html.RenderAction("SideMenu", "Customers");}
 
-<p style="padding-left:8px;font-size:12px">
-    @Html.ActionLink("Luo uusi henkilökuntatieto", "Create")
-</p>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
 
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.UserIdentity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FirstNameP)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.LastNameP)
-        </th>    
-        <th>
-            @Html.DisplayNameFor(model => model.Email)
-        </th>    
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNum_1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Notes)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostOffice)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Identity)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Active)
-        </th>
-      
-        <th></th>
-    </tr>
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
+
+    <!-- Container -->
+    <div class="w3-container">
+        <h2>Henkilökunta</h2>
+
+        <p style="padding-left:8px;font-size:12px">
+            @Html.ActionLink("Luo uusi henkilökuntatieto", "Create")
+        </p>
+
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserIdentity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.FirstNameP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.LastNameP)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Email)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNum_1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Notes)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostOffice)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Identity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Active)
+                </th>
+
+                <th></th>
+            </tr>
 
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserIdentity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.FirstNameP)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LastNameP)
-            </td>         
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>       
-            <td>
-                @Html.DisplayFor(modelItem => item.PhoneNum_1)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Notes)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostalCode)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PostOffice)
-            </td>    
-            <td>
-                @Html.DisplayFor(modelItem => item.Identity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Active)
-            </td>
-       
-            <td>
-                @Html.ActionLink("Muokkaa", "Edit", new { id = item.Personnel_id }) |
-                @Html.ActionLink("Tiedot", "Details", new { id = item.Personnel_id }) |
-                @Html.ActionLink("Poista", "Delete", new { id = item.Personnel_id })
-            </td>
-        </tr>
-    }
-</table>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserIdentity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstNameP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastNameP)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Notes)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostalCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostOffice)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Identity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Active)
+                    </td>
 
+                    <td>
+                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Personnel_id }) |
+                        @Html.ActionLink("Tiedot", "Details", new { id = item.Personnel_id }) |
+                        @Html.ActionLink("Poista", "Delete", new { id = item.Personnel_id })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div><!-- End content -->
+</div><!-- End page content -->
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

@@ -3,39 +3,66 @@
 @{
     ViewBag.Title = "Index";
 }
+<title>PointCollege Ajanvarausohjelmisto</title>
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/lib/w3.css">
+<script src="/lib/w3.js"></script>
 
-<h2>Postiosoitetiedot</h2>
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
 
-<p>
-    @Html.ActionLink("Luo uusi tieto", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PostalCode)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PostOffice)
-        </th>
+<!-- !SIDEMENU CONTENT! -->
+@{ Html.RenderAction("SideMenu", "Customers");}
 
-        <th></th>
-    </tr>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostalCode)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PostOffice)
-        </td>
-        
-        <td>
-            @Html.ActionLink("Muokkaa", "Edit", new { id=item.Post_id }) |
-            @Html.ActionLink("Tiedot", "Details", new { id=item.Post_id }) |
-            @Html.ActionLink("Poista", "Delete", new { id=item.Post_id })
-        </td>
-    </tr>
-}
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
 
-</table>
+    <!-- Container -->
+    <div class="w3-container">
+        <h2>Postiosoitetiedot</h2>
+
+        <p>
+            @Html.ActionLink("Luo uusi tieto", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostalCode)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PostOffice)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostalCode)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PostOffice)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Post_id }) |
+                        @Html.ActionLink("Tiedot", "Details", new { id = item.Post_id }) |
+                        @Html.ActionLink("Poista", "Delete", new { id = item.Post_id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div><!-- End content -->
+</div><!-- End page content -->

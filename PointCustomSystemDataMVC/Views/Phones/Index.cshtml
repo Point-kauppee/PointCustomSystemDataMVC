@@ -3,69 +3,94 @@
 @{
     ViewBag.Title = "Index";
 }
+<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<h2>Puhelin</h2>
+<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
 
-<p>
-    @Html.ActionLink("Luo uusi puhelintieto", "Create")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNum_1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNum_2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.PhoneNum_3)
-        </th>
-        @*<th>
-            @Html.DisplayNameFor(model => model.FullNameA)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FullNameH)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.FullName)
-        </th>   
-        <th>
-            @Html.DisplayNameFor(model => model.TreatmentOfficeName)
-        </th>*@
-    
-        <th></th>
-    </tr>
+<!-- !SIDEMENU CONTENT! -->
+@{ Html.RenderAction("SideMenu", "Customers");}
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNum_1)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNum_2)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.PhoneNum_3)
-        </td>
-        @*<td>
-            @Html.DisplayFor(modelItem => item.FullNameA)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullNameH)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FullName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TreatmentOfficeName)
-        </td>*@
-   
-        <td>
-            @Html.ActionLink("Muokkaa", "Edit", new { id=item.Phone_id }) |
-            @Html.ActionLink("Tiedot", "Details", new { id=item.Phone_id }) |
-            @Html.ActionLink("Poista", "Delete", new { id=item.Phone_id })
-        </td>
-    </tr>
-}
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
 
-</table>
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
+
+    <!-- Container -->
+    <div class="w3-container">
+
+        <h2>Puhelin</h2>
+
+        <p>
+            @Html.ActionLink("Luo uusi puhelintieto", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNum_1)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNum_2)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.PhoneNum_3)
+                </th>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.FullNameA)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullNameH)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TreatmentOfficeName)
+                    </th>*@
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNum_2)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhoneNum_3)
+                    </td>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.FullNameA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullNameH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentOfficeName)
+                        </td>*@
+
+                    <td>
+                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Phone_id }) |
+                        @Html.ActionLink("Tiedot", "Details", new { id = item.Phone_id }) |
+                        @Html.ActionLink("Poista", "Delete", new { id = item.Phone_id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div><!-- End content -->
+</div><!-- End page content -->

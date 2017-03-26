@@ -10,7 +10,6 @@
 <script src="~/Scripts/daypilot-all.min.js"></script>
 <script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
 
-
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -21,18 +20,17 @@
 
 <style>
     .container{
-        margin-right:2500px;
-        margin-left:0px;
+        /*margin-right:2500px;*/
+        margin-left:10px;
 
     }
     .body-content{
-    padding-left:100px;
-    padding-right:0px;
+    padding-left:10px;
+    padding-right:10px;
     }
 
-
 </style>
-<div class="body">
+
     <div class="panel panel-primary">
         <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidenav">
             <div class="w3-container w3-padding-16">
@@ -56,15 +54,13 @@
                     <a href="/Personnels" class="w3-bar-item w3-button">Henkilökuntahallinta</a>
                     <a href="/TreatmentPlaces" class="w3-bar-item w3-button">Hoitopaikkahallinta</a>
                     <a href="/Users" class="w3-bar-item w3-button">Käyttäjähallinta</a>
-                    <a href="/PostOfficess" class="w3-bar-item w3-button">Osoitehallinta</a>
+                    <a href="/PostOffices" class="w3-bar-item w3-button">Osoitehallinta</a>
                     <a href="/Treatments" class="w3-bar-item w3-button">Palveluhallinta</a>
                     <a href="/TreatmentOffices" class="w3-bar-item w3-button">Toimipistehallinta</a>
                     <a href="/StudentGroups" class="w3-bar-item w3-button">Hoitajaryhmähallinta</a>
                     @*<a href="#">#</a>*@
                 </div>
             </div>
-
-
             @*<a href="#">#</a>*@
 
             <a href="#footer" class="w3-padding">Yhteystiedot</a>
@@ -72,11 +68,34 @@
             <a href="#footer" class="w3-padding">Kirjaudu</a>
         </nav>
     </div>
+ <!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-black w3-xlarge">
+    <div class="w3-bar-item w3-padding-24 w3-wide">PointCollege</div>
+    <a href="javascript:void(0)" class="w3-bar-item w3-button w3-padding-24 w3-right" onclick="w3_open()"><i class="fa fa-bars"></i></a>
+</header>
 
-    <div class="container body-content">
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - PointCollege Jalkahoitola</p>
-        </footer>
-    </div>
-</div>
+<!-- Overlay effect when opening sidenav on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<script>
+            // Accordion
+            function myAccFunc() {
+                var x = document.getElementById("demoAcc");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
+
+            // Script to open and close sidenav
+            function w3_open() {
+                document.getElementById("mySidenav").style.display = "block";
+                document.getElementById("myOverlay").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidenav").style.display = "none";
+                document.getElementById("myOverlay").style.display = "none";
+            }
+</script>

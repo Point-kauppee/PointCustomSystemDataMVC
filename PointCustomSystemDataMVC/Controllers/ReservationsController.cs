@@ -279,6 +279,7 @@ namespace PointCustomSystemDataMVC.Controllers
             return RedirectToAction("Index");        
         }//cr*/;
             CultureInfo fiFi = new CultureInfo("fi-FI");
+        private string CalendarTitle;
 
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
@@ -500,7 +501,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 DataStartField = "Start";
                 DataEndField = "End";
 
-
                 Update();
             }
 
@@ -548,16 +548,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 Update();
             }
 
-            //protected override void OnTimeRangeSelected(TimeRangeSelectedArgs e)
-            //{
-            //    string name = (string)e.Data["name"];
-            //    if (String.IsNullOrEmpty(name))
-            //    {
-            //        name = "(default)";
-            //    }
-            //    new EventManager(Controller).EventCreate(e.Start, e.End, name);
-            //    Update();
-            //}
 
             //protected override void OnEventDelete(EventDeleteArgs e)
             //{
@@ -570,26 +560,23 @@ namespace PointCustomSystemDataMVC.Controllers
 
             protected override void OnTimeRangeSelected(DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedArgs e)
             {
-
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
                 //var edata = (string)e.Data["name"];
                 //var edata = Convert.ToString(e.Data["name"]);
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
           
-                var toBeCreated = new Reservation { Start = e.Start, End = e.End, CalendarTitle = (string)e.Data["name"] };
+                var toBeCreated = new Reservation { Start = e.Start, End = e.End, CalendarTitle = (string)e.Data["CalendarTitle"] }; //muokattu 26.33.2017 "name" > "CalendarTitle"
 
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = Convert.ToString(e.Data["name"]) };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = edata};
-
-               
+            
                 db.Reservation.Add(toBeCreated);
                 db.SaveChanges();
 
                 Update();
             }
-
 
             protected override void OnFinish()
             {
@@ -597,25 +584,26 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     return;
                 }
-                CultureInfo fiFi = new CultureInfo("fi-FI");
-                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();               //Events = new EventManager(Controller).Data.AsEnumerable();
-                Events = from ev in db.Reservation select ev;
+               
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();              //Events = new EventManager(Controller).Data.AsEnumerable();
 
+                Events = from ev in db.Reservation select ev;
                 DataIdField = "Reservation_id";
                 DataTextField = "CalendarTitle";
                 DataDateField = "Date";
                 DataStartField = "Start";
                 DataEndField = "End";
-
             }
         }//Dpc
 
-        public ActionResult Resize(int id, DateTime Date, DateTime Start, DateTime End)
+        //Lisätty 25.3.2017
+        public ActionResult Resize(int id, DateTime Date, DateTime Start, DateTime End, string CalendarTitle)
         {
             using (var dp = new JohaMeriSQL1Entities())
             {
                 var reservation = dp.Reservation.First(c => c.Reservation_id == id);
 
+                reservation.CalendarTitle = CalendarTitle; //lisätty 26.3.2017
                 reservation.Date = Date;
                 reservation.Start = Start;
                 reservation.End = End;

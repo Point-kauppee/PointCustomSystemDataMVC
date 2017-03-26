@@ -3,9 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-
 <title>PointCollege Ajanvarausohjelmisto</title>
-
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -18,55 +16,69 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-<h2>Käyttäjä</h2>
 
-    <p style="padding-left:8px;font-size:12px">
-    @Html.ActionLink("Takaisin asiakastiedon luontiin", "Create", "Customers")
-    </p>
+<!-- !SIDEMENU CONTENT! -->
+@{ Html.RenderAction("SideMenu", "Customers");}
 
-    <p style="padding-left:8px;font-size:12px">
-    @Html.ActionLink("Takaisin hoitajatiedon luontiin", "Create", "Studentxes")
-    </p>
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:250px">
 
-    <p style="padding-left:8px;font-size:12px">
-    @Html.ActionLink("Takaisin henkilökunnan luontiin", "Create", "Personnels")
-    </p>
+    <!-- Push down content on small screens -->
+    <div class="w3-hide-large" style="margin-top:83px"></div>
 
-    <p style="padding-left:8px;font-size:12px">
-        @Html.ActionLink("Luo uusi käyttäjä", "Create")
-    </p>
-    <table class="table">
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.UserIdentity)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Password)
-            </th>
-            
-            <th></th>
-        </tr>
-    
-    @foreach (var item in Model)
-    {
-        @*@foreach (PointCustomSystemDataMVC.Models.User use in Model)*@
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserIdentity)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Password)
-            </td>
-           
-            <td>
-                @Html.ActionLink("Muokkaa", "Edit", new { id=item.User_id }) |
-                @Html.ActionLink("Tiedot", "Details", new { id=item.User_id }) |
-                @Html.ActionLink("Poista", "Delete", new { id=item.User_id })
-            </td>
-        </tr>
-    }
-    
-    </table>
+    <!-- Container -->
+    <div class="w3-container">
+        <h2>Käyttäjätieto hallinta</h2>
+
+        <p style="padding-left:8px;font-size:12px">
+            @Html.ActionLink("Takaisin asiakastiedon luontiin", "Create", "Customers")
+        </p>
+
+        <p style="padding-left:8px;font-size:12px">
+            @Html.ActionLink("Takaisin hoitajatiedon luontiin", "Create", "Studentxes")
+        </p>
+
+        <p style="padding-left:8px;font-size:12px">
+            @Html.ActionLink("Takaisin henkilökunnan luontiin", "Create", "Personnels")
+        </p>
+
+        <p style="padding-left:8px;font-size:12px">
+            @Html.ActionLink("Luo uusi käyttäjä", "Create")
+        </p>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.UserIdentity)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Password)
+                </th>
+
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                @*@foreach (PointCustomSystemDataMVC.Models.User use in Model)*@
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.UserIdentity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Password)
+                    </td>
+
+                    <td>
+                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.User_id }) |
+                        @Html.ActionLink("Tiedot", "Details", new { id = item.User_id }) |
+                        @Html.ActionLink("Poista", "Delete", new { id = item.User_id })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div><!-- End content -->
+</div><!-- End page content -->
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
