@@ -274,7 +274,7 @@
                 document.getElementById("myOverlay").style.display = "none";
             }
 
-            // SCRIPT KALENTERINÄKYMÄ:
+ // SCRIPT KALENTERINÄKYMÄ:
             var nav = new DayPilot.Navigator("nav");
             //editoitu
             nav.locale = "fi-fi";
@@ -364,7 +364,7 @@
         //modal.showHtml("<h1>Hello</h1>");
 
             dp.onEventClicked = function (args) {
-                //formatted = $.datepicker.formatDate("M d, yy", new Date("2014-07-08T09:02:21.377"));
+                formatted = $.datepicker.formatDate("M d, yy", new Date("2014-07-08T09:02:21.377"));
                 var startDate = new Date(args.e.start());
                 var endDate = new Date(args.e.end());
 
@@ -384,6 +384,57 @@
 
                 //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
             };
+
+            // event resizing, lisätty 25.3.2017
+            dp.onEventResized = function (args) {
+                //alert("Resized: " + args.e.text());
+                UpdateEvent(args);
+            };
+
+            // event moving, lisätty 25.3.2017
+            dp.onEventMoved = function (args) {
+                UpdateEvent(args);
+            };
+
+            //Lisätty 25.2.2017: convert date "2010-01-01T00:00:00" to "2010-01-01"
+            function ConvertDate2(date) {
+                var month = date.getMonth() + 1;
+                if (month < 10) { month = "0" + month };
+                var day = date.getDay();
+                if (day < 10) { day = "0" + day };
+                var year = date.getYear();
+                if (year < 10) { year = "0" + year };
+                var date = year + "-" + month + "-" + day;
+                return date;
+            }
+
+            //Lisätty 25.3.2017
+            function ConfirmMove(ID) {
+                alert("Vahvista siirto: " + ID);
+            }
+
+            //Lisätty 25.3.2017
+            function AddZero(t) {
+                if (t < 10) { t = "0" + t };
+                return t;
+            }
+
+            //Lisätty 25.3.2017
+            function UpdateEvent(args) {
+                a = new Date(args.e.start());
+                l = new Date(args.e.end());
+
+                var startTime = AddZero(a.getHours()) + ":" + AddZero(a.getMinutes());
+                var endTime = AddZero(l.getHours()) + ":" + AddZero(l.getMinutes());
+
+                d = a.getFullYear() + "-" + AddZero(a.getMonth() + 1) + "-" + AddZero(a.getDate());
+
+                url = "/Varaus/Resize/?id=" + args.e.data.ID + "&pvm=" + d + "&newStart=" + startTime + "&newEnd=" + endTime;
+
+                $.ajax({ url: url, cache: false }).done(function (data) {
+                    //alert(data);
+                });
+            }
 
             //Lisätty 22.2.2017
             function LoadEvents(Start, End) {

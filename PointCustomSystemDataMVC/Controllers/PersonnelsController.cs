@@ -39,7 +39,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Personnel personnel in personnels)
                 {
                     PersonnelViewModel per = new PersonnelViewModel();
-                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     per.User_id = personnel.User?.FirstOrDefault()?.User_id;
                     per.UserIdentity = personnel.User?.FirstOrDefault()?.UserIdentity;
@@ -50,6 +50,9 @@ namespace PointCustomSystemDataMVC.Controllers
                     per.Identity = personnel.Identity;
                     per.Email = personnel.Email;
                     per.Notes = personnel.Notes;
+                    per.CreatedAt = personnel.CreatedAt;
+                    per.DeletedAt = personnel.DeletedAt;
+                    per.Active = personnel.Active;
 
                     per.Phone_id = personnel.Phone?.FirstOrDefault()?.Phone_id;
                     per.PhoneNum_1 = personnel.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -74,32 +77,33 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Personnels/Details/5
         public ActionResult Details(int? id)
         {
-            List<PersonnelViewModel> model = new List<PersonnelViewModel>();
+            PersonnelViewModel model = new PersonnelViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
                 List<Personnel> personnels = entities.Personnel.ToList();
 
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-
-                CultureInfo fiFi = new CultureInfo("fi-FI");
+                // muodostetaan näkymämalli tietokannan rivien pohjalta         
                 foreach (Personnel persdetail in personnels)
                 {
                     PersonnelViewModel view = new PersonnelViewModel();
-
-                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = persdetail.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = persdetail.User?.FirstOrDefault()?.UserIdentity;
-                    view.Password = persdetail.User?.FirstOrDefault()?.Password;
 
                     view.Personnel_id = persdetail.Personnel_id;
-                    view.FirstNameA = persdetail.FirstName;
-                    view.LastNameA = persdetail.LastName;
+                    view.FirstNameP = persdetail.FirstName;
+                    view.LastNameP = persdetail.LastName;
                     view.Identity = persdetail.Identity;
                     view.Email = persdetail.Email;
                     view.Notes = persdetail.Notes;
+                    view.CreatedAt = persdetail.CreatedAt;
+                    view.LastModifiedAt = persdetail.LastModifiedAt;
+                    view.DeletedAt = persdetail.DeletedAt;
+                    view.Active = persdetail.Active;
+                    view.Information = persdetail.Information;
 
                     view.Phone_id = persdetail.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = persdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -108,7 +112,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostalCode = persdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     view.PostOffice = persdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    model.Add(view);
+                    model = view;
                 }
                     if (id == null)
                     {
@@ -119,13 +123,15 @@ namespace PointCustomSystemDataMVC.Controllers
                     {
                         return HttpNotFound();
                     }
-                    }
-                    finally
-                    {
-                        entities.Dispose();
-                    }
-                    return View(model);
+                }
+                finally
+                {
+                    entities.Dispose();
+                }
+                return View(model);
         }//details
+
+        CultureInfo fiFi = new CultureInfo("fi-FI");
 
         // GET: Personnels/Create
         public ActionResult Create()
@@ -135,14 +141,13 @@ namespace PointCustomSystemDataMVC.Controllers
             PersonnelViewModel model = new PersonnelViewModel();
 
             //ViewBag.PersonSeed = new SelectList(list, "User_id", "UserIdentity");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             return View(model);
         }//create
 
         // POST: Personnels/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -150,17 +155,18 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-            //ViewBag.PersonSeed = new SelectList(list, "User_id", "UserIdentity");
-
             Personnel per = new Personnel();
             per.FirstName = model.FirstNameP;
             per.LastName = model.LastNameP;
             per.Email = model.Email;
             per.Notes = model.Notes;
+            per.CreatedAt = model.CreatedAt.Value.Date;
+            per.DeletedAt = model.DeletedAt;
+            per.Active = model.Active;
 
             db.Personnel.Add(per);
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);        
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
@@ -211,13 +217,17 @@ namespace PointCustomSystemDataMVC.Controllers
 
             PersonnelViewModel view = new PersonnelViewModel();
             view.Personnel_id = persdetail.Personnel_id;
-            view.FirstNameA = persdetail.FirstName;
-            view.LastNameA = persdetail.LastName;
+            view.FirstNameP = persdetail.FirstName;
+            view.LastNameP = persdetail.LastName;
             view.Identity = persdetail.Identity;
             view.Email = persdetail.Email;
             view.Notes = persdetail.Notes;
+            view.CreatedAt = persdetail.CreatedAt;
+            view.LastModifiedAt = persdetail.LastModifiedAt;
+            view.DeletedAt = persdetail.DeletedAt;
+            view.Active = persdetail.Active;
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = persdetail.User?.FirstOrDefault()?.User_id;
             view.UserIdentity = persdetail.User?.FirstOrDefault()?.UserIdentity;
@@ -241,13 +251,16 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Edit(PersonnelViewModel model)
         {
             Personnel per = db.Personnel.Find(model.Personnel_id);
+     
+                per.FirstName = model.FirstNameP;
+                per.LastName = model.LastNameP;
+                per.Email = model.Email;
+                per.Notes = model.Notes;
+                per.CreatedAt = model.CreatedAt;
+                per.DeletedAt = model.DeletedAt;
+                per.Active = model.Active;
 
-            per.FirstName = model.FirstNameP;
-            per.LastName = model.LastNameP;
-            per.Email = model.Email;
-            per.Notes = model.Notes;
-
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             if (per.User == null)
             {
@@ -260,11 +273,10 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             else
             {
-                User usr = per.User.FirstOrDefault();
-                if (usr != null)
+                User user = per.User.FirstOrDefault();
+                if (user != null)
                 {
-                    usr.UserIdentity = model.UserIdentity;
-                    usr.Password = "point@point.fi";
+                    user.UserIdentity = model.UserIdentity;
                 }
             }
 
@@ -285,29 +297,29 @@ namespace PointCustomSystemDataMVC.Controllers
                 }
             }
 
-            if (per.PostOffices == null)
-            {
-                PostOffices pos = new PostOffices();
-                pos.PostalCode = model.PostalCode;
-                pos.PostOffice = model.PostOffice;
-                pos.Personnel = per;
-
-                db.PostOffices.Add(pos);
-            }
-            else
-            {
-                PostOffices po = per.PostOffices.FirstOrDefault();
-                if (po != null)
+                if (per.PostOffices == null)
                 {
-                    po.PostalCode = model.PostalCode;
-                    po.PostOffice = model.PostOffice;
-                }
-            }
+                    PostOffices pos = new PostOffices();
+                    pos.PostalCode = model.PostalCode;
+                    pos.PostOffice = model.PostOffice;
+                    pos.Personnel = per;
 
-            db.SaveChanges();
-            //return View(model);
-            return RedirectToAction("Index");
-        }
+                    db.PostOffices.Add(pos);
+                }
+                else
+                {
+                    PostOffices po = per.PostOffices.FirstOrDefault();
+                    if (po != null)
+                    {
+                        po.PostalCode = model.PostalCode;
+                        po.PostOffice = model.PostOffice;
+                    }
+                }
+
+                db.SaveChanges();
+
+                return RedirectToAction("Index");
+        }//edit
 
         // GET: Personnels/Delete/5
         public ActionResult Delete(int? id)
@@ -324,14 +336,19 @@ namespace PointCustomSystemDataMVC.Controllers
 
             PersonnelViewModel view = new PersonnelViewModel();
             view.Personnel_id = persdetail.Personnel_id;
-            view.FirstNameA = persdetail.FirstName;
-            view.LastNameA = persdetail.LastName;
+            view.FirstNameP = persdetail.FirstName;
+            view.LastNameP = persdetail.LastName;
             view.Identity = persdetail.Identity;
             view.Email = persdetail.Email;
             view.Notes = persdetail.Notes;
+            view.CreatedAt = persdetail.CreatedAt;
+            view.LastModifiedAt = persdetail.LastModifiedAt;
+            view.DeletedAt = persdetail.DeletedAt;
+            view.Active = persdetail.Active;
 
             view.Phone_id = persdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = persdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+
             view.Post_id = persdetail.PostOffices?.FirstOrDefault()?.Post_id;
             view.PostalCode = persdetail.PostOffices?.FirstOrDefault()?.PostalCode;
             view.PostOffice = persdetail.PostOffices?.FirstOrDefault()?.PostOffice;
@@ -340,7 +357,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.UserIdentity = persdetail.User?.FirstOrDefault()?.UserIdentity;
 
             return View(view);
-        }
+        }//delete
 
         // POST: Personnels/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -350,6 +367,7 @@ namespace PointCustomSystemDataMVC.Controllers
             Personnel personnel = db.Personnel.Find(id);
             db.Personnel.Remove(personnel);
             db.SaveChanges();
+
             return RedirectToAction("Index");
         }
 

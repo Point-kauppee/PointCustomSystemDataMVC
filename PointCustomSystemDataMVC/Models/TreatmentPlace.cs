@@ -11,8 +11,7 @@ namespace PointCustomSystemDataMVC.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
+    
     public partial class TreatmentPlace
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -23,7 +22,6 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Treatmentplace_id { get; set; }
-        [Display(Name = "Hoitopaikka")]
         public string TreatmentPlaceName { get; set; }
         public string TreatmentPlaceNumber { get; set; }
     

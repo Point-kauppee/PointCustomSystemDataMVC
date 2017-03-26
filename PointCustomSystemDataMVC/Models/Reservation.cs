@@ -21,7 +21,6 @@ namespace PointCustomSystemDataMVC.Models
         }
     
         public int Reservation_id { get; set; }
-        public string TreatmentName { get; set; }
         public Nullable<System.DateTime> Start { get; set; }
         public Nullable<System.DateTime> End { get; set; }
         public Nullable<System.DateTime> Date { get; set; }

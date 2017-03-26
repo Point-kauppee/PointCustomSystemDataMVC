@@ -35,10 +35,10 @@ namespace PointCustomSystemDataMVC.ViewModels
             get { return FirstNameH + " " + LastNameH; }
         }
 
-        [Display(Name = "Henkilökunta Etunimi")]
+        [Display(Name = "Etunimi")]
         public string FirstNameP { get; set; }
 
-        [Display(Name = "Henkilökunta Sukunimi")]
+        [Display(Name = "Sukunimi")]
         public string LastNameP { get; set; }
 
         [Display(Name = "Henkilökunta")]
@@ -47,7 +47,7 @@ namespace PointCustomSystemDataMVC.ViewModels
             get { return FirstNameP + " " + LastNameP; }
         }
 
-
+        [Display(Name = "Syntymäaika")]
         public string Identity { get; set; }
         [Display(Name = "Huomiot")]
         public string Notes { get; set; }
@@ -57,11 +57,16 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Address { get; set; }
 
         public string Note { get; set; }
-
+        [Display(Name = "Henkilötieto tallennettu")]
         public DateTime? CreatedAt { get; set; }
+        [Display(Name = "Henkilötietoja muokattu")]
         public DateTime? LastModifiedAt { get; set; }
+        [Display(Name = "Arkistointi pvm")]
         public DateTime? DeletedAt { get; set; }
+
+        [Display(Name = "Tila")]   
         public bool? Active { get; set; }
+        [Display(Name = "Tiedot")]
         public string Information { get; set; }
 
         public int? Post_id { get; set; }
@@ -81,7 +86,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string User { get; set; }
         [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
-
+        [Display(Name = "Salasana")]
         public string Password { get; set; }
         
 

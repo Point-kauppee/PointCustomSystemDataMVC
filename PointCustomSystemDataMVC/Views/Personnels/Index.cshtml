@@ -50,6 +50,9 @@
         <th>
             @Html.DisplayNameFor(model => model.Identity)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Active)
+        </th>
       
         <th></th>
     </tr>
@@ -84,6 +87,9 @@
             </td>    
             <td>
                 @Html.DisplayFor(modelItem => item.Identity)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Active)
             </td>
        
             <td>

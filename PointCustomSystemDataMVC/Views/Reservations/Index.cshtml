@@ -37,7 +37,7 @@
 
 
 <script type="text/javascript">
-
+    // SCRIPT MODAL KALENTERINÄKYMÄ:
             function create(start, end) {
             var m = new DayPilot.Modal();
             m.closed = function () {
@@ -49,10 +49,31 @@
                 m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
             }
 
+             //event creating
+             var e = new DayPilot.Event({
+                 date: new DayPilot.Date("2017-03-21"),
+                 start: new DayPilot.Start("HH\:MM"),
+                 end: new DayPilot.End("HH\:MM"),
+
+                 id: DayPilot.guid(),
+                 text: "EKA"
+             });
+
+             dp.events.add(e);
+             alert("Created");
+
+             var e = new DayPilot.Event({
+                 date: new DayPilot.Date("2017-03-21"),
+                 start: new DayPilot.Date("HH\:MM"),
+                 end: new DayPilot.Date("HH\:MM"),
+                 id: DayPilot.guid(),
+                 text: "TOKA"
+             });
+
             function editEvent(id) {
             var modal = new DayPilot.Modal();
             modal.top = 60;
-            modal.width = 300;
+            modal.width = 400;
             modal.opacity = 70;
             modal.border = "10px solid #d0d0d0";
             modal.closed = function () {
@@ -61,16 +82,29 @@
                 }
                 db.clearSelection();
             };
-            modal.height = 250;
+            modal.height = 500;
             modal.zIndex = 100;
             modal.showUrl("/Reservations/Edit/" + id);
             //modal.showUrl("Varaus/Asiakaslomake/" + id);
             //modal.showUrl("http://localhost:17794/Varaus/Edit/37");
             //modal.showUrl("http://localhost:17794/Varaus/Edit/" + id);
-             }
+            }
+
+            // event creating MODAL
+            dp.onTimeRangeSelected = function (args) {
+                create();
+                dp.update();
+            };
+
+            var modal = new DayPilot.Modal({
+                onClosed: function (args) {
+                    console.log("Modal dialog closed");
+                },
+                // ...
+            });
 
 
-            // SCRIPT KALENTERINÄKYMÄ:
+      // SCRIPT KALENTERINÄKYMÄ:
             var nav = new DayPilot.Navigator("nav");
             //editoitu
             nav.locale = "fi-fi";
@@ -94,25 +128,7 @@
             dp.viewType = "Week";
             dp.init();
 
-            //event creating
-            var e = new DayPilot.Event({
-                date: new DayPilot.Date("2017-03-21"),
-                start: new DayPilot.Start("HH\:MM"),
-                end: new DayPilot.End("HH\:MM"),
-                
-                id: DayPilot.guid(),
-                text: "EKA"
-            });
-
-            dp.events.add(e);
-
-            var e = new DayPilot.Event({
-                date: new DayPilot.Date("2017-03-21"),
-                start: new DayPilot.Date("HH\:MM"),
-                end: new DayPilot.Date("HH\:MM"),
-                id: DayPilot.guid(),
-                text: "TOKA"
-            });
+          
 
             //// event creating
             //dp.onTimeRangeSelected = function (args) {
@@ -121,7 +137,8 @@
             //    if (!name) return;
             //    var e = new DayPilot.Event({
             //        start: args.start,
-            //        end: args.end,
+    //        end: args.end,
+
             //        id: DayPilot.guid(),
             //        resource: args.resource,
             //        text: name
@@ -129,19 +146,6 @@
             //    dp.events.add(e);
             //    alert("Created");
             //};
-
-            // event creating MODAL
-            dp.onTimeRangeSelected = function (args) {
-                create();
-                dp.update();
-            };
-
-            var modal = new DayPilot.Modal({
-                onClosed: function (args) {
-                    console.log("Modal dialog closed");
-                },
-                // ...
-            });
 
             //modal.showUrl("Edit.aspx");
 
@@ -176,27 +180,73 @@
                 //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
             };
 
+            // event resizing, lisätty 25.3.2017
+            dp.onEventResized = function (args) {
+                //alert("Resized: " + args.e.text());
+                UpdateEvent(args);
+            };
+
+            // event moving, lisätty 25.3.2017
+            dp.onEventMoved = function (args) {
+                UpdateEvent(args);
+            };
+
+            //Lisätty 25.2.2017: convert date "2010-01-01T00:00:00" to "2010-01-01"
+            function ConvertDate2(date) {
+                var month = date.getMonth() + 1;
+                if (month < 10) { month = "0" + month };
+                var day = date.getDay();
+                if (day < 10) { day = "0" + day };
+                var year = date.getYear();
+                if (year < 10) { year = "0" + year };
+                var date = year + "-" + month + "-" + day;
+                return date;
+            }
+
+            //Lisätty 25.3.2017
+            function ConfirmMove(ID) {
+                alert("Vahvista siirto: " + ID);
+            }
+
+            //Lisätty 25.3.2017
+            function AddZero(t) {
+                if (t < 10) { t = "0" + t };
+                return t;
+            }
+
+            //Lisätty 25.3.2017
+            function UpdateEvent(args) {
+                a = new Date(args.e.Start());
+                l = new Date(args.e.End());
+
+                var startTime = AddZero(a.getHours()) + ":" + AddZero(a.getMinutes());
+                var endTime = AddZero(l.getHours()) + ":" + AddZero(l.getMinutes());
+
+                d = a.getFullYear() + "-" + AddZero(a.getMonth() + 1) + "-" + AddZero(a.getDate());
+
+                url = "/Reservations/Resize/?id=" + args.e.data.ID + "&Date=" + d + "&newStart=" + startTime + "&newEnd=" + endTime;
+
+                $.ajax({ url: url, cache: false }).done(function (data) {
+                    //alert(data);
+                });
+            }
+
             //Lisätty 22.2.2017
             function LoadEvents(Start, End) {
-
                 url = "/Reservations/Backend/?start=" + start + "&end=" + end;
                 //Home/GetVaraukset/?alku="2016-05-20T09:02"&loppu="2016-05-29T09:02";
                 //alert("AJAX url: " + url);
-
                 $.ajax({ url: url, cache: false }).done(function (data) {
                     i = 0;
-
                     //alert("JSON objects: " + data);
-
                     for (var i = 0; i < data.length; i++) {
                         data[i].Date = ConvertDate(data[i].Date);
                         data[i].Start = data[i].Start;
                         data[i].End = data[i].End;
                         data[i].start = data[i].Date.substr(0, 11) + data[i].Start + ":00";
                         data[i].end = data[i].Date.substr(0, 11) + data[i].End + ":00";
-                        data[i].text = "CalendarTitle";
+                        data[i].Text = "CalendarTitle";
                         data[i].Text = "testi2";
-
                         //alert("Varaus alku: " + data[i].start + " Varaus loppu: " + data[i].end);
 
                         var Date = new Date(data[i].Date);
@@ -267,11 +317,17 @@
             @Html.DisplayNameFor(model => model.UserIdentity)
         </th>
         <th>
+            @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
+        </th>
+        <th>
+            @Html.ActionLink("Sukunimi", "Index", new { sortOrder = ViewBag.LastnameSortParm })
+        </th>
+        @*<th>
             @Html.DisplayNameFor(model => model.FirstNameA)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.LastNameA)
-        </th>
+        </th>*@
         <th>
             @Html.DisplayNameFor(model => model.TreatmentName)
         </th>

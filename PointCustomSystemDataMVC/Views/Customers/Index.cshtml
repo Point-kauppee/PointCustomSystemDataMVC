@@ -19,7 +19,7 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-@{ Html.RenderAction("SideMenu", "Customers");}
+@*@{ Html.RenderAction("SideMenu", "Customers");}*@
 
 <h2>Asiakas</h2>
 <br />
@@ -32,34 +32,33 @@
 <td class="gsc-search-button"><input title="search" class="gsc-search-button gsc-search-button-v2" type="image" src="https://www.google.com/uds/css/v2/search_box_icon.png"></td>
 
 <div class="w3-container">
-    <p>Etsi</p>
-    <input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi käyttäjätunnuksella..." id="myInput" onkeyup="myFunction()"><i class="fa fa-search"></i>
-    <p>
+    @*<p>Etsi</p>*@
+
+    <div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>
+
+
+    @*<p>
         <input oninput="w3.filterHTML('#myTable', 'model', this.value)" placeholder="Etsi nimellä..">
-    </p>
+    </p>*@
 
     <table class="table" id="myTable" >
-        <thead>
-           
-            <tr>
-                @*<th onclick="w3.sortHTML('#myTable','.item', 'td:nth-child(2)')">Etunimi</th>
-                <th onclick="w3.sortHTML('#myTable','.item', 'td:nth-child(3)')">Sukunimi</th>*@
-         
+        <thead>          
+            <tr>      
                 <th>
                     @Html.DisplayNameFor(model => model.UserIdentity)
                 </th>
-                @*<th>
-                        @Html.ActionLink("FirstName", "Index", new { sortOrder = ViewBag.NameSortParm })
-                    </th>
-                    <th>
-                        @Html.ActionLink("LastName", "Index", new { sortOrder = ViewBag.NamSortParm })
-                    </th>*@
                 <th>
+                    @Html.ActionLink("FirstNameA", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
+                </th>
+                <th>
+                    @Html.ActionLink("LastNameA", "Index", new { sortOrder = ViewBag.LastnameSortParm })
+                </th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.FirstNameA)
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.LastNameA)
-                </th>
+                </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.Identity)
                 </th>
@@ -83,8 +82,6 @@
                 </th>        
                 <th>
                 </th>
-             
-
                 <th></th>
             </tr>
         </thead>
@@ -155,14 +152,14 @@
     <script>
         //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen. 
         //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
-function myFunction() {
+function searchByCustomer() {
   var input, filter, table, tr, td, i;
   input = document.getElementById("myInput");
   filter = input.value.toUpperCase();
   table = document.getElementById("myTable");
   tr = table.getElementsByTagName("tr");
   for (i = 0; i < tr.length; i++) {
-    td = tr[i].getElementsByTagName("td")[0];
+    td = tr[i].getElementsByTagName("td")[0,1,2,3,4,5,6,7,8,9];
     if (td) {
       if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
         tr[i].style.display = "";
@@ -172,6 +169,8 @@ function myFunction() {
     }
   }
 }
+
+
     </script>
 
     @section Scripts {

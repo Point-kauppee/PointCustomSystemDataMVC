@@ -98,13 +98,20 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentPlaceName { get; set; }
 
         public int? User_id { get; set; }
-
-        [Display(Name = "Asiakastunnus")] 
+ 
         public string User { get; set; }
 
-        //public int? User_id { get; set; }
+        public string UserIdentity2 { get; set; }
         [Display(Name = "Asiakastunnus")]
         public string UserIdentity { get; set; }
+
+
+        //public string UserIdentity
+        //{
+        //    get { return FirstNameA + "; " + LastNameA; }
+        //    set { UserIdentity2 = value; }
+        //}
+
         public string Password { get; set; }
 
         [Display(Name = "Hoito")]

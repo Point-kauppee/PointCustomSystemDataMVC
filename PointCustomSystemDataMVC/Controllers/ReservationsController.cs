@@ -18,6 +18,7 @@ using DayPilot.Web.Mvc.Json;
 using PointCustomSystemDataMVC.ViewModels;
 using PointCustomSystemDataMVC.Utilities;
 using System.Collections;
+using System.Data.SqlClient;
 
 
 namespace PointCustomSystemDataMVC.Controllers
@@ -27,7 +28,7 @@ namespace PointCustomSystemDataMVC.Controllers
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: Reservations
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             List<ReservationViewModel> model = new List<ReservationViewModel>();
 
@@ -40,7 +41,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 foreach (Reservation reservation in reservations)
                 {
-                    CultureInfo fiFi = new CultureInfo("fi-FI");
+                   
 
                     ReservationViewModel res = new ReservationViewModel();
 
@@ -48,7 +49,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     res.User_id = reservation.User?.User_id;
                     res.UserIdentity = reservation.User?.UserIdentity;
-                
+
                     res.Customer_id = reservation.Customer?.Customer_id;
                     res.FirstNameA = reservation.Customer?.FirstName;
                     res.LastNameA = reservation.Customer?.LastName;
@@ -84,6 +85,29 @@ namespace PointCustomSystemDataMVC.Controllers
                 entities.Dispose();
             }
 
+            //25.3.2017 Lisätty sort -toiminto
+            ViewBag.FirstnameSortParm = String.IsNullOrEmpty(sortOrder) ? "firstname_desc" : "";
+            ViewBag.LastnameSortParm = sortOrder == "LastName" ? "lastname_desc" : "LastName";
+            var custom = from c in db.Customer
+                         orderby c.FirstName ascending
+                         select c;
+
+            switch (sortOrder)
+            {
+                case "firstname_desc":
+                    custom = custom.OrderByDescending(c => c.FirstName);
+                    break;
+                case "LastName":
+                    custom = custom.OrderBy(c => c.LastName);
+                    break;
+                case "lastname_desc":
+                    custom = custom.OrderByDescending(c => c.LastName);
+                    break;
+                default:
+                    custom = custom.OrderBy(c => c.FirstName);
+                    break;
+            }
+
             return View(model);
 
         }
@@ -98,16 +122,14 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 List<Reservation> reservations = entities.Reservation.ToList();
 
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-
-                CultureInfo fiFi = new CultureInfo("fi-FI");
+                // muodostetaan näkymämalli tietokannan rivien pohjalta      
                 foreach (Reservation resdetail in reservations)
                 {
                     ReservationViewModel res = new ReservationViewModel();
                     res.Reservation_id = resdetail.Reservation_id;
-                    res.Start = resdetail.Start.Value;
-                    res.End = resdetail.End.Value;
-                    res.Date = resdetail.Date.Value;
+                    res.Start = resdetail.Start.GetValueOrDefault();
+                    res.End = resdetail.End.GetValueOrDefault();
+                    res.Date = resdetail.Date.GetValueOrDefault();
                     res.Note = resdetail.Note;
                     res.TreatmentPaid = resdetail.TreatmentPaid;
                     res.TreatmentPaidDate = resdetail.TreatmentPaidDate.GetValueOrDefault();
@@ -128,6 +150,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Treatment_id = resdetail.Treatment?.Treatment_id;
                     res.TreatmentName = resdetail.Treatment?.TreatmentName;
                     res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
+                    res.TreatmentPrice = resdetail.Treatment?.TreatmentPrice;
 
                     ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.Treatmentplace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
                     res.Treatmentplace_id = resdetail.TreatmentPlace?.Treatmentplace_id;
@@ -156,9 +179,8 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             return View(model);
-
         }//details
-
+       
 
         // GET: Reservations/Create
         public ActionResult Create()
@@ -171,7 +193,7 @@ namespace PointCustomSystemDataMVC.Controllers
             //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
-            ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
 
             //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
@@ -191,8 +213,6 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Create(ReservationViewModel model)
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
-
-            CultureInfo fiFi = new CultureInfo("fi-FI");
 
             Reservation res = new Reservation();
             res.Start = model.Start;
@@ -237,21 +257,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 res.Student_id = stu.Student_id;
             }
 
-            // etsitään Customer-rivi kannasta valitun nimen perusteella
-            //int customerId = int.Parse(model.FullNameA);
-            //if (customerId > 0)
-            //{
-            //    Customer cus = db.Customer.Find(customerId);
-            //    res.Customer_id = cus.Customer_id;
-            //}
-
-            // etsitään CalendarTitle-rivi kannasta valittujen objektien perusteella
-            //int reservationId = int.Parse(model.CalendarTitle2);
-            //if (reservationId > 0)
-            //{
-            //    Reservation rese = db.Reservation.Find(reservationId);
-            //    res.Reservation_id = rese.Reservation_id;
-            //}
 
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FullNameH");
@@ -271,15 +276,14 @@ namespace PointCustomSystemDataMVC.Controllers
             {
             }
 
-            return RedirectToAction("Index");
-
+            return RedirectToAction("Index");        
         }//cr*/;
-
+            CultureInfo fiFi = new CultureInfo("fi-FI");
 
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
-            CultureInfo fiFi = new CultureInfo("fi-FI");
+           
 
             if (id == null)
             {
@@ -339,8 +343,6 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Edit(ReservationViewModel model)
         {
             //TÄMÄ KESKEN!!!!!!
-
-            CultureInfo fiFi = new CultureInfo("fi-FI");
 
             Reservation res = db.Reservation.Find(model.Reservation_id);         
             res.Start = model.Start;
@@ -405,107 +407,6 @@ namespace PointCustomSystemDataMVC.Controllers
             return RedirectToAction("Index");
 
         }//edit
-
-        //Customer cus = db.Customer.Find(model.Customer_id);
-
-        //cus.FirstName = model.FirstNameA;
-        //cus.LastName = model.LastNameA;
-        //cus.Notes = model.Notes;
-
-
-        //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-
-        //if (cus.User == null)
-        //{
-        //    User usr = new User();
-        //    usr.UserIdentity = model.UserIdentity;
-        //    usr.Password = "joku@joku.fi";
-        //    usr.Customer = cus;
-
-        //    db.User.Add(usr);
-        //}
-        //else
-        //{
-        //    User user = cus.User.FirstOrDefault();
-        //    if (user != null)
-        //    {
-        //        user.UserIdentity = model.UserIdentity;
-
-        //    }
-        //}
-
-        //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-
-        //ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-        ////Reservation res = db.Reservation.Find(model.Reservation_id);
-        //if (cus.Reservation == null)
-        //{
-        //    Reservation res = new Reservation();
-        //    res.Start = model.Start;
-        //    res.End = model.End;
-        //    res.Date = model.Date;
-        //    res.Note = model.Note;
-        //    res.Treatment_id = model.Treatment_id;
-        //    res.TreatmentPlace_id = model.Treatmentplace_id;
-        //    res.Student_id = model.Student_id;
-        //    res.Customer = cus;
-
-        //    db.Reservation.Add(res);
-        //}
-        //else
-        //{
-        //    Reservation res = cus.Reservation.FirstOrDefault();
-        //    if (res != null)
-        //    {
-        //        res.Start = model.Start;
-        //        res.End = model.End;
-        //        res.Date = model.Date;
-        //        res.Note = model.Note;
-        //        res.Treatment_id = model.Treatment_id;
-        //        res.TreatmentPlace_id = model.Treatmentplace_id;
-        //        res.Student_id = model.Student_id;
-        //    }
-        //}
-
-        //if (res.Treatment == null)
-        //{
-        //    Treatment tre = new Treatment();
-        //    tre.TreatmentName = model.TreatmentName;
-        //    tre.TreatmentTime = model.TreatmentTime;
-
-        //    db.Treatment.Add(tre);
-        //}
-        //else
-        //{
-        //    Treatment tr = res.Treatment.FirstOrDefault();
-
-        //    if (tr != null)
-        //    {
-        //        tr.TreatmentName = model.TreatmentName;
-        //    }
-        //}
-
-        //if (res.TreatmentPlace == null)
-        //{
-        //    TreatmentPlace trp = new TreatmentPlace();
-        //    trp.TreatmentPlaceName = model.TreatmentPlaceName;
-        //    trp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
-
-        //    db.TreatmentPlace.Add(trp);
-        //}
-
-        //else
-
-        //{
-        //    TreatmentPlace tp = res.TreatmentPlace.FirstOrDefault();
-
-        //    if (tp != null)
-        //    {
-        //        tp.TreatmentPlaceName = model.TreatmentPlaceName;
-        //        tp.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
-        //    }
-        //}
-
 
 
         // GET: Reservations/Delete/5
@@ -583,9 +484,7 @@ namespace PointCustomSystemDataMVC.Controllers
         //class Dpc : DayPilotWeek
         class Dpc : DayPilotCalendar
         {
-            public string DataDateField { get; set; }
-
-            CultureInfo fiFi = new CultureInfo("fi-FI");
+            public string DataDateField { get; set; }       
             //protected override void OnInit(InitArgs e)
             //{
             //    Update(CallBackUpdateType.Full);
@@ -605,6 +504,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 Update();
             }
 
+            CultureInfo fiFi = new CultureInfo("fi-FI");
             protected override void OnCommand(DayPilot.Web.Mvc.Events.Calendar.CommandArgs e)
             {
                 switch (e.Command)
@@ -676,10 +576,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 //var edata = Convert.ToString(e.Data["name"]);
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
-
-               
-                var toBeCreated = new Reservation { Start = e.Start, End = e.End, TreatmentName = (string)e.Data["name"] };
-
+          
+                var toBeCreated = new Reservation { Start = e.Start, End = e.End, CalendarTitle = (string)e.Data["name"] };
 
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = Convert.ToString(e.Data["name"]) };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
@@ -711,6 +609,22 @@ namespace PointCustomSystemDataMVC.Controllers
 
             }
         }//Dpc
+
+        public ActionResult Resize(int id, DateTime Date, DateTime Start, DateTime End)
+        {
+            using (var dp = new JohaMeriSQL1Entities())
+            {
+                var reservation = dp.Reservation.First(c => c.Reservation_id == id);
+
+                reservation.Date = Date;
+                reservation.Start = Start;
+                reservation.End = End;
+
+                dp.SaveChanges();
+            }
+
+            return new EmptyResult();
+        }
 
 
         //DAYPILOT KALENTERI KUUKAUSINÄKYMÄ
@@ -1046,6 +960,15 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             return View();
         }
+
+        //Lisätty 25.3.2017
+        //Varauksen tietojen muuttaminen
+        //https://www.youtube.com/watch?v=l06JSQDuOwo
+        //OHJE
+        //https://msdn.microsoft.com/fi-fi/data/jj592676
+
+
+
     }
 }
 

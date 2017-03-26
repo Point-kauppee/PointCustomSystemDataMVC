@@ -23,11 +23,13 @@ namespace PointCustomSystemDataMVC.Controllers
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: Customers
-        public ActionResult Index()
+        public ActionResult Index(string sortOrder)
         {
             //string username = User.Identity.Name;
             //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
+            //31.1.2017 Lisätty tietokantataulujen suodatukset:
+         
 
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
@@ -75,89 +77,84 @@ namespace PointCustomSystemDataMVC.Controllers
                     model.Add(view);
                 }
             }
-
             finally
             {
                 entities.Dispose();
             }
 
+            //25.3.2017 Lisätty sort -toiminto
+            ViewBag.FirstnameSortParm = String.IsNullOrEmpty(sortOrder) ? "firstname_desc" : "";
+            ViewBag.LastnameSortParm = sortOrder == "LastNameA" ? "lastname_desc" : "LastNameA";
+
+            var custom = from c in db.Customer
+                         orderby c.FirstName ascending
+                         select c;
+
+            switch (sortOrder)
+            {
+                case "firstname_desc":
+                    custom = custom.OrderByDescending(c => c.FirstName);
+                    break;
+                case "LastNameA":
+                    custom = custom.OrderBy(c => c.LastName);
+                    break;
+                case "lastname_desc":
+                    custom = custom.OrderByDescending(c => c.LastName);
+                    break;
+                default:
+                    custom = custom.OrderBy(c => c.FirstName);
+                    break;
+            }
+
             return View(model);
         }
 
-        //31.1.2017 Lisätty tietokantataulujen suodatukset:
-        //public ActionResult Index(string sortOrder)
-        //{
-        //    ViewBag.NameSortParm = String.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
-        //    ViewBag.NamSortParm = sortOrder == "Nam" ? "nam_desc" : "Nam";
-        //    var customer = from c in db.Customer
-        //                   select c;
-        //    switch (sortOrder)
-        //    {
-        //        case "name_desc":
-        //            customer = customer.OrderByDescending(c => c.FirstName);
-        //            break;
-        //        case "Nam":
-        //            customer = customer.OrderBy(c => c.LastName);
-        //            break;
-        //        case "nam_desc":
-        //            customer = customer.OrderByDescending(c => c.LastName);
-        //            break;
-        //        default:
-        //            customer = customer.OrderBy(c => c.FirstName);
-        //            break;
-        //    }
-
-        //    return View(customer.ToList());
-        //}
 
         //Lisätty 1.3.2017 oma koodi:
         //GET: Customers/Details/5
         public ActionResult Details(int? id)
         {
-            List<CustomerViewModel> model = new List<CustomerViewModel>();
+            CustomerViewModel model = new CustomerViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
                 List<Customer> customers = entities.Customer.ToList();
 
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-
-                CultureInfo fiFi = new CultureInfo("fi-FI");
+                // muodostetaan näkymämalli tietokannan rivien pohjalta          
                 foreach (Customer custdetail in customers)
                 {
-                    CustomerViewModel view = new CustomerViewModel();
-
-                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                    CustomerViewModel cview = new CustomerViewModel();
+                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-                    view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
-                    view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+                    cview.User_id = custdetail.User?.FirstOrDefault()?.User_id;
+                    cview.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
 
-                    view.Customer_id = custdetail.Customer_id;
-                    view.FirstNameA = custdetail.FirstName;
-                    view.LastNameA = custdetail.LastName;
-                    view.Identity = custdetail.Identity;
-                    view.Email = custdetail.Email;
-                    view.Address = custdetail.Address;
-                    view.Notes = custdetail.Notes;
-                    view.CreatedAt = custdetail.CreatedAt;
-                    view.LastModifiedAt = custdetail.LastModifiedAt;
-                    view.DeletedAt = custdetail.DeletedAt;
-                    view.Active = custdetail.Active;
-                    view.Information = custdetail.Information;
+                    cview.Customer_id = custdetail.Customer_id;
+                    cview.FirstNameA = custdetail.FirstName;
+                    cview.LastNameA = custdetail.LastName;
+                    cview.Identity = custdetail.Identity;
+                    cview.Email = custdetail.Email;
+                    cview.Address = custdetail.Address;
+                    cview.Notes = custdetail.Notes;
+                    cview.CreatedAt = custdetail.CreatedAt;
+                    cview.LastModifiedAt = custdetail.LastModifiedAt;
+                    cview.DeletedAt = custdetail.DeletedAt;
+                    cview.Active = custdetail.Active;
+                    cview.Information = custdetail.Information;
 
-                    view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
-                    view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
-                    view.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
-                    view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
-                    view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
+                    cview.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
+                    cview.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+                    cview.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
+                    cview.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
+                    cview.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
-                    view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
-                    view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
-                    view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
+                    cview.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
+                    cview.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
+                    cview.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
+                    cview.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    model.Add(view);
+                    model = cview;
                 }
 
                     if (id == null)
@@ -169,19 +166,18 @@ namespace PointCustomSystemDataMVC.Controllers
                     {
                         return HttpNotFound();
                     }
-                    }
-                    finally
-                    {
-                        entities.Dispose();
-                    }
+               }
+               finally
+               {
+                   entities.Dispose();
+               }
 
-                    return View(model);
-
+               return View(model);       
         }//details
+        CultureInfo fiFi = new CultureInfo("fi-FI");
 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
-        //Oma kaava:
         // GET: Customers/Create
         public ActionResult Create()
         {
@@ -190,7 +186,7 @@ namespace PointCustomSystemDataMVC.Controllers
             CustomerViewModel model = new CustomerViewModel();
 
             //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             return View(model);
@@ -202,8 +198,6 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Create(CustomerViewModel model)
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
-
-            ////ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
         
             Customer cus = new Customer();
             cus.FirstName = model.FirstNameA;
@@ -251,7 +245,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             return RedirectToAction("Index");
-        }//cr*/
+        }//create
 
 
         //[AllowAnonymous]
@@ -262,7 +256,6 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
             Customer custdetail = db.Customer.Find(id);
             if (custdetail == null)
             {
@@ -283,17 +276,17 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Active = custdetail.Active;
             view.Information = custdetail.Information;
 
+            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
+            view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+
             view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
 
             view.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
             view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
             view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
-
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-            view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
-            view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
 
             view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
             view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
@@ -341,7 +334,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 if (user != null)
                 {
                     user.UserIdentity = model.UserIdentity;
-   
                 }
             }
 
@@ -382,7 +374,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             db.SaveChanges();
-            //return View(model);
+         
             return RedirectToAction("Index");
 
         }//edit
@@ -395,9 +387,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Customer custdetail = db.Customer.Find(id);
-
             if (custdetail == null)
-
             {
                 return HttpNotFound();
             }
@@ -429,7 +419,6 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
             view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
             view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
-
 
             return View(view);
         }//delete

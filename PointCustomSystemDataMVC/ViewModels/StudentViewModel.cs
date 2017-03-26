@@ -35,7 +35,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string StudentGroupName { get; set; }
         public string StudentGroup { get; set; }
 
-        [Display(Name = "Tieto tallennettu")]
+        [Display(Name = "Henkilötieto tallennettu")]
         public DateTime? CreatedAt { get; set; }
         [Display(Name = "Viimeksi muokattu pvm")]
         public DateTime? LastModifiedAt { get; set; }
