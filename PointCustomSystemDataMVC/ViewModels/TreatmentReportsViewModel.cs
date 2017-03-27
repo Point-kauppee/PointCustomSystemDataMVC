@@ -63,7 +63,10 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string FullNameH
         {
             get { return FirstNameH + " " + LastNameH; }
+            set { FullNameH2 = value; }
         }
+        public string FullNameH2 { get; set; }
+
 
         [Display(Name = "Henkilökunta Etunimi")]
         public string FirstNameP { get; set; }

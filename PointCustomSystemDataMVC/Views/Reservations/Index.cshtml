@@ -260,11 +260,12 @@
     
 </style>
 
-    <!-- !SIDEMENU CONTENT! -->
+    <!-- !SIDEMENU CONTENT!
+================================================== -->
 @{ Html.RenderAction("SideMenu", "Customers");}
 
 <!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:250px">
+<div class="w3-main" style="margin-left:252px">
 
     <!-- Push down content on small screens -->
     <div class="w3-hide-large" style="margin-top:83px"></div>
@@ -275,7 +276,7 @@
         <h2>VARAUSKALENTERI</h2>
         <p>Viikko</p>
 
-        <div id="dpc">
+        <div id="dpc" class="w3-text-grey calendar_default_main">
             @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
        {
            BackendUrl = Url.Content("~/Reservations/BackEnd"),

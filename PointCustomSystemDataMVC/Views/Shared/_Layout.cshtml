@@ -1,10 +1,23 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+    <script src="~/Scripts/daypilot-all.min.js"></script>
+    <script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
+
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/respond.js"></script>
     <title>@ViewBag.Title - Point Jalkahoitola</title>
 
     @Styles.Render("~/Content/css")
@@ -47,9 +60,31 @@
                     <li>@Html.ActionLink("Point etusivu", "Index", "Home")</li>
                     <li>@Html.ActionLink("Tietoja", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+                    <li class="dropdown">
+                        <a href="index.html" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Omat tietoni", "Details", "Studentxes")</li>
+                            <li>@Html.ActionLink("Hoitaja", "Index", "Studentxes")</li>
+                            <li>@Html.ActionLink("Aloitussivu", "Index", "Home")</li>
+                            <li>@Html.ActionLink("Asiakas", "Index", "Customers")</li>
+                            <li>@Html.ActionLink("Hoitoraportit", "Index", "TreatmentReports")</li>
+                            <li>@Html.ActionLink("Palveluvaraukset", "Index", "Reservations")</li>
+                            <li>@Html.ActionLink("Asiakaslistaus", "Details", "Customers")</li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Tietohallinta</li>
+                            <li>@Html.ActionLink("Henkilökuntahallinta", "Index", "Personnels")</li>
+                            <li>@Html.ActionLink("Hoitopaikkahallinta", "Index", "TreatmentPlaces")</li>
+                            <li>@Html.ActionLink("Käyttäjähallinta", "Index", "Users")</li>
+                            <li>@Html.ActionLink("Osoitehallinta", "Index", "PostOffices")</li>
+                            <li>@Html.ActionLink("Palveluhallinta", "Index", "Treatments")</li>
+                            <li>@Html.ActionLink("Toimipistehallinta", "Index", "TreatmentOffices")</li>
+                            <li>@Html.ActionLink("Hoitajaryhmähallinta", "Index", "StudentGroups")</li>                      
+                        </ul>
+                    </li>
                 </ul>
-                @Html.Partial("_LoginPartial")
-            </div>
+                        @Html.Partial("_LoginPartial")
+</div>
         </div>
     </div>
     <div class="container body-content">

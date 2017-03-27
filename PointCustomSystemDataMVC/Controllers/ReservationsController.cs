@@ -41,8 +41,6 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 foreach (Reservation reservation in reservations)
                 {
-                   
-
                     ReservationViewModel res = new ReservationViewModel();
 
                     //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
@@ -85,6 +83,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 entities.Dispose();
             }
 
+            CultureInfo fiFi = new CultureInfo("fi-FI");
+
             //25.3.2017 Lisätty sort -toiminto
             ViewBag.FirstnameSortParm = String.IsNullOrEmpty(sortOrder) ? "firstname_desc" : "";
             ViewBag.LastnameSortParm = sortOrder == "LastName" ? "lastname_desc" : "LastName";
@@ -109,7 +109,6 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             return View(model);
-
         }
 
         // GET: Reservations/Details/5
@@ -265,8 +264,8 @@ namespace PointCustomSystemDataMVC.Controllers
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-            
 
+            CultureInfo fiFi = new CultureInfo("fi-FI");
             try
             {
                 db.SaveChanges();
@@ -278,8 +277,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             return RedirectToAction("Index");        
         }//cr*/;
-            CultureInfo fiFi = new CultureInfo("fi-FI");
-        private string CalendarTitle;
+
 
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
