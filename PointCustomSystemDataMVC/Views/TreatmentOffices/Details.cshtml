@@ -58,9 +58,37 @@
             @Html.DisplayFor(model => model.Note)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.MapPlace)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.MapPlace)
+        </dd>
+
     </dl>
 </div>
 <p>
     @Html.ActionLink("Muokkaa", "Edit", new { id = Model.TreatmentOffice_id }) |
     @Html.ActionLink("Takaisin toimipistehallintaan", "Index")
 </p>
+
+
+@*//Kartta*@
+@*<div id="map" style="width:300px;height:300px"></div>*@
+<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1971.0094118700585!2d25.66402675214696!3d60.39552238195646!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x4691f4291c129c57%3A0xc787faa98ddeef5e!2sMannerheiminkatu+20%2C+06100+Porvoo!5e0!3m2!1sfi!2sfi!4v1490685410342" width="400" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+
+<script>
+function myMap() {
+var mapOptions = {
+    center: new google.maps.LatLng(60.3955224, 25.6640268),
+    zoom: 10,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+}
+var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+}
+</script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_Jxx0pa197zGwfVh7jZUks0k1SJnB7ow&callback=initMap"
+          async defer></script>
+@*Js API key:AIzaSyB_Jxx0pa197zGwfVh7jZUks0k1SJnB7ow *@

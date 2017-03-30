@@ -8,6 +8,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 <link rel="stylesheet" href="/lib/w3.css">
 <script src="/lib/w3.js"></script>
 
@@ -54,6 +56,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Note)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.MapPlace)
+                </th>
 
                 <th></th>
             </tr>
@@ -78,6 +83,9 @@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Note)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MapPlace)
                     </td>
 
                     <td>

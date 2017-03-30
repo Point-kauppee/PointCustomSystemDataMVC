@@ -29,11 +29,13 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Type { get; set; }
         public string Note { get; set; }
         public string CalendarTitle { get; set; }
+        public string TreatmentReportTexts { get; set; }
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Customer_id { get; set; }
         public Nullable<int> TreatmentPlace_id { get; set; }
         public Nullable<int> Treatment_id { get; set; }
+        public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> User_id { get; set; }
     
         public virtual Customer Customer { get; set; }
@@ -42,6 +44,7 @@ namespace PointCustomSystemDataMVC.Models
         public virtual TreatmentPlace TreatmentPlace { get; set; }
         public virtual Treatment Treatment { get; set; }
         public virtual User User { get; set; }
+        public virtual TreatmentOffice TreatmentOffice { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
     }

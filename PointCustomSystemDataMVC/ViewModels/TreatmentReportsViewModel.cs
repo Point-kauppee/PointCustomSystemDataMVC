@@ -11,7 +11,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         
         public int TreatmentReport_id { get; set; }
 
-        [Display(Name = "Hoito")]
+        [Display(Name = "Hoidon nimi")]
         public string TreatmentReportName { get; set; }
 
         [Display(Name = "Hoitokertomus")]
@@ -27,6 +27,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
         public DateTime TreatmentTime { get; set; }
 
+        public string Treatment { get; set; }
+        public int? Treatment_id { get; set; }
+
+        [Display(Name = "Hoito")]
+        public string TreatmentName { get; set; }
+
         public int? User_id { get; set; }
         public int? Customer_id { get; set; }
         public int? Student_id { get; set; }
@@ -41,6 +47,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        public string Password { get; set; }
 
         //Lisätty yhdistävät nimikentät
 
@@ -79,6 +86,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         {
             get { return FirstNameP + " " + LastNameP; }
         }
+
+  
         public virtual ICollection<TreatmentReportsViewModel> TreatmentReservations { get; set; }
     }
 }

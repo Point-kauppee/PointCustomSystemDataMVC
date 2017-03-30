@@ -174,16 +174,6 @@
                 //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
             };
 
-            // event resizing, lisätty 25.3.2017
-            //dp.onEventResized = function (args) {
-            //    //alert("Resized: " + args.e.text());
-            //    UpdateEvent(args);
-            //};
-
-            // event moving, lisätty 25.3.2017
-            //dp.onEventMoved = function (args) {
-            //    UpdateEvent(args);
-            //};
 
             //Lisätty 25.2.2017: convert date "2010-01-01T00:00:00" to "2010-01-01"
             function ConvertDate2(date) {
@@ -197,11 +187,7 @@
                 return date;
             }
 
-            //Lisätty 25.3.2017
-            //function ConfirmMove(ID) {
-            //    alert("Vahvista siirto: " + ID);
-            //}
-
+     
             //Lisätty 25.3.2017
             //function AddZero(t) {
             //    if (t < 10) { t = "0" + t };
@@ -212,15 +198,11 @@
             //function UpdateEvent(args) {
             //    a = new Date(args.e.Start());
             //    l = new Date(args.e.End());
-
             //    var startTime = AddZero(a.getHours()) + ":" + AddZero(a.getMinutes());
             //    var endTime = AddZero(l.getHours()) + ":" + AddZero(l.getMinutes());
-
             //    d = a.getFullYear() + "-" + AddZero(a.getMonth() + 1) + "-" + AddZero(a.getDate());
-
             //    url = "/Reservations/Resize/?id=" + args.e.data.ID + "&Date=" + d + "&newStart=" + startTime + "&newEnd=" + endTime;
-
-            //    $.ajax({ url: url, cache: false }).done(function (data) {
+                //    $.ajax({ url: url, cache: false }).done(function (data) {
             //        //alert(data);
             //    });
             //}
@@ -291,7 +273,8 @@
            //TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
            //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });",
            TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
-           TimeRangeSelectedJavaScript = "create(start,end)"
+           TimeRangeSelectedJavaScript = "create(start,end)",
+           HeightSpec = HeightSpec.BusinessHours,
 
            //TimeRangeSelectedJavaScript = "create(e.start(), e.end())"
            //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(Alku, Loppu, { name: prompt('New Event Name:', 'New Event') });"
@@ -360,6 +343,10 @@
                 <th>
                     @Html.DisplayNameFor(model => model.CalendarTitle)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TreatmentReportTexts)
+                </th>
+
 
                 <th></th>
             </tr>
@@ -386,10 +373,10 @@
                         @Html.DisplayFor(modelItem => item.Date)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.Start.Value)
+                        @Html.DisplayFor(modelItem => item.Start)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.End.Value)
+                        @Html.DisplayFor(modelItem => item.End)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FullNameH)
@@ -405,10 +392,17 @@
                     </td>
 
                     <td>
+                        @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
+                    </td>
+
+                    <td>
                         @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |
                         @Html.ActionLink("Tiedot", "Details", new { id = item.Reservation_id }) |
-                        @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id })
-                    </td>
+                        @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id }) |
+                        @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "TreatText", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                        <br><br>
+                        @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                    </td>               
                 </tr>
             }
 

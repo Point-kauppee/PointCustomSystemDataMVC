@@ -80,6 +80,14 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.TreatmentOfficeName, "Toimipiste", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.DropDownList("TreatmentOfficeName", null, htmlAttributes: new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.TreatmentOfficeName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             @Html.LabelFor(model => model.Start, "Alkuaika", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "form-control" } })
@@ -127,9 +135,15 @@
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.CalendarTitle, "Kalenteritieto", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CalendarTitle, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CalendarTitle, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
-
-           
+   
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Tallenna" class="btn btn-default" />
@@ -141,6 +155,9 @@
 
 <div>
     @Html.ActionLink("Takaisin palveluvaraukseen", "Index")
+</div>
+<div>
+    @Html.ActionLink("Takaisin asiakastietoihin", "Index", "Customers")
 </div>
 
 @section Scripts {

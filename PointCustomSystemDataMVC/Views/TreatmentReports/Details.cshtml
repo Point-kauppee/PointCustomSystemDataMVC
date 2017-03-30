@@ -18,14 +18,6 @@
             @Html.DisplayFor(model => model.UserIdentity)
         </dd>
 
-        @*<dt>
-            @Html.DisplayNameFor(model => model.TreatmentReportName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentReportName)
-        </dd>*@
-
         <dt>
             @Html.DisplayNameFor(model => model.FullNameA)
         </dt>
@@ -34,13 +26,13 @@
             @Html.DisplayFor(model => model.FullNameA)
         </dd>
 
-        @*<dt>
-            @Html.DisplayNameFor(model => model.LastName)
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.LastName)
-        <dd>*@
+            @Html.DisplayFor(model => model.TreatmentName)
+        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.TreatmentDate)
@@ -59,38 +51,22 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.TreatmentReportText)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.TreatmentReportText)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.FullNameH)
         </dt>
 
         <dd>
             @Html.DisplayFor(model => model.FullNameH)
         </dd>
-
-        @*<dt>
-            @Html.DisplayNameFor(model => model.LastName)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastName)
-        </dd>*@
-
-        @*<dt>
-                @Html.DisplayNameFor(model => model.Reservation.TreatmentName)
+    
+            <dt>
+                @Html.DisplayNameFor(model => model.TreatmentReportText)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Reservation.TreatmentName)
-            </dd>*@
+                @Html.DisplayFor(model => model.TreatmentReportText)
+            </dd>
 
-    </dl>
+        </dl>
 
     <p>
         @Html.ActionLink("Edit", "Edit", new { id = Model.TreatmentReport_id }) |

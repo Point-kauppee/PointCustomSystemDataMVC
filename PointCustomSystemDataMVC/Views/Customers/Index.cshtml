@@ -124,8 +124,8 @@
                             @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
                             @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
                             @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                            @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Create", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) 
-                            <br />
+                            @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Index", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) 
+                            <br><br>
                             @Html.ActionLink("Palveluvaraus", "Create", "Reservations", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                         </td>
                     </tr>
@@ -150,7 +150,8 @@
             table = document.getElementById("myTable");
             tr = table.getElementsByTagName("tr");
             for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                td
+                    = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
                 if (td) {
                     if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
                         tr[i].style.display = "";

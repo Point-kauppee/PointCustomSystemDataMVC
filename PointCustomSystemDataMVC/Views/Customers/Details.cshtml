@@ -11,7 +11,7 @@
 </p>
 
 <div>
-        <h4>Asiakas</h4>
+    <h4>Asiakas</h4>
     <hr />
     <dl class="dl-horizontal">
         <dt>
@@ -121,6 +121,7 @@
         <dd>
             @Html.DisplayFor(model => model.Active)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.Information)
         </dt>
@@ -128,95 +129,78 @@
         <dd>
             @Html.DisplayFor(model => model.Information)
         </dd>
-   
-    </dl>
 
-    <p>
-        @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Customer_id }) |
-        @Html.ActionLink("Takaisin asiakastietoihin", "Index")
-    </p>
+        <dt>
+            @Html.DisplayNameFor(model => model.ReservationViewModel)
+        </dt>
+        <dd>
+            <hr />
 
-    <hr />
+            @*1.2.2017 Lisätty alitiedostot Palvelut*@
+            <h4>Asiakkaan hoitotiedot</h4>
 
-    <h4>Asiakkaan hoitotiedot</h4>
-
-    @*1.2.2017 Lisätty alitiedostot Palvelut*@
-
-    <table class="table">
-        <tr>
-            <th>
-                Päivämäärä
-            </th>
-            <th>
-                Varausaika alkaa
-            </th>
-            <th>
-                Varausaika loppuu
-            </th>
-            <th>
-                Palvelun nimi
-            </th>
-            <th>
-                Palvelun kesto
-            </th>
-            <th>
-                Palvelun hinta
-            </th>
-            <th>
-                Hoitaja
-            </th>
-            <th>
-                Huomiot
-            </th>
-        </tr>
-
-        @foreach (var item in Model.Reservations)
-
+            <table class="table">
+                <tr>
+                    <th>Päivämäärä</th>
+                    <th>Varausaika alkaa</th>
+                    <th>Varausaika loppuu</th>
+                    <th>Palvelun nimi</th>
+                    <th>Palvelun kesto</th>
+                    <th>Palvelun hinta</th>
+                    <th>Hoitaja</th>
+                    <th>Tiedot</th>
+                </tr>
+                @foreach (var item in Model.ReservationViewModel)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Date)
-                </td>
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.Date)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Start)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.Start)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.End)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.End)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreatmentName)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.TreatmentName)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreatmentTime)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.TreatmentTime)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.TreatmentPrice)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.TreatmentPrice)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.FullNameH)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.FullNameH)
+                        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.Notes)
-                </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => Model.Notes)
+                        </td>
+                    </tr>
+                }
 
-                @*//Linkki asiakastietojen tallennukseen:*@
-                @Html.ActionLink("Asiakastietojen tallennus", "Index")
-
-            </tr>
-        }
-
-    </table>
+            </table>
+        </dd>
+    </dl>
 </div>
+
+<p>
+    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Customer_id }) |
+    @Html.ActionLink("Takaisin asiakastietoihin", "Index")
+</p>
+@*//Linkki asiakastietojen tallennukseen:*@
+@Html.ActionLink("Asiakastietojen tallennus", "Index")
 
 @section Scripts {
 
-@Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/jqueryval")
 
 }

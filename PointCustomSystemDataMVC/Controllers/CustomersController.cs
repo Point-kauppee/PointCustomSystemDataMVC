@@ -30,14 +30,14 @@ namespace PointCustomSystemDataMVC.Controllers
 
             //31.1.2017 Lisätty tietokantataulujen suodatukset:
          
-
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+
             try
             {
-                List<Customer> customers = entities.Customer.ToList();
-
+                List<Customer> customers = entities.Customer.OrderBy(Customer => Customer.LastName).ToList();
+               
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 
                 CultureInfo fiFi = new CultureInfo("fi-FI");
@@ -107,7 +107,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             return View(model);
-        }
+        }//Index
 
 
         //Lisätty 1.3.2017 oma koodi:
@@ -125,7 +125,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Customer custdetail in customers)
                 {
                     CustomerViewModel cview = new CustomerViewModel();
-                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+                 
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     cview.User_id = custdetail.User?.FirstOrDefault()?.User_id;
                     cview.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
@@ -145,6 +145,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     cview.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     cview.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+
                     cview.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
                     cview.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     cview.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
@@ -156,7 +157,6 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     model = cview;
                 }
-
                     if (id == null)
                     {
                         return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -185,8 +185,6 @@ namespace PointCustomSystemDataMVC.Controllers
 
             CustomerViewModel model = new CustomerViewModel();
 
-            //ViewBag.UserSeed = new SelectList(list, "User_id", "UserIdentity");
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             return View(model);
@@ -213,7 +211,6 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.Customer.Add(cus);
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
@@ -294,7 +291,6 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
             return View(view);
-
         }//edit
 
         // POST: Customers/Edit/5
@@ -376,7 +372,6 @@ namespace PointCustomSystemDataMVC.Controllers
             db.SaveChanges();
          
             return RedirectToAction("Index");
-
         }//edit
 
         // GET: Customers/Delete/5
@@ -421,7 +416,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
             return View(view);
-        }//delete
+        }//Delete
 
         // POST: Customers/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -474,7 +469,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     CustomerViewModel cusw = new CustomerViewModel();
                     cusw.Customer_id = treat.Customer.Customer_id;
                     cusw.TreatmentReport_id = treat.TreatmentReport_id;
-                    cusw.TreatmentReportName = treat.TreatmentReportName;
                     cusw.TreatmentTime = treat.TreatmentTime.Value;
                     cusw.TreatmentDate = treat.TreatmentDate.Value;
                     //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);
@@ -507,7 +501,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     CustomerViewModel cusw = new CustomerViewModel();
                     cusw.Customer_id = treat.Customer.Customer_id;
                     cusw.TreatmentReport_id = treat.TreatmentReport_id;
-                    cusw.TreatmentReportName = treat.TreatmentReportName;
+                  
                     cusw.TreatmentTime = treat.TreatmentTime.Value;
                     cusw.TreatmentDate = treat.TreatmentDate.Value;
                     //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);

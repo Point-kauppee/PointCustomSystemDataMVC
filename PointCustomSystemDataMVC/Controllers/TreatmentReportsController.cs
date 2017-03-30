@@ -35,20 +35,24 @@ namespace PointCustomSystemDataMVC.Controllers
                     TreatmentReportsViewModel view = new TreatmentReportsViewModel();
 
                     view.TreatmentReport_id = treatreport.TreatmentReport_id;
-                    view.TreatmentReportName = treatreport.TreatmentReportName;
                     view.TreatmentReportText = treatreport.TreatmentReportText;
                     view.TreatmentDate = treatreport.TreatmentDate.Value;
                     view.TreatmentTime = treatreport.TreatmentTime.Value;
 
+                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
+                    view.Treatment_id = treatreport.Treatment?.Treatment_id;
+                    view.TreatmentName = treatreport.Treatment?.TreatmentName;
+
+                    ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
                     view.Customer_id = treatreport.Customer?.Customer_id;
                     view.FirstNameA = treatreport.Customer?.FirstName;
                     view.LastNameA = treatreport.Customer?.LastName;
 
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = treatreport.User?.User_id;
                     view.UserIdentity = treatreport.User?.UserIdentity;
-                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-
+                                
+                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
                     view.Student_id = treatreport.Studentx?.Student_id;
                     view.FirstNameH = treatreport.Studentx?.FirstName;
                     view.LastNameH = treatreport.Studentx?.LastName;
@@ -83,14 +87,20 @@ namespace PointCustomSystemDataMVC.Controllers
                     views.TreatmentDate = treatrepdetail.TreatmentDate.Value;
                     views.TreatmentTime = treatrepdetail.TreatmentTime.Value;
 
+                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
+                    views.Treatment_id = treatrepdetail.Treatment?.Treatment_id;
+                    views.TreatmentName = treatrepdetail.Treatment?.TreatmentName;
+
+                    ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
                     views.Customer_id = treatrepdetail.Customer?.Customer_id;
                     views.FirstNameA = treatrepdetail.Customer?.FirstName;
                     views.LastNameA = treatrepdetail.Customer?.LastName;
-
+           
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     views.User_id = treatrepdetail.User?.User_id;
                     views.UserIdentity = treatrepdetail.User?.UserIdentity;
-
+             
+                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
                     views.Student_id = treatrepdetail.Studentx?.Student_id;
                     views.FirstNameH = treatrepdetail.Studentx?.FirstName;
                     views.LastNameH = treatrepdetail.Studentx?.LastName;
@@ -121,7 +131,12 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             TreatmentReportsViewModel model = new TreatmentReportsViewModel();
+
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+
             return View(model);
         }//create
 
@@ -135,22 +150,43 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             TreatmentReport tre = new TreatmentReport();
-            tre.TreatmentReportName = model.TreatmentReportName;
+       
             tre.TreatmentReportText = model.TreatmentReportText;
             tre.TreatmentDate = model.TreatmentDate;
             tre.TreatmentTime = model.TreatmentTime;
+
             db.TreatmentReport.Add(tre);
 
-            // etsitään User-rivi kannasta valitun nimen perusteella
-            int userId = int.Parse(model.UserIdentity);
-            if (userId > 0)
+            // etsitään Treatment-rivi kannasta valitun nimen perusteella
+            int treatmentId = int.Parse(model.TreatmentName);
+            if (treatmentId > 0)
             {
-                User usr = db.User.Find(userId);
-                tre.User_id = userId;
-                tre.Customer_id = usr.Customer_id;
+                Treatment trtm = db.Treatment.Find(treatmentId);
+                tre.Treatment_id = trtm.Treatment_id;
+            }
+            //User usr = new User();
+            //usr.UserIdentity = model.UserIdentity;
+            //usr.Password = "joku@joku.fi";
+            //usr.Customer = tre;
+
+            //db.User.Add(usr);
+
+            //// etsitään User-rivi kannasta valitun nimen perusteella
+            int userId = int.Parse(model.UserIdentity);
+
+            User usr = db.User.Find(userId);
+            tre.User_id = userId;
+            tre.Customer_id = usr.Customer_id;
+        
+            // etsitään Customer-rivi kannasta valitun nimen perusteella
+            int customerId = int.Parse(model.FullNameA);
+            if (customerId > 0)
+            {
+                Customer stu = db.Customer.Find(customerId);
+                tre.Customer_id = stu.Customer_id;
             }
 
-            // etsitään Student-rivi kannasta valitun nimen perusteella
+            //// etsitään Student-rivi kannasta valitun nimen perusteella
             int studentId = int.Parse(model.FullNameH2);
             if (studentId > 0)
             {
@@ -158,16 +194,11 @@ namespace PointCustomSystemDataMVC.Controllers
                 tre.Student_id = stu.Student_id;
             }
 
-            // etsitään Customer-rivi kannasta valitun nimen perusteella
-            int customerId = int.Parse(model.FullNameA);
-            if (customerId > 0)
-            {
-                Customer stu = db.Customer.Find(studentId);
-                tre.Customer_id = stu.Customer_id;
-            }
-
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+
             CultureInfo fiFi = new CultureInfo("fi-FI");
             try
             {
@@ -178,7 +209,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index","Customers");
         }//cr*/;
 
 
@@ -199,16 +230,19 @@ namespace PointCustomSystemDataMVC.Controllers
             TreatmentReportsViewModel view = new TreatmentReportsViewModel();
 
             view.TreatmentReport_id = treatrepdetail.TreatmentReport_id;
-            view.TreatmentReportName = treatrepdetail.TreatmentReportName;
             view.TreatmentReportText = treatrepdetail.TreatmentReportText;
             view.TreatmentDate = treatrepdetail.TreatmentDate.Value;
             view.TreatmentTime = treatrepdetail.TreatmentTime.Value;
 
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+            view.Treatment_id = treatrepdetail.Treatment?.Treatment_id;
+            view.TreatmentName = treatrepdetail.Treatment?.TreatmentName;
+
+            ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
             view.Customer_id = treatrepdetail.Customer?.Customer_id;
             view.FirstNameA = treatrepdetail.Customer?.FirstName;
             view.LastNameA = treatrepdetail.Customer?.LastName;
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = treatrepdetail.User?.User_id;
             view.UserIdentity = treatrepdetail.User?.UserIdentity;
@@ -230,10 +264,17 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Edit(TreatmentReportsViewModel model)
         {
             TreatmentReport tre = db.TreatmentReport.Find(model.TreatmentReport_id);
-            tre.TreatmentReportName = model.TreatmentReportName;
             tre.TreatmentReportText = model.TreatmentReportText;
             tre.TreatmentDate = model.TreatmentDate;
             tre.TreatmentTime = model.TreatmentTime;
+
+            // etsitään Treatment-rivi kannasta valitun nimen perusteella
+            int treatmentId = int.Parse(model.TreatmentName);
+            if (treatmentId > 0)
+            {
+                Treatment trtm = db.Treatment.Find(treatmentId);
+                tre.Treatment_id = trtm.Treatment_id;
+            }
 
             // etsitään User-rivi kannasta valitun nimen perusteella
             int userId = int.Parse(model.UserIdentity);
@@ -252,7 +293,12 @@ namespace PointCustomSystemDataMVC.Controllers
                 tre.Student_id = stu.Student_id;
             }
 
+
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+
             db.SaveChanges();
             //return View(model);
             return RedirectToAction("Index");
@@ -267,12 +313,37 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            TreatmentReport treatmentReport = db.TreatmentReport.Find(id);
-            if (treatmentReport == null)
+            TreatmentReport treatreport = db.TreatmentReport.Find(id);
+            if (treatreport == null)
             {
                 return HttpNotFound();
             }
-            return View(treatmentReport);
+
+            TreatmentReportsViewModel view = new TreatmentReportsViewModel();
+
+            view.TreatmentReport_id = treatreport.TreatmentReport_id;
+            view.TreatmentReportText = treatreport.TreatmentReportText;
+            view.TreatmentDate = treatreport.TreatmentDate.Value;
+            view.TreatmentTime = treatreport.TreatmentTime.Value;
+
+            view.Treatment_id = treatreport.Treatment?.Treatment_id;
+            view.TreatmentName = treatreport.Treatment?.TreatmentName;
+
+            ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
+            view.Customer_id = treatreport.Customer?.Customer_id;
+            view.FirstNameA = treatreport.Customer?.FirstName;
+            view.LastNameA = treatreport.Customer?.LastName;
+
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            view.User_id = treatreport.User?.User_id;
+            view.UserIdentity = treatreport.User?.UserIdentity;
+
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            view.Student_id = treatreport.Studentx?.Student_id;
+            view.FirstNameH = treatreport.Studentx?.FirstName;
+            view.LastNameH = treatreport.Studentx?.LastName;
+
+            return View(view);
         }
 
         // POST: TreatmentReports/Delete/5
@@ -293,6 +364,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        }//dispose
     }
 }

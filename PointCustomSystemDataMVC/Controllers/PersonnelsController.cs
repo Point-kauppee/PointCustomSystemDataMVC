@@ -31,7 +31,7 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<Personnel> personnels = entities.Personnel.ToList();
+                List<Personnel> personnels = entities.Personnel.OrderBy(Personnel => Personnel.LastName).ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 

@@ -35,15 +35,14 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<Reservation> reservations = entities.Reservation.ToList();
-
+                List<Reservation> reservations = entities.Reservation.OrderByDescending(Reservation => Reservation.Date).ToList();
+               
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 
                 foreach (Reservation reservation in reservations)
                 {
                     ReservationViewModel res = new ReservationViewModel();
 
-                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     res.User_id = reservation.User?.User_id;
                     res.UserIdentity = reservation.User?.UserIdentity;
@@ -60,16 +59,22 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.TreatmentPaidDate = reservation.TreatmentPaidDate.GetValueOrDefault();
                     res.Note = reservation.Note;
                     res.CalendarTitle2 = reservation.CalendarTitle;
+                    res.TreatmentReportTexts = reservation.TreatmentReportTexts;
 
-                    //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
                     res.TreatmentName = reservation.Treatment?.TreatmentName;
                     res.TreatmentPrice = reservation.Treatment?.TreatmentPrice;
 
-                    res.Treatmentplace_id = reservation.TreatmentPlace?.Treatmentplace_id;
+                    ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.TreatmentPlace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+                    res.TreatmentPlace_id = reservation.TreatmentPlace?.TreatmentPlace_id;
                     res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
                     res.TreatmentPlaceNumber = reservation.TreatmentPlace?.TreatmentPlaceNumber;
+
+                    ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
+                    res.TreatmentOffice_id = reservation.TreatmentOffice?.TreatmentOffice_id;
+                    res.TreatmentOfficeName = reservation.TreatmentOffice?.TreatmentOfficeName;
+                    res.Address = reservation.TreatmentOffice?.Address;
 
                     res.Student_id = reservation.Studentx?.Student_id;
                     res.FirstNameH = reservation.Studentx?.FirstName;
@@ -133,8 +138,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.TreatmentPaid = resdetail.TreatmentPaid;
                     res.TreatmentPaidDate = resdetail.TreatmentPaidDate.GetValueOrDefault();
                     res.CalendarTitle2 = resdetail.CalendarTitle;
+                    res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
-                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     res.User_id = resdetail.User?.User_id;
                     res.UserIdentity = resdetail.User?.UserIdentity;
@@ -144,18 +149,23 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.LastNameA = resdetail.Customer?.LastName;
                     res.Notes = resdetail.Customer?.Notes;
 
-                    //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     res.Treatment_id = resdetail.Treatment?.Treatment_id;
                     res.TreatmentName = resdetail.Treatment?.TreatmentName;
                     res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
                     res.TreatmentPrice = resdetail.Treatment?.TreatmentPrice;
 
-                    ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.Treatmentplace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-                    res.Treatmentplace_id = resdetail.TreatmentPlace?.Treatmentplace_id;
+                    ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.TreatmentPlace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+                    res.TreatmentPlace_id = resdetail.TreatmentPlace?.TreatmentPlace_id;
                     res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
                     res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
 
+                    ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
+                    res.TreatmentOffice_id = resdetail.TreatmentOffice?.TreatmentOffice_id;
+                    res.TreatmentOfficeName = resdetail.TreatmentOffice?.TreatmentOfficeName;
+                    res.Address = resdetail.TreatmentOffice?.Address;
+
+                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
                     res.Student_id = resdetail.Studentx?.Student_id;
                     res.FirstNameH = resdetail.Studentx?.FirstName;
                     res.LastNameH = resdetail.Studentx?.LastName;
@@ -183,24 +193,16 @@ namespace PointCustomSystemDataMVC.Controllers
 
         // GET: Reservations/Create
         public ActionResult Create()
-
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             ReservationViewModel model = new ReservationViewModel();
-
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+          
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
-
-            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-
-            //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
+            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
             return View(model);
         }//create
 
@@ -221,6 +223,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.TreatmentPaid = model.TreatmentPaid;
             res.TreatmentPaidDate = model.TreatmentPaidDate;
             res.CalendarTitle = model.CalendarTitle2;
+           
             db.Reservation.Add(res);
 
             // etsitään User-rivi kannasta valitun nimen perusteella
@@ -245,7 +248,7 @@ namespace PointCustomSystemDataMVC.Controllers
             if (treatmentPlaceId > 0)
             {
                 TreatmentPlace tp = db.TreatmentPlace.Find(treatmentPlaceId);
-                res.TreatmentPlace_id = tp.Treatmentplace_id;
+                res.TreatmentPlace_id = tp.TreatmentPlace_id;
             }
 
             // etsitään Student-rivi kannasta valitun nimen perusteella
@@ -257,13 +260,11 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FullNameH");
-            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
-            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-            //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);       
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);   
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);        
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
+            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
 
             CultureInfo fiFi = new CultureInfo("fi-FI");
             try
@@ -282,8 +283,6 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations/Edit/5
         public ActionResult Edit(int? id)
         {
-           
-
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -294,8 +293,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 return HttpNotFound();
             }
 
-            ReservationViewModel res = new ReservationViewModel();
-           
+            ReservationViewModel res = new ReservationViewModel();          
             res.Reservation_id = resdetail.Reservation_id;
             res.Start = resdetail.Start.Value;
             res.End = resdetail.End.Value;
@@ -309,26 +307,27 @@ namespace PointCustomSystemDataMVC.Controllers
             res.LastNameA = resdetail.Customer?.LastName;
             res.Notes = resdetail.Customer?.Notes;
 
-            //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             res.User_id = resdetail.User?.User_id;
             res.UserIdentity = resdetail.User?.UserIdentity;
 
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
             res.Student_id = resdetail.Studentx?.Student_id;
             res.FirstNameH = resdetail.Studentx?.FirstName;
             res.LastNameH = resdetail.Studentx?.LastName;
-
-            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
+        
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             res.Treatment_id = resdetail.Treatment?.Treatment_id;
             res.TreatmentName = resdetail.Treatment?.TreatmentName;
 
-            //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-            res.Treatmentplace_id = resdetail.TreatmentPlace?.Treatmentplace_id;
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
+            res.TreatmentPlace_id = resdetail.TreatmentPlace?.TreatmentPlace_id;
             res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
+
+            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
+            res.TreatmentOffice_id = resdetail.TreatmentOffice?.TreatmentOffice_id;
+            res.TreatmentOfficeName = resdetail.TreatmentOffice?.TreatmentOfficeName;
+            res.Address = resdetail.TreatmentOffice?.Address;
 
             return View(res);
 
@@ -341,8 +340,6 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ReservationViewModel model)
         {
-            //TÄMÄ KESKEN!!!!!!
-
             Reservation res = db.Reservation.Find(model.Reservation_id);         
             res.Start = model.Start;
             res.End = model.End;
@@ -350,7 +347,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Note = model.Note;
             res.TreatmentPaid = model.TreatmentPaid;
             res.TreatmentPaidDate = model.TreatmentPaidDate.GetValueOrDefault();
-            //res.CalendarTitle = model.CalendarTitle2;
+            res.CalendarTitle = model.CalendarTitle2;
 
             // etsitään User-rivi kannasta valitun nimen perusteella
             int userId = int.Parse(model.UserIdentity);
@@ -374,7 +371,15 @@ namespace PointCustomSystemDataMVC.Controllers
             if (treatmentPlaceId > 0)
             {
                 TreatmentPlace tp = db.TreatmentPlace.Find(treatmentPlaceId);
-                res.TreatmentPlace_id = tp.Treatmentplace_id;
+                res.TreatmentPlace_id = tp.TreatmentPlace_id;
+            }
+
+            // etsitään TreatmentPlace-rivi kannasta valitun nimen perusteella
+            int treatmentofficeId = int.Parse(model.TreatmentOfficeName);
+            if (treatmentofficeId > 0)
+            {
+                TreatmentOffice to = db.TreatmentOffice.Find(treatmentofficeId);
+                res.TreatmentOffice_id = to.TreatmentOffice_id;
             }
 
             // etsitään Student-rivi kannasta valitun nimen perusteella
@@ -385,24 +390,13 @@ namespace PointCustomSystemDataMVC.Controllers
                 res.Student_id = stu.Student_id;
             }
 
-            // etsitään Customer-rivi kannasta valitun nimen perusteella
-            //int customerId = int.Parse(model.FullNameA);
-            //if (customerId > 0)
-            //{
-            //    Customer cus = db.Customer.Find(customerId);
-            //    res.Customer_id = cus.Customer_id;
-            //}
-
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-
-            //ViewBag.Treatment_id = new SelectList(db.Treatment, "Treatment_id", "TreatmentName");
-            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-         
-            //ViewBag.Treatmentplace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName");
-            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { Treatmentplace_id = tp.Treatmentplace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);       
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
+            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
 
             db.SaveChanges();
-
             return RedirectToAction("Index");
 
         }//edit
@@ -445,8 +439,13 @@ namespace PointCustomSystemDataMVC.Controllers
 
             res.Treatment_id = reservation.Treatment?.Treatment_id;
             res.TreatmentName = reservation.Treatment?.TreatmentName;
+            res.TreatmentPrice = reservation.Treatment?.TreatmentPrice;
 
-            res.Treatmentplace_id = reservation.TreatmentPlace?.Treatmentplace_id;
+            res.TreatmentOffice_id = reservation.TreatmentOffice?.TreatmentOffice_id;
+            res.TreatmentOfficeName = reservation.TreatmentOffice?.TreatmentOfficeName;
+            res.Address = reservation.TreatmentOffice?.Address;
+
+            res.TreatmentPlace_id = reservation.TreatmentPlace?.TreatmentPlace_id;
             res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
 
             return View(res);
@@ -471,6 +470,207 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             base.Dispose(disposing);
         }//dispose
+
+
+        //Asiakkaiden hoitoraportit 
+        public ActionResult TreatReport()
+        {
+            List<ReservationViewModel> model = new List<ReservationViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<Reservation> reservations = entities.Reservation.OrderByDescending(Reservation => Reservation.Date).ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta
+                foreach (Reservation reservation in reservations)
+                {
+                    ReservationViewModel res = new ReservationViewModel();
+
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                    res.User_id = reservation.User?.User_id;
+                    res.UserIdentity = reservation.User?.UserIdentity;
+
+                    res.Customer_id = reservation.Customer?.Customer_id;
+                    res.FirstNameA = reservation.Customer?.FirstName;
+                    res.LastNameA = reservation.Customer?.LastName;
+
+                    res.Reservation_id = reservation.Reservation_id;
+                    res.Start = reservation.Start.GetValueOrDefault();
+                    res.End = reservation.End.GetValueOrDefault();
+                    res.Date = reservation.Date.GetValueOrDefault();
+                    res.TreatmentReportTexts = reservation.TreatmentReportTexts;
+
+                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
+                    res.Treatment_id = reservation.Treatment?.Treatment_id;
+                    res.TreatmentName = reservation.Treatment?.TreatmentName;
+
+                    res.Student_id = reservation.Studentx?.Student_id;
+                    res.FirstNameH = reservation.Studentx?.FirstName;
+                    res.LastNameH = reservation.Studentx?.LastName;
+
+                    model.Add(res);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+
+            CultureInfo fiFi = new CultureInfo("fi-FI");
+
+            return View(model);
+        }//TreatText
+
+        // Hoitoraportin luonti:
+        // GET: Reservations/TreatText/5
+        public ActionResult TreatText(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Reservation resdetail = db.Reservation.Find(id);
+            if (resdetail == null)
+            {
+                return HttpNotFound();
+            }
+
+            ReservationViewModel res = new ReservationViewModel();
+            res.Reservation_id = resdetail.Reservation_id;
+            //res.Start = resdetail.Start.Value;
+            //res.End = resdetail.End.Value;
+            //res.Date = resdetail.Date.Value;
+            res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
+
+            //res.Customer_id = resdetail.Customer?.Customer_id;
+            //res.FirstNameA = resdetail.Customer?.FirstName;
+            //res.LastNameA = resdetail.Customer?.LastName;
+
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            res.User_id = resdetail.User?.User_id;
+            res.UserIdentity = resdetail.User?.UserIdentity;
+
+            //ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            //res.Student_id = resdetail.Studentx?.Student_id;
+            //res.FirstNameH = resdetail.Studentx?.FirstName;
+            //res.LastNameH = resdetail.Studentx?.LastName;
+
+            //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+            //res.Treatment_id = resdetail.Treatment?.Treatment_id;
+            //res.TreatmentName = resdetail.Treatment?.TreatmentName;
+
+            return View(res);
+
+        }//edit
+
+        // POST: Reservations/TreatText/5
+        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
+        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TreatText(ReservationViewModel model)
+        {
+            Reservation res = db.Reservation.Find(model.Reservation_id);
+            //res.Start = model.Start;
+            //res.End = model.End;
+            //res.Date = model.Date;
+            res.TreatmentReportTexts = model.TreatmentReportTexts;
+
+            // etsitään User-rivi kannasta valitun nimen perusteella
+            int userId = int.Parse(model.UserIdentity);
+            if (userId > 0)
+            {
+                User usr = db.User.Find(userId);
+                res.User_id = userId;
+                res.Customer_id = usr.Customer_id;
+            }
+
+            // etsitään Treatment-rivi kannasta valitun nimen perusteella
+            //int treatmentId = int.Parse(model.TreatmentName);
+            //if (treatmentId > 0)
+            //{
+            //    Treatment trtm = db.Treatment.Find(treatmentId);
+            //    res.Treatment_id = trtm.Treatment_id;
+            //}
+
+            // etsitään Student-rivi kannasta valitun nimen perusteella
+            //int studentId = int.Parse(model.FullNameH2);
+            //if (studentId > 0)
+            //{
+            //    Studentx stu = db.Studentx.Find(studentId);
+            //    res.Student_id = stu.Student_id;
+            //}
+
+            //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
+            //ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }//TreatText
+
+
+        // Asiakkaan hoitoraportti
+        // GET: Reservations/ CustomTreatReport/5
+        public ActionResult CustomTreatReport(int? id)
+        {
+            ReservationViewModel model = new ReservationViewModel();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<Reservation> reservations = entities.Reservation.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta      
+                foreach (Reservation resdetail in reservations)
+                {
+                    ReservationViewModel res = new ReservationViewModel();
+                    res.Reservation_id = resdetail.Reservation_id;
+                    res.Start = resdetail.Start.GetValueOrDefault();
+                    res.End = resdetail.End.GetValueOrDefault();
+                    res.Date = resdetail.Date.GetValueOrDefault();
+                    res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
+
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                    res.User_id = resdetail.User?.User_id;
+                    res.UserIdentity = resdetail.User?.UserIdentity;
+
+                    res.Customer_id = resdetail.Customer?.Customer_id;
+                    res.FirstNameA = resdetail.Customer?.FirstName;
+                    res.LastNameA = resdetail.Customer?.LastName;
+                    res.Notes = resdetail.Customer?.Notes;
+
+                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
+                    res.Treatment_id = resdetail.Treatment?.Treatment_id;
+                    res.TreatmentName = resdetail.Treatment?.TreatmentName;
+                    res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
+
+                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+                    res.Student_id = resdetail.Studentx?.Student_id;
+                    res.FirstNameH = resdetail.Studentx?.FirstName;
+                    res.LastNameH = resdetail.Studentx?.LastName;
+
+                    model = res;
+                }
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Reservation reservation = db.Reservation.Find(id);
+                if (reservation == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+
+            return View(model);
+        }//CustomTreatReport
 
 
         //DAYPILOT VIIKKO VIIKKONÄKYMÄ
@@ -546,7 +746,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 Update();
             }
 
-
             //protected override void OnEventDelete(EventDeleteArgs e)
             //{
             //    kauppeedbEntities db = new kauppeedbEntities();
@@ -595,22 +794,22 @@ namespace PointCustomSystemDataMVC.Controllers
         }//Dpc
 
         //Lisätty 25.3.2017
-        public ActionResult Resize(int id, DateTime Date, DateTime Start, DateTime End, string CalendarTitle)
-        {
-            using (var dp = new JohaMeriSQL1Entities())
-            {
-                var reservation = dp.Reservation.First(c => c.Reservation_id == id);
+        //public ActionResult Resize(int id, DateTime Date, DateTime Start, DateTime End, string CalendarTitle)
+        //{
+        //    using (var dp = new JohaMeriSQL1Entities())
+        //    {
+        //        var reservation = dp.Reservation.First(c => c.Reservation_id == id);
 
-                reservation.CalendarTitle = CalendarTitle; //lisätty 26.3.2017
-                reservation.Date = Date;
-                reservation.Start = Start;
-                reservation.End = End;
+        //        reservation.CalendarTitle = CalendarTitle; //lisätty 26.3.2017
+        //        reservation.Date = Date;
+        //        reservation.Start = Start;
+        //        reservation.End = End;
 
-                dp.SaveChanges();
-            }
+        //        dp.SaveChanges();
+        //    }
 
-            return new EmptyResult();
-        }
+        //    return new EmptyResult();
+        //}
 
 
         //DAYPILOT KALENTERI KUUKAUSINÄKYMÄ

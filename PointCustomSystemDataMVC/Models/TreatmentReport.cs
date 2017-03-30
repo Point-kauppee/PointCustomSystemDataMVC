@@ -15,7 +15,6 @@ namespace PointCustomSystemDataMVC.Models
     public partial class TreatmentReport
     {
         public int TreatmentReport_id { get; set; }
-        public string TreatmentReportName { get; set; }
         public string TreatmentReportText { get; set; }
         public Nullable<System.DateTime> TreatmentDate { get; set; }
         public Nullable<System.DateTime> TreatmentTime { get; set; }
@@ -24,11 +23,13 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Student_id { get; set; }
         public Nullable<int> Personnel_id { get; set; }
         public Nullable<int> Reservation_id { get; set; }
+        public Nullable<int> Treatment_id { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }
         public virtual Reservation Reservation { get; set; }
         public virtual Studentx Studentx { get; set; }
+        public virtual Treatment Treatment { get; set; }
         public virtual User User { get; set; }
     }
 }

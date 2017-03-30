@@ -1,7 +1,7 @@
 ﻿@model PointCustomSystemDataMVC.ViewModels.ReservationViewModel
 
 @{
-    ViewBag.Title = "Delete";
+    ViewBag.Title = "CustomTreatReport";
 }
 
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
@@ -20,18 +20,14 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-<title>Poista</title>
-
-@using DayPilot.Web.Mvc;
-@using DayPilot.Web.Mvc.Events.Calendar;
-@using DayPilot.Web.Mvc.Enums.Calendar;
+    <title>Tiedot</title>
 
 <body>
-    <h3>Haluatko varmasti poistaa palveluvarauksen?</h3>
     <div>
-        <h4>Palveluvaraus</h4>
+        <h4>Asiakkaan hoitoraportti</h4>
         <hr />
         <dl class="dl-horizontal">
+
             <dt>
                 @Html.DisplayNameFor(model => model.UserIdentity)
             </dt>
@@ -65,14 +61,6 @@
             </dd>
     
             <dt>
-                @Html.DisplayNameFor(model => model.TreatmentPlaceName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TreatmentPlaceName)
-            </dd>
-
-            <dt>
                 @Html.DisplayNameFor(model => model.Start)
             </dt>
     
@@ -95,50 +83,31 @@
             <dd>
                 @Html.DisplayFor(model => model.Date)
             </dd>
-     
+
             <dt>
                 @Html.DisplayNameFor(model => model.FullNameH)
             </dt>
-    
+
             <dd>
                 @Html.DisplayFor(model => model.FullNameH)
             </dd>
 
             <dt>
-                @Html.DisplayNameFor(model => model.Note)
+                @Html.DisplayNameFor(model => model.TreatmentReportText)
             </dt>
 
             <dd>
-                @Html.DisplayFor(model => model.Note)
+                @Html.DisplayFor(model => model.TreatmentReportText)
             </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.CalendarTitle)
-            </dt>
 
-            <dd>
-                @Html.DisplayFor(model => model.CalendarTitle)
-            </dd>
 
-            <dt>
-                @Html.DisplayNameFor(model => model.TreatmentOfficeName)
-            </dt>
-
-            <dd>
-                @Html.DisplayFor(model => model.TreatmentOfficeName)
-            </dd>
-    
         </dl>
-    
-        @using (Html.BeginForm()) {
-            @Html.AntiForgeryToken()
-    
-            <div class="form-actions no-color">
-                <input type="submit" value="Poista" class="btn btn-default" /> |
-                @Html.ActionLink("Takaisin palveluvaraukseen", "Index")
-            </div>
-        }
     </div>
+    <p>
+        @Html.ActionLink("Muokkaa", "TreatText", new { id = Model.Reservation_id }) |
+        @Html.ActionLink("Takaisin palveluvaraukseen", "Index")
+    </p>
 </body>
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>

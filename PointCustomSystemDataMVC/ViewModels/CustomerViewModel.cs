@@ -56,7 +56,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Email { get; set; }
         [Display(Name = "Osoite")]
         public string Address { get; set; }
-        [Display(Name = "Hoitokertomus")]
+        [Display(Name = "Huomiot")]
         public string Note { get; set; }
         public DateTime? CreatedAt { get; set; }
         public DateTime? LastModifiedAt { get; set; }
@@ -72,6 +72,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PostOffices { get; set; }
 
         public string Reservation { get; set; }
+
+        public string Reservations { get; set; }
         public int? Reservation_id { get; set; }
 
         [Display(Name = "Alkaen klo")]
@@ -102,12 +104,15 @@ namespace PointCustomSystemDataMVC.ViewModels
         public DateTime? TreatmentDate { get; set; }
         public DateTime? TreatmentTime { get; set; }
 
+        
+        public string TreatmentPrice { get; set; }
+        public string TreatmentName { get; set; }
         public string TreatmentReport { get; set; }
         public string TreatmentReportName { get; set; }
         public string TreatmentReportText { get; set; }
         public int? TreatmentReport_id { get; set; }
 
-
-        public virtual ICollection<ReservationViewModel> Reservations { get; set; }
+        public string ReservationViewModel { get; set; }
+        
     }
 }

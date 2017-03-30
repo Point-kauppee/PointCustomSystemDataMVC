@@ -297,7 +297,15 @@
     <Content Include="Database\Class changes.txt" />
     <Content Include="Database\dbo.Customer.sql" />
     <Content Include="Database\dbo.Personnel.sql" />
+    <Content Include="Database\dbo.Phone.sql" />
+    <Content Include="Database\dbo.PostOffices.sql" />
+    <Content Include="Database\dbo.Reservation.sql" />
+    <Content Include="Database\dbo.StudentGroup.sql" />
     <Content Include="Database\dbo.Studentx.sql" />
+    <Content Include="Database\dbo.Treatment.sql" />
+    <Content Include="Database\dbo.TreatmentOffice.sql" />
+    <Content Include="Database\dbo.TreatmentPlace.sql" />
+    <Content Include="Database\dbo.TreatmentReport.sql" />
     <Content Include="Database\dbo.User.sql" />
     <Content Include="DayPilot.Web.Mvc.dll" />
     <Content Include="DayPilot.Web.Mvc.xml" />
@@ -457,6 +465,9 @@
     <Content Include="Views\StudentGroups\Edit.cshtml" />
     <Content Include="Views\StudentGroups\Index.cshtml" />
     <Content Include="Views\Shared\SideMenu.cshtml" />
+    <Content Include="Views\Reservations\TreatText.cshtml" />
+    <Content Include="Views\Reservations\TreatReport.cshtml" />
+    <Content Include="Views\Reservations\CustomTreatReport.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

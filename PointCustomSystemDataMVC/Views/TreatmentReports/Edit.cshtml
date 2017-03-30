@@ -18,7 +18,7 @@
         @Html.HiddenFor(model => model.TreatmentReport_id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.UserIdentity, "Asiakastunnus", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.UserIdentity, "Käyttäjätunnus", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.DropDownList("UserIdentity", null, htmlAttributes: new { @class = "form-control" })
                 @Html.ValidationMessageFor(model => model.UserIdentity, "", new { @class = "text-danger" })
@@ -33,29 +33,13 @@
             </div>
         </div>
 
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.FirstNameA, "Asiakas Etunimi",htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.TreatmentName, "Hoito", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.FirstNameA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.FirstNameA, "", new { @class = "text-danger" })
+                @Html.EditorFor(model => model.TreatmentName, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TreatmentName, "", new { @class = "text-danger" })
             </div>
         </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.LastNameA, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.LastNameA, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.LastNameA, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
-
-        @*<div class="form-group">
-            @Html.LabelFor(model => model.TreatmentReportName, "Hoitosuunnitelma", htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TreatmentReportName, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TreatmentReportName, "", new { @class = "text-danger" })
-            </div>
-        </div>*@
 
         <div class="form-group">
             @Html.LabelFor(model => model.TreatmentDate, "Hoitopäivä", htmlAttributes: new { @class = "control-label col-md-2" })

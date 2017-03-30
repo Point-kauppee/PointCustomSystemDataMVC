@@ -18,10 +18,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Email { get; set; }
         [Display(Name = "Huomiot")]
         public string Note { get; set; }
+
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Hoito maksettu pvm")]
         public DateTime? TreatmentPaidDate { get; set; }
+
         [Display(Name = "Maksettu")]
         public bool? TreatmentPaid { get; set; }
 
@@ -74,7 +76,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
 
         //public IEnumerable<StudentViewModel> Studentx { get; set; }
-        public IEnumerable<StudentViewModel> Customers { get; set; }
+        //public IEnumerable<StudentViewModel> Customers { get; set; }
         //public IEnumerable<StudentViewModel> Treatment { get; set; }
 
         //Lisätty päivämäärämääritykset reservation.cs
@@ -114,10 +116,9 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public string Password { get; set; }
 
-        [Display(Name = "Hoito")]
         public string Treatment { get; set; }
         public int? Treatment_id { get; set; }
-        [Display(Name = "Palvelu")]
+        [Display(Name = "Hoitoaika")]
         public string TreatmentTime { get; set; }
 
         [Display(Name = "Hoito")]
@@ -125,19 +126,25 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Hinta")]
         public string TreatmentPrice { get; set; }
 
-        public string TretamentOffice { get; set; }
-        public int? TreatmentOffice_id { get; set; }    
+        [Display(Name = "Osoite")]
+        public string Address { get; set; }
+ 
+        public string TreatmentOffice { get; set; }
+        public int? TreatmentOffice_id { get; set; }
+        [Display(Name = "Toimipiste")]
         public string TreatmentOfficeName { get; set; }
 
         public string TreatmentPlace { get; set; }
-        public int? Treatmentplace_id { get; set; }
-   
+        public int? TreatmentPlace_id { get; set; }
+        [Display(Name = "Hoitopaikka")]
         public string TreatmentPlaceNumber { get; set; }
-
+        [Display(Name = "Hoitoraportti")]
+        public string TreatmentReportTexts { get; set; }
+        
         public string Phone { get; set; }
         public int? Phone_id { get; set; }
+        [Display(Name = "PuhNro")]
         public string PhoneNum_1 { get; set; }
-
 
         public string PostOffices { get; set; }
         public int? Post_id { get; set; }
@@ -145,16 +152,20 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PostalCode { get; set; }
         [Display(Name = "Postiosoite")]
         public string PostOffice { get; set; }
+
         [Display(Name = "Hoitaja")]
         public string Studentx { get; set; }
         public int? Student_id { get; set; }
+
         [Display(Name = "Huomiot")]
         public string Notes{get; set;}
        
         public string DataDateField { get; set; }
 
         public string EventManager { get; set; }
-       
+
+        public string Reservations { get; set; }
+
       
     }
 }

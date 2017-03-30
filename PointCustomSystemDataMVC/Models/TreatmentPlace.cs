@@ -18,16 +18,13 @@ namespace PointCustomSystemDataMVC.Models
         public TreatmentPlace()
         {
             this.Reservation = new HashSet<Reservation>();
-            this.TreatmentOffice = new HashSet<TreatmentOffice>();
         }
     
-        public int Treatmentplace_id { get; set; }
+        public int TreatmentPlace_id { get; set; }
         public string TreatmentPlaceName { get; set; }
         public string TreatmentPlaceNumber { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TreatmentOffice> TreatmentOffice { get; set; }
     }
 }

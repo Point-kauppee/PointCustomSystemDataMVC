@@ -17,6 +17,12 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
+
+@*<script>
+
+    alert("userId");
+</script>*@
+
 <!-- !SIDEMENU CONTENT! -->
 @{ Html.RenderAction("SideMenu", "Customers");}
 
@@ -41,13 +47,10 @@
                 </th>
                 <th>
                     @Html.DisplayNameFor(model => model.FullNameA)
+                </th>        
+                <th>
+                    @Html.DisplayNameFor(model => model.TreatmentName)
                 </th>
-                @*<th>
-                        @Html.DisplayNameFor(model => model.LastNameA)
-                    </th>*@
-                @*<th>
-                        @Html.DisplayNameFor(model => model.TreatmentReportName)
-                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.TreatmentDate)
                 </th>
@@ -55,11 +58,12 @@
                     @Html.DisplayNameFor(model => model.TreatmentTime)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.TreatmentReportText)
-                </th>
-                <th>
                     @Html.DisplayNameFor(model => model.FullNameH)
                 </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.TreatmentReportText)
+                </th>
+            
 
                 <th></th>
             </tr>
@@ -73,12 +77,10 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.FullNameA)
                     </td>
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.LastNameA)
-                        </td>*@
-                    @*<td>
-                            @Html.DisplayFor(modelItem => item.TreatmentReportName)
-                        </td>*@
+                 
+                    <td>
+                       @Html.DisplayFor(modelItem => item.TreatmentName)
+                    </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.TreatmentDate)
                     </td>
@@ -86,13 +88,12 @@
                         @Html.DisplayFor(modelItem => item.TreatmentTime)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentReportText)
-                    </td>
-                    <td>
                         @Html.DisplayFor(modelItem => item.FullNameH)
                     </td>
-
-
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TreatmentReportText)
+                    </td>
+                  
                     <td>
                         @Html.ActionLink("Muokkaa", "Edit", new { id = item.TreatmentReport_id }) |
                         @Html.ActionLink("Tiedot", "Details", new { id = item.TreatmentReport_id }) |

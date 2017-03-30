@@ -2,7 +2,6 @@
 
 @{
     ViewBag.Title = "Create";
-    //ViewBag.Title = "TreatmentOfficeSeed";
 }
 
 <h2>Lisää toimipiste</h2>
@@ -17,10 +16,9 @@
         <h4>Toimipistehallinta</h4>
         <hr />
 
-
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.TreatmentOfficeName, "Toimipisteen nimi", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TreatmentOfficeName, "Toimipiste", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.TreatmentOfficeName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.TreatmentOfficeName, "", new { @class = "text-danger" })
@@ -60,13 +58,20 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Note, "Huomio", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Note, "Tiedot", htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Note, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Note, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <div class="form-group">
+            @Html.LabelFor(model => model.MapPlace, "Kartta", htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.MapPlace, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MapPlace, "", new { @class = "text-danger" })
+            </div>
+        </div>
 
 
         <div class="form-group">
