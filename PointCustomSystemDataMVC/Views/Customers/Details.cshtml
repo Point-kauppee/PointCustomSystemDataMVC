@@ -130,16 +130,15 @@
             @Html.DisplayFor(model => model.Information)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ReservationViewModel)
-        </dt>
         <dd>
             <hr />
 
             @*1.2.2017 Lisätty alitiedostot Palvelut*@
             <h4>Asiakkaan hoitotiedot</h4>
+            
+            @*@Model.CustomerDetailViewModel.Date*@
 
-            <table class="table">
+            @*<table class="table">
                 <tr>
                     <th>Päivämäärä</th>
                     <th>Varausaika alkaa</th>
@@ -149,45 +148,48 @@
                     <th>Palvelun hinta</th>
                     <th>Hoitaja</th>
                     <th>Tiedot</th>
-                </tr>
-                @foreach (var item in Model.ReservationViewModel)
+                </tr>*@
+
+                
+
+                @*@foreach (var item in Model.CustomerParentViewModel)
             {
                     <tr>
                         <td>
-                            @Html.DisplayFor(modelItem => Model.Date)
+                            @Html.DisplayFor(modelItem => item.Date)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.Start)
+                            @Html.DisplayFor(modelItem => item.Start)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.End)
+                            @Html.DisplayFor(modelItem => item.End)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.TreatmentName)
+                            @Html.DisplayFor(modelItem => item.TreatmentName)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.TreatmentTime)
+                            @Html.DisplayFor(modelItem => item.TreatmentTime)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.TreatmentPrice)
+                            @Html.DisplayFor(modelItem => item.TreatmentPrice)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.FullNameH)
+                            @Html.DisplayFor(modelItem => item.FullNameH)
                         </td>
 
                         <td>
-                            @Html.DisplayFor(modelItem => Model.Notes)
+                            @Html.DisplayFor(modelItem => item.Notes)
                         </td>
                     </tr>
-                }
+                }*@
 
-            </table>
+            @*</table>*@
         </dd>
     </dl>
 </div>

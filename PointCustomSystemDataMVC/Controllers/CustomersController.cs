@@ -178,6 +178,21 @@ namespace PointCustomSystemDataMVC.Controllers
 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
+          
+        public ActionResult CustomDetailList()
+        {
+            var customerParentViewModel = new CustomerParentViewModel();
+            var customerViewModel = new CustomerViewModel();
+
+            customerParentViewModel.CustomerViewModel = customerViewModel;
+            return View(customerParentViewModel);
+        }
+
+
+
+
+
+
         // GET: Customers/Create
         public ActionResult Create()
         {

@@ -21,14 +21,11 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")  
     
-    <title>Muokkaa</title>
+<title>Hoitoraportin tallennus</title>
 
-<body>
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/jqueryval")
-    
-    
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
@@ -40,85 +37,12 @@
             @Html.HiddenFor(model => model.Reservation_id)
 
             <div class="form-group">
-                @Html.LabelFor(model => model.UserIdentity, "Asiakastunnus", htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.LabelFor(model => model.TreatmentReportTexts, "Hoitoraportti", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.DropDownList("UserIdentity", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.UserIdentity, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.TreatmentReportTexts, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TreatmentReportTexts, "", new { @class = "text-danger" })
                 </div>
             </div>
-
-            @*<div class="form-group">
-                    @Html.LabelFor(model => model.UserIdentity, "Asiakastunnus", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.UserIdentity, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserIdentity, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
-
-            @*<div class="form-group">
-                @Html.LabelFor(model => model.FirstNameA, "Asiakas Etunimi", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.FirstNameA, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.FirstNameA, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.LastNameA, "Asiakas Sukunimi", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.LastNameA, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.LastNameA, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TreatmentName, "Hoito", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("TreatmentName", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.TreatmentName, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Start, "Alkuaika", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Start, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Start, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.End, "Loppuaika", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.End, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.End, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.Date, "Pvm", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Date, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.Date, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.FullNameH, "Hoitaja", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.DropDownList("FullNameH", null, htmlAttributes: new { @class = "form-control" })
-                    @Html.ValidationMessageFor(model => model.FullNameH, "", new { @class = "text-danger" })
-                </div>
-            </div>*@
-
-            <div class="form-group">
-                @Html.LabelFor(model => model.TreatmentReportText, "Hoitoraportti", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.TreatmentReportText, new { htmlAttributes = new { @class = "form-control" } })
-                    @Html.ValidationMessageFor(model => model.TreatmentReportText, "", new { @class = "text-danger" })
-                </div>
-            </div>
-
 </div>
 
             <div class="form-group">
@@ -132,7 +56,7 @@
     <div>
         @Html.ActionLink("Takaisin palveluvaraukseen", "Index")
     </div>
-</body>
+
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

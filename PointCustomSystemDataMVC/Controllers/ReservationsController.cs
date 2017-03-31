@@ -223,7 +223,8 @@ namespace PointCustomSystemDataMVC.Controllers
             res.TreatmentPaid = model.TreatmentPaid;
             res.TreatmentPaidDate = model.TreatmentPaidDate;
             res.CalendarTitle = model.CalendarTitle2;
-           
+            res.TreatmentReportTexts= model.TreatmentReportTexts;
+
             db.Reservation.Add(res);
 
             // etsitään User-rivi kannasta valitun nimen perusteella
@@ -300,7 +301,8 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Date = resdetail.Date.Value;
             res.TreatmentPaid = resdetail.TreatmentPaid;
             res.TreatmentPaidDate = resdetail.TreatmentPaidDate;
-            //res.CalendarTitle2 = resdetail.CalendarTitle;
+            res.CalendarTitle2 = resdetail.CalendarTitle;
+            res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
             res.Customer_id = resdetail.Customer?.Customer_id;
             res.FirstNameA = resdetail.Customer?.FirstName;
@@ -341,13 +343,14 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Edit(ReservationViewModel model)
         {
             Reservation res = db.Reservation.Find(model.Reservation_id);         
-            res.Start = model.Start;
-            res.End = model.End;
-            res.Date = model.Date;
+            res.Start = model.Start.GetValueOrDefault();
+            res.End = model.End.GetValueOrDefault();
+            res.Date = model.Date.GetValueOrDefault();
             res.Note = model.Note;
             res.TreatmentPaid = model.TreatmentPaid;
             res.TreatmentPaidDate = model.TreatmentPaidDate.GetValueOrDefault();
             res.CalendarTitle = model.CalendarTitle2;
+            res.TreatmentReportTexts = model.TreatmentReportTexts;
 
             // etsitään User-rivi kannasta valitun nimen perusteella
             int userId = int.Parse(model.UserIdentity);
@@ -424,6 +427,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.TreatmentPaid = reservation.TreatmentPaid;
             res.TreatmentPaidDate = reservation.TreatmentPaidDate;
             res.CalendarTitle = reservation.CalendarTitle;
+            res.TreatmentReportTexts = reservation.TreatmentReportTexts;
 
             res.User_id = reservation.User?.User_id;
             res.UserIdentity = reservation.User?.UserIdentity;
@@ -538,31 +542,11 @@ namespace PointCustomSystemDataMVC.Controllers
 
             ReservationViewModel res = new ReservationViewModel();
             res.Reservation_id = resdetail.Reservation_id;
-            //res.Start = resdetail.Start.Value;
-            //res.End = resdetail.End.Value;
-            //res.Date = resdetail.Date.Value;
             res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
-
-            //res.Customer_id = resdetail.Customer?.Customer_id;
-            //res.FirstNameA = resdetail.Customer?.FirstName;
-            //res.LastNameA = resdetail.Customer?.LastName;
-
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-            res.User_id = resdetail.User?.User_id;
-            res.UserIdentity = resdetail.User?.UserIdentity;
-
-            //ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
-            //res.Student_id = resdetail.Studentx?.Student_id;
-            //res.FirstNameH = resdetail.Studentx?.FirstName;
-            //res.LastNameH = resdetail.Studentx?.LastName;
-
-            //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-            //res.Treatment_id = resdetail.Treatment?.Treatment_id;
-            //res.TreatmentName = resdetail.Treatment?.TreatmentName;
 
             return View(res);
 
-        }//edit
+        }//TreatText
 
         // POST: Reservations/TreatText/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -572,42 +556,11 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult TreatText(ReservationViewModel model)
         {
             Reservation res = db.Reservation.Find(model.Reservation_id);
-            //res.Start = model.Start;
-            //res.End = model.End;
-            //res.Date = model.Date;
             res.TreatmentReportTexts = model.TreatmentReportTexts;
-
-            // etsitään User-rivi kannasta valitun nimen perusteella
-            int userId = int.Parse(model.UserIdentity);
-            if (userId > 0)
-            {
-                User usr = db.User.Find(userId);
-                res.User_id = userId;
-                res.Customer_id = usr.Customer_id;
-            }
-
-            // etsitään Treatment-rivi kannasta valitun nimen perusteella
-            //int treatmentId = int.Parse(model.TreatmentName);
-            //if (treatmentId > 0)
-            //{
-            //    Treatment trtm = db.Treatment.Find(treatmentId);
-            //    res.Treatment_id = trtm.Treatment_id;
-            //}
-
-            // etsitään Student-rivi kannasta valitun nimen perusteella
-            //int studentId = int.Parse(model.FullNameH2);
-            //if (studentId > 0)
-            //{
-            //    Studentx stu = db.Studentx.Find(studentId);
-            //    res.Student_id = stu.Student_id;
-            //}
-
-            //ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-            //ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-            //ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
-
-            db.SaveChanges();
-            return RedirectToAction("Index");
+          
+                db.SaveChanges();
+     
+                return RedirectToAction("Index");
 
         }//TreatText
 
@@ -684,10 +637,6 @@ namespace PointCustomSystemDataMVC.Controllers
         class Dpc : DayPilotCalendar
         {
             public string DataDateField { get; set; }       
-            //protected override void OnInit(InitArgs e)
-            //{
-            //    Update(CallBackUpdateType.Full);
-            //}
             protected override void OnInit(DayPilot.Web.Mvc.Events.Calendar.InitArgs e)
             {
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -760,7 +709,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
                 //var edata = (string)e.Data["name"];
                 //var edata = Convert.ToString(e.Data["name"]);
-                //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
           
                 var toBeCreated = new Reservation { Start = e.Start, End = e.End, CalendarTitle = (string)e.Data["CalendarTitle"] }; //muokattu 26.33.2017 "name" > "CalendarTitle"

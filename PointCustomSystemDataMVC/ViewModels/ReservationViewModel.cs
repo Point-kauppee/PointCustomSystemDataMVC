@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PointCustomSystemDataMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,9 +9,13 @@ namespace PointCustomSystemDataMVC.ViewModels
 {
     public class ReservationViewModel
     {
+        public ReservationViewModel()
+        {
+            this.TreatmentReport = new HashSet<ReservationViewModel>();
+        }
         public int? Reservation_id { get; set; }
 
-        public string Customer { get; set; }
+        //public string Customer { get; set; }
 
         public int? Customer_id { get; set; }
         public string Identity { get; set; }
@@ -74,11 +79,6 @@ namespace PointCustomSystemDataMVC.ViewModels
             set { CalendarTitle2 = value; }
         }
 
-
-        //public IEnumerable<StudentViewModel> Studentx { get; set; }
-        //public IEnumerable<StudentViewModel> Customers { get; set; }
-        //public IEnumerable<StudentViewModel> Treatment { get; set; }
-
         //Lisätty päivämäärämääritykset reservation.cs
 
         [Display(Name = "Alkaen klo")]
@@ -100,10 +100,9 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentPlaceName { get; set; }
 
         public int? User_id { get; set; }
- 
-        public string User { get; set; }
+        //public string User { get; set; }
 
-        public string UserIdentity2 { get; set; }
+      
         [Display(Name = "Asiakastunnus")]
         public string UserIdentity { get; set; }
 
@@ -116,7 +115,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public string Password { get; set; }
 
-        public string Treatment { get; set; }
+        //public string Treatment { get; set; }
         public int? Treatment_id { get; set; }
         [Display(Name = "Hoitoaika")]
         public string TreatmentTime { get; set; }
@@ -129,12 +128,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Osoite")]
         public string Address { get; set; }
  
-        public string TreatmentOffice { get; set; }
+        //public string TreatmentOffice { get; set; }
         public int? TreatmentOffice_id { get; set; }
         [Display(Name = "Toimipiste")]
         public string TreatmentOfficeName { get; set; }
 
-        public string TreatmentPlace { get; set; }
+        //public string TreatmentPlace { get; set; }
         public int? TreatmentPlace_id { get; set; }
         [Display(Name = "Hoitopaikka")]
         public string TreatmentPlaceNumber { get; set; }
@@ -154,7 +153,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PostOffice { get; set; }
 
         [Display(Name = "Hoitaja")]
-        public string Studentx { get; set; }
+        //public string Studentx { get; set; }
         public int? Student_id { get; set; }
 
         [Display(Name = "Huomiot")]
@@ -166,6 +165,16 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public string Reservations { get; set; }
 
-      
+
+        public virtual Customer Customer { get; set; }
+        public virtual Personnel Personnel { get; set; }
+        public virtual Studentx Studentx { get; set; }
+        public virtual TreatmentPlace TreatmentPlace { get; set; }
+        public virtual Treatment Treatment { get; set; }
+        public virtual User User { get; set; }
+        public virtual TreatmentOffice TreatmentOffice { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<ReservationViewModel> TreatmentReport { get; set; }
+
     }
 }

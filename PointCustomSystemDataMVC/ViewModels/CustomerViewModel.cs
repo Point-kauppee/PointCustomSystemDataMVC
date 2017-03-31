@@ -8,6 +8,16 @@ namespace PointCustomSystemDataMVC.ViewModels
 {
     public class CustomerViewModel
     {
+        public CustomerViewModel()
+        {
+            this.Reservation1 = new HashSet<ReservationViewModel>();
+            this.Phone1 = new HashSet<ReservationViewModel>();
+            this.PostOffices1 = new HashSet<ReservationViewModel>();        
+            this.TreatmentReport1 = new HashSet<ReservationViewModel>();
+            this.User1 = new HashSet<ReservationViewModel>();
+        }
+
+
         public int? Personnel_id { get; set; }
         public int Customer_id { get; set; }
         public int? Student_id { get; set; }
@@ -50,7 +60,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Syntymäaika")]
         public string Identity { get; set; }
-        [Display(Name = "Huomiot")]
+        [Display(Name = "Tiedot")]
         public string Notes { get; set; }
         [Display(Name = "Sähköposti")]
         public string Email { get; set; }
@@ -104,6 +114,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public DateTime? TreatmentDate { get; set; }
         public DateTime? TreatmentTime { get; set; }
 
+        public virtual ReservationViewModel ReservationViewModel { get; set; }
         
         public string TreatmentPrice { get; set; }
         public string TreatmentName { get; set; }
@@ -112,7 +123,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentReportText { get; set; }
         public int? TreatmentReport_id { get; set; }
 
-        public string ReservationViewModel { get; set; }
-        
+        public virtual ICollection<ReservationViewModel> Reservation1 { get; set; }
+        public virtual ICollection<ReservationViewModel> User1 { get; set; }
+        public virtual ICollection<ReservationViewModel> Phone1 { get; set; }
+        public virtual ICollection<ReservationViewModel> PostOffices1 { get; set; }
+        public virtual ICollection<ReservationViewModel> TreatmentReport1 { get; set; }
+
+       
     }
 }
