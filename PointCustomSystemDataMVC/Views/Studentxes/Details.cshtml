@@ -6,17 +6,23 @@
 
 <h2>Hoitajatiedot</h2>
 
+
+@*<input type="button" onclick="location.href = '/Studentxes/DownloadViewPDF';" value="Luo pdf" />*@
+
+<div><a href="@Url.Action("DownloadViewPDF", "Studentxes", new { id = Model.Student_id })">Tee PDF</a></div>
+
 <div>
     <h4>Hoitaja</h4>
     <hr />
     <dl class="dl-horizontal">
 
         <dt>
-           @Html.DisplayNameFor(model => model.UserIdentity)
+            @Html.DisplayNameFor(model => model.UserIdentity)
         </dt>
         <dd>
             @Html.DisplayFor(model => model.UserIdentity)
         </dd>
+       
         <dt>
             @Html.DisplayNameFor(model => model.FirstNameH)
         </dt>

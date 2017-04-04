@@ -10,11 +10,11 @@ namespace PointCustomSystemDataMVC.ViewModels
     {
         public CustomerViewModel()
         {
-            this.Reservation1 = new HashSet<ReservationViewModel>();
-            this.Phone1 = new HashSet<ReservationViewModel>();
-            this.PostOffices1 = new HashSet<ReservationViewModel>();        
-            this.TreatmentReport1 = new HashSet<ReservationViewModel>();
-            this.User1 = new HashSet<ReservationViewModel>();
+            this.ReservationViewModel = new HashSet<ReservationViewModel>();
+            this.PersonnelViewModel = new HashSet<PersonnelViewModel>();
+            this.StudentViewModel = new HashSet<StudentViewModel>();
+            this.TreatmentOfficeViewModel = new HashSet<TreatmentOfficeViewModel>();
+            this.CustomerParentViewModel = new HashSet<CustomerParentViewModel>();
         }
 
 
@@ -114,7 +114,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public DateTime? TreatmentDate { get; set; }
         public DateTime? TreatmentTime { get; set; }
 
-        public virtual ReservationViewModel ReservationViewModel { get; set; }
+      
         
         public string TreatmentPrice { get; set; }
         public string TreatmentName { get; set; }
@@ -123,12 +123,16 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentReportText { get; set; }
         public int? TreatmentReport_id { get; set; }
 
-        public virtual ICollection<ReservationViewModel> Reservation1 { get; set; }
-        public virtual ICollection<ReservationViewModel> User1 { get; set; }
-        public virtual ICollection<ReservationViewModel> Phone1 { get; set; }
-        public virtual ICollection<ReservationViewModel> PostOffices1 { get; set; }
-        public virtual ICollection<ReservationViewModel> TreatmentReport1 { get; set; }
+        public virtual ICollection<ReservationViewModel> ReservationViewModel { get; set; }
+      
+        public virtual ICollection<PersonnelViewModel> PersonnelViewModel { get; set; }
 
-       
+        public virtual ICollection<StudentViewModel> StudentViewModel { get; set; }
+
+        public virtual ICollection<TreatmentOfficeViewModel> TreatmentOfficeViewModel { get; set; }
+
+        public virtual ICollection<CustomerParentViewModel> CustomerParentViewModel { get; set; }
+        public virtual ICollection<CustomerViewModel> Customreservations { get; set; }
+
     }
 }

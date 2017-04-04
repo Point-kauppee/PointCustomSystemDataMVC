@@ -19,8 +19,8 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             List<TreatmentPlace> model = new List<TreatmentPlace>();
 
-            try { 
-
+            try
+            { 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
                 model = entities.TreatmentPlace.ToList();
                 entities.Dispose();

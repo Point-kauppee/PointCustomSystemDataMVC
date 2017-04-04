@@ -11,6 +11,10 @@
 <link rel="stylesheet" href="/lib/w3.css">
 <script src="/lib/w3.js"></script>
 
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+
+
+
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -35,6 +39,8 @@
 
         <p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
 
+        <input type="button" onclick="location.href = '/Customers/DownloadViewPDF';" value="Luo pdf" />
+
         <div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>
 
         <table class="table" id="myTable">
@@ -43,18 +49,18 @@
                     <th>
                         @Html.DisplayNameFor(model => model.UserIdentity)
                     </th>
-                    <th>
+                    @*<th>
                         @Html.ActionLink("FirstNameA", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
                     </th>
                     <th>
                         @Html.ActionLink("LastNameA", "Index", new { sortOrder = ViewBag.LastnameSortParm })
+                    </th>*@
+                    <th onclick="sortTable(1)">
+                        @Html.DisplayNameFor(model => model.FirstNameA)
                     </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.FirstNameA)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LastNameA)
-                        </th>*@
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastNameA)
+                    </th>
                     <th>
                         @Html.DisplayNameFor(model => model.Identity)
                     </th>
@@ -76,8 +82,16 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Notes)
                     </th>
-                    <th>
+                    <th onclick="sortTable(0)"><select id='filterText' style='display:inline-block' onchange='filterText()'>
+                    <option disabled selected>Valitse</option>
+                    <option value='True'>True</option>
+                    <option value='False'>False</option>
+                    <option value='Kaikki'>Kaikki</option>
+                    </select>
+
+                        @Html.DisplayNameFor(model => model.Active)
                     </th>
+
                     <th></th>
                 </tr>
             </thead>
@@ -115,16 +129,20 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Notes)
                         </td>
-                        <td>
-                            <select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>
+                        <td>@*<select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>*@
                             @Html.DisplayFor(modelItem => item.Active)
+                         
                         </td>
 
+
                         <td>
-                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
-                            @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
-                            @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
-                            @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Index", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) 
+                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })  |
+                            <br><br>
+                            @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
+                            <br><br>
+                            @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
+                            <br><br>
+                            @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Index", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                             <br><br>
                             @Html.ActionLink("Palveluvaraus", "Create", "Reservations", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                         </td>
@@ -138,9 +156,11 @@
     <script src="~/Scripts/jquery-3.1.1.min.js"></script>
     <script src="~/Scripts/jquery.validate.min.js"></script>
     <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
     <script>
+        //TIETOJEN ETSINTÄ
         //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen.
         //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
         function searchByCustomer() {
@@ -161,6 +181,100 @@
                 }
             }
         }
+
+        //NÄKYMÄN SUODATUS (FILTER)
+        function sortTable(n) {
+            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+            table = document.getElementById("myTable");
+            switching = true;
+            //Set the sorting direction to ascending:
+            dir = "asc";
+            /*Make a loop that will continue until
+            no switching has been done:*/
+            while (switching) {
+                //start by saying: no switching is done:
+                switching = false;
+                rows = table.getElementsByTagName("TR");
+                /*Loop through all table rows (except the
+                first, which contains table headers):*/
+                for (i = 1; i < (rows.length - 1) ; i++) {
+                    //start by saying there should be no switching:
+                    shouldSwitch = false;
+                    /*Get the two elements you want to compare,
+                    one from current row and one from the next:*/
+                    x = rows[i].getElementsByTagName("TD")[n];
+                    y = rows[i + 1].getElementsByTagName("TD")[n];
+                    /*check if the two rows should switch place,
+                    based on the direction, asc or desc:*/
+                    if (dir == "asc") {
+                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    } else if (dir == "desc") {
+                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                            //if so, mark as a switch and break the loop:
+                            shouldSwitch = true;
+                            break;
+                        }
+                    }
+                }
+                if (shouldSwitch) {
+                    /*If a switch has been marked, make the switch
+                    and mark that a switch has been done:*/
+                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                    switching = true;
+                    //Each time a switch is done, increase this count by 1:
+                    switchcount++;
+                } else {
+                    /*If no switching has been done AND the direction is "asc",
+                    set the direction to "desc" and run the while loop again.*/
+                    if (switchcount == 0 && dir == "asc") {
+                        dir = "desc";
+                        switching = true;
+                    }
+                }
+            }
+        }
+
+        // Create a "close" button and append it to each list item
+        var myNodelist = document.getElementsByTagName("TR");
+        var i;
+        for (i = 0; i < myNodelist.length; i++) {
+            var span = document.createElement("SPAN");
+            var txt = document.createTextNode("\u00D7");
+            span.className = "close";
+            span.appendChild(txt);
+            myNodelist[i].appendChild(span);
+        }
+
+        // Click on a close button to hide the current list item
+        var close = document.getElementsByClassName("close");
+        var i;
+        for (i = 0; i < close.length; i++) {
+            close[i].onclick = function () {
+                var div = this.parentElement;
+                div.style.display = "none";
+            }
+        }
+
+        // Asiakasnäkymän suodatus Aktiivisuuden mukaan:
+        function filterText() {
+            var rex = new RegExp($('#filterText').val());
+            if (rex == "/Kaikki/") { clearFilter() } else {
+                $('.content').hide();
+                $('.content').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            }
+        }
+
+        function clearFilter() {
+            $('.filterText').val('');
+            $('.content').show();
+        }
+
 
     </script>
 

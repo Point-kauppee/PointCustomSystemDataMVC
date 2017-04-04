@@ -14,16 +14,20 @@ namespace PointCustomSystemDataMVC.Models
     
     public partial class StudentGroup
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public StudentGroup()
+        {
+            this.Studentx = new HashSet<Studentx>();
+        }
+    
         public int StudentGroup_id { get; set; }
         public string StudentGroupName { get; set; }
         public Nullable<bool> Active { get; set; }
         public Nullable<System.DateTime> CreatedAt { get; set; }
         public Nullable<System.DateTime> LastModifiedAt { get; set; }
         public Nullable<System.DateTime> DeletedAt { get; set; }
-        public Nullable<int> User_id { get; set; }
-        public Nullable<int> Student_id { get; set; }
     
-        public virtual Studentx Studentx { get; set; }
-        public virtual User User { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Studentx> Studentx { get; set; }
     }
 }

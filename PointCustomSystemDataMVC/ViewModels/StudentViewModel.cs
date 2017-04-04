@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PointCustomSystemDataMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,17 @@ namespace PointCustomSystemDataMVC.ViewModels
 {
     public class StudentViewModel
     {
+        public StudentViewModel()
+        {
+            this.Phone = new HashSet<Phone>();
+            this.PostOffices = new HashSet<PostOffices>();
+            this.Reservation = new HashSet<Reservation>();
+            //this.StudentGroup = new HashSet<StudentGroup>();
+            this.TreatmentReport = new HashSet<TreatmentReport>();
+            this.User = new HashSet<User>();
+
+        }
+
         public int Student_id { get; set; }
 
         [DataType(DataType.Date)]
@@ -24,12 +36,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Opinnot keskeytyneet pvm")]
         public DateTime? EnrollmentDateOFF { get; set; }
-       
+
         public int? Personnel_id { get; set; }
         public string Personnel { get; set; }
         public int? Customer_id { get; set; }
 
-      
+
         public int? StudentGroup_id { get; set; }
         [Display(Name = "Kurssi")]
         public string StudentGroupName { get; set; }
@@ -90,28 +102,28 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Osoite")]
         public string Address { get; set; }
 
-       
+
 
         public int? Post_id { get; set; }
         [Display(Name = "PostiNro")]
         public string PostalCode { get; set; }
         [Display(Name = "Postiosoite")]
         public string PostOffice { get; set; }
-        public string PostOffices { get; set; }
+        //public string PostOffices { get; set; }
 
 
         public int? Phone_id { get; set; }
-        public string Phone { get; set; }
+        //public string Phone { get; set; }
         [Display(Name = "PuhNro")]
         public string PhoneNum_1 { get; set; }
 
         public int? User_id { get; set; }
-        public string User { get; set; }
+        //public string User { get; set; }
         [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
 
         public string Password { get; set; }
-        
+
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
@@ -127,5 +139,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Pvm")]
         public DateTime? Date { get; set; }
+
+        //public virtual ICollection<StudentGroup> StudentGroup { get; set; }
+        public virtual ICollection<Phone> Phone { get; set; }
+        public virtual ICollection<PostOffices> PostOffices { get; set; }
+        public virtual ICollection<Reservation> Reservation { get; set; }
+        public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
+        public virtual ICollection<User> User { get; set; }
     }
 }

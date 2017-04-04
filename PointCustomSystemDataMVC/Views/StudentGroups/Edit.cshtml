@@ -4,32 +4,20 @@
     ViewBag.Title = "Edit";
 }
 
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<script src="~/Scripts/modernizr-2.8.3.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/respond.js"></script>
-
-<h2>Muokkaa</h2>
-
+<h2>Edit</h2>
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Opiskelijaryhmät</h4>
+        <h4>StudentGroup</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.StudentGroup_id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.StudentGroupName, "Kurssi", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.StudentGroupName, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.StudentGroupName, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.StudentGroupName, "", new { @class = "text-danger" })
@@ -37,7 +25,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Active, "Tila", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Active, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 <div class="checkbox">
                     @Html.EditorFor(model => model.Active)
@@ -47,7 +35,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.CreatedAt, "Kurssin luonti pvm", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.CreatedAt, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.CreatedAt, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.CreatedAt, "", new { @class = "text-danger" })
@@ -55,7 +43,7 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.LastModifiedAt, "Muokattu viimeksi", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.LastModifiedAt, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.LastModifiedAt, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.LastModifiedAt, "", new { @class = "text-danger" })
@@ -63,26 +51,21 @@
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.DeletedAt, "Kurssi arkistoitu pvm", htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.DeletedAt, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.DeletedAt, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.DeletedAt, "", new { @class = "text-danger" })
             </div>
         </div>
 
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Tallenna" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
-   </div>
+    </div>
 }
 
 <div>
-    @Html.ActionLink("Takaisin opiskelijaryhmä hallintaan", "Index")
+    @Html.ActionLink("Back to List", "Index")
 </div>
-
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

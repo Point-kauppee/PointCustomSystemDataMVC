@@ -5,18 +5,18 @@
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
       <Diagram DiagramId="a986324ae9af404191cbe65506cdc912" Name="Diagram1" ZoomLevel="59">
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Customer" Width="1.5" PointX="0.75" PointY="21.5" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Personnel" Width="1.5" PointX="0.75" PointY="16.625" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Phone" Width="1.5" PointX="3" PointY="11.5" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.PostOffices" Width="1.5" PointX="9" PointY="11.625" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Reservation" Width="1.5" PointX="6" PointY="10.25" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.StudentGroup" Width="1.5" PointX="3" PointY="7.75" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Studentx" Width="1.5" PointX="0.75" PointY="10.625" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.Treatment" Width="1.5" PointX="3.75" PointY="21.375" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentOffice" Width="1.5" PointX="0.75" PointY="6.875" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentPlace" Width="1.5" PointX="3.75" PointY="4.875" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentReport" Width="1.5" PointX="8.25" PointY="16.25" />
-        <EntityTypeShape EntityType="JohaMeriSQL1Model.User" Width="1.5" PointX="3" PointY="16.125" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Customer" Width="1.5" PointX="6.75" PointY="7.25" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Personnel" Width="1.5" PointX="1.75" PointY="12.75" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Phone" Width="1.5" PointX="4.5" PointY="9.125" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.PostOffices" Width="1.5" PointX="9.25" PointY="14.25" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Reservation" Width="1.5" PointX="11.5" PointY="1" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.StudentGroup" Width="1.5" PointX="2.625" PointY="0.875" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Studentx" Width="1.5" PointX="0.625" PointY="0.875" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.Treatment" Width="1.5" PointX="5" PointY="0.875" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentOffice" Width="1.5" PointX="9.125" PointY="10.75" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentPlace" Width="1.5" PointX="11.875" PointY="12.375" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.TreatmentReport" Width="1.5" PointX="8.375" PointY="0.75" />
+        <EntityTypeShape EntityType="JohaMeriSQL1Model.User" Width="1.5" PointX="1.375" PointY="7.125" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Phone_ToTable_3" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_PostOffices_ToTable_2" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Reservation_ToTable_2" />
@@ -37,8 +37,7 @@
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Reservation_ToTable_5" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_Reservation_ToTable_6" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_4" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_StudentGroup_Studentx" />
-        <AssociationConnector Association="JohaMeriSQL1Model.FK_StudentGroup_User" />
+        <AssociationConnector Association="JohaMeriSQL1Model.FK_Studentx_StudentGroup" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_2" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_User_ToTable_1" />
         <AssociationConnector Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_5" />

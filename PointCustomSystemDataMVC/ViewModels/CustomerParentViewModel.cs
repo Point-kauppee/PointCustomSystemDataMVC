@@ -11,5 +11,13 @@ namespace PointCustomSystemDataMVC.ViewModels
         public CustomerViewModel CustomerViewModel {get; set;}
 
         public CustomerDetailViewModel CustomerDetailViewModel { get; set; }
+
+        public PersonnelViewModel PersonnelViewModel { get; set; }
+
+        public StudentViewModel StudentViewModel { get; set; }
+
+        public ReservationViewModel ReservationViewModel { get; set; }
+
+        public TreatmentOfficeViewModel TreatmentOfficeViewModel { get; set; }
     }
 }

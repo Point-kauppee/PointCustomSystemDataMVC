@@ -95,8 +95,6 @@
           <Property Name="CreatedAt" Type="datetime" />
           <Property Name="LastModifiedAt" Type="datetime" />
           <Property Name="DeletedAt" Type="datetime" />
-          <Property Name="User_id" Type="int" />
-          <Property Name="Student_id" Type="int" />
         </EntityType>
         <EntityType Name="Studentx">
           <Key>
@@ -117,6 +115,7 @@
           <Property Name="DeletedAt" Type="datetime" />
           <Property Name="Active" Type="bit" />
           <Property Name="Information" Type="nvarchar" MaxLength="2000" />
+          <Property Name="StudentGroup_id" Type="int" />
         </EntityType>
         <EntityType Name="Treatment">
           <Key>
@@ -356,27 +355,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudentGroup_Studentx">
-          <End Role="Studentx" Type="Self.Studentx" Multiplicity="0..1" />
-          <End Role="StudentGroup" Type="Self.StudentGroup" Multiplicity="*" />
+        <Association Name="FK_Studentx_StudentGroup">
+          <End Role="StudentGroup" Type="Self.StudentGroup" Multiplicity="0..1" />
+          <End Role="Studentx" Type="Self.Studentx" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Studentx">
-              <PropertyRef Name="Student_id" />
+            <Principal Role="StudentGroup">
+              <PropertyRef Name="StudentGroup_id" />
             </Principal>
-            <Dependent Role="StudentGroup">
-              <PropertyRef Name="Student_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudentGroup_User">
-          <End Role="User" Type="Self.User" Multiplicity="0..1" />
-          <End Role="StudentGroup" Type="Self.StudentGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_id" />
-            </Principal>
-            <Dependent Role="StudentGroup">
-              <PropertyRef Name="User_id" />
+            <Dependent Role="Studentx">
+              <PropertyRef Name="StudentGroup_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -561,13 +548,9 @@
             <End Role="TreatmentOffice" EntitySet="TreatmentOffice" />
             <End Role="Reservation" EntitySet="Reservation" />
           </AssociationSet>
-          <AssociationSet Name="FK_StudentGroup_Studentx" Association="Self.FK_StudentGroup_Studentx">
+          <AssociationSet Name="FK_Studentx_StudentGroup" Association="Self.FK_Studentx_StudentGroup">
+            <End Role="StudentGroup" EntitySet="StudentGroup" />
             <End Role="Studentx" EntitySet="Studentx" />
-            <End Role="StudentGroup" EntitySet="StudentGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudentGroup_User" Association="Self.FK_StudentGroup_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="StudentGroup" EntitySet="StudentGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_TreatmentReport_ToTable" Association="Self.FK_TreatmentReport_ToTable">
             <End Role="User" EntitySet="User" />
@@ -703,13 +686,9 @@
             <End Role="Reservation" EntitySet="Reservation" />
             <End Role="TreatmentReport" EntitySet="TreatmentReport" />
           </AssociationSet>
-          <AssociationSet Name="FK_StudentGroup_Studentx" Association="JohaMeriSQL1Model.FK_StudentGroup_Studentx">
+          <AssociationSet Name="FK_Studentx_StudentGroup" Association="JohaMeriSQL1Model.FK_Studentx_StudentGroup">
+            <End Role="StudentGroup" EntitySet="StudentGroup" />
             <End Role="Studentx" EntitySet="Studentx" />
-            <End Role="StudentGroup" EntitySet="StudentGroup" />
-          </AssociationSet>
-          <AssociationSet Name="FK_StudentGroup_User" Association="JohaMeriSQL1Model.FK_StudentGroup_User">
-            <End Role="User" EntitySet="User" />
-            <End Role="StudentGroup" EntitySet="StudentGroup" />
           </AssociationSet>
           <AssociationSet Name="FK_TreatmentReport_ToTable_2" Association="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_2">
             <End Role="Studentx" EntitySet="Studentx" />
@@ -844,10 +823,7 @@
           <Property Name="CreatedAt" Type="DateTime" Precision="3" />
           <Property Name="LastModifiedAt" Type="DateTime" Precision="3" />
           <Property Name="DeletedAt" Type="DateTime" Precision="3" />
-          <Property Name="User_id" Type="Int32" />
-          <Property Name="Student_id" Type="Int32" />
-          <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_StudentGroup_Studentx" FromRole="StudentGroup" ToRole="Studentx" />
-          <NavigationProperty Name="User" Relationship="JohaMeriSQL1Model.FK_StudentGroup_User" FromRole="StudentGroup" ToRole="User" />
+          <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_Studentx_StudentGroup" FromRole="StudentGroup" ToRole="Studentx" />
         </EntityType>
         <EntityType Name="Studentx">
           <Key>
@@ -868,10 +844,11 @@
           <Property Name="DeletedAt" Type="DateTime" Precision="3" />
           <Property Name="Active" Type="Boolean" />
           <Property Name="Information" Type="String" MaxLength="2000" FixedLength="false" Unicode="true" />
+          <Property Name="StudentGroup_id" Type="Int32" />
           <NavigationProperty Name="Phone" Relationship="JohaMeriSQL1Model.FK_Phone_ToTable_1" FromRole="Studentx" ToRole="Phone" />
           <NavigationProperty Name="PostOffices" Relationship="JohaMeriSQL1Model.FK_PostOffices_ToTable_4" FromRole="Studentx" ToRole="PostOffices" />
           <NavigationProperty Name="Reservation" Relationship="JohaMeriSQL1Model.FK_Reservation_ToTable_1" FromRole="Studentx" ToRole="Reservation" />
-          <NavigationProperty Name="StudentGroup" Relationship="JohaMeriSQL1Model.FK_StudentGroup_Studentx" FromRole="Studentx" ToRole="StudentGroup" />
+          <NavigationProperty Name="StudentGroup" Relationship="JohaMeriSQL1Model.FK_Studentx_StudentGroup" FromRole="Studentx" ToRole="StudentGroup" />
           <NavigationProperty Name="TreatmentReport" Relationship="JohaMeriSQL1Model.FK_TreatmentReport_ToTable_2" FromRole="Studentx" ToRole="TreatmentReport" />
           <NavigationProperty Name="User" Relationship="JohaMeriSQL1Model.FK_User_ToTable_1" FromRole="Studentx" ToRole="User" />
         </EntityType>
@@ -947,7 +924,6 @@
           <NavigationProperty Name="Customer" Relationship="JohaMeriSQL1Model.FK_User_ToTable_2" FromRole="User" ToRole="Customer" />
           <NavigationProperty Name="Personnel" Relationship="JohaMeriSQL1Model.FK_User_ToTable" FromRole="User" ToRole="Personnel" />
           <NavigationProperty Name="Reservation" Relationship="JohaMeriSQL1Model.FK_Reservation_ToTable_5" FromRole="User" ToRole="Reservation" />
-          <NavigationProperty Name="StudentGroup" Relationship="JohaMeriSQL1Model.FK_StudentGroup_User" FromRole="User" ToRole="StudentGroup" />
           <NavigationProperty Name="Studentx" Relationship="JohaMeriSQL1Model.FK_User_ToTable_1" FromRole="User" ToRole="Studentx" />
           <NavigationProperty Name="TreatmentReport" Relationship="JohaMeriSQL1Model.FK_TreatmentReport_ToTable" FromRole="User" ToRole="TreatmentReport" />
         </EntityType>
@@ -1191,27 +1167,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_StudentGroup_Studentx">
-          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="0..1" />
-          <End Type="JohaMeriSQL1Model.StudentGroup" Role="StudentGroup" Multiplicity="*" />
+        <Association Name="FK_Studentx_StudentGroup">
+          <End Type="JohaMeriSQL1Model.StudentGroup" Role="StudentGroup" Multiplicity="0..1" />
+          <End Type="JohaMeriSQL1Model.Studentx" Role="Studentx" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="Studentx">
-              <PropertyRef Name="Student_id" />
+            <Principal Role="StudentGroup">
+              <PropertyRef Name="StudentGroup_id" />
             </Principal>
-            <Dependent Role="StudentGroup">
-              <PropertyRef Name="Student_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_StudentGroup_User">
-          <End Type="JohaMeriSQL1Model.User" Role="User" Multiplicity="0..1" />
-          <End Type="JohaMeriSQL1Model.StudentGroup" Role="StudentGroup" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="User">
-              <PropertyRef Name="User_id" />
-            </Principal>
-            <Dependent Role="StudentGroup">
-              <PropertyRef Name="User_id" />
+            <Dependent Role="Studentx">
+              <PropertyRef Name="StudentGroup_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1357,8 +1321,6 @@
           <EntitySetMapping Name="StudentGroup">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.StudentGroup">
               <MappingFragment StoreEntitySet="StudentGroup">
-                <ScalarProperty Name="Student_id" ColumnName="Student_id" />
-                <ScalarProperty Name="User_id" ColumnName="User_id" />
                 <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />
                 <ScalarProperty Name="LastModifiedAt" ColumnName="LastModifiedAt" />
                 <ScalarProperty Name="CreatedAt" ColumnName="CreatedAt" />
@@ -1371,6 +1333,7 @@
           <EntitySetMapping Name="Studentx">
             <EntityTypeMapping TypeName="JohaMeriSQL1Model.Studentx">
               <MappingFragment StoreEntitySet="Studentx">
+                <ScalarProperty Name="StudentGroup_id" ColumnName="StudentGroup_id" />
                 <ScalarProperty Name="Information" ColumnName="Information" />
                 <ScalarProperty Name="Active" ColumnName="Active" />
                 <ScalarProperty Name="DeletedAt" ColumnName="DeletedAt" />

@@ -90,6 +90,14 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Rotativa.Core, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.Core.2.0.0\lib\net45\Rotativa.Core.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Rotativa.MVC, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Rotativa.MVC.2.0.3\lib\net45\Rotativa.MVC.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -287,6 +295,7 @@
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\PersonnelViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
+    <Compile Include="ViewModels\StudentGroupViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
     <Compile Include="ViewModels\TreatmentOfficeViewModel.cs" />
     <Compile Include="ViewModels\TreatmentReportsViewModel.cs" />
@@ -334,6 +343,7 @@
     <Content Include="Models\PointSQLData.edmx.diagram">
       <DependentUpon>PointSQLData.edmx</DependentUpon>
     </Content>
+    <Content Include="App_Browsers\qt.browser" />
     <None Include="Properties\PublishProfiles\PointCustomSystemData - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
@@ -347,6 +357,7 @@
       <DependentUpon>PointSQLData.edmx</DependentUpon>
       <LastGenOutput>PointSQLData.cs</LastGenOutput>
     </Content>
+    <Content Include="Rotativa\wkhtmltopdf.exe" />
     <Content Include="Scripts\Application\CustoLog.js" />
     <Content Include="Scripts\Application\Logic.js" />
     <Content Include="Scripts\bootstrap.js" />
@@ -461,15 +472,18 @@
     <Content Include="Views\TreatmentReports\Details.cshtml" />
     <Content Include="Views\TreatmentReports\Edit.cshtml" />
     <Content Include="Views\TreatmentReports\Index.cshtml" />
+    <Content Include="Views\Shared\SideMenu.cshtml" />
+    <Content Include="Views\Reservations\TreatText.cshtml" />
+    <Content Include="Views\Reservations\TreatReport.cshtml" />
+    <Content Include="Views\Reservations\CustomTreatReport.cshtml" />
+    <Content Include="Views\Customers\CustomDetailList.cshtml" />
     <Content Include="Views\StudentGroups\Create.cshtml" />
     <Content Include="Views\StudentGroups\Delete.cshtml" />
     <Content Include="Views\StudentGroups\Details.cshtml" />
     <Content Include="Views\StudentGroups\Edit.cshtml" />
     <Content Include="Views\StudentGroups\Index.cshtml" />
-    <Content Include="Views\Shared\SideMenu.cshtml" />
-    <Content Include="Views\Reservations\TreatText.cshtml" />
-    <Content Include="Views\Reservations\TreatReport.cshtml" />
-    <Content Include="Views\Reservations\CustomTreatReport.cshtml" />
+    <Content Include="Views\Customers\DownloadViewPDF.cshtml" />
+    <Content Include="Views\Studentxes\DownloadViewPDF.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

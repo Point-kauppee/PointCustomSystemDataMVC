@@ -13,6 +13,7 @@ using PointCustomSystemDataMVC.ViewModels;
 using Newtonsoft.Json;
 using PointCustomSystemDataMVC.Utilities;
 using System.Security.Claims;
+using Rotativa.MVC;
 
 namespace PointCustomSystemDataMVC.Controllers
 
@@ -109,6 +110,70 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(model);
         }//Index
 
+        public ActionResult DownloadViewPDF(int? id)
+        {           
+            CustomerViewModel model = new CustomerViewModel();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            try
+            {
+                List<Customer> customers = entities.Customer.ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta          
+                foreach (Customer custdetail in customers)
+                {
+                    CustomerViewModel cview = new CustomerViewModel();
+
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                    cview.User_id = custdetail.User?.FirstOrDefault()?.User_id;
+                    cview.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+
+                    cview.Customer_id = custdetail.Customer_id;
+                    cview.FirstNameA = custdetail.FirstName;
+                    cview.LastNameA = custdetail.LastName;
+                    cview.Identity = custdetail.Identity;
+                    cview.Email = custdetail.Email;
+                    cview.Address = custdetail.Address;
+                    cview.Notes = custdetail.Notes;
+                    cview.CreatedAt = custdetail.CreatedAt;
+                    cview.LastModifiedAt = custdetail.LastModifiedAt;
+                    cview.DeletedAt = custdetail.DeletedAt;
+                    cview.Active = custdetail.Active;
+                    cview.Information = custdetail.Information;
+
+                    cview.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
+                    cview.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+
+                    cview.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
+                    cview.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
+                    cview.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
+
+                    cview.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
+                    cview.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
+                    cview.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
+                    cview.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
+
+                    model = cview;
+                }
+                if (id == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
+                Customer customer = db.Customer.Find(id);
+                if (customer == null)
+                {
+                    return HttpNotFound();
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+     
+            return new ViewAsPdf(model);
+        }//
+
+
 
         //Lisätty 1.3.2017 oma koodi:
         //GET: Customers/Details/5
@@ -124,6 +189,11 @@ namespace PointCustomSystemDataMVC.Controllers
                 // muodostetaan näkymämalli tietokannan rivien pohjalta          
                 foreach (Customer custdetail in customers)
                 {
+                    //var customerParentViewModel = new CustomerParentViewModel();
+                    //var customerViewModel = new CustomerViewModel();
+
+                    //customerParentViewModel.CustomerViewModel = customerViewModel;
+                   
                     CustomerViewModel cview = new CustomerViewModel();
                  
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -172,14 +242,15 @@ namespace PointCustomSystemDataMVC.Controllers
                    entities.Dispose();
                }
 
-               return View(model);       
+            return View(model);
         }//details
+
         CultureInfo fiFi = new CultureInfo("fi-FI");
 
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
 
           
-        public ActionResult CustomDetailList()
+        public ActionResult CustomDetailList(int? id)
         {
             var customerParentViewModel = new CustomerParentViewModel();
             var customerViewModel = new CustomerViewModel();
@@ -187,11 +258,6 @@ namespace PointCustomSystemDataMVC.Controllers
             customerParentViewModel.CustomerViewModel = customerViewModel;
             return View(customerParentViewModel);
         }
-
-
-
-
-
 
         // GET: Customers/Create
         public ActionResult Create()

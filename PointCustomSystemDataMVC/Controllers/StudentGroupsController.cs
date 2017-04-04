@@ -17,8 +17,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: StudentGroups
         public ActionResult Index()
         {
-            var studentGroup = db.StudentGroup.Include(s => s.User);
-            return View(studentGroup.ToList());
+            return View(db.StudentGroup.ToList());
         }
 
         // GET: StudentGroups/Details/5
@@ -39,7 +38,6 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: StudentGroups/Create
         public ActionResult Create()
         {
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             return View();
         }
 
@@ -48,7 +46,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "StudentGroup_id,StudentGroupName,Active,CreatedAt,LastModifiedAt,DeletedAt,User_id")] StudentGroup studentGroup)
+        public ActionResult Create([Bind(Include = "StudentGroup_id,StudentGroupName,Active,CreatedAt,LastModifiedAt,DeletedAt")] StudentGroup studentGroup)
         {
             if (ModelState.IsValid)
             {
@@ -57,7 +55,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentGroup.User_id);
             return View(studentGroup);
         }
 
@@ -73,7 +70,6 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentGroup.User_id);
             return View(studentGroup);
         }
 
@@ -82,7 +78,7 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "StudentGroup_id,StudentGroupName,Active,CreatedAt,LastModifiedAt,DeletedAt,User_id")] StudentGroup studentGroup)
+        public ActionResult Edit([Bind(Include = "StudentGroup_id,StudentGroupName,Active,CreatedAt,LastModifiedAt,DeletedAt")] StudentGroup studentGroup)
         {
             if (ModelState.IsValid)
             {
@@ -90,7 +86,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity", studentGroup.User_id);
             return View(studentGroup);
         }
 
