@@ -73,12 +73,21 @@
                 <th>
                     @Html.DisplayNameFor(model => model.EnrollmentDateOFF)
                 </th>
-                <th>
+                <th onclick="sortTable(0)">
+                    <select id='filterText' style='display:inline-block' onchange='filterText()'>
+                        <option disabled selected>Valitse</option>
+                        <option value='True'>True</option>
+                        <option value='False'>False</option>
+                        <option value='Kaikki'>Kaikki</option>
+                    </select>
+
                     @Html.DisplayNameFor(model => model.Active)
                 </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.StudentGroupName)
                 </th>
+          
                 <th></th>
             </tr>
 
@@ -121,7 +130,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EnrollmentDateOFF)
                     </td>
-                    <td>
+                    <td class="list-box" style="line-height:unset"  @*hidden="hidden"*@>
                         @Html.DisplayFor(modelItem => item.Active)
                     </td>
                     <td>
@@ -160,6 +169,22 @@
                     }
                 }
             }
+        }
+
+        // Asiakasnäkymän suodatus Aktiivisuuden mukaan:
+        function filterText() {
+            var rex = new RegExp($('#filterText').val());
+            if (rex == "/Kaikki/") { clearFilter() } else {
+                $('.content').hide();
+                $('.content').filter(function () {
+                    return rex.test($(this).text());
+                }).show();
+            }
+        }
+
+        function clearFilter() {
+            $('.filterText').val('');
+            $('.content').show();
         }
 
 </script>

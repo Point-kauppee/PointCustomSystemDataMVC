@@ -68,10 +68,26 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Address { get; set; }
         [Display(Name = "Huomiot")]
         public string Note { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Henkilötieto tallennettu pvm")]
         public DateTime? CreatedAt { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Muokattu pvm")]
         public DateTime? LastModifiedAt { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Arkistointi pvm")]
         public DateTime? DeletedAt { get; set; }
+
+        [Display(Name = "Tila")]
         public bool? Active { get; set; }
+
+        [Display(Name = "Tiedot")]
         public string Information { get; set; }
 
         public int? Post_id { get; set; }
@@ -86,13 +102,15 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Reservations { get; set; }
         public int? Reservation_id { get; set; }
 
+      
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Alkaen klo")]
-        [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         public DateTime? Start { get; set; }
-        [Display(Name = "Loppuu klo")]
+      
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Loppuu klo")]
         public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
@@ -109,9 +127,18 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string User{ get; set; }
         [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
+
+        [Display(Name = "Salasana")]
         public string Password { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hoitopäivä")]
         public DateTime? TreatmentDate { get; set; }
+
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hoitoaika")]
         public DateTime? TreatmentTime { get; set; }
 
       

@@ -13,8 +13,6 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-
-
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -129,9 +127,8 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.Notes)
                         </td>
-                        <td>@*<select class="tri-state list-box" disabled="disabled"><option value="">Not Set</option><option selected="selected" value="true">OK</option><option value="false">ARKISTOITU</option></select>*@
-                            @Html.DisplayFor(modelItem => item.Active)
-                         
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Active)            
                         </td>
 
 

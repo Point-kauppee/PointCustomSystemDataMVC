@@ -47,10 +47,19 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string StudentGroupName { get; set; }
         public string StudentGroup { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Henkilötieto tallennettu")]
         public DateTime? CreatedAt { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Viimeksi muokattu pvm")]
         public DateTime? LastModifiedAt { get; set; }
+
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Arkistointi pvm")]
         public DateTime? DeletedAt { get; set; }
         [Display(Name = "Tila")]
@@ -71,9 +80,9 @@ namespace PointCustomSystemDataMVC.ViewModels
             get { return FirstNameA + " " + LastNameA; }
         }
 
-        [Display(Name = "Hoitaja Etunimi")]
+        [Display(Name = "Etunimi")]
         public string FirstNameH { get; set; }
-        [Display(Name = "Hoitaja Sukunimi")]
+        [Display(Name = "Sukunimi")]
         public string LastNameH { get; set; }
         [Display(Name = "Hoitaja")]
         public string FullNameH
