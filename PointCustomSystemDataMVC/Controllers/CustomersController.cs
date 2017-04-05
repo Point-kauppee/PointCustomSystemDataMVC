@@ -39,13 +39,10 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 List<Customer> customers = entities.Customer.OrderBy(Customer => Customer.LastName).ToList();
                
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-
-                CultureInfo fiFi = new CultureInfo("fi-FI");
+                // muodostetaan näkymämalli tietokannan rivien pohjalta       
                 foreach (Customer customer in customers)
                 {
                     CustomerViewModel view = new CustomerViewModel();
-                    ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
@@ -58,6 +55,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.Address = customer.Address;
                     view.Notes = customer.Notes;
                     view.CreatedAt = customer.CreatedAt;
+                    view.LastModifiedAt = customer.LastModifiedAt;
                     view.DeletedAt = customer.DeletedAt;
                     view.Active = customer.Active;
                     view.Information = customer.Information;
@@ -110,6 +108,9 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(model);
         }//Index
 
+        CultureInfo fiFi = new CultureInfo("fi-FI");
+
+        //PDF-tiedoston luominen:
         public ActionResult DownloadViewPDF(int? id)
         {           
             CustomerViewModel model = new CustomerViewModel();
@@ -171,8 +172,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
      
             return new ViewAsPdf(model);
-        }//
-
+        }//DownloadViewPDF
 
 
         //Lisätty 1.3.2017 oma koodi:
@@ -194,38 +194,37 @@ namespace PointCustomSystemDataMVC.Controllers
 
                     //customerParentViewModel.CustomerViewModel = customerViewModel;
                    
-                    CustomerViewModel cview = new CustomerViewModel();
-                 
+                    CustomerViewModel view = new CustomerViewModel();          
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-                    cview.User_id = custdetail.User?.FirstOrDefault()?.User_id;
-                    cview.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+                    view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
+                    view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
 
-                    cview.Customer_id = custdetail.Customer_id;
-                    cview.FirstNameA = custdetail.FirstName;
-                    cview.LastNameA = custdetail.LastName;
-                    cview.Identity = custdetail.Identity;
-                    cview.Email = custdetail.Email;
-                    cview.Address = custdetail.Address;
-                    cview.Notes = custdetail.Notes;
-                    cview.CreatedAt = custdetail.CreatedAt;
-                    cview.LastModifiedAt = custdetail.LastModifiedAt;
-                    cview.DeletedAt = custdetail.DeletedAt;
-                    cview.Active = custdetail.Active;
-                    cview.Information = custdetail.Information;
+                    view.Customer_id = custdetail.Customer_id;
+                    view.FirstNameA = custdetail.FirstName;
+                    view.LastNameA = custdetail.LastName;
+                    view.Identity = custdetail.Identity;
+                    view.Email = custdetail.Email;
+                    view.Address = custdetail.Address;
+                    view.Notes = custdetail.Notes;
+                    view.CreatedAt = custdetail.CreatedAt;
+                    view.LastModifiedAt = custdetail.LastModifiedAt;
+                    view.DeletedAt = custdetail.DeletedAt;
+                    view.Active = custdetail.Active;
+                    view.Information = custdetail.Information;
 
-                    cview.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
-                    cview.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+                    view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
+                    view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
 
-                    cview.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
-                    cview.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
-                    cview.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
+                    view.Post_id = custdetail.PostOffices?.FirstOrDefault()?.Post_id;
+                    view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
+                    view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    cview.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
-                    cview.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
-                    cview.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
-                    cview.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
+                    view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
+                    view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
+                    view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
+                    view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    model = cview;
+                    model = view;
                 }
                     if (id == null)
                     {
@@ -245,11 +244,9 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(model);
         }//details
 
-        CultureInfo fiFi = new CultureInfo("fi-FI");
-
+     
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
-
-          
+         
         public ActionResult CustomDetailList(int? id)
         {
             var customerParentViewModel = new CustomerParentViewModel();
@@ -285,7 +282,8 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Address = model.Address;
             cus.Email = model.Email;
             cus.Notes = model.Notes;
-            cus.CreatedAt = model.CreatedAt.Value.Date;
+            cus.CreatedAt = model.CreatedAt;
+            cus.LastModifiedAt = model.LastModifiedAt;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
             cus.Information = model.Information;
@@ -354,7 +352,6 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Active = custdetail.Active;
             view.Information = custdetail.Information;
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
             view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
@@ -390,11 +387,11 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Email = model.Email;
             cus.Notes = model.Notes;
             cus.CreatedAt = model.CreatedAt;
+            cus.LastModifiedAt = model.LastModifiedAt;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
             cus.Information = model.Information;
 
-            ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             if (cus.User == null)
             {
@@ -450,8 +447,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 }
             }
 
-            db.SaveChanges();
-         
+            db.SaveChanges();       
             return RedirectToAction("Index");
         }//edit
 
@@ -519,7 +515,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }//dispose
+        }//Delete
 
 
         //SideMenu:

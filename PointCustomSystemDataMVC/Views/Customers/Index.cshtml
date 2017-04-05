@@ -36,6 +36,8 @@
         <p>Asiakkaita yhteensä: @Model.Count()</p>
 
         <p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
+        
+        <div><a href="@Url.Action("DownloadViewPDF", "Customers", new { @class = "w3-btn w3-small" })">Tee PDF</a></div>
 
         <input type="button" onclick="location.href = '/Customers/DownloadViewPDF';" value="Luo pdf" />
 
@@ -131,14 +133,10 @@
                             @Html.DisplayFor(modelItem => item.Active)            
                         </td>
 
-
                         <td>
-                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })  |
-                            <br><br>
-                            @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
-                            <br><br>
-                            @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" }) |
-                            <br><br>
+                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
+                            @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
+                            @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
                             @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Index", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                             <br><br>
                             @Html.ActionLink("Palveluvaraus", "Create", "Reservations", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
@@ -161,123 +159,123 @@
         //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen.
         //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
         function searchByCustomer() {
-            var input, filter, table, tr, td, i;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td
-                    = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            }
-        }
+                                var input, filter, table, tr, td, i;
+                                input = document.getElementById("myInput");
+                                filter = input.value.toUpperCase();
+                                table = document.getElementById("myTable");
+                                tr = table.getElementsByTagName("tr");
+                                for (i = 0; i < tr.length; i++) {
+                                    td
+                                        = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
+                                    if (td) {
+                                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
+                                            tr[i].style.display = "";
+                                        } else {
+                                            tr[i].style.display = "none";
+                                        }
+                                    }
+                                }
+                            }
 
-        //NÄKYMÄN SUODATUS (FILTER)
-        function sortTable(n) {
-            var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-            table = document.getElementById("myTable");
-            switching = true;
-            //Set the sorting direction to ascending:
-            dir = "asc";
-            /*Make a loop that will continue until
-            no switching has been done:*/
-            while (switching) {
-                //start by saying: no switching is done:
-                switching = false;
-                rows = table.getElementsByTagName("TR");
-                /*Loop through all table rows (except the
-                first, which contains table headers):*/
-                for (i = 1; i < (rows.length - 1) ; i++) {
-                    //start by saying there should be no switching:
-                    shouldSwitch = false;
-                    /*Get the two elements you want to compare,
-                    one from current row and one from the next:*/
-                    x = rows[i].getElementsByTagName("TD")[n];
-                    y = rows[i + 1].getElementsByTagName("TD")[n];
-                    /*check if the two rows should switch place,
-                    based on the direction, asc or desc:*/
-                    if (dir == "asc") {
-                        if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    } else if (dir == "desc") {
-                        if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                            //if so, mark as a switch and break the loop:
-                            shouldSwitch = true;
-                            break;
-                        }
-                    }
-                }
-                if (shouldSwitch) {
-                    /*If a switch has been marked, make the switch
-                    and mark that a switch has been done:*/
-                    rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                    switching = true;
-                    //Each time a switch is done, increase this count by 1:
-                    switchcount++;
-                } else {
-                    /*If no switching has been done AND the direction is "asc",
-                    set the direction to "desc" and run the while loop again.*/
-                    if (switchcount == 0 && dir == "asc") {
-                        dir = "desc";
-                        switching = true;
-                    }
-                }
-            }
-        }
+                            //NÄKYMÄN SUODATUS (FILTER)
+                            function sortTable(n) {
+                                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+                                table = document.getElementById("myTable");
+                                switching = true;
+                                //Set the sorting direction to ascending:
+                                dir = "asc";
+                                /*Make a loop that will continue until
+                                no switching has been done:*/
+                                while (switching) {
+                                    //start by saying: no switching is done:
+                                    switching = false;
+                                    rows = table.getElementsByTagName("TR");
+                                    /*Loop through all table rows (except the
+                                    first, which contains table headers):*/
+                                    for (i = 1; i < (rows.length - 1) ; i++) {
+                                        //start by saying there should be no switching:
+                                        shouldSwitch = false;
+                                        /*Get the two elements you want to compare,
+                                        one from current row and one from the next:*/
+                                        x = rows[i].getElementsByTagName("TD")[n];
+                                        y = rows[i + 1].getElementsByTagName("TD")[n];
+                                        /*check if the two rows should switch place,
+                                        based on the direction, asc or desc:*/
+                                        if (dir == "asc") {
+                                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+                                                //if so, mark as a switch and break the loop:
+                                                shouldSwitch = true;
+                                                break;
+                                            }
+                                        } else if (dir == "desc") {
+                                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+                                                //if so, mark as a switch and break the loop:
+                                                shouldSwitch = true;
+                                                break;
+                                            }
+                                        }
+                                    }
+                                    if (shouldSwitch) {
+                                        /*If a switch has been marked, make the switch
+                                        and mark that a switch has been done:*/
+                                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+                                        switching = true;
+                                        //Each time a switch is done, increase this count by 1:
+                                        switchcount++;
+                                    } else {
+                                        /*If no switching has been done AND the direction is "asc",
+                                        set the direction to "desc" and run the while loop again.*/
+                                        if (switchcount == 0 && dir == "asc") {
+                                            dir = "desc";
+                                            switching = true;
+                                        }
+                                    }
+                                }
+                            }
 
-        // Create a "close" button and append it to each list item
-        var myNodelist = document.getElementsByTagName("TR");
-        var i;
-        for (i = 0; i < myNodelist.length; i++) {
-            var span = document.createElement("SPAN");
-            var txt = document.createTextNode("\u00D7");
-            span.className = "close";
-            span.appendChild(txt);
-            myNodelist[i].appendChild(span);
-        }
+                            // Create a "close" button and append it to each list item
+                            var myNodelist = document.getElementsByTagName("TR");
+                            var i;
+                            for (i = 0; i < myNodelist.length; i++) {
+                                var span = document.createElement("SPAN");
+                                var txt = document.createTextNode("\u00D7");
+                                span.className = "close";
+                                span.appendChild(txt);
+                                myNodelist[i].appendChild(span);
+                            }
 
-        // Click on a close button to hide the current list item
-        var close = document.getElementsByClassName("close");
-        var i;
-        for (i = 0; i < close.length; i++) {
-            close[i].onclick = function () {
-                var div = this.parentElement;
-                div.style.display = "none";
-            }
-        }
+                            // Click on a close button to hide the current list item
+                            var close = document.getElementsByClassName("close");
+                            var i;
+                            for (i = 0; i < close.length; i++) {
+                                close[i].onclick = function () {
+                                    var div = this.parentElement;
+                                    div.style.display = "none";
+                                }
+                            }
 
-        // Asiakasnäkymän suodatus Aktiivisuuden mukaan:
-        function filterText() {
-            var rex = new RegExp($('#filterText').val());
-            if (rex == "/Kaikki/") { clearFilter() } else {
+                            // Asiakasnäkymän suodatus Aktiivisuuden mukaan:
+                            function filterText() {
+                                var rex = new RegExp($('#filterText').val());
+                                if (rex == "/Kaikki/") { clearFilter() } else {
                 $('.content').hide();
                 $('.content').filter(function () {
-                    return rex.test($(this).text());
-                }).show();
-            }
-        }
+                                        return rex.test($(this).text());
+                                    }).show();
+                                }
+                            }
 
-        function clearFilter() {
+                            function clearFilter() {
             $('.filterText').val('');
             $('.content').show();
-        }
+                            }
 
 
     </script>
 
     @section Scripts {
 
-        @Scripts.Render("~/bundles/jqueryval")
+                                @Scripts.Render("~/bundles/jqueryval")
         @*document.getElementById("myBtn").click();*@
         @*document.getElementById("myAccFunc").click();*@
     }

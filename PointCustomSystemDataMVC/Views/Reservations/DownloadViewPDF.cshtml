@@ -1,0 +1,119 @@
+﻿@model IEnumerable<PointCustomSystemDataMVC.Models.Reservation>
+
+@{
+    ViewBag.Title = "DownloadViewPDF";
+}
+
+<h2>DownloadViewPDF</h2>
+
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Start)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.End)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentPaid)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentPaidDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Type)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Note)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CalendarTitle)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentReportTexts)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Customer.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Personnel.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Studentx.FirstName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentPlace.TreatmentPlaceName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Start)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.End)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentPaid)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentPaidDate)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Type)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Note)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CalendarTitle)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Customer.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Personnel.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Studentx.FirstName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentPlace.TreatmentPlaceName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Treatment.TreatmentName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserIdentity)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
+        </td>
+        <td>
+  
+        </td>
+    </tr>
+}
+
+</table>

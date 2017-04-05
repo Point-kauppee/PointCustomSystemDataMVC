@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Details";
 }
-
+<title>Tiedot</title>
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -20,10 +20,14 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-    <title>Tiedot</title>
+<h2>Palveluvaraukset</h2>
 
-<body>
-    <div>
+<div><a href="@Url.Action("DownloadViewPDF", "Reservations", new { id = Model.Reservation_id })">Tee PDF</a></div>
+
+
+<div><a href="@Url.Action("DownloadBill", "Reservations", new { id = Model.Reservation_id })">Tee lasku</a></div>
+   
+ <div>
         <h4>Palveluvaraus</h4>
         <hr />
         <dl class="dl-horizontal">
@@ -164,7 +168,7 @@
         @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Reservation_id }) |
         @Html.ActionLink("Takaisin palveluvaraukseen", "Index")
     </p>
-</body>
+
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>

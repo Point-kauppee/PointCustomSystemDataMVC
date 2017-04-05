@@ -20,10 +20,11 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             List<User> model = new List<User>();
 
-            try { 
+            try
+            { 
                  JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-                model = entities.User.ToList();
-                entities.Dispose();
+                    model = entities.User.ToList();
+                    entities.Dispose();
             }
             catch (Exception ex)
             {
@@ -52,10 +53,7 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Create()
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
-            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName");
-            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName");
-
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName");
+  
             List<User> model = new List<User>();
             return View(model);
         }
@@ -74,16 +72,7 @@ namespace PointCustomSystemDataMVC.Controllers
             usr.Password = "Customer";
         
             db.User.Add(usr);
-            //if (ModelState.IsValid)
-            //{
-            //    db.User.Add(user);
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-
-            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
-            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
+ 
             try
             {
                 db.SaveChanges();
@@ -92,7 +81,7 @@ namespace PointCustomSystemDataMVC.Controllers
             catch (Exception ex)
             {
             }
-            //return View(user);
+    
             return RedirectToAction("Index");
         }
 
@@ -114,9 +103,6 @@ namespace PointCustomSystemDataMVC.Controllers
             usr.UserIdentity = userdetail.UserIdentity;
             //usr.Password = "Customer";
 
-            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
-            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
 
             return View(usr);
 
@@ -134,19 +120,8 @@ namespace PointCustomSystemDataMVC.Controllers
             usr.UserIdentity = model.UserIdentity;
 
 
-
-            //if (ModelState.IsValid)
-            //{
-            //    db.Entry(user).State = EntityState.Modified;
-            //    db.SaveChanges();
-            //    return RedirectToAction("Index");
-            //}
-            //ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", user.Customer_id);
-            //ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", user.Personnel_id);
-            //ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", user.Student_id);
-
             db.SaveChanges();
-            //return View(model);
+    
             return RedirectToAction("Index");
 
         }//edit

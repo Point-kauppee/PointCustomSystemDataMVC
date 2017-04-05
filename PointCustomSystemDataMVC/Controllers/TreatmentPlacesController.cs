@@ -24,8 +24,8 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
                 model = entities.TreatmentPlace.ToList();
                 entities.Dispose();
-                //List<TreatmentPlace> treatplas = entities.TreatmentPlace.ToList();
 
+                //List<TreatmentPlace> treatplas = entities.TreatmentPlace.ToList();
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 
                 //foreach (TreatmentPlace treatpla in treatplas)
@@ -47,8 +47,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 ViewBag.ErrorMessage = ex.GetType() + ": " + ex.Message;
             }
-            //malliolion (model) välitys näkymälle- antaa instanssin asiakastietolistasta:
-       
+            //malliolion (model) välitys näkymälle- antaa instanssin asiakastietolistasta:     
             return View(model);
         }
 

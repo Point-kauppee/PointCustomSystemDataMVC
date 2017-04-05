@@ -1,4 +1,5 @@
-﻿using System;
+﻿using PointCustomSystemDataMVC.Models;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -8,6 +9,14 @@ namespace PointCustomSystemDataMVC.ViewModels
 {
     public class PersonnelViewModel
     {
+        public PersonnelViewModel()
+        {
+            this.Reservation = new HashSet<Reservation>();
+            this.TreatmentReport = new HashSet<TreatmentReport>();
+            this.User = new HashSet<User>();
+
+        }
+
         public int Personnel_id { get; set; }
         public string Personnel { get; set; }
         public int? Customer_id { get; set; }
@@ -56,16 +65,27 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Osoite")]
         public string Address { get; set; }
 
+        [Display(Name = "Tiedot")]
         public string Note { get; set; }
-        [Display(Name = "Henkilötieto tallennettu")]
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hlötieto tallennettu pvm")]
         public DateTime? CreatedAt { get; set; }
-        [Display(Name = "Henkilötietoja muokattu")]
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Muokattu pvm")]
         public DateTime? LastModifiedAt { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Arkistointi pvm")]
         public DateTime? DeletedAt { get; set; }
 
         [Display(Name = "Tila")]   
         public bool? Active { get; set; }
+
         [Display(Name = "Tiedot")]
         public string Information { get; set; }
 
@@ -83,12 +103,18 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PhoneNum_1 { get; set; }
 
         public int? User_id { get; set; }
-        public string User { get; set; }
+        //public string User { get; set; }
         [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
         [Display(Name = "Salasana")]
         public string Password { get; set; }
-        
 
+
+        public virtual ICollection<User> User { get; set; }
+        public virtual ICollection<Reservation> Reservation { get; set; }
+     
+        public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
+     
+        
     }
 }

@@ -66,12 +66,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Email { get; set; }
         [Display(Name = "Osoite")]
         public string Address { get; set; }
-        [Display(Name = "Huomiot")]
+        [Display(Name = "Tiedot")]
         public string Note { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Henkilötieto tallennettu pvm")]
+        [Display(Name = "Hlötieto tallennettu pvm")]
         public DateTime? CreatedAt { get; set; }
 
         [DataType(DataType.Date)]
@@ -144,9 +144,14 @@ namespace PointCustomSystemDataMVC.ViewModels
       
         
         public string TreatmentPrice { get; set; }
+
+        [Display(Name = "Palvelu")]
         public string TreatmentName { get; set; }
         public string TreatmentReport { get; set; }
+
+        
         public string TreatmentReportName { get; set; }
+        [Display(Name = "Hoitoraportti")]
         public string TreatmentReportText { get; set; }
         public int? TreatmentReport_id { get; set; }
 
