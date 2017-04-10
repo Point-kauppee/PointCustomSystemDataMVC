@@ -228,8 +228,8 @@ namespace PointCustomSystemDataMVC.Controllers
             per.Identity = model.Identity;
             per.Email = model.Email;
             per.Notes = model.Notes;
-            per.CreatedAt = model.CreatedAt;
-            per.LastModifiedAt = model.LastModifiedAt;
+            per.CreatedAt = DateTime.Now;
+            per.LastModifiedAt = DateTime.Now;
             per.DeletedAt = model.DeletedAt;
             per.Active = model.Active;
 
@@ -291,7 +291,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Email = persdetail.Email;
             view.Notes = persdetail.Notes;
             view.CreatedAt = persdetail.CreatedAt;
-            view.LastModifiedAt = persdetail.LastModifiedAt;
+            view.LastModifiedAt = DateTime.Now;
             view.DeletedAt = persdetail.DeletedAt;
             view.Active = persdetail.Active;
 

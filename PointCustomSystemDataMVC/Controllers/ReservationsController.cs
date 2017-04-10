@@ -379,9 +379,17 @@ namespace PointCustomSystemDataMVC.Controllers
             if (userId > 0)
             {
                 User usr = db.User.Find(userId);
-                res.User_id = userId;
+                res.User_id = userId;        
                 res.Customer_id = usr.Customer_id;
             }
+
+            // etsitään Customer-rivi kannasta valitun nimen perusteella
+            //int cusId = int.Parse(model.FullNameA);
+            //if (cusId > 0)
+            //{
+            //    Customer cus = db.Customer.Find(cusId);         
+            //    res.Customer_id = cusId;
+            //}
 
             // etsitään Treatment-rivi kannasta valitun nimen perusteella
             int treatmentId = int.Parse(model.TreatmentName);

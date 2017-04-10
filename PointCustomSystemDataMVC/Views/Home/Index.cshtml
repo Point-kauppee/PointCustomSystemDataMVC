@@ -123,6 +123,8 @@
             <div class="w3-display-topleft w3-padding-xxlarge w3-text-white" style="padding:24px 48px">
                 <h1 class="w3-jumbo w3-hide-small">Ajanvarausjärjestelmä</h1>
                 <p>@greetingMessage</p>
+
+                @*<p>Total entries: @Model.Count().</p>*@
                 <h1 class="w3-hide-large w3-hide-medium">Etusivu</h1>
                 <h1 class="w3-hide-small">Asiakashallinta</h1>
                 <p><a href="/Reservations/#dpc" class="w3-btn w3-padding-large w3-large">Kalenteri</a></p>
@@ -135,9 +137,9 @@
 
             <p>Varauskalenteri</p>
 
-        <div style="float:left; width: 150px;">
+        @*<div style="float:left; width: 150px;">
             <div id="nav"></div>
-        </div>
+        </div>*@
             <div style="margin-left: 150px;">
                 <div id="dpc" class="w3-text-grey calendar_default_main">
 
@@ -208,7 +210,7 @@
                             <p><i class="fa fa-fw fa-phone"></i> (019) 529 9200</p>
                             <p><i class="fa fa-fw fa-envelope"></i> info@pointcollege.fi</p>
                             <h4>Maksaminen</h4>
-                            <p><i class="fa fa-fw fa-cc-amex"></i> #</p>
+                            @*<p><i class="fa fa-fw fa-cc-amex"></i> #</p>*@
                             <p><i class="fa fa-fw fa-credit-card"></i> Pankkikortti</p>
                             <br>
                             <i class="fa fa-facebook-official w3-xlarge w3-hover-text-indigo"><a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank"></a></i>
@@ -468,10 +470,6 @@
                 });
             }
     </script>
-
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 
 @section Scripts {
 

@@ -128,6 +128,8 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public int? User_id { get; set; }
         //public string User { get; set; }
+
+        [Required(ErrorMessage = "Käyttäjätunnus tallennettava")]
         [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
 

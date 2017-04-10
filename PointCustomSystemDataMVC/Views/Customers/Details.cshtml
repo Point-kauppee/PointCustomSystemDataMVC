@@ -11,7 +11,7 @@
 </p>
 
 @*<input type="button" onclick="location.href = '/Customers/DownloadViewPDF';" value="Luo pdf" />*@
-<div><a href="@Url.Action("DownloadViewPDF", "Customers", new { id = Model.Customer_id })">Tee PDF</a></div>
+<div><a href="@Url.Action("DownloadViewPDF", "Customers", new { id = Model.Customer_id })">Asiakasraportti</a></div>
 
 <div>
     <hr />
@@ -137,71 +137,79 @@
             <hr />
 
             @*1.2.2017 Lisätty alitiedostot Palvelut*@
-            @*<h4>Asiakkaan hoitotiedot</h4>
+                                  @*<h4>Asiakkaan hoitotiedot</h4>
 
-                <table class="table">
-                    <tr>
-                        <th>Päivämäärä</th>
-                        <th>Varausaika alkaa</th>
-                        <th>Varausaika loppuu</th>
-                        <th>Palvelun nimi</th>
-                        <th>Palvelun kesto</th>
-                        <th>Palvelun hinta</th>
-                        <th>Hoitaja</th>
-                        <th>Tiedot</th>
-                    </tr>
+                        <table class="table">
+                            <tr>
+                                <th>Päivämäärä</th>
+                                <th>Varausaika alkaa</th>
+                                <th>Varausaika loppuu</th>
+                                <th>Palvelun nimi</th>
+                                <th>Palvelun kesto</th>
+                                <th>Palvelun hinta</th>
+                                <th>Hoitaja</th>
+                                <th>Tiedot</th>
+                            </tr>
+
+        foreach (var c in Model) {
 
 
-    @foreach (var item in Model.Customreservations)
+
+           foreach (var res in
+              c.CustomerReseration) {
+             //@Model.CustomerDetailViewModel.Date
+                        //@c.Start
+                        //@Model.CustomerDetailViewModel.End
+                        //@Model.CustomerDetailViewModel.TreatmentName
+                        //@Model.CustomerDetailViewModel.TreatmentTime
+                        //@Model.CustomerDetailViewModel.TreatmentPrice
+                        //@Model.CustomerDetailViewModel.FirstNameH
+                        //@Model.CustomerDetailViewModel.Notes
+          }
+        }
+            @foreach (var item in Model.Customreservations)
 
 
-                //@Model.CustomerDetailViewModel.Date
-                //@Model.CustomerDetailViewModel.Start
-                //@Model.CustomerDetailViewModel.End
-                //@Model.CustomerDetailViewModel.TreatmentName
-                //@Model.CustomerDetailViewModel.TreatmentTime
-                //@Model.CustomerDetailViewModel.TreatmentPrice
-                //@Model.CustomerDetailViewModel.FirstNameH
-                //@Model.CustomerDetailViewModel.Notes
 
-                {
-                        <tr>
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Date)
-                            </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Start)
-                            </td>
+                        {
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Date)
+                                    </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.End)
-                            </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Start)
+                                    </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TreatmentName)
-                            </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.End)
+                                    </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TreatmentTime)
-                            </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentName)
+                                    </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.TreatmentPrice)
-                            </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentTime)
+                                    </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.FullNameH)
-                            </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentPrice)
+                                    </td>
 
-                            <td>
-                                @Html.DisplayFor(modelItem => item.Notes)
-                            </td>
-                        </tr>
-                    }
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.FullNameH)
+                                    </td>
 
-                </table>
-            </dd>*@
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.Notes)
+                                    </td>
+                                </tr>
+                            }
+
+                        </table>
+                    </dd>*@
     </dl>
 </div>
 

@@ -50,7 +50,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Point Etusivu", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("PointCollege jalkahoitola", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @*<a href="/Home/Index" class="w3-bar-item w3-button w3-dark-grey"><i class="fa fa-home"></i></a>*@
                 @*@Html.ActionLink("Point Etusivu", "Index", "Home", new { area = "" }, new { @class = "fa fa-home" })*@
               
@@ -84,9 +84,10 @@
                     </li>
                 </ul>
                         @Html.Partial("_LoginPartial")
-</div>
+            </div>
         </div>
     </div>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
@@ -127,10 +128,11 @@
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="~/Content/bootstrap-theme.min.css.map"></script>
 
+    @section Scripts {
+
+        @Scripts.Render("~/bundles/jqueryval")
+
+    }
 </body>
 </html>
-@section Scripts {
 
-    @Scripts.Render("~/bundles/jqueryval")
-
-}

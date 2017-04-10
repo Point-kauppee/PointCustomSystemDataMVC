@@ -4,9 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-@*@{
-    ViewBag.Title = "ASP.NET MVC 5 Event Calendar";
-}*@
+
 <title>PointCollege Ajanvarausohjelmisto</title>
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -305,6 +303,9 @@
                     @Html.DisplayNameFor(model => model.UserIdentity)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.FullNameA)
+                </th>
+                <th>
                     @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
                 </th>
                 <th>
@@ -356,6 +357,9 @@
                 <tr>
                     <td>
                         @Html.DisplayFor(modelItem => item.UserIdentity)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FullNameA)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.FirstNameA)

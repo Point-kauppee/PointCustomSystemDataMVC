@@ -184,11 +184,21 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<Customer> customers = entities.Customer.ToList();
+                User user = db.User.Find(id);
+                if (user == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Customer custdetail = entities.Customer.Find(user.Customer_id);
+
+                if (custdetail == null)
+                {
+                    return HttpNotFound();
+                }
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta          
-                foreach (Customer custdetail in customers)
-                {
+             
                     //var customerParentViewModel = new CustomerParentViewModel();
                     //var customerViewModel = new CustomerViewModel();
 
@@ -225,16 +235,12 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
                     model = view;
-                }
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Customer customer = db.Customer.Find(id);
-                    if (customer == null)
-                    {
-                        return HttpNotFound();
-                    }
+             
+                    //if (id == null)
+                    //{
+                    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    //}
+                   
                }
                finally
                {
@@ -282,8 +288,8 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Address = model.Address;
             cus.Email = model.Email;
             cus.Notes = model.Notes;
-            cus.CreatedAt = model.CreatedAt;
-            cus.LastModifiedAt = model.LastModifiedAt;
+            cus.CreatedAt = DateTime.Now;
+            cus.LastModifiedAt = DateTime.Now;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
             cus.Information = model.Information;
@@ -347,7 +353,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Address = custdetail.Address;
             view.Notes = custdetail.Notes;
             view.CreatedAt = custdetail.CreatedAt;
-            view.LastModifiedAt = custdetail.LastModifiedAt;
+            view.LastModifiedAt = DateTime.Now;
             view.DeletedAt = custdetail.DeletedAt;
             view.Active = custdetail.Active;
             view.Information = custdetail.Information;
@@ -387,7 +393,7 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Email = model.Email;
             cus.Notes = model.Notes;
             cus.CreatedAt = model.CreatedAt;
-            cus.LastModifiedAt = model.LastModifiedAt;
+            cus.LastModifiedAt = DateTime.Now;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
             cus.Information = model.Information;
