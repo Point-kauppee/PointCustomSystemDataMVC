@@ -88,7 +88,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Personnel persdetail in personnels)
                 {
                     PersonnelViewModel view = new PersonnelViewModel();
-                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
+            
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = persdetail.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = persdetail.User?.FirstOrDefault()?.UserIdentity;
@@ -140,30 +140,22 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<Personnel> personnels = entities.Personnel.ToList();
+                Personnel personnel = db.Personnel.Find(id);
+                if (personnel == null)
+                {
+                    return HttpNotFound();
+                }
 
-           
-                //var query = from c in db.Customers
-                //            where c.Country == "UK"
-                //            orderby c.CustomerID
-                //            select c;
-                //return View(query.ToList());
+                Personnel persdetail = entities.Personnel.Find(personnel.Personnel_id);
 
-
+                if (persdetail == null)
+                {
+                    return HttpNotFound();
+                }
                 // muodostetaan näkymämalli tietokannan rivien pohjalta         
 
-                if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-                    Personnel personnel = db.Personnel.Find(id);
-                    if (personnel == null)
-                    {
-                        return HttpNotFound();
-                    }
-
-                foreach (Personnel persdetail in personnels)
-                {
+                //foreach (Personnel persdetail in personnels)
+                //{
                     PersonnelViewModel view = new PersonnelViewModel();
 
                     view.Personnel_id = persdetail.Personnel_id;
@@ -190,7 +182,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostOffice = persdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     model = view;
-                }
+             
             }
                 finally
                 {

@@ -159,17 +159,28 @@ namespace PointCustomSystemDataMVC.Controllers
         public ActionResult Details(int? id)
         {
             StudentViewModel model = new StudentViewModel();
-            //List<StudentViewModel> model = new List<StudentViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
             try
             {
-                List<Studentx> students = entities.Studentx.ToList();
+                Studentx student = db.Studentx.Find(id);
+                if (student == null)
+                {
+                    return HttpNotFound();
+                }
+
+               Studentx studetail = entities.Studentx.Find(student.Student_id);
+
+                if (studetail == null)
+                {
+                    return HttpNotFound();
+                }
+               
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta             
-                foreach (Studentx studetail in students)
-                {
+                //foreach (Studentx studetail in students)
+                //{
                     StudentViewModel stu = new StudentViewModel();
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
@@ -200,30 +211,18 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    //ViewBag.StudentGroup_id = new SelectList(db.StudentGroup, "StudentGroup_id", "StudentGroupName");
                     ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
                     stu.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
                     stu.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
 
                     model = stu;
-                }
-                    if (id == null)
-                    {
-                        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    }
-
-                    Studentx studentx = db.Studentx.Find(id);
-                    if (studentx == null)
-                    {
-                        return HttpNotFound();
-                    }
+   
             }
             finally
             {
                 entities.Dispose();
             }
             return View(model);
-            //return new ViewAsPdf(model);
 
         }//details
 

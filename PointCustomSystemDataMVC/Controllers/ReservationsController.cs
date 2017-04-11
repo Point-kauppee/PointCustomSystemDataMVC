@@ -20,6 +20,7 @@ using PointCustomSystemDataMVC.Utilities;
 using System.Collections;
 using System.Data.SqlClient;
 using Rotativa.MVC;
+using System.Text;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -270,11 +271,17 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<Reservation> reservations = entities.Reservation.ToList();
+                Reservation reservation = db.Reservation.Find(id);
+                if (reservation == null)
+                {
+                    return HttpNotFound();
+                }
+
+                Reservation resdetail = entities.Reservation.Find(reservation.Reservation_id);
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta      
-                foreach (Reservation resdetail in reservations)
-                {
+                //foreach (Reservation resdetail in reservations)
+                //{
                     ReservationViewModel res = new ReservationViewModel();
                     res.Reservation_id = resdetail.Reservation_id;
                     res.Start = resdetail.Start.GetValueOrDefault();
@@ -317,16 +324,12 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.LastNameH = resdetail.Studentx?.LastName;
 
                     model = res;
-                }
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Reservation reservation = db.Reservation.Find(id);
-                if (reservation == null)
-                {
-                    return HttpNotFound();
-                }
+            
+                //if (id == null)
+                //{
+                //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                //}
+        
             }
             finally
             {
@@ -780,8 +783,12 @@ namespace PointCustomSystemDataMVC.Controllers
         }//CustomTreatReport
 
 
-        //DAYPILOT VIIKKO VIIKKONÄKYMÄ
-        public ActionResult BackEnd()
+      
+    
+
+
+//DAYPILOT VIIKKO VIIKKONÄKYMÄ
+public ActionResult BackEnd()
         {
             var data = new Dpc().CallBack(this);
             return data;

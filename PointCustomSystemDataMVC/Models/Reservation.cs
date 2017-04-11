@@ -37,6 +37,7 @@ namespace PointCustomSystemDataMVC.Models
         public Nullable<int> Treatment_id { get; set; }
         public Nullable<int> TreatmentOffice_id { get; set; }
         public Nullable<int> User_id { get; set; }
+        public Nullable<bool> TreatmentCompleted { get; set; }
     
         public virtual Customer Customer { get; set; }
         public virtual Personnel Personnel { get; set; }

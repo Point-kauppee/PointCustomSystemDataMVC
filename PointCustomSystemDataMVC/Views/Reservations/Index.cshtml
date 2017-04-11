@@ -292,6 +292,11 @@
 
         <h2>Palveluvaraus</h2>
         <p>Varauksia yhteensä: @Model.Count()</p>
+    <a href="~/Reservations/HoursPerReservationAsExcel" class="btn btn-danger">Vie Exceliin</a>
+
+
+
+
         <p style="padding-left:8px;font-size:12px">
             @Html.ActionLink("Luo uusi varaus", "Create")
         </p>
@@ -405,7 +410,7 @@
                         @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id }) |
                         @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Details", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                         <br><br>
-                        @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                        @Html.ActionLink("Hoitoraportti", "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                     </td>               
                 </tr>
             }

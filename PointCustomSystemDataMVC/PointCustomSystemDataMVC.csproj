@@ -218,6 +218,7 @@
     <Compile Include="Controllers\PersonnelsController.cs" />
     <Compile Include="Controllers\PhonesController.cs" />
     <Compile Include="Controllers\PostOfficesController.cs" />
+    <Compile Include="Controllers\ReservationReportsController.cs" />
     <Compile Include="Controllers\ReservationsController.cs" />
     <Compile Include="Controllers\StudentGroupsController.cs" />
     <Compile Include="Controllers\StudentxesController.cs" />
@@ -293,6 +294,7 @@
     <Compile Include="Startup.cs" />
     <Compile Include="Utilities\WebUtilities.cs" />
     <Compile Include="ViewModels\CustomerViewModel.cs" />
+    <Compile Include="ViewModels\HoursPerReservationModel.cs" />
     <Compile Include="ViewModels\PersonnelViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\StudentGroupViewModel.cs" />
@@ -362,6 +364,7 @@
     <Content Include="Scripts\Application\Logic.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\Chart.js" />
     <Content Include="Scripts\DayPilot\daypilot-all.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
@@ -489,6 +492,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\ReservationReports\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
