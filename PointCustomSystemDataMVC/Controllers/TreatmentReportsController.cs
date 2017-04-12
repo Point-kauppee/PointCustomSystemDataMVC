@@ -35,13 +35,12 @@ namespace PointCustomSystemDataMVC.Controllers
                     TreatmentReportsViewModel view = new TreatmentReportsViewModel();
 
                     view.TreatmentReport_id = treatreport.TreatmentReport_id;
-                    view.TreatmentReportText = treatreport.TreatmentReportText;
-                    view.TreatmentDate = treatreport.TreatmentDate.Value;
-                    view.TreatmentTime = treatreport.TreatmentTime.Value;
-
+                    view.TreatmentReportText = treatreport.TreatmentReportText;         
+                   
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     view.Treatment_id = treatreport.Treatment?.Treatment_id;
                     view.TreatmentName = treatreport.Treatment?.TreatmentName;
+                    view.TreatmentTime = treatreport.Treatment.TreatmentTime;
 
                     ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
                     view.Customer_id = treatreport.Customer?.Customer_id;
@@ -83,13 +82,13 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     TreatmentReportsViewModel views = new TreatmentReportsViewModel();
                     views.TreatmentReport_id = treatrepdetail.TreatmentReport_id;
-                    views.TreatmentReportText = treatrepdetail.TreatmentReportText;
-                    views.TreatmentDate = treatrepdetail.TreatmentDate.Value;
-                    views.TreatmentTime = treatrepdetail.TreatmentTime.Value;
+                    views.TreatmentReportText = treatrepdetail.TreatmentReportText;     
+                  
 
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     views.Treatment_id = treatrepdetail.Treatment?.Treatment_id;
                     views.TreatmentName = treatrepdetail.Treatment?.TreatmentName;
+                    views.TreatmentTime = treatrepdetail.Treatment?.TreatmentTime;
 
                     ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
                     views.Customer_id = treatrepdetail.Customer?.Customer_id;
@@ -151,9 +150,8 @@ namespace PointCustomSystemDataMVC.Controllers
 
             TreatmentReport tre = new TreatmentReport();
        
-            tre.TreatmentReportText = model.TreatmentReportText;
-            tre.TreatmentDate = model.TreatmentDate;
-            tre.TreatmentTime = model.TreatmentTime;
+            tre.TreatmentReportText = model.TreatmentReportText;      
+          
 
             db.TreatmentReport.Add(tre);
 
@@ -231,12 +229,11 @@ namespace PointCustomSystemDataMVC.Controllers
 
             view.TreatmentReport_id = treatrepdetail.TreatmentReport_id;
             view.TreatmentReportText = treatrepdetail.TreatmentReportText;
-            view.TreatmentDate = treatrepdetail.TreatmentDate.Value;
-            view.TreatmentTime = treatrepdetail.TreatmentTime.Value;
-
+            
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             view.Treatment_id = treatrepdetail.Treatment?.Treatment_id;
             view.TreatmentName = treatrepdetail.Treatment?.TreatmentName;
+            view.TreatmentTime = treatrepdetail.Treatment.TreatmentTime;
 
             ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
             view.Customer_id = treatrepdetail.Customer?.Customer_id;
@@ -265,8 +262,7 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             TreatmentReport tre = db.TreatmentReport.Find(model.TreatmentReport_id);
             tre.TreatmentReportText = model.TreatmentReportText;
-            tre.TreatmentDate = model.TreatmentDate;
-            tre.TreatmentTime = model.TreatmentTime;
+          
 
             // etsitään Treatment-rivi kannasta valitun nimen perusteella
             int treatmentId = int.Parse(model.TreatmentName);
@@ -274,6 +270,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 Treatment trtm = db.Treatment.Find(treatmentId);
                 tre.Treatment_id = trtm.Treatment_id;
+                
             }
 
             // etsitään User-rivi kannasta valitun nimen perusteella
@@ -323,11 +320,10 @@ namespace PointCustomSystemDataMVC.Controllers
 
             view.TreatmentReport_id = treatreport.TreatmentReport_id;
             view.TreatmentReportText = treatreport.TreatmentReportText;
-            view.TreatmentDate = treatreport.TreatmentDate.Value;
-            view.TreatmentTime = treatreport.TreatmentTime.Value;
-
+           
             view.Treatment_id = treatreport.Treatment?.Treatment_id;
             view.TreatmentName = treatreport.Treatment?.TreatmentName;
+            view.TreatmentTime = treatreport.Treatment.TreatmentTime;
 
             ViewBag.FullNameA = new SelectList((from f in db.Customer select new { Customer_id = f.Customer_id, FullNameA = f.FirstName + " " + f.LastName }), "Customer_id", "FullNameA", null);
             view.Customer_id = treatreport.Customer?.Customer_id;

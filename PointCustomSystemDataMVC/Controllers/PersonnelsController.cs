@@ -140,24 +140,20 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                Personnel personnel = db.Personnel.Find(id);
-                if (personnel == null)
-                {
-                    return HttpNotFound();
-                }
+                //Personnel personnel = db.Personnel.Find(id);
+                //if (personnel == null)
+                //{
+                //    return HttpNotFound();
+                //}
 
-                Personnel persdetail = entities.Personnel.Find(personnel.Personnel_id);
+                Personnel persdetail = entities.Personnel.Find(id);
 
                 if (persdetail == null)
                 {
                     return HttpNotFound();
                 }
                 // muodostetaan näkymämalli tietokannan rivien pohjalta         
-
-                //foreach (Personnel persdetail in personnels)
-                //{
                     PersonnelViewModel view = new PersonnelViewModel();
-
                     view.Personnel_id = persdetail.Personnel_id;
                     view.FirstNameP = persdetail.FirstName;
                     view.LastNameP = persdetail.LastName;

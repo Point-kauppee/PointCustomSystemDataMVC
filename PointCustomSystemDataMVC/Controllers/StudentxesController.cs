@@ -158,64 +158,79 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Studentxes/Details/5
         public ActionResult Details(int? id)
         {
-            StudentViewModel model = new StudentViewModel();
+            ReservationDetailViewModel model = new ReservationDetailViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
             try
             {
-                Studentx student = db.Studentx.Find(id);
-                if (student == null)
-                {
-                    return HttpNotFound();
-                }
+                //Studentx student = db.Studentx.Find(id);
+                //if (student == null)
+                //{
+                //    return HttpNotFound();
+                //}
 
-               Studentx studetail = entities.Studentx.Find(student.Student_id);
-
+                //Studentx studetail = entities.Studentx.Find(student.Student_id);
+                Studentx studetail = entities.Studentx.Find(id);
                 if (studetail == null)
                 {
                     return HttpNotFound();
                 }
-               
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta             
-                //foreach (Studentx studetail in students)
-                //{
-                    StudentViewModel stu = new StudentViewModel();
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-                    stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
-                    stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
-                    //stu.Password = studetail.User?.FirstOrDefault()?.Password; 
+                ReservationDetailViewModel view = new ReservationDetailViewModel();
+                ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                view.User_id = studetail.User?.FirstOrDefault()?.User_id;
+                view.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+                //stu.Password = studetail.User?.FirstOrDefault()?.Password; 
 
-                    stu.Student_id = studetail.Student_id;
-                    stu.FirstNameH = studetail.FirstName;
-                    stu.LastNameH = studetail.LastName;
-                    stu.Identity = studetail.Identity;
-                    stu.Address = studetail.Address;
-                    stu.Email = studetail.Email;
-                    stu.EnrollmentDateIN = studetail.EnrollmentDateIN;
-                    stu.EnrollmentDateOUT = studetail.EnrollmentDateOUT;
-                    stu.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
-                    stu.Notes = studetail.Notes;
-                    stu.CreatedAt = studetail.CreatedAt;
-                    stu.LastModifiedAt = studetail.LastModifiedAt;
-                    stu.DeletedAt = studetail.DeletedAt;
+                view.Student_id = studetail.Student_id;
+                view.FirstNameH = studetail.FirstName;
+                view.LastNameH = studetail.LastName;
+                view.Identity = studetail.Identity;
+                view.Address = studetail.Address;
+                view.Email = studetail.Email;
+                view.EnrollmentDateIN = studetail.EnrollmentDateIN;
+                view.EnrollmentDateOUT = studetail.EnrollmentDateOUT;
+                view.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
+                view.Notes = studetail.Notes;
+                view.CreatedAt = studetail.CreatedAt;
+                view.LastModifiedAt = studetail.LastModifiedAt;
+                view.DeletedAt = studetail.DeletedAt;
                     ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
-                    stu.Active = studetail.Active;
-                    stu.Information = studetail.Information;
+                view.Active = studetail.Active;
+                view.Information = studetail.Information;
 
-                    stu.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
-                    stu.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
+                view.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
+                view.PhoneNum_1 = studetail.Phone?.FirstOrDefault()?.PhoneNum_1;
 
-                    stu.Post_id = studetail.PostOffices?.FirstOrDefault()?.Post_id;
-                    stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
-                    stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
+                view.Post_id = studetail.PostOffices?.FirstOrDefault()?.Post_id;
+                view.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
+                view.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
-                    stu.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
-                    stu.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
+                ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
+                view.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
+                view.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
 
-                    model = stu;
+                // muodostetaan Customer - näkymän alitiedostona asiakkaan palvelutiedot
+                view.Studentreservations = new List<StudentDetailViewModel>();
+                
+
+                foreach (Reservation res in studetail.Reservation.OrderBy(r => r.Start))
+                {
+                    view.Studentreservations.Add(new StudentDetailViewModel()
+                    {
+                        Date = res.Date,
+                        Start = res.Start,
+                        End = res.End,
+                        TreatmentName = res.Treatment?.TreatmentName,
+                        TreatmentTime = res.Treatment?.TreatmentTime,
+                        FirstNameA = res.Customer?.FirstName,
+                        LastNameA = res.Customer?.LastName,
+                        Notes = res.Note
+                    });
+                }
+                model = view;
    
             }
             finally
@@ -260,8 +275,8 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.EnrollmentDateIN = model.EnrollmentDateIN;
             stu.EnrollmentDateOUT = model.EnrollmentDateOUT;
             stu.EnrollmentDateOFF = model.EnrollmentDateOFF;
-            stu.CreatedAt = model.CreatedAt;
-            stu.LastModifiedAt = model.LastModifiedAt;
+            stu.CreatedAt = DateTime.Now;
+            stu.LastModifiedAt = DateTime.Now;
             stu.DeletedAt = model.DeletedAt;           
             stu.Active = model.Active;
             stu.Information = model.Information;
@@ -337,7 +352,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.EnrollmentDateOFF = studetail.EnrollmentDateOFF;
             view.Notes = studetail.Notes;
             view.CreatedAt = studetail.CreatedAt;
-            view.LastModifiedAt = studetail.LastModifiedAt;
+            view.LastModifiedAt = DateTime.Now;
             view.DeletedAt = studetail.DeletedAt;
             ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
             view.Active = studetail.Active;
@@ -381,7 +396,7 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.EnrollmentDateOFF = model.EnrollmentDateOFF;
             stu.Notes = model.Notes;
             stu.CreatedAt = model.CreatedAt;
-            stu.LastModifiedAt = model.LastModifiedAt;
+            stu.LastModifiedAt = DateTime.Now;
             stu.DeletedAt = model.DeletedAt;
             ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
             stu.Active = model.Active;

@@ -133,11 +133,18 @@
             @Html.DisplayFor(model => model.Information)
         </dd>
 
-       <dd>
+        <dd>
             <hr />
-
+           <p>
+               @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Customer_id }) |
+               @Html.ActionLink("Takaisin asiakastietoihin", "Index") |
+               @*//Linkki asiakastietojen tallennukseen:*@
+               @Html.ActionLink("Asiakastietojen tallennus", "Index")
+           </p>
+             
+           <hr />
             @*1.2.2017 Lisätty alitiedostot Palvelut*@
-            <h4>Asiakkaan hoitotiedot</h4>
+            <h4>Asiakkaan palvelutiedot</h4>
 
                         <table class="table">
                             <tr>
@@ -154,20 +161,12 @@
         @*foreach (var c in Model) {
            foreach (var res in
               c.CustomerReseration) {
-             //@Model.CustomerDetailViewModel.Date
-                        //@c.Start
-                        //@Model.CustomerDetailViewModel.End
-                        //@Model.CustomerDetailViewModel.TreatmentName
-                        //@Model.CustomerDetailViewModel.TreatmentTime
-                        //@Model.CustomerDetailViewModel.TreatmentPrice
-                        //@Model.CustomerDetailViewModel.FirstNameH
-                        //@Model.CustomerDetailViewModel.Notes
           }
         }*@
 
             @foreach (var item in Model.Customreservations)
 
-                        {
+                            {
                                 <tr>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.Date)
@@ -204,17 +203,11 @@
                             }
 
                         </table>
-                    </dd>
-    </dl>
+                   </dd>
+            </dl>
 </div>
 
-<p>
-    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Customer_id }) |
-    @Html.ActionLink("Takaisin asiakastietoihin", "Index")
-</p>
 
-@*//Linkki asiakastietojen tallennukseen:*@
-@Html.ActionLink("Asiakastietojen tallennus", "Index")
 
 @section Scripts {
 

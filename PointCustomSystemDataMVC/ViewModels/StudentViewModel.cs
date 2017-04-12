@@ -151,6 +151,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Pvm")]
         public DateTime? Date { get; set; }
 
+        public virtual ICollection<StudentViewModel> Studentreservations { get; set; }
         //public virtual ICollection<StudentGroup> StudentGroup { get; set; }
         public virtual ICollection<Phone> Phone { get; set; }
         public virtual ICollection<PostOffices> PostOffices { get; set; }

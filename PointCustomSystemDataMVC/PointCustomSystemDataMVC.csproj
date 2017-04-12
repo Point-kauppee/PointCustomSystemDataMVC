@@ -298,6 +298,7 @@
     <Compile Include="ViewModels\PersonnelViewModel.cs" />
     <Compile Include="ViewModels\ReservationDetailViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
+    <Compile Include="ViewModels\StudentDetailViewModel.cs" />
     <Compile Include="ViewModels\StudentGroupViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
     <Compile Include="ViewModels\TreatmentDetailViewModel.cs" />

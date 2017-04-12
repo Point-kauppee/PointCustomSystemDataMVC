@@ -197,12 +197,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     return HttpNotFound();
                 }
 
-                // muodostetaan näkymämalli tietokannan rivien pohjalta          
-
-                //var customerParentViewModel = new CustomerParentViewModel();
-                //var customerViewModel = new CustomerViewModel();
-                //customerParentViewModel.CustomerViewModel = customerViewModel;
-
+                // muodostetaan näkymämalli tietokannan rivien pohjalta        
                     ReservationDetailViewModel view = new ReservationDetailViewModel();          
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
@@ -228,7 +223,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-
+                //muodostetaan Customer -näkymän alitiedostona asiakkaan palvelutiedot
                     view.Customreservations = new List<TreatmentDetailViewModel>();
                     //foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Date).ThenBy(r => r.Start))
 
@@ -540,76 +535,9 @@ namespace PointCustomSystemDataMVC.Controllers
         }
 
 
-        //ASIAKKAAN HOITOTIETOJEN TALLENNUS
+      
 
-        //tehdään listaus kaikista kytkennöistä
-        public ActionResult AddNotes()
-        {
-            List<CustomerViewModel> model = new List<CustomerViewModel>();
-
-            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-
-            try
-            {
-                List<TreatmentReport> treatrepos = entities.TreatmentReport.ToList();
-
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-
-                CultureInfo fiFi = new CultureInfo("fi-FI");
-                foreach (TreatmentReport treat in treatrepos)
-                {
-                    CustomerViewModel cusw = new CustomerViewModel();
-                    cusw.Customer_id = treat.Customer.Customer_id;
-                    cusw.TreatmentReport_id = treat.TreatmentReport_id;
-                    cusw.TreatmentTime = treat.TreatmentTime.Value;
-                    cusw.TreatmentDate = treat.TreatmentDate.Value;
-                    //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);
-
-                    model.Add(cusw);
-                }
-            }
-            finally
-            {
-                entities.Dispose();
-            }
-
-            return View(model);
-        }
-
-        public ActionResult ListJson()
-
-        {
-            List<CustomerViewModel> model = new List<CustomerViewModel>();
-
-            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-            try
-            {
-                List<TreatmentReport> treatrepos = entities.TreatmentReport.ToList();
-
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-                CultureInfo fiFi = new CultureInfo("fi-FI");
-                foreach (TreatmentReport treat in treatrepos)
-                {
-                    CustomerViewModel cusw = new CustomerViewModel();
-                    cusw.Customer_id = treat.Customer.Customer_id;
-                    cusw.TreatmentReport_id = treat.TreatmentReport_id;
-                  
-                    cusw.TreatmentTime = treat.TreatmentTime.Value;
-                    cusw.TreatmentDate = treat.TreatmentDate.Value;
-                    //custo.LastSeen = custome.LastSeen.Value.ToString(fiFi);
-
-                    model.Add(cusw);
-                }
-            }
-
-            finally
-
-            {
-                entities.Dispose();
-            }
-
-            return Json(model, JsonRequestBehavior.AllowGet);
-        }
+       
 
         [HttpPost]
         //CustomerViewModel.cs - ASIAKASRAPORTIN TALLENTAMINEN (SQL) TIETOKANTAAN

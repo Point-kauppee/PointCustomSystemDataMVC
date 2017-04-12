@@ -17,20 +17,15 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Hoitokertomus")]
         public string TreatmentReportText { get; set; }
 
-        [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "HoitoPvm")]
-        public DateTime TreatmentDate { get; set; }
+     
 
-        [Display(Name = "Hoitoaika")]
-        [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hoitoaika min.")]
         public string TreatmentTime { get; set; }
 
         public string Treatment { get; set; }
         public int? Treatment_id { get; set; }
 
-        [Display(Name = "Hoito")]
+        [Display(Name = "Palvelu")]
         public string TreatmentName { get; set; }
 
         public int? User_id { get; set; }

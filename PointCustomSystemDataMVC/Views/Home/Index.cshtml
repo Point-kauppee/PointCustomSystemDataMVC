@@ -142,10 +142,11 @@
         @*<div style="float:left; width: 150px;">
             <div id="nav"></div>
         </div>*@
-            <div style="margin-left: 150px;">
-                <div id="dpc" class="w3-text-grey calendar_default_main">
+            @*<div style="margin-left: 150px;">*@
+                <div>
+                    <div id="dpc" class="w3-text-grey calendar_default_main">
 
-                    @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
+                        @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
                {
                    BackendUrl = Url.Content("~/Reservations/BackEnd"),
                    //BackendUrl = Url.Action("Backend", "Calendar"),
@@ -161,14 +162,14 @@
                    TimeRangeSelectedJavaScript = "create(start,end)",
                    HeightSpec = HeightSpec.BusinessHours,
                })
-                    <br />
-                    <div class="space">
-                        Viikko:
-                        <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
-                        <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
+                        <br />
+                        <div class="space">
+                            Viikko:
+                            <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
+                            <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
+                        </div>
                     </div>
                 </div>
-            </div>
                 @*https://code.daypilot.org/81367/daypilot-modal*@
 
         <br />

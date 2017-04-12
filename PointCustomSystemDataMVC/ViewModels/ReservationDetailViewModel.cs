@@ -136,6 +136,26 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentReportText { get; set; }
         public int? TreatmentReport_id { get; set; }
 
+        public int? StudentGroup_id { get; set; }
+        [Display(Name = "Kurssi")]
+        public string StudentGroupName { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Opintojen aloitus pvm")]
+        public DateTime? EnrollmentDateIN { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Valmistunut pvm")]
+        public DateTime? EnrollmentDateOUT { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Opinnot keskeytyneet pvm")]
+        public DateTime? EnrollmentDateOFF { get; set; }
+
         public virtual List<TreatmentDetailViewModel> Customreservations { get; set; }
+        public virtual List<StudentDetailViewModel> Studentreservations { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model PointCustomSystemDataMVC.ViewModels.StudentViewModel
+﻿@model PointCustomSystemDataMVC.ViewModels.ReservationDetailViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -24,7 +24,7 @@
 
 @*<input type="button" onclick="location.href = '/Studentxes/DownloadViewPDF';" value="Luo pdf" />*@
 
-<div><a href="@Url.Action("DownloadViewPDF", "Studentxes", new { id = Model.Student_id })">Tee PDF</a></div>
+<div><a href="@Url.Action("DownloadViewPDF", "Studentxes", new { id = Model.Student_id })">Hoitajatietoraportti</a></div>
 
 <div>
     <h4>Hoitaja</h4>
@@ -37,7 +37,7 @@
         <dd>
             @Html.DisplayFor(model => model.UserIdentity)
         </dd>
-       
+
         <dt>
             @Html.DisplayNameFor(model => model.FirstNameH)
         </dt>
@@ -141,9 +141,64 @@
             @Html.DisplayFor(model => model.Information)
         </dd>
 
+        <dd>
+            <hr />
+            <p>
+                @Html.ActionLink("Muokkaa hoitajatietoja", "Edit", new { id = Model.Student_id }) |
+                @Html.ActionLink("Takaisin hoitajatietoihin", "Index")
+            </p>
+
+            <hr />
+            @*1.2.2017 Lisätty hoitajan palvelutiedot*@
+            <h4>Hoitajan palvelutiedot</h4>
+
+            <table class="table">
+                <tr>
+                    <th>Päivämäärä</th>
+                    <th>Palveluaika alkaa</th>
+                    <th>Palveluaika loppuu</th>
+                    <th>Palvelun nimi</th>
+                    <th>Palvelun kesto</th>
+                    <th>Asiakas</th>
+                    <th>Tiedot</th>
+                </tr>
+
+
+                @foreach (var item in Model.Studentreservations)
+
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Start)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.End)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentTime)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullNameA)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
     </dl>
 </div>
-<p>
-    @Html.ActionLink("Muokkaa hoitajatietoja", "Edit", new { id = Model.Student_id }) |
-    @Html.ActionLink("Takaisin hoitajatietoihin", "Index")
-</p>
