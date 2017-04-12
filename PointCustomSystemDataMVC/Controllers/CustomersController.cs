@@ -179,32 +179,31 @@ namespace PointCustomSystemDataMVC.Controllers
         //GET: Customers/Details/5
         public ActionResult Details(int? id)
         {
-            CustomerViewModel model = new CustomerViewModel();
+            ReservationDetailViewModel model = new ReservationDetailViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                User user = db.User.Find(id);
-                if (user == null)
-                {
-                    return HttpNotFound();
-                }
+                //User user = db.User.Find(id);
+                //if (user == null)
+                //{
+                //    return HttpNotFound();
+                //}
 
-                Customer custdetail = entities.Customer.Find(user.Customer_id);
-
+                //Customer custdetail = entities.Customer.Find(user.Customer_id);
+                Customer custdetail = entities.Customer.Find(id);
                 if (custdetail == null)
                 {
                     return HttpNotFound();
                 }
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta          
-             
-                    //var customerParentViewModel = new CustomerParentViewModel();
-                    //var customerViewModel = new CustomerViewModel();
 
-                    //customerParentViewModel.CustomerViewModel = customerViewModel;
-                   
-                    CustomerViewModel view = new CustomerViewModel();          
+                //var customerParentViewModel = new CustomerParentViewModel();
+                //var customerViewModel = new CustomerViewModel();
+                //customerParentViewModel.CustomerViewModel = customerViewModel;
+
+                    ReservationDetailViewModel view = new ReservationDetailViewModel();          
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
@@ -229,18 +228,28 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    view.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
-                    view.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
-                    view.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
-                    view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    model = view;
-             
-                    //if (id == null)
-                    //{
-                    //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                    //}
-                   
+                    view.Customreservations = new List<TreatmentDetailViewModel>();
+                    //foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Date).ThenBy(r => r.Start))
+
+                    foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Start))
+                    {
+                    view.Customreservations.Add(new TreatmentDetailViewModel()
+                    {
+                        Date= res.Date,
+                        Start = res.Start,
+                        End = res.End,
+                        TreatmentName = res.Treatment?.TreatmentName,
+                        TreatmentTime = res.Treatment?.TreatmentTime,
+                        TreatmentPrice = res.Treatment?.TreatmentPrice,
+                        FirstNameH = res.Studentx?.FirstName,
+                        LastNameH = res.Studentx?.LastName,
+                        Notes = res.Note         
+                    });
+                }
+
+                model = view;
+                           
                }
                finally
                {

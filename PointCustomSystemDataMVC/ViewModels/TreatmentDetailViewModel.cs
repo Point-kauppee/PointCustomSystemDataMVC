@@ -6,30 +6,26 @@ using System.Web;
 
 namespace PointCustomSystemDataMVC.ViewModels
 {
-    public class CustomerDetailViewModel
+    public class TreatmentDetailViewModel
     {
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Alkaen klo")]
+        public DateTime? Start { get; set; }
+
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Loppuu klo")]
+        public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "HoitoPvm")]
         public DateTime? Date { get; set; }
 
-        [Display(Name = "Alkaen klo")]
-        [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
-        public DateTime? Start { get; set; }
-        [Display(Name = "Loppuu klo")]
-        [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
-        public DateTime? End { get; set; }
-
+        [Display(Name = "Palvelu")]
         public string TreatmentName { get; set; }
-
-        [Display(Name = "Hoitoaika min.")]
         public string TreatmentTime { get; set; }
-        [Display(Name = "Palvelun hinta")]
-        public string TreatmentPrice { get; set; }
-
 
         [Display(Name = "Hoitaja Etunimi")]
         public string FirstNameH { get; set; }
@@ -44,6 +40,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Tiedot")]
         public string Notes { get; set; }
 
-        public virtual ICollection<CustomerDetailViewModel> Customreservations { get; set; }
+        [Display(Name = "Palvelun hinta")]
+        public string TreatmentPrice { get; set; }
+       
     }
 }

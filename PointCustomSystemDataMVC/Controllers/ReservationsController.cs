@@ -499,15 +499,22 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ReservationViewModel model)
         {
-            Reservation res = db.Reservation.Find(model.Reservation_id);         
-            res.Start = model.Start.GetValueOrDefault();
-            res.End = model.End.GetValueOrDefault();
+            Reservation res = db.Reservation.Find(model.Reservation_id);
             res.Date = model.Date.GetValueOrDefault();
+            //res.Start = model.Start.GetValueOrDefault();
+            //res.End = model.End.GetValueOrDefault();
+            res.Start = res.Date + model.Start.GetValueOrDefault().TimeOfDay;
+            res.End = res.Date + model.End.GetValueOrDefault().TimeOfDay;
+
             res.Note = model.Note;
             res.TreatmentPaid = model.TreatmentPaid;
             res.TreatmentPaidDate = model.TreatmentPaidDate.GetValueOrDefault();
             res.CalendarTitle = model.CalendarTitle2;
             res.TreatmentReportTexts = model.TreatmentReportTexts;
+
+
+            //DateTime start = new DateTime(2017, 4, 12, time.Hour, time.Minute, 0);
+
 
             // etsitään User-rivi kannasta valitun nimen perusteella
             int userId = int.Parse(model.UserIdentity);

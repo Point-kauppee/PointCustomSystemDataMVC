@@ -25,7 +25,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Hoitoaika")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:hh:mm}", ApplyFormatInEditMode = true)]
-        public DateTime TreatmentTime { get; set; }
+        public string TreatmentTime { get; set; }
 
         public string Treatment { get; set; }
         public int? Treatment_id { get; set; }

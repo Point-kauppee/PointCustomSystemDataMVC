@@ -296,9 +296,11 @@
     <Compile Include="ViewModels\CustomerViewModel.cs" />
     <Compile Include="ViewModels\HoursPerReservationModel.cs" />
     <Compile Include="ViewModels\PersonnelViewModel.cs" />
+    <Compile Include="ViewModels\ReservationDetailViewModel.cs" />
     <Compile Include="ViewModels\ReservationViewModel.cs" />
     <Compile Include="ViewModels\StudentGroupViewModel.cs" />
     <Compile Include="ViewModels\StudentViewModel.cs" />
+    <Compile Include="ViewModels\TreatmentDetailViewModel.cs" />
     <Compile Include="ViewModels\TreatmentOfficeViewModel.cs" />
     <Compile Include="ViewModels\TreatmentReportsViewModel.cs" />
   </ItemGroup>

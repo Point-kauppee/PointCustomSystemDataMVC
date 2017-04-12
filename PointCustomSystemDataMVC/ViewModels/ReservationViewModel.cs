@@ -88,7 +88,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Päättyen klo")]
+        [Display(Name = "Loppuu klo")]
         public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
@@ -117,12 +117,13 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         //public string Treatment { get; set; }
         public int? Treatment_id { get; set; }
+
         [Display(Name = "Hoitoaika")]
         public string TreatmentTime { get; set; }
 
         [Display(Name = "Hoito")]
         public string TreatmentName { get; set; }
-        [Display(Name = "Hinta")]
+        [Display(Name = "Palvelun hinta")]
         public string TreatmentPrice { get; set; }
 
         [Display(Name = "Osoite")]

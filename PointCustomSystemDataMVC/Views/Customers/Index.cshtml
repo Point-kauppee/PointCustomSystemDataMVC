@@ -135,7 +135,7 @@
 
                         <td>
                             @Html.ActionLink("Muokkaa", "Edit", new { id = item.Customer_id }) |
-                            @Html.ActionLink("Tiedot", "Details", new { id = item.User_id }) |
+                            @Html.ActionLink("Tiedot", "Details", new { id = item.Customer_id }) |
                             @Html.ActionLink("Poista", "Delete", new { id = item.Customer_id }) |
                             @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Index", "TreatmentReports", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                             <br><br>

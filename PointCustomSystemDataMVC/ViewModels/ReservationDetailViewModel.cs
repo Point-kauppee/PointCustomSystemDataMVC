@@ -6,18 +6,8 @@ using System.Web;
 
 namespace PointCustomSystemDataMVC.ViewModels
 {
-    public class CustomerViewModel
+    public class ReservationDetailViewModel
     {
-        public CustomerViewModel()
-        {
-            this.ReservationViewModel = new HashSet<ReservationViewModel>();
-            this.PersonnelViewModel = new HashSet<PersonnelViewModel>();
-            this.StudentViewModel = new HashSet<StudentViewModel>();
-            this.TreatmentOfficeViewModel = new HashSet<TreatmentOfficeViewModel>();
-            this.CustomerParentViewModel = new HashSet<CustomerParentViewModel>();
-        }
-
-
         public int? Personnel_id { get; set; }
         public int Customer_id { get; set; }
         public int? Student_id { get; set; }
@@ -102,12 +92,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Reservations { get; set; }
         public int? Reservation_id { get; set; }
 
-      
+
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Alkaen klo")]
         public DateTime? Start { get; set; }
-      
+
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
@@ -124,7 +114,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PhoneNum_1 { get; set; }
 
         public int? User_id { get; set; }
-        public string User{ get; set; }
+        public string User { get; set; }
 
         [Required(ErrorMessage = "Käyttäjätunnus tallennettava")]
         [Display(Name = "Käyttäjätunnus")]
@@ -133,32 +123,19 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Salasana")]
         public string Password { get; set; }
 
+       
 
+        
         [Display(Name = "Hoitoaika min.")]
         public string TreatmentTime { get; set; }
-
-        [Display(Name = "Palvelun hinta")]
-        public string TreatmentPrice { get; set; }
-
-        [Display(Name = "Palvelu")]
-        public string TreatmentName { get; set; }
-        public string TreatmentReport { get; set; }    
+            
+        public string TreatmentReport { get; set; }
         public string TreatmentReportName { get; set; }
 
         [Display(Name = "Hoitoraportti")]
         public string TreatmentReportText { get; set; }
         public int? TreatmentReport_id { get; set; }
 
-        public virtual ICollection<ReservationViewModel> ReservationViewModel { get; set; }
-      
-        public virtual ICollection<PersonnelViewModel> PersonnelViewModel { get; set; }
-
-        public virtual ICollection<StudentViewModel> StudentViewModel { get; set; }
-
-        public virtual ICollection<TreatmentOfficeViewModel> TreatmentOfficeViewModel { get; set; }
-
-        public virtual ICollection<CustomerParentViewModel> CustomerParentViewModel { get; set; }
-        public virtual ICollection<CustomerViewModel> Customreservations { get; set; }
-
+        public virtual List<TreatmentDetailViewModel> Customreservations { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@model PointCustomSystemDataMVC.ViewModels.CustomerViewModel
+﻿@model PointCustomSystemDataMVC.ViewModels.ReservationDetailViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -137,7 +137,7 @@
             <hr />
 
             @*1.2.2017 Lisätty alitiedostot Palvelut*@
-                                  @*<h4>Asiakkaan hoitotiedot</h4>
+            <h4>Asiakkaan hoitotiedot</h4>
 
                         <table class="table">
                             <tr>
@@ -151,10 +151,7 @@
                                 <th>Tiedot</th>
                             </tr>
 
-        foreach (var c in Model) {
-
-
-
+        @*foreach (var c in Model) {
            foreach (var res in
               c.CustomerReseration) {
              //@Model.CustomerDetailViewModel.Date
@@ -166,11 +163,9 @@
                         //@Model.CustomerDetailViewModel.FirstNameH
                         //@Model.CustomerDetailViewModel.Notes
           }
-        }
+        }*@
+
             @foreach (var item in Model.Customreservations)
-
-
-
 
                         {
                                 <tr>
@@ -209,7 +204,7 @@
                             }
 
                         </table>
-                    </dd>*@
+                    </dd>
     </dl>
 </div>
 
