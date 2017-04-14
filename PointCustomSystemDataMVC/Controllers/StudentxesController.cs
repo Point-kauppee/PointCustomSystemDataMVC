@@ -86,7 +86,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
         public ActionResult DownloadViewPDF(int? id)
         {
-            StudentViewModel model = new StudentViewModel();
+            ReservationDetailViewModel model = new ReservationDetailViewModel();
             //List<StudentViewModel> model = new List<StudentViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -98,7 +98,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 // muodostetaan näkymämalli tietokannan rivien pohjalta             
                 foreach (Studentx studetail in students)
                 {
-                    StudentViewModel stu = new StudentViewModel();
+                    ReservationDetailViewModel stu = new ReservationDetailViewModel();
 
                     //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -134,6 +134,23 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
                     stu.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
 
+                    // muodostetaan Studentx - näkymän alitiedostona asiakkaan palvelutiedot
+                    stu.Studentreservations = new List<StudentDetailViewModel>();
+
+                    foreach (Reservation res in studetail.Reservation.OrderBy(r => r.Start))
+                    {
+                        stu.Studentreservations.Add(new StudentDetailViewModel()
+                        {
+                            Date = res.Date,
+                            Start = res.Start,
+                            End = res.End,
+                            TreatmentName = res.Treatment?.TreatmentName,
+                            TreatmentTime = res.Treatment?.TreatmentTime,
+                            FirstNameA = res.Customer?.FirstName,
+                            LastNameA = res.Customer?.LastName,
+                            Notes = res.Note
+                        });
+                    }
                     model = stu;
                 }
                 if (id == null)
@@ -164,13 +181,6 @@ namespace PointCustomSystemDataMVC.Controllers
 
             try
             {
-                //Studentx student = db.Studentx.Find(id);
-                //if (student == null)
-                //{
-                //    return HttpNotFound();
-                //}
-
-                //Studentx studetail = entities.Studentx.Find(student.Student_id);
                 Studentx studetail = entities.Studentx.Find(id);
                 if (studetail == null)
                 {
@@ -197,7 +207,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 view.CreatedAt = studetail.CreatedAt;
                 view.LastModifiedAt = studetail.LastModifiedAt;
                 view.DeletedAt = studetail.DeletedAt;
-                    ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
+                ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
                 view.Active = studetail.Active;
                 view.Information = studetail.Information;
 
@@ -212,10 +222,9 @@ namespace PointCustomSystemDataMVC.Controllers
                 view.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
                 view.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
 
-                // muodostetaan Customer - näkymän alitiedostona asiakkaan palvelutiedot
+                // muodostetaan Studentx - näkymän alitiedostona asiakkaan palvelutiedot
                 view.Studentreservations = new List<StudentDetailViewModel>();
                 
-
                 foreach (Reservation res in studetail.Reservation.OrderBy(r => r.Start))
                 {
                     view.Studentreservations.Add(new StudentDetailViewModel()

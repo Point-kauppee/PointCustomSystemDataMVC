@@ -4,7 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-
 <title>PointCollege Ajanvarausohjelmisto</title>
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
@@ -307,9 +306,9 @@
                 <th>
                     @Html.DisplayNameFor(model => model.UserIdentity)
                 </th>
-                <th>
+                @*<th>
                     @Html.DisplayNameFor(model => model.FullNameA)
-                </th>
+                </th>*@
                 <th>
                     @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
                 </th>
@@ -344,6 +343,9 @@
                     @Html.DisplayNameFor(model => model.Note)
                 </th>
                 <th>
+                    @Html.DisplayNameFor(model => model.TreatmentCompleted)
+                </th>
+                <th>
                     @Html.DisplayNameFor(model => model.TreatmentPaid)
                 </th>
                 <th>
@@ -352,7 +354,6 @@
                 <th>
                     @Html.DisplayNameFor(model => model.TreatmentReportTexts)
                 </th>
-
 
                 <th></th>
             </tr>
@@ -363,9 +364,9 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.UserIdentity)
                     </td>
-                    <td>
+                    @*<td>
                         @Html.DisplayFor(modelItem => item.FullNameA)
-                    </td>
+                    </td>*@
                     <td>
                         @Html.DisplayFor(modelItem => item.FirstNameA)
                     </td>
@@ -394,12 +395,14 @@
                         @Html.DisplayFor(modelItem => item.Note)
                     </td>
                     <td>
+                        @Html.DisplayFor(modelItem => item.TreatmentCompleted)
+                    </td>
+                    <td>
                         @Html.DisplayFor(modelItem => item.TreatmentPaid)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.CalendarTitle)
                     </td>
-
                     <td>
                         @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
                     </td>
@@ -411,6 +414,8 @@
                         @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Details", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                         <br><br>
                         @Html.ActionLink("Hoitoraportti", "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                        <br><br>
+                        @Html.ActionLink("Maksukuittaus", "TreatPayment", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                     </td>               
                 </tr>
             }

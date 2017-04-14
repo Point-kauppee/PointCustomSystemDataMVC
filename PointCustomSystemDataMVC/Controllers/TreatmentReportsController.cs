@@ -84,7 +84,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     views.TreatmentReport_id = treatrepdetail.TreatmentReport_id;
                     views.TreatmentReportText = treatrepdetail.TreatmentReportText;     
                   
-
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     views.Treatment_id = treatrepdetail.Treatment?.Treatment_id;
                     views.TreatmentName = treatrepdetail.Treatment?.TreatmentName;

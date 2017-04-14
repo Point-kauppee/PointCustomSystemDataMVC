@@ -17,7 +17,6 @@ namespace PointCustomSystemDataMVC.ViewModels
             //this.StudentGroup = new HashSet<StudentGroup>();
             this.TreatmentReport = new HashSet<TreatmentReport>();
             this.User = new HashSet<User>();
-
         }
 
         public int Student_id { get; set; }
@@ -150,6 +149,11 @@ namespace PointCustomSystemDataMVC.ViewModels
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [Display(Name = "Pvm")]
         public DateTime? Date { get; set; }
+
+        [Display(Name = "Hoitoaika min.")]
+        public string TreatmentTime { get; set; }
+        [Display(Name = "Palvelu")]
+        public string TreatmentName { get; set; }
 
         public virtual ICollection<StudentViewModel> Studentreservations { get; set; }
         //public virtual ICollection<StudentGroup> StudentGroup { get; set; }

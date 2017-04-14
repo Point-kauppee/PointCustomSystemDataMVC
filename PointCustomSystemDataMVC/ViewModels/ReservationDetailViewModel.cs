@@ -92,6 +92,17 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Reservations { get; set; }
         public int? Reservation_id { get; set; }
 
+        [Display(Name = "Hoitoraportti")]
+        public string TreatmentReportTexts { get; set; }
+
+        [Display(Name = "Palvelumaksu")]
+        public bool? TreatmentPaid { get; set; }
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Maksu pvm")]
+        public DateTime? TreatmentPaidDate { get; set; }
+       
 
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
@@ -105,7 +116,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "HoitoPvm")]
+        [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
         public int? Phone_id { get; set; }

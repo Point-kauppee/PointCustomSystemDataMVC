@@ -146,7 +146,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentReportName { get; set; }
 
         [Display(Name = "Hoitoraportti")]
-        public string TreatmentReportText { get; set; }
+        public string TreatmentReportTexts { get; set; }
         public int? TreatmentReport_id { get; set; }
 
         public virtual ICollection<ReservationViewModel> ReservationViewModel { get; set; }

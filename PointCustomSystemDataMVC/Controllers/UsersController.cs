@@ -103,7 +103,6 @@ namespace PointCustomSystemDataMVC.Controllers
             usr.UserIdentity = userdetail.UserIdentity;
             //usr.Password = "Customer";
 
-
             return View(usr);
 
     }//edit
@@ -118,7 +117,6 @@ namespace PointCustomSystemDataMVC.Controllers
             User usr = db.User.Find(model.User_id);
 
             usr.UserIdentity = model.UserIdentity;
-
 
             db.SaveChanges();
     

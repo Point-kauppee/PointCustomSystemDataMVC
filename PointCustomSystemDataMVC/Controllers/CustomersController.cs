@@ -175,7 +175,7 @@ namespace PointCustomSystemDataMVC.Controllers
         }//DownloadViewPDF
 
 
-        //Lisätty 1.3.2017 oma koodi:
+        //Lisätty 1.3.2017 oma koodi, jota muokattu 12.4.2017:
         //GET: Customers/Details/5
         public ActionResult Details(int? id)
         {
@@ -189,8 +189,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 //{
                 //    return HttpNotFound();
                 //}
-
                 //Customer custdetail = entities.Customer.Find(user.Customer_id);
+
                 Customer custdetail = entities.Customer.Find(id);
                 if (custdetail == null)
                 {
@@ -223,11 +223,11 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     view.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                //muodostetaan Customer -näkymän alitiedostona asiakkaan palvelutiedot
+                    //muodostetaan Customer -näkymän alitiedostona asiakkaan palvelutiedot
                     view.Customreservations = new List<TreatmentDetailViewModel>();
                     //foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Date).ThenBy(r => r.Start))
 
-                    foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Start))
+                    foreach (Reservation res in custdetail.Reservation.OrderByDescending(r => r.Date))
                     {
                     view.Customreservations.Add(new TreatmentDetailViewModel()
                     {
@@ -257,14 +257,14 @@ namespace PointCustomSystemDataMVC.Controllers
      
         //// more details see http://go.microsoft.com/fwlink/?LinkId=317598.
          
-        public ActionResult CustomDetailList(int? id)
-        {
-            var customerParentViewModel = new CustomerParentViewModel();
-            var customerViewModel = new CustomerViewModel();
+        //public ActionResult CustomDetailList(int? id)
+        //{
+        //    var customerParentViewModel = new CustomerParentViewModel();
+        //    var customerViewModel = new CustomerViewModel();
 
-            customerParentViewModel.CustomerViewModel = customerViewModel;
-            return View(customerParentViewModel);
-        }
+        //    customerParentViewModel.CustomerViewModel = customerViewModel;
+        //    return View(customerParentViewModel);
+        //}
 
         // GET: Customers/Create
         public ActionResult Create()
@@ -379,7 +379,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
             return View(view);
-        }//edit
+        }
 
         // POST: Customers/Edit/5
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
@@ -509,12 +509,10 @@ namespace PointCustomSystemDataMVC.Controllers
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
-
         {
             Customer customer = db.Customer.Find(id);
             db.Customer.Remove(customer);
             db.SaveChanges();
-
             return RedirectToAction("Index");
         }
 
@@ -539,58 +537,58 @@ namespace PointCustomSystemDataMVC.Controllers
 
        
 
-        [HttpPost]
-        //CustomerViewModel.cs - ASIAKASRAPORTIN TALLENTAMINEN (SQL) TIETOKANTAAN
-        public JsonResult SavedReport(string TreatmentReport)
-        {
-            string json = Request.InputStream.ReadToEnd();
-            CustomerViewModel inputData =
-                JsonConvert.DeserializeObject<CustomerViewModel>(json);
+        //[HttpPost]
+        ////CustomerViewModel.cs - ASIAKASRAPORTIN TALLENTAMINEN (SQL) TIETOKANTAAN
+        //public JsonResult SavedReport(string TreatmentReport)
+        //{
+        //    string json = Request.InputStream.ReadToEnd();
+        //    CustomerViewModel inputData =
+        //        JsonConvert.DeserializeObject<CustomerViewModel>(json);
 
-            bool success = false;
-            string error = "";
+        //    bool success = false;
+        //    string error = "";
 
-            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+        //    JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
-            try
-            {
-                //haetaan ensin asiakkaan id-numero koodin perusteella:
-                int customerId = (from c in entities.Customer
-                                  where c.Customer_id == inputData.Customer_id
-                                  select c.Customer_id).FirstOrDefault();
+        //    try
+        //    {
+        //        //haetaan ensin asiakkaan id-numero koodin perusteella:
+        //        int customerId = (from c in entities.Customer
+        //                          where c.Customer_id == inputData.Customer_id
+        //                          select c.Customer_id).FirstOrDefault();
 
 
-                //haetaan TreatmentReport id-numero koodin perusteella:
-                int treatmentrepoId = (from t in entities.TreatmentReport
-                                       where t.TreatmentReportText == inputData.TreatmentReportText
-                                       select t.TreatmentReport_id).FirstOrDefault();
+        //        //haetaan TreatmentReport id-numero koodin perusteella:
+        //        int treatmentrepoId = (from t in entities.TreatmentReport
+        //                               where t.TreatmentReportText == inputData.TreatmentReportText
+        //                               select t.TreatmentReport_id).FirstOrDefault();
 
-                if ((customerId > 0) && (treatmentrepoId > 0))
-                {
-                    //tallennetaan asikaan hoitotiedot tietokantaan:
-                    TreatmentReport newEntry = new TreatmentReport();
-                    newEntry.Customer_id = customerId;
-                    newEntry.TreatmentReport_id = treatmentrepoId;
-                    newEntry.TreatmentDate = DateTime.Now;
+        //        if ((customerId > 0) && (treatmentrepoId > 0))
+        //        {
+        //            //tallennetaan asikaan hoitotiedot tietokantaan:
+        //            TreatmentReport newEntry = new TreatmentReport();
+        //            newEntry.Customer_id = customerId;
+        //            newEntry.TreatmentReport_id = treatmentrepoId;
+        //            newEntry.TreatmentDate = DateTime.Now;
 
-                    entities.TreatmentReport.Add(newEntry);
-                    entities.SaveChanges();
+        //            entities.TreatmentReport.Add(newEntry);
+        //            entities.SaveChanges();
 
-                    success = true;
-                }
-            }
-            catch (Exception ex)
-            {
-                error = ex.GetType().Name + ": " + ex.Message;
-            }
-            finally
-            {
-                entities.Dispose();
-            }
+        //            success = true;
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        error = ex.GetType().Name + ": " + ex.Message;
+        //    }
+        //    finally
+        //    {
+        //        entities.Dispose();
+        //    }
 
-            //palautetaan JSON-muotoinen tulos kutsujalle
-            var result = new { success = success, error = error };
-            return Json(result);
-        }
+        //    //palautetaan JSON-muotoinen tulos kutsujalle
+        //    var result = new { success = success, error = error };
+        //    return Json(result);
+        //}
     }//controller
 }//namespace

@@ -1,4 +1,4 @@
-﻿@model PointCustomSystemDataMVC.Models.TreatmentPlace
+﻿@model PointCustomSystemDataMVC.ViewModels.TreatmentPlaceViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -32,7 +32,7 @@
 
 <p>
 
-    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Treatmentplace_id }) |
+    @Html.ActionLink("Muokkaa", "Edit", new { id = Model.TreatmentPlace_id }) |
 
     @Html.ActionLink("Takaisin hoitopaikkahallintaan", "Index")
 

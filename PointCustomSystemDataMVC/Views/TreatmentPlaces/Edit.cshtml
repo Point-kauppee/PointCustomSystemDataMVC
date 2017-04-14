@@ -1,4 +1,4 @@
-﻿@model PointCustomSystemDataMVC.Models.TreatmentPlace
+﻿@model PointCustomSystemDataMVC.ViewModels.TreatmentPlaceViewModel
 
 @{
     ViewBag.Title = "Edit";
@@ -15,7 +15,7 @@
         <h4>Hoitopaikan tiedot</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Treatmentplace_id)
+        @Html.HiddenFor(model => model.TreatmentPlace_id)
 
         <div class="form-group">
             @Html.LabelFor(model => model.TreatmentPlaceName, "Hoitopaikan nimi", htmlAttributes: new { @class = "control-label col-md-2" })

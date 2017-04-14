@@ -303,6 +303,7 @@
     <Compile Include="ViewModels\StudentViewModel.cs" />
     <Compile Include="ViewModels\TreatmentDetailViewModel.cs" />
     <Compile Include="ViewModels\TreatmentOfficeViewModel.cs" />
+    <Compile Include="ViewModels\TreatmentPlaceViewModel.cs" />
     <Compile Include="ViewModels\TreatmentReportsViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -349,8 +350,7 @@
       <DependentUpon>PointSQLData.edmx</DependentUpon>
     </Content>
     <Content Include="App_Browsers\qt.browser" />
-    <None Include="Properties\PublishProfiles\PointCustomSystemData - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC.pubxml" />
+    <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Models\PointSQLData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
@@ -472,7 +472,6 @@
     <Content Include="Views\Customers\Details.cshtml" />
     <Content Include="Views\Customers\Edit.cshtml" />
     <Content Include="Views\Customers\Index.cshtml" />
-    <Content Include="Views\Customers\AddNotes.cshtml" />
     <Content Include="Views\TreatmentReports\Create.cshtml" />
     <Content Include="Views\TreatmentReports\Delete.cshtml" />
     <Content Include="Views\TreatmentReports\Details.cshtml" />
@@ -492,6 +491,7 @@
     <Content Include="Views\Studentxes\DownloadViewPDF.cshtml" />
     <Content Include="Views\Reservations\DownloadViewPDF.cshtml" />
     <Content Include="Views\Reservations\DownloadBill.cshtml" />
+    <Content Include="Views\Reservations\TreatPayment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

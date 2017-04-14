@@ -55,6 +55,6 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Tiedot")]
         public string Notes { get; set; }
 
-        public virtual ICollection<CustomerDetailViewModel> Studentreservations { get; set; }
+        public virtual ICollection<StudentDetailViewModel> Studentreservations { get; set; }
     }
 }

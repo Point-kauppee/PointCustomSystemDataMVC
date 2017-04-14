@@ -19,6 +19,9 @@
             @Html.DisplayNameFor(model => model.Date)
         </th>
         <th>
+            @Html.DisplayNameFor(model => model.TreatmentCompleted)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.TreatmentPaid)
         </th>
         <th>
@@ -70,6 +73,9 @@
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Date)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.TreatmentCompleted)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TreatmentPaid)

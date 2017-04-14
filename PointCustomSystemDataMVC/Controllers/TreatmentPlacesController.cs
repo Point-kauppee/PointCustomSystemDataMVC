@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
+using PointCustomSystemDataMVC.ViewModels;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
@@ -17,73 +18,84 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: TreatmentPlaces
         public ActionResult Index()
         {
-            List<TreatmentPlace> model = new List<TreatmentPlace>();
+            List<TreatmentPlaceViewModel> model = new List<TreatmentPlaceViewModel>();
 
-            try
-            { 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-                model = entities.TreatmentPlace.ToList();
-                entities.Dispose();
-
-                //List<TreatmentPlace> treatplas = entities.TreatmentPlace.ToList();
+            try
+            {
+                List<TreatmentPlace> treatplaces = entities.TreatmentPlace.ToList();
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
+                foreach (TreatmentPlace treatplace in treatplaces)
+                {
+                    TreatmentPlaceViewModel view = new TreatmentPlaceViewModel();
+                    view.TreatmentPlace_id = treatplace.TreatmentPlace_id;
+                    view.TreatmentPlaceName = treatplace.TreatmentPlaceName;
+                    view.TreatmentPlaceNumber = treatplace.TreatmentPlaceNumber;
 
-                //foreach (TreatmentPlace treatpla in treatplas)
-                //{
-                //    TreatmentPlace view = new TreatmentPlace();
-                //    view.Treatmentplace_id = treatpla.Treatmentplace_id;
-                //    view.TreatmentPlaceName = treatpla.TreatmentPlaceName;
-                //    view.TreatmentPlaceNumber = treatpla.TreatmentPlaceNumber;
-
-                //    model.Add(view);
-                //}
-                //}
-                //finally
-                //{
-                //    entities.Dispose();
-                //}
+                    model.Add(view);
+                }
             }
-            catch (Exception ex)
+            finally
             {
-                ViewBag.ErrorMessage = ex.GetType() + ": " + ex.Message;
+                entities.Dispose();
             }
-            //malliolion (model) välitys näkymälle- antaa instanssin asiakastietolistasta:     
-            return View(model);
-        }
 
+                return View(model);
+        }//Index
+
+      
         // GET: TreatmentPlaces/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            TreatmentPlace treatmentPlace = db.TreatmentPlace.Find(id);
-            if (treatmentPlace == null)
-            {
-                return HttpNotFound();
-            }
-            return View(treatmentPlace);
-        }
+        //public ActionResult Details(int? id)
+        //{
+        //    TreatmentPlaceViewModel model = new TreatmentPlaceViewModel();
+
+        //    JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+        //    try
+        //    {
+        //        if (id == null)
+        //    {
+        //        return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+        //    }
+        //    TreatmentPlace treatmentPlace = db.TreatmentPlace.Find(id);
+        //    if (treatmentPlace == null)
+        //    {
+        //        return HttpNotFound();
+        //    }
+
+        //        // muodostetaan näkymämalli tietokannan rivien pohjalta  
+        //        TreatmentPlaceViewModel view = new TreatmentPlaceViewModel();
+        //        view.TreatmentPlace_id = treatmentPlace.TreatmentPlace_id;
+        //        view.TreatmentPlaceName = treatmentPlace.TreatmentPlaceName;
+        //        view.TreatmentPlaceNumber = treatmentPlace.TreatmentPlaceNumber;
+
+        //        model = view;
+        //    }
+        //    finally
+        //    {
+        //        entities.Dispose();
+        //    }
+
+        //    return View(model);
+        //}//details
+
 
         // GET: TreatmentPlaces/Create
         public ActionResult Create()
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
-            List<TreatmentPlace> model = new List<TreatmentPlace>();
+            TreatmentPlaceViewModel model = new TreatmentPlaceViewModel();
+
             return View(model);
 
-            //ViewBag.Reservation_id = new SelectList(db.Reservation, "Reservation_id", "TreatmentName");     
-            //return View();
-        }
+        }//create
 
         // POST: TreatmentPlaces/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(TreatmentPlace model)
+        public ActionResult Create(TreatmentPlaceViewModel model)
         {
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
@@ -101,19 +113,9 @@ namespace PointCustomSystemDataMVC.Controllers
             catch (Exception ex)
             {
             }
-            //return View(user);
+    
             return RedirectToAction("Index");
         }
-
-        //if (ModelState.IsValid)
-        //{
-        //    db.TreatmentPlace.Add(treatmentPlace);
-        //    db.SaveChanges();
-        //    return RedirectToAction("Index");
-        //}
-
-
-        //return View(treatmentPlace);
     
 
         // GET: TreatmentPlaces/Edit/5
@@ -128,9 +130,13 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-    
+
+            TreatmentPlaceViewModel treatplace = new TreatmentPlaceViewModel();
+            treatplace.TreatmentPlace_id = treatmentPlace.TreatmentPlace_id;
+            treatplace.TreatmentPlaceName = treatmentPlace.TreatmentPlaceName;
+            treatplace.TreatmentPlaceNumber = treatmentPlace.TreatmentPlaceNumber;
      
-            return View(treatmentPlace);
+            return View(treatplace);
         }
 
         // POST: TreatmentPlaces/Edit/5
@@ -138,19 +144,18 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "Treatmentplace_id,TreatmentPlaceName,TreatmentPlaceNumber")] TreatmentPlace treatmentPlace)
+        public ActionResult Edit(TreatmentPlaceViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                db.Entry(treatmentPlace).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-       
-         
-          
-            return View(treatmentPlace);
-        }
+           TreatmentPlace treatplace = db.TreatmentPlace.Find(model.TreatmentPlace_id);
+
+            treatplace.TreatmentPlaceName = model.TreatmentPlaceName;
+            treatplace.TreatmentPlaceNumber = model.TreatmentPlaceNumber;
+
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
+
+        }//edit
 
         // GET: TreatmentPlaces/Delete/5
         public ActionResult Delete(int? id)
@@ -164,8 +169,15 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-            return View(treatmentPlace);
-        }
+
+            TreatmentPlaceViewModel view = new TreatmentPlaceViewModel();
+            view.TreatmentPlace_id = treatmentPlace.TreatmentPlace_id;
+            view.TreatmentPlaceName = treatmentPlace.TreatmentPlaceName;
+            view.TreatmentPlaceNumber = treatmentPlace.TreatmentPlaceNumber;
+
+            return View(view);
+        }//Delete
+
 
         // POST: TreatmentPlaces/Delete/5
         [HttpPost, ActionName("Delete")]
@@ -185,6 +197,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }
+        } //Delete
     }
 }

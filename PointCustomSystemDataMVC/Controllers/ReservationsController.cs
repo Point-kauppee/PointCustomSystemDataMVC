@@ -61,6 +61,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Note = reservation.Note;
                     res.CalendarTitle2 = reservation.CalendarTitle;
                     res.TreatmentReportTexts = reservation.TreatmentReportTexts;
+                    res.TreatmentCompleted = reservation.TreatmentCompleted;
 
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
@@ -137,7 +138,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Note = resdetail.Note;
                     res.TreatmentPaid = resdetail.TreatmentPaid;
                     res.TreatmentPaidDate = resdetail.TreatmentPaidDate.GetValueOrDefault();
-                    res.CalendarTitle2 = resdetail.CalendarTitle;
+                    res.TreatmentCompleted = resdetail.TreatmentCompleted;
                     res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -210,7 +211,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Note = resdetail.Note;
                     res.TreatmentPaid = resdetail.TreatmentPaid;
                     res.TreatmentPaidDate = resdetail.TreatmentPaidDate.GetValueOrDefault();
-                    res.CalendarTitle2 = resdetail.CalendarTitle;
+                    res.TreatmentCompleted = resdetail.TreatmentCompleted;
                     res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -290,6 +291,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Note = resdetail.Note;
                     res.TreatmentPaid = resdetail.TreatmentPaid;
                     res.TreatmentPaidDate = resdetail.TreatmentPaidDate.GetValueOrDefault();
+                    res.TreatmentCompleted = resdetail.TreatmentCompleted;
                     res.CalendarTitle2 = resdetail.CalendarTitle;
                     res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
@@ -390,8 +392,10 @@ namespace PointCustomSystemDataMVC.Controllers
             //int cusId = int.Parse(model.FullNameA);
             //if (cusId > 0)
             //{
-            //    Customer cus = db.Customer.Find(cusId);         
+            //    Customer cus = db.Customer.Find(cusId);
             //    res.Customer_id = cusId;
+            //    res.User.UserIdentity = cus.FirstName.ToString();
+            //    res.User.UserIdentity = cus.LastName.ToString();
             //}
 
             // etsitään Treatment-rivi kannasta valitun nimen perusteella
@@ -458,6 +462,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Date = resdetail.Date.Value;
             res.TreatmentPaid = resdetail.TreatmentPaid;
             res.TreatmentPaidDate = resdetail.TreatmentPaidDate;
+            res.TreatmentCompleted = resdetail.TreatmentCompleted;
             res.CalendarTitle2 = resdetail.CalendarTitle;
             res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
@@ -509,6 +514,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Note = model.Note;
             res.TreatmentPaid = model.TreatmentPaid;
             res.TreatmentPaidDate = model.TreatmentPaidDate.GetValueOrDefault();
+            res.TreatmentCompleted = model.TreatmentCompleted;
             res.CalendarTitle = model.CalendarTitle2;
             res.TreatmentReportTexts = model.TreatmentReportTexts;
 
@@ -590,7 +596,8 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Date = reservation.Date.Value;
             res.TreatmentPaid = reservation.TreatmentPaid;
             res.TreatmentPaidDate = reservation.TreatmentPaidDate;
-            res.CalendarTitle = reservation.CalendarTitle;
+            res.TreatmentCompleted = reservation.TreatmentCompleted;
+            res.CalendarTitle2 = reservation.CalendarTitle;
             res.TreatmentReportTexts = reservation.TreatmentReportTexts;
 
             res.User_id = reservation.User?.User_id;
@@ -667,6 +674,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Start = reservation.Start.GetValueOrDefault();
                     res.End = reservation.End.GetValueOrDefault();
                     res.Date = reservation.Date.GetValueOrDefault();
+                    res.TreatmentCompleted = reservation.TreatmentCompleted;
                     res.TreatmentReportTexts = reservation.TreatmentReportTexts;
 
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
@@ -690,7 +698,7 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(model);
         }//TreatText
 
-        // Hoitoraportin luonti:
+        // Asiakkaan Hoitoraportin luonti:
         // GET: Reservations/TreatText/5
         public ActionResult TreatText(int? id)
         {
@@ -704,29 +712,69 @@ namespace PointCustomSystemDataMVC.Controllers
                 return HttpNotFound();
             }
 
-            ReservationViewModel res = new ReservationViewModel();
+            ReservationDetailViewModel res = new ReservationDetailViewModel();
             res.Reservation_id = resdetail.Reservation_id;
             res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
             return View(res);
-
         }//TreatText
 
         // POST: Reservations/TreatText/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult TreatText(ReservationViewModel model)
+        public ActionResult TreatText(ReservationDetailViewModel model)
         {
+
             Reservation res = db.Reservation.Find(model.Reservation_id);
             res.TreatmentReportTexts = model.TreatmentReportTexts;
-          
-                db.SaveChanges();
-     
-                return RedirectToAction("Index");
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
 
         }//TreatText
+
+
+        // Asiakkaan Palvelumaksun suoritus:
+        // GET: Reservations/TreatText/5
+        public ActionResult TreatPayment(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Reservation resdetail = db.Reservation.Find(id);
+            if (resdetail == null)
+            {
+                return HttpNotFound();
+            }
+
+            ReservationDetailViewModel res = new ReservationDetailViewModel();
+            res.Reservation_id = resdetail.Reservation_id;
+            res.TreatmentPaid = resdetail.TreatmentPaid;
+            res.TreatmentPaidDate = resdetail.TreatmentPaidDate;
+
+            return View(res);
+        }//TreatText
+
+        // POST: Reservations/TreatText/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult TreatPayment(ReservationDetailViewModel model)
+        {
+
+            Reservation res = db.Reservation.Find(model.Reservation_id);
+            res.TreatmentPaid = model.TreatmentPaid;
+            res.TreatmentPaidDate = model.TreatmentPaidDate;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }//TreatText
+
+
+
+
+
 
 
         // Asiakkaan hoitoraportti
@@ -748,6 +796,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Start = resdetail.Start.GetValueOrDefault();
                     res.End = resdetail.End.GetValueOrDefault();
                     res.Date = resdetail.Date.GetValueOrDefault();
+                    res.TreatmentCompleted = resdetail.TreatmentCompleted;
                     res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -794,8 +843,8 @@ namespace PointCustomSystemDataMVC.Controllers
     
 
 
-//DAYPILOT VIIKKO VIIKKONÄKYMÄ
-public ActionResult BackEnd()
+        //DAYPILOT VIIKKO VIIKKONÄKYMÄ
+        public ActionResult BackEnd()
         {
             var data = new Dpc().CallBack(this);
             return data;
@@ -899,8 +948,40 @@ public ActionResult BackEnd()
                 }
                
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();              //Events = new EventManager(Controller).Data.AsEnumerable();
+                var tulokset = (from ev in db.Reservation select ev).ToList();
 
-                Events = from ev in db.Reservation select ev;
+                // tyhjien päivien tarkistus
+                DateTime tarkistusAlku = new DateTime(2017, 4, 10);
+                for (int i = 1; i <= 5; i++)
+                {
+                    DateTime tarkistus = tarkistusAlku.AddDays(i - 1);
+                    bool löytyy = (from t in tulokset
+                                   where t.Date == tarkistus.Date
+                                   select t).Any();
+                    if (!löytyy)
+                    {
+                        tulokset.Add(new Reservation()
+                        {
+                            CalendarTitle = "Vapaa",
+                            Date = tarkistus,
+                            Start = tarkistus.AddHours(9),
+                            End = tarkistus.AddHours(19)
+                        });
+                    }
+                }
+
+                // käsin lisätty varaus, demottu 13.4.2017
+                //tulokset.Add(new Reservation()
+                //{
+                //    CalendarTitle = "Jalkahoito 90 min",
+                //    Date = new DateTime (2017, 4, 10 ),
+                //    Start = new DateTime(2017, 4, 10, 11, 30, 0, 0),
+                //    End = new DateTime(2017, 4, 10, 12, 30, 0, 0)
+                //});
+
+                Events = tulokset;
+
+                //Events = from ev in db.Reservation select ev;
                 DataIdField = "Reservation_id";
                 DataTextField = "CalendarTitle";
                 DataDateField = "Date";

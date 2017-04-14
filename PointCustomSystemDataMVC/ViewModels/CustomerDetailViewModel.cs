@@ -23,6 +23,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         public DateTime? End { get; set; }
 
+        [Display(Name = "Palvelu")]
         public string TreatmentName { get; set; }
 
         [Display(Name = "Hoitoaika min.")]

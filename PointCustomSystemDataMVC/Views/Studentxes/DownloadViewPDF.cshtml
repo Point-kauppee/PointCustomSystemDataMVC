@@ -1,4 +1,4 @@
-﻿@model PointCustomSystemDataMVC.ViewModels.StudentViewModel
+﻿@model PointCustomSystemDataMVC.ViewModels.ReservationDetailViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -120,5 +120,56 @@
             @Html.DisplayFor(model => model.Information)
         </dd>
 
+        <dd>
+            <h4>Hoitajan palvelutiedot</h4>
+
+            <table class="table">
+                <tr>
+                    <th>Päivämäärä</th>
+                    <th>Palveluaika alkaa</th>
+                    <th>Palveluaika loppuu</th>
+                    <th>Palvelun nimi</th>
+                    <th>Palvelun kesto</th>
+                    <th>Asiakas</th>
+                    <th>Tiedot</th>
+                </tr>
+
+
+                @foreach (var item in Model.Studentreservations)
+
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Start)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.End)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentName)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentTime)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullNameA)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
     </dl>
 </div>

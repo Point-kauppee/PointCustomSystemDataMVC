@@ -112,8 +112,6 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", phone.Customer_id);
             ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", phone.Personnel_id);
-       
-   
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", phone.Student_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", phone.TreatmentOffice_id);
           
@@ -134,8 +132,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Customer_id = new SelectList(db.Customer, "Customer_id", "FirstName", phone.Customer_id);
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", phone.Personnel_id);
-   
+            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", phone.Personnel_id); 
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", phone.Student_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", phone.TreatmentOffice_id);
         

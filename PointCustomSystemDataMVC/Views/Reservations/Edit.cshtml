@@ -4,6 +4,7 @@
     ViewBag.Title = "Edit";
     
 }
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
@@ -52,12 +53,12 @@
             </div>
 
             @*<div class="form-group">
-                    @Html.LabelFor(model => model.UserIdentity, "Asiakastunnus", htmlAttributes: new { @class = "control-label col-md-2" })
-                    <div class="col-md-10">
-                        @Html.EditorFor(model => model.UserIdentity, new { htmlAttributes = new { @class = "form-control" } })
-                        @Html.ValidationMessageFor(model => model.UserIdentity, "", new { @class = "text-danger" })
-                    </div>
-                </div>*@
+                @Html.LabelFor(model => model.UserIdentity, "Käyttäjätunnus", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.UserIdentity, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.UserIdentity, "", new { @class = "text-danger" })
+                </div>
+            </div>*@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.FirstNameA, "Asiakas Etunimi", htmlAttributes: new { @class = "control-label col-md-2" })
@@ -132,14 +133,24 @@
             </div>
 
             <div class="form-group">
+                @Html.LabelFor(model => model.TreatmentCompleted, "Palvelutilanne", htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.TreatmentCompleted, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.TreatmentCompleted, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
                 @Html.LabelFor(model => model.TreatmentPaid, "Maksettu", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     <div class="checkbox">
                         @Html.EditorFor(model => model.TreatmentPaid, new { htmlAttributes = new { @class = "form-control" } })
                         @Html.ValidationMessageFor(model => model.TreatmentPaid, "", new { @class = "text-danger" })
                     </div>
+                </div>
             </div>
-        </div>
 
             <div class="form-group">
                 @Html.LabelFor(model => model.TreatmentPaidDate, "Maksu pvm", htmlAttributes: new { @class = "control-label col-md-2" })

@@ -42,6 +42,9 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Palvelun hinta")]
         public string TreatmentPrice { get; set; }
-       
+
+        [Display(Name = "Hoitoraportti")]
+        public string TreatmentReportTexts { get; set; }
+
     }
 }

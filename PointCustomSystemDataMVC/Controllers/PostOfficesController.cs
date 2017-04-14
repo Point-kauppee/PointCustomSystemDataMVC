@@ -25,8 +25,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 List<PostOffices> postoff = entities.PostOffices.ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
-
-             
+           
                 foreach (PostOffices post in postoff)
                 {
                     PostOffices view = new PostOffices();
@@ -43,9 +42,9 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             return View(model);
-        }
+        }//Index
 
-  
+
 
 
         // GET: PostOffices/Details/5
@@ -93,11 +92,9 @@ namespace PointCustomSystemDataMVC.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", postOffices.Personnel_id);
-         
+            ViewBag.Personnel_id = new SelectList(db.Personnel, "Personnel_id", "FirstName", postOffices.Personnel_id);        
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", postOffices.Post_id);
             ViewBag.Post_id = new SelectList(db.PostOffices, "Post_id", "PostalCode", postOffices.Post_id);
-   
             ViewBag.Student_id = new SelectList(db.Studentx, "Student_id", "FirstName", postOffices.Student_id);
             ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", postOffices.TreatmentOffice_id);
         

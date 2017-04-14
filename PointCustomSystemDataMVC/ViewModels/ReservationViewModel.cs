@@ -72,10 +72,11 @@ namespace PointCustomSystemDataMVC.ViewModels
 
    
         public string CalendarTitle2 { get; set; }
+        
 
         public string CalendarTitle
         {
-            get { return TreatmentName + "; " + FullNameA + "; Hoitopaikka: " + TreatmentPlaceName + "; Hoitaja: " + FullNameH; }
+            get { return TreatmentName + "; Hoitaja: " + FullNameH + "; Hoitopaikka: " + TreatmentPlaceName + ";"  + FullNameA ; }
             set { CalendarTitle2 = value; }
         }
 
@@ -165,6 +166,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string EventManager { get; set; }
 
         public string Reservations { get; set; }
+
+        public bool? TreatmentCompleted { get; set; }
 
 
         public virtual Customer Customer { get; set; }
