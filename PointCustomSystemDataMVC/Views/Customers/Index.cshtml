@@ -37,9 +37,9 @@
 
         <p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
         
-        <div><a href="@Url.Action("DownloadViewPDF", "Customers", new { @class = "w3-btn w3-small" })">Tee PDF</a></div>
+        <div><a href="@Url.Action("DownLoadCustomerPDF", "Customers", new { @class = "w3-btn w3-small" })">Asiakasraportti</a></div>
 
-        <input type="button" onclick="location.href = '/Customers/DownloadViewPDF';" value="Luo pdf" />
+        <input type="button" onclick="location.href = '/Customers/DownLoadCustomerPDF';" value="Asiakasraportti" />
 
         <div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>
 
@@ -148,9 +148,9 @@
     </div><!-- End content -->
 </div><!-- End page content -->
 
-    <script src="~/Scripts/jquery-3.1.1.min.js"></script>
-    <script src="~/Scripts/jquery.validate.min.js"></script>
-    <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
@@ -275,7 +275,7 @@
 
     @section Scripts {
 
-                                @Scripts.Render("~/bundles/jqueryval")
+        @Scripts.Render("~/bundles/jqueryval")
         @*document.getElementById("myBtn").click();*@
         @*document.getElementById("myAccFunc").click();*@
     }

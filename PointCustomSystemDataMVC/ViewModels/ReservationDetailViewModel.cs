@@ -119,6 +119,8 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
+        public bool? TreatmentCompleted { get; set; }
+      
         public int? Phone_id { get; set; }
         public string Phone { get; set; }
         [Display(Name = "PuhNro")]

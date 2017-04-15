@@ -58,7 +58,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.LastModifiedAt = customer.LastModifiedAt;
                     view.DeletedAt = customer.DeletedAt;
                     view.Active = customer.Active;
-                    view.Information = customer.Information;
+                    //view.Information = customer.Information;
 
                     view.Phone_id = customer.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = customer.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -110,6 +110,61 @@ namespace PointCustomSystemDataMVC.Controllers
 
         CultureInfo fiFi = new CultureInfo("fi-FI");
 
+        public ActionResult DownLoadCustomerPDF()
+        {
+
+            List<CustomerViewModel> model = new List<CustomerViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+
+            try
+            {
+                List<Customer> customers = entities.Customer.OrderBy(Customer => Customer.LastName).ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta       
+                foreach (Customer customer in customers)
+                {
+                    CustomerViewModel view = new CustomerViewModel();
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                    view.User_id = customer.User?.FirstOrDefault()?.User_id;
+                    view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
+
+                    view.Customer_id = customer.Customer_id;
+                    view.FirstNameA = customer.FirstName;
+                    view.LastNameA = customer.LastName;
+                    view.Identity = customer.Identity;
+                    view.Email = customer.Email;
+                    view.Address = customer.Address;
+                    view.Notes = customer.Notes;
+                    view.CreatedAt = customer.CreatedAt;
+                    view.LastModifiedAt = customer.LastModifiedAt;
+                    view.DeletedAt = customer.DeletedAt;
+                    view.Active = customer.Active;
+                    //view.Information = customer.Information;
+
+                    view.Phone_id = customer.Phone?.FirstOrDefault()?.Phone_id;
+                    view.PhoneNum_1 = customer.Phone?.FirstOrDefault()?.PhoneNum_1;
+
+                    view.Post_id = customer.PostOffices?.FirstOrDefault()?.Post_id;
+                    view.PostalCode = customer.PostOffices?.FirstOrDefault()?.PostalCode;
+                    view.PostOffice = customer.PostOffices?.FirstOrDefault()?.PostOffice;
+
+                    //haetaan seuraava varaus:
+                    view.Reservation_id = customer.Reservation?.FirstOrDefault()?.Reservation_id;
+                    view.Start = customer.Reservation?.FirstOrDefault()?.Start;
+                    view.End = customer.Reservation?.FirstOrDefault()?.End.Value;
+                    view.Date = customer.Reservation?.FirstOrDefault()?.Date.Value;
+
+                    model.Add(view);
+                }
+            }
+            finally
+            {
+                entities.Dispose();
+            }
+            return View(model);
+        }//Index
+
         //PDF-tiedoston luominen:
         public ActionResult DownloadViewPDF(int? id)
         {           
@@ -149,6 +204,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     cview.PostalCode = custdetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     cview.PostOffice = custdetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
+                    //haetaan seuraava varaus:
                     cview.Reservation_id = custdetail.Reservation?.FirstOrDefault()?.Reservation_id;
                     cview.Start = custdetail.Reservation?.FirstOrDefault()?.Start.Value;
                     cview.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
@@ -184,12 +240,6 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                //User user = db.User.Find(id);
-                //if (user == null)
-                //{
-                //    return HttpNotFound();
-                //}
-                //Customer custdetail = entities.Customer.Find(user.Customer_id);
 
                 Customer custdetail = entities.Customer.Find(id);
                 if (custdetail == null)
@@ -231,15 +281,19 @@ namespace PointCustomSystemDataMVC.Controllers
                     {
                     view.Customreservations.Add(new TreatmentDetailViewModel()
                     {
-                        Date= res.Date,
+                        Date = res.Date,
                         Start = res.Start,
                         End = res.End,
                         TreatmentName = res.Treatment?.TreatmentName,
                         TreatmentTime = res.Treatment?.TreatmentTime,
+                        TreatmentCompleted = res.TreatmentCompleted,
                         TreatmentPrice = res.Treatment?.TreatmentPrice,
+                        TreatmentPaidDate = res.TreatmentPaidDate,
                         FirstNameH = res.Studentx?.FirstName,
                         LastNameH = res.Studentx?.LastName,
-                        Notes = res.Note         
+                        Notes = res.Note,
+                        TreatmentReportTexts = res.TreatmentReportTexts
+                        
                     });
                 }
 
@@ -296,7 +350,7 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.LastModifiedAt = DateTime.Now;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
-            cus.Information = model.Information;
+            //cus.Information = model.Information;
 
             db.Customer.Add(cus);
 
@@ -360,7 +414,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.LastModifiedAt = DateTime.Now;
             view.DeletedAt = custdetail.DeletedAt;
             view.Active = custdetail.Active;
-            view.Information = custdetail.Information;
+            //view.Information = custdetail.Information;
 
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
@@ -400,7 +454,7 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.LastModifiedAt = DateTime.Now;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
-            cus.Information = model.Information;
+            //cus.Information = model.Information;
 
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             if (cus.User == null)
@@ -486,7 +540,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.LastModifiedAt = custdetail.LastModifiedAt;
             view.DeletedAt = custdetail.DeletedAt;
             view.Active = custdetail.Active;
-            view.Information = custdetail.Information;
+            //view.Information = custdetail.Information;
 
             view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;

@@ -130,73 +130,82 @@
             <hr />
 
             @*1.2.2017 Lisätty alitiedostot Palvelut*@
-            @*<h4>Asiakkaan hoitotiedot</h4>
+            <h4>Asiakkaan palvelutiedot</h4>
 
-                            <table class="table">
-                                <tr>
-                                    <th>Päivämäärä</th>
-                                    <th>Varausaika alkaa</th>
-                                    <th>Varausaika loppuu</th>
-                                    <th>Palvelun nimi</th>
-                                    <th>Palvelun kesto</th>
-                                    <th>Palvelun hinta</th>
-                                    <th>Hoitaja</th>
-                                    <th>Tiedot</th>
-                                </tr>
+            <table class="table">
+                <tr>
+                    <th>Päivämäärä</th>
+                    <th>Varausaika alkaa</th>
+                    <th>Varausaika loppuu</th>
+                    <th>Palvelun nimi</th>
+                    <th>Palvelun kesto</th>
+                    <th>Palvelun hinta</th>
+                    <th>Hoitaja</th>
+                    <th>Tiedot</th>
+                    <th>Hoitoraportti</th>
+                </tr>
 
 
                 @foreach (var item in Model.Customreservations)
 
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
 
-                            //@Model.CustomerDetailViewModel.Date
-                            //@Model.CustomerDetailViewModel.Start
-                            //@Model.CustomerDetailViewModel.End
-                            //@Model.CustomerDetailViewModel.TreatmentName
-                            //@Model.CustomerDetailViewModel.TreatmentTime
-                            //@Model.CustomerDetailViewModel.TreatmentPrice
-                            //@Model.CustomerDetailViewModel.FirstNameH
-                            //@Model.CustomerDetailViewModel.Notes
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Start)
+                        </td>
 
-                            {
-                                    <tr>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Date)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.End)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Start)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentName)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.End)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentTime)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TreatmentName)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentCompleted)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TreatmentTime)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentPrice)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.TreatmentPrice)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentPaid)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.FullNameH)
-                                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentPaidDate)
+                        </td>
 
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.Notes)
-                                        </td>
-                                    </tr>
-                                }
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullNameH)
+                        </td>
 
-                            </table>
-                        </dd>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
+                        </td>
+                    </tr>
+                }
+
+            </table>
+        </dd>
     </dl>
 </div>
+
+
 
 @section Scripts {
 

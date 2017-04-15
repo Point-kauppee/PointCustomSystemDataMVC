@@ -145,6 +145,17 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentReport { get; set; }    
         public string TreatmentReportName { get; set; }
 
+        [Display(Name = "Palvelu suoritettu")]
+        public bool? TreatmentCompleted { get; set; }
+
+        [Display(Name = "Maksettu")]
+        public bool? TreatmentPaid { get; set; }
+
+        [DataType(DataType.Time)]
+        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Hoito maksettu pvm")]
+        public DateTime? TreatmentPaidDate { get; set; }
+
         [Display(Name = "Hoitoraportti")]
         public string TreatmentReportTexts { get; set; }
         public int? TreatmentReport_id { get; set; }

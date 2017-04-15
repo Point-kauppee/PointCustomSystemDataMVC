@@ -291,135 +291,140 @@
 
         <h2>Palveluvaraus</h2>
         <p>Varauksia yhteensä: @Model.Count()</p>
-    <a href="~/Reservations/HoursPerReservationAsExcel" class="btn btn-danger">Vie Exceliin</a>
+
+        <p><a href="/Reservations/Create" class="w3-btn w3-small">Uusi palveluvaraus</a></p>
+
+        <a href="~/Reservations/HoursPerReservationAsExcel" class="btn btn-danger">Vie Exceliin</a>
 
 
-
-
-        <p style="padding-left:8px;font-size:12px">
+        @*<p style="padding-left:8px;font-size:12px">
             @Html.ActionLink("Luo uusi varaus", "Create")
-        </p>
+        </p>*@
 
         <table class="table">
-
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserIdentity)
-                </th>
-                @*<th>
-                    @Html.DisplayNameFor(model => model.FullNameA)
-                </th>*@
-                <th>
-                    @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
-                </th>
-                <th>
-                    @Html.ActionLink("Sukunimi", "Index", new { sortOrder = ViewBag.LastnameSortParm })
-                </th>
-                @*<th>
+            <thead>
+                <tr>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserIdentity)
+                    </th>
+                    @*<th>
+                        @Html.DisplayNameFor(model => model.FullNameA)
+                    </th>*@
+                    <th>
+                        @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
+                    </th>
+                    <th>
+                        @Html.ActionLink("Sukunimi", "Index", new { sortOrder = ViewBag.LastnameSortParm })
+                    </th>
+                    @*<th>
                         @Html.DisplayNameFor(model => model.FirstNameA)
                     </th>
                     <th>
                         @Html.DisplayNameFor(model => model.LastNameA)
                     </th>*@
-                <th>
-                    @Html.DisplayNameFor(model => model.TreatmentName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TreatmentPlaceName)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Date)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Start)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.End)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FullNameH)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Note)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TreatmentCompleted)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TreatmentPaid)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CalendarTitle)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.TreatmentReportTexts)
-                </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TreatmentName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TreatmentPlaceName)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Date)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Start)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.End)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FullNameH)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Note)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TreatmentCompleted)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TreatmentPaid)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.CalendarTitle)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.TreatmentReportTexts)
+                    </th>
 
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserIdentity)
-                    </td>
-                    @*<td>
-                        @Html.DisplayFor(modelItem => item.FullNameA)
-                    </td>*@
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstNameA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastNameA)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Date)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Start)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.End)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FullNameH)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Note)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentCompleted)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentPaid)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.CalendarTitle)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
-                    </td>
-
-                    <td>
-                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |
-                        @Html.ActionLink("Tiedot", "Details", new { id = item.Reservation_id }) |
-                        @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id }) |
-                        @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Details", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                        <br><br>
-                        @Html.ActionLink("Hoitoraportti", "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                        <br><br>
-                        @Html.ActionLink("Maksukuittaus", "TreatPayment", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                    </td>               
+                    <th></th>
                 </tr>
-            }
+            </thead>
+            <tbody>
 
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserIdentity)
+                        </td>
+                        @*<td>
+                            @Html.DisplayFor(modelItem => item.FullNameA)
+                        </td>*@
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstNameA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastNameA)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentPlaceName)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Date)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Start)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.End)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FullNameH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Note)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentCompleted)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentPaid)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.CalendarTitle)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
+                        </td>
+
+                        <td>
+                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |
+                            @Html.ActionLink("Tiedot", "Details", new { id = item.Reservation_id }) |
+                            @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id }) |
+                            @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "Details", new { Customer_id = item.Customer_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                            <br><br>
+                            @Html.ActionLink("Hoitoraportti", "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                            <br><br>
+                            @Html.ActionLink("Maksukuittaus", "TreatPayment", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                            <br><br>
+                            @Html.ActionLink("Palvelukuittaus", "ReservationCompleted", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
     </div> <!-- End content -->
     </div><!-- End page content -->

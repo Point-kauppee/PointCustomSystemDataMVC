@@ -191,6 +191,7 @@ namespace PointCustomSystemDataMVC.Controllers
             return new ViewAsPdf(model);
         }//
 
+        //Palvelun Laskun tulostus:
         public ActionResult DownloadBill(int? id)
         {
             ReservationViewModel model = new ReservationViewModel();
@@ -281,8 +282,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 Reservation resdetail = entities.Reservation.Find(reservation.Reservation_id);
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta      
-                //foreach (Reservation resdetail in reservations)
-                //{
+               
                     ReservationViewModel res = new ReservationViewModel();
                     res.Reservation_id = resdetail.Reservation_id;
                     res.Start = resdetail.Start.GetValueOrDefault();
@@ -326,11 +326,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.LastNameH = resdetail.Studentx?.LastName;
 
                     model = res;
-            
-                //if (id == null)
-                //{
-                //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                //}
         
             }
             finally
@@ -375,7 +370,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.TreatmentPaid = model.TreatmentPaid;
             res.TreatmentPaidDate = model.TreatmentPaidDate;
             res.CalendarTitle = model.CalendarTitle2;
-            res.TreatmentReportTexts= model.TreatmentReportTexts;
+            //res.TreatmentReportTexts= model.TreatmentReportTexts;
 
             db.Reservation.Add(res);
 
@@ -387,16 +382,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 res.User_id = userId;        
                 res.Customer_id = usr.Customer_id;
             }
-
-            // etsitään Customer-rivi kannasta valitun nimen perusteella
-            //int cusId = int.Parse(model.FullNameA);
-            //if (cusId > 0)
-            //{
-            //    Customer cus = db.Customer.Find(cusId);
-            //    res.Customer_id = cusId;
-            //    res.User.UserIdentity = cus.FirstName.ToString();
-            //    res.User.UserIdentity = cus.LastName.ToString();
-            //}
 
             // etsitään Treatment-rivi kannasta valitun nimen perusteella
             int treatmentId = int.Parse(model.TreatmentName);
@@ -771,8 +756,40 @@ namespace PointCustomSystemDataMVC.Controllers
 
         }//TreatText
 
+        // Asiakkaan Palvelutilan kuittaus:
+        // GET: Reservations/TreatText/5
+        public ActionResult ReservationCompleted(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Reservation resdetail = db.Reservation.Find(id);
+            if (resdetail == null)
+            {
+                return HttpNotFound();
+            }
 
+            ReservationDetailViewModel res = new ReservationDetailViewModel();
+            res.Reservation_id = resdetail.Reservation_id;
+            res.TreatmentCompleted = resdetail.TreatmentCompleted;
+           
+            return View(res);
+        }//ReservationCompleted
 
+        // POST: Reservations/TreatText/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ReservationCompleted(ReservationDetailViewModel model)
+        {
+
+            Reservation res = db.Reservation.Find(model.Reservation_id);
+            res.TreatmentCompleted = model.TreatmentCompleted;
+          
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }//ReservationCompleted
 
 
 

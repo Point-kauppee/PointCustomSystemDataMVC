@@ -72,11 +72,11 @@ namespace PointCustomSystemDataMVC.ViewModels
 
    
         public string CalendarTitle2 { get; set; }
-        
 
+        [Display(Name = "Varauskalenteri")]
         public string CalendarTitle
         {
-            get { return TreatmentName + "; Hoitaja: " + FullNameH + "; Hoitopaikka: " + TreatmentPlaceName + ";"  + FullNameA ; }
+            get { return TreatmentName + "; Hoitaja: " + FullNameH + "; Paikka: " + TreatmentPlaceName + ";"  + FullNameA ; }
             set { CalendarTitle2 = value; }
         }
 
@@ -97,7 +97,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Pvm")]
         public DateTime? Date { get; set; }
 
-        [Display(Name = "Hoitopaikka")]
+        [Display(Name = "Palvelupaikka")]
         public string TreatmentPlaceName { get; set; }
 
         public int? User_id { get; set; }
@@ -137,7 +137,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         //public string TreatmentPlace { get; set; }
         public int? TreatmentPlace_id { get; set; }
-        [Display(Name = "Hoitopaikka")]
+        [Display(Name = "Hoitopaikan nro")]
         public string TreatmentPlaceNumber { get; set; }
         [Display(Name = "Hoitoraportti")]
         public string TreatmentReportTexts { get; set; }
@@ -158,7 +158,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         //public string Studentx { get; set; }
         public int? Student_id { get; set; }
 
-        [Display(Name = "Huomiot")]
+        [Display(Name = "Tiedot")]
         public string Notes{get; set;}
        
         public string DataDateField { get; set; }
@@ -167,6 +167,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public string Reservations { get; set; }
 
+        [Display(Name = "Palvelu suoritettu")]
         public bool? TreatmentCompleted { get; set; }
 
 
@@ -177,7 +178,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public virtual Treatment Treatment { get; set; }
         public virtual User User { get; set; }
         public virtual TreatmentOffice TreatmentOffice { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+      
         public virtual ICollection<ReservationViewModel> TreatmentReport { get; set; }
 
     }

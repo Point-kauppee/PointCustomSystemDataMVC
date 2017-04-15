@@ -10,7 +10,10 @@
     @Html.ActionLink("Tee uusi varaus", "Create", "Reservations")
 </p>
 
+<p><a href="/Reservations/Create" class="w3-btn w3-small">Uusi palveluvaraus</a></p>
+
 @*<input type="button" onclick="location.href = '/Customers/DownloadViewPDF';" value="Luo pdf" />*@
+
 <div><a href="@Url.Action("DownloadViewPDF", "Customers", new { id = Model.Customer_id })">Asiakasraportti</a></div>
 
 <div>
@@ -95,6 +98,7 @@
         <dd>
             @Html.DisplayFor(model => model.PostOffice)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.CreatedAt)
         </dt>
@@ -102,6 +106,7 @@
         <dd>
             @Html.DisplayFor(model => model.CreatedAt)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.LastModifiedAt)
         </dt>
@@ -109,6 +114,7 @@
         <dd>
             @Html.DisplayFor(model => model.LastModifiedAt)
         </dd>
+
         <dt>
             @Html.DisplayNameFor(model => model.DeletedAt)
         </dt>
@@ -153,7 +159,9 @@
                                 <th>Varausaika loppuu</th>
                                 <th>Palvelun nimi</th>
                                 <th>Palvelun kesto</th>
+                                <th>Palvelun suoritettu</th>
                                 <th>Palvelun hinta</th>
+                                <th>Hoito maksettu pvm</th>
                                 <th>Hoitaja</th>
                                 <th>Tiedot</th>
                                 <th>Hoitoraportti</th>
@@ -190,7 +198,15 @@
                                     </td>
 
                                     <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentCompleted)
+                                    </td>
+
+                                    <td>
                                         @Html.DisplayFor(modelItem => item.TreatmentPrice)
+                                    </td>
+
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.TreatmentPaidDate)
                                     </td>
 
                                     <td>
