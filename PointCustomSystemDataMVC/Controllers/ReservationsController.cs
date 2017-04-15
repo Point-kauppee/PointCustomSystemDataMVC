@@ -870,10 +870,11 @@ namespace PointCustomSystemDataMVC.Controllers
         //class Dpc : DayPilotWeek
         class Dpc : DayPilotCalendar
         {
-            public string DataDateField { get; set; }       
+            public string DataDateField { get; set; }
             protected override void OnInit(DayPilot.Web.Mvc.Events.Calendar.InitArgs e)
             {
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
+
                 Events = from ev in db.Reservation select ev;
 
                 DataIdField = "Reservation_id";
@@ -906,7 +907,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
             protected override void OnEventResize(DayPilot.Web.Mvc.Events.Calendar.EventResizeArgs e)
             {
-                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();          
+                JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
                 var eid = Convert.ToInt32(e.Id);
                 var toBeResized = (from ev in db.Reservation where ev.Reservation_id == eid select ev).First();
                 toBeResized.Start = e.NewStart;
@@ -944,13 +945,13 @@ namespace PointCustomSystemDataMVC.Controllers
                 //var edata = (string)e.Data["name"];
                 //var edata = Convert.ToString(e.Data["name"]);
                 //var toBeCreated = new Varaus { Alku = Convert.ToString(e.Start), Loppu = Convert.ToString(e.End), Palvelun_nimi = (string)e.Data["name"] };
-          
+
                 var toBeCreated = new Reservation { Start = e.Start, End = e.End, CalendarTitle = (string)e.Data["CalendarTitle"] }; //muokattu 26.33.2017 "name" > "CalendarTitle"
 
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = Convert.ToString(e.Data["name"]) };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
                 //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = edata};
-            
+
                 db.Reservation.Add(toBeCreated);
                 db.SaveChanges();
 
@@ -963,13 +964,13 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     return;
                 }
-               
+
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();              //Events = new EventManager(Controller).Data.AsEnumerable();
                 var tulokset = (from ev in db.Reservation select ev).ToList();
 
                 // tyhjien päivien tarkistus
                 DateTime tarkistusAlku = new DateTime(2017, 4, 10);
-                for (int i = 1; i <= 5; i++)
+                for (int i = 1; i <= 10; i++)
                 {
                     DateTime tarkistus = tarkistusAlku.AddDays(i - 1);
                     bool löytyy = (from t in tulokset
@@ -982,7 +983,7 @@ namespace PointCustomSystemDataMVC.Controllers
                             CalendarTitle = "Vapaa",
                             Date = tarkistus,
                             Start = tarkistus.AddHours(9),
-                            End = tarkistus.AddHours(19)
+                            End = tarkistus.AddHours(11)
                         });
                     }
                 }
@@ -996,9 +997,32 @@ namespace PointCustomSystemDataMVC.Controllers
                 //    End = new DateTime(2017, 4, 10, 12, 30, 0, 0)
                 //});
 
+     
+
+
+                // tyhjien päivien tarkistus
+                DateTime tarkistusAlku1 = new DateTime(2017, 4, 10);
+                for (int i = 1; i <= 10; i++)
+                {
+                    DateTime tarkistus1 = tarkistusAlku1.AddDays(i - 1);
+                    bool löytyy = (from t in tulokset
+                                   where t.Date == tarkistus1.Date
+                                   select t).Any();
+                    if (!löytyy)
+                    {
+                        tulokset.Add(new Reservation()
+                        {
+                            CalendarTitle = "Vapaa",
+                            Date = tarkistus1,
+                            Start = tarkistus1.AddHours(12),
+                            End = tarkistus1.AddHours(14)
+                        });
+                    }
+                }
+
+
                 Events = tulokset;
 
-                //Events = from ev in db.Reservation select ev;
                 DataIdField = "Reservation_id";
                 DataTextField = "CalendarTitle";
                 DataDateField = "Date";

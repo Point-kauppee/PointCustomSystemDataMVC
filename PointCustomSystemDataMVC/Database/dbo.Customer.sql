@@ -5,7 +5,7 @@
     [Identity]       NVARCHAR (20)   NULL,
     [Notes]          NVARCHAR (300)  NULL,
     [Email]          NVARCHAR (100)  NULL,
-	[Address]        NVARCHAR (100)  NULL,
+    [Address]        NVARCHAR (100)  NULL,
     [CreatedAt]      DATETIME        NULL,
     [LastModifiedAt] DATETIME        NULL,
     [DeletedAt]      DATETIME        NULL,
