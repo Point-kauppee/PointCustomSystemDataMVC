@@ -18,6 +18,10 @@
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
+<script src="http://maps.googleapis.com/maps/api/js"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB_Jxx0pa197zGwfVh7jZUks0k1SJnB7ow&callback=initMap"
+          async defer></script>
 
 <!-- !SIDEMENU CONTENT! -->
 @{ Html.RenderAction("SideMenu", "Customers");}
@@ -33,9 +37,12 @@
 
         <h2>Toimipistehallinta</h2>
 
-        <p>
-            @Html.ActionLink("Lisää uusi toimipiste", "Create")
-        </p>
+        @*<div id="googleMap" style="width:300px;height:300px;"></div>*@
+        <div id="map" style="width:300px;height:300px"></div>
+ 
+
+        <p><a href="/TreatmentOffices/Create" class="w3-btn w3-small">Uusi toimipiste</a></p>
+
         <table class="table">
             <tr>
                 <th>
@@ -84,7 +91,7 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.Note)
                     </td>
-                    <td>
+                    <td id="map" style="width:300px;height:300px">
                         @Html.DisplayFor(modelItem => item.MapPlace)
                     </td>
 
@@ -99,3 +106,46 @@
         </table>
     </div><!-- End content -->
 </div><!-- End page content -->
+    
+@*<script>
+
+        var myCenter = new google.maps.LatLng(60.3955224, 25.6640321);
+
+        function initialize() {
+            var mapProp = {
+                center: myCenter,
+                zoom: 15,
+                mapTypeId: google.maps.MapTypeId.SATELLITE
+            };
+
+            var map = new google.maps.Map(document.getElementById("googleMap"), mapProp);
+
+            var marker = new google.maps.Marker({
+                position: myCenter,
+            });
+
+            marker.setMap(map);
+        }
+
+        google.maps.event.addDomListener(window, 'load', initialize);
+    </script>*@
+
+<script>
+    function initMap() {
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 15,
+            center: { lat: 60.3955224, lng: 25.6640321 },
+            mapTypeControl: Boolean
+        });
+
+        var marker = new google.maps.Marker({
+            position: map.getCenter(),
+            icon: {
+                path: google.maps.SymbolPath.CIRCLE,
+                scale: 10
+            },
+            draggable: true,
+            map: map
+        });
+    }
+</script>

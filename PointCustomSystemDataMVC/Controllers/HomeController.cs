@@ -10,13 +10,15 @@ namespace PointCustomSystemDataMVC.Controllers
     public class HomeController : Controller
     {
 
-
+        //[Authorize(Roles = "Personnel User,Student User")]
         public ActionResult Index()
         {
-            CultureInfo fiFi = new CultureInfo("fi-FI");
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+          
             return View();
         }
-
+        CultureInfo fiFi = new CultureInfo("fi-FI");
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";

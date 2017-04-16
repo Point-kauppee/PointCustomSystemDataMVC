@@ -11,15 +11,15 @@ namespace PointCustomSystemDataMVC.ViewModels
         
         public int TreatmentReport_id { get; set; }
 
-        [Display(Name = "Hoidon nimi")]
+        [Display(Name = "Palvelun nimi")]
         public string TreatmentReportName { get; set; }
 
-        [Display(Name = "Hoitokertomus")]
+        [Display(Name = "Palveluraportti")]
         public string TreatmentReportText { get; set; }
 
      
 
-        [Display(Name = "Hoitoaika min.")]
+        [Display(Name = "Palveluaika min.")]
         public string TreatmentTime { get; set; }
 
         public string Treatment { get; set; }
@@ -34,7 +34,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public int? Personnel_id { get; set; }
         public int? Reservation_id { get; set; }
 
-        [Display(Name = "Asiakastunnus")]
+        [Display(Name = "Käyttäjätunnus")]
         public string UserIdentity { get; set; }
         public string Customer { get; set; }
 

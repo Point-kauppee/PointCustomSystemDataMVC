@@ -26,7 +26,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public int? Treatmentplace_id { get; set; }
         [Display(Name = "Hoitopaikka")]
         public string TreatmentPlaceName { get; set; }
-        [Display(Name = "Hoitopaikan nro")]
+        [Display(Name = "Palvelupaikan nro")]
         public string TreatmentPlaceNumber { get; set; }
 
         public string Phone { get; set; }
@@ -41,8 +41,11 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string PostalCode { get; set; }
         [Display(Name = "Postiosoite")]
         public string PostOffice { get; set; }
+
+        [Display(Name = "Kartta")]
         public string MapPlace { get; set; }
-    
+
+        //public byte[] MapPlace { get; set; }
 
     }
 }

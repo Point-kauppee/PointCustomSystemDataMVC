@@ -92,7 +92,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string Reservations { get; set; }
         public int? Reservation_id { get; set; }
 
-        [Display(Name = "Hoitoraportti")]
+        [Display(Name = "Palveluraportti")]
         public string TreatmentReportTexts { get; set; }
 
         [Display(Name = "Palvelumaksu")]
@@ -119,6 +119,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
+        [Display(Name = "Palvelu suoritettu")]
         public bool? TreatmentCompleted { get; set; }
       
         public int? Phone_id { get; set; }
@@ -139,13 +140,14 @@ namespace PointCustomSystemDataMVC.ViewModels
        
 
         
-        [Display(Name = "Hoitoaika min.")]
+        [Display(Name = "Palveluaika min.")]
         public string TreatmentTime { get; set; }
             
         public string TreatmentReport { get; set; }
+
         public string TreatmentReportName { get; set; }
 
-        [Display(Name = "Hoitoraportti")]
+        [Display(Name = "Palveluraportti")]
         public string TreatmentReportText { get; set; }
         public int? TreatmentReport_id { get; set; }
 

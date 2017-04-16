@@ -29,8 +29,7 @@ namespace PointCustomSystemDataMVC.Controllers
             //string username = User.Identity.Name;
             //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
 
-            //31.1.2017 Lisätty tietokantataulujen suodatukset:
-         
+            //31.1.2017 Lisätty tietokantataulujen suodatukset:       
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();

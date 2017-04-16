@@ -20,11 +20,12 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "HoitoPvm")]
+        [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
         [Display(Name = "Palvelu")]
         public string TreatmentName { get; set; }
+        [Display(Name = "Palveluaika min.")]
         public string TreatmentTime { get; set; }
 
         [Display(Name = "Hoitaja Etunimi")]
@@ -43,12 +44,12 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Palvelun hinta")]
         public string TreatmentPrice { get; set; }
 
-        [Display(Name = "Hoitoraportti")]
+        [Display(Name = "Palveluraportti")]
         public string TreatmentReportTexts { get; set; }
 
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Hoito maksettu pvm")]
+        [Display(Name = "Palvelu maksettu pvm")]
         public DateTime? TreatmentPaidDate { get; set; }
 
         [Display(Name = "Palvelu suoritettu")]

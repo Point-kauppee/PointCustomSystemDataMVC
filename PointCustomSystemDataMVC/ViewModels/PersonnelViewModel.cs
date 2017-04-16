@@ -58,7 +58,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Syntymäaika")]
         public string Identity { get; set; }
-        [Display(Name = "Huomiot")]
+        [Display(Name = "Tiedot")]
         public string Notes { get; set; }
         [Display(Name = "Sähköposti")]
         public string Email { get; set; }

@@ -14,9 +14,9 @@ namespace PointCustomSystemDataMVC.ViewModels
             }
 
             public int TreatmentPlace_id { get; set; }
-            [Display(Name = "Hoitopaikka")]
+            [Display(Name = "Palvelupaikka")]
             public string TreatmentPlaceName { get; set; }
-            [Display(Name = "Hoitopaikan nro")]
+            [Display(Name = "Palvelupaikan nro")]
             public string TreatmentPlaceNumber { get; set; }
 
 

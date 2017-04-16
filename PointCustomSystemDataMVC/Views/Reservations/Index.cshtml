@@ -416,7 +416,7 @@
                             @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id }) |
                             @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "TreatText", "Reservations", new { Reservation_id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                             <br><br>
-                            @Html.ActionLink("Hoitoraportti", "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                            @Html.ActionLink("Palveluraportti", "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                             <br><br>
                             @Html.ActionLink("Maksukuittaus", "TreatPayment", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                             <br><br>

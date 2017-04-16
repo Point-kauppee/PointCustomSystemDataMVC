@@ -13,11 +13,15 @@ namespace PointCustomSystemDataMVC.Controllers
 {
     public class PhonesController : Controller
     {
+        //[Authorize(Roles = "Personnel User")]
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: Phones
         public ActionResult Index()
         {
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             List<Phone> model = new List<Phone>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();

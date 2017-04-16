@@ -13,14 +13,19 @@ namespace PointCustomSystemDataMVC.Controllers
 {
     public class StudentGroupsController : Controller
     {
+        //[Authorize(Roles = "Personnel User")]
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: StudentGroups
         public ActionResult Index()
-        { 
-        List<StudentGroupViewModel> model = new List<StudentGroupViewModel>();
+        {
 
-        JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
+            List<StudentGroupViewModel> model = new List<StudentGroupViewModel>();
+
+            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
             try
             {
@@ -113,8 +118,8 @@ namespace PointCustomSystemDataMVC.Controllers
             StudentGroup stug = new StudentGroup();
             stug.StudentGroupName = model.StudentGroupName;
             stug.Active = model.Active;
-            stug.CreatedAt = model.CreatedAt;
-            stug.LastModifiedAt = model.LastModifiedAt;
+            stug.CreatedAt = DateTime.Now;
+            stug.LastModifiedAt = DateTime.Now;
             stug.DeletedAt = model.DeletedAt;
 
             db.StudentGroup.Add(stug);
@@ -149,7 +154,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.StudentGroupName = stg.StudentGroupName;
             view.Active = stg.Active;
             view.CreatedAt = stg.CreatedAt;
-            view.LastModifiedAt = stg.LastModifiedAt;
+            view.LastModifiedAt = DateTime.Now; ;
             view.DeletedAt = stg.DeletedAt;
 
             return View(view);
@@ -166,7 +171,7 @@ namespace PointCustomSystemDataMVC.Controllers
             stug.StudentGroupName = model.StudentGroupName;
             stug.Active = model.Active;
             stug.CreatedAt = model.CreatedAt;
-            stug.LastModifiedAt = model.LastModifiedAt;
+            stug.LastModifiedAt = DateTime.Now;
             stug.DeletedAt = model.DeletedAt;
  
             db.SaveChanges();

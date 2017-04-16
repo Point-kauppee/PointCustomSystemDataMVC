@@ -103,7 +103,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Syntymäaika")]
         public string Identity { get; set; }
-        [Display(Name = "Huomiot")]
+        [Display(Name = "Tiedot")]
         public string Notes { get; set; }
         [Display(Name = "Sähköposti")]
         public string Email { get; set; }
@@ -147,10 +147,10 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "Pvm")]
+        [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
-        [Display(Name = "Hoitoaika min.")]
+        [Display(Name = "Palveluaika min.")]
         public string TreatmentTime { get; set; }
         [Display(Name = "Palvelu")]
         public string TreatmentName { get; set; }

@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="a986324ae9af404191cbe65506cdc912" Name="Diagram1" ZoomLevel="101" DisplayType="true">
+      <Diagram DiagramId="a986324ae9af404191cbe65506cdc912" Name="Diagram1" ZoomLevel="84" DisplayType="true">
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Customer" Width="2.125" PointX="6.75" PointY="7.25" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Personnel" Width="2.125" PointX="1.75" PointY="12.75" />
         <EntityTypeShape EntityType="JohaMeriSQL1Model.Phone" Width="1.875" PointX="4.5" PointY="9" />

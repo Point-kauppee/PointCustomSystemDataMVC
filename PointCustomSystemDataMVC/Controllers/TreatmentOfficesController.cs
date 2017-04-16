@@ -8,16 +8,21 @@ using System.Web;
 using System.Web.Mvc;
 using PointCustomSystemDataMVC.Models;
 using PointCustomSystemDataMVC.ViewModels;
+using System.Text;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
     public class TreatmentOfficesController : Controller
     {
+        //[Authorize(Roles = "Personnel User")]
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: TreatmentOffices
         public ActionResult Index()
         {
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             List<TreatmentOfficeViewModel> model = new List<TreatmentOfficeViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -27,7 +32,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 List<TreatmentOffice> treatoffs = entities.TreatmentOffice.ToList();
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
-
                 foreach (TreatmentOffice treatoff in treatoffs)
                 {
                     TreatmentOfficeViewModel view = new TreatmentOfficeViewModel();
@@ -130,6 +134,7 @@ namespace PointCustomSystemDataMVC.Controllers
             trmoff.Note = model.Note;
             trmoff.MapPlace = model.MapPlace;
 
+            //byte[] buffer = Encoding.UTF8.GetBytes(csv.ToString());
             db.TreatmentOffice.Add(trmoff);
 
             Phone pho = new Phone();

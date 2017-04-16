@@ -16,7 +16,7 @@ using Rotativa.MVC;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
-    //[Authorize(Roles = "Personnel User,Student User")]
+    //[Authorize(Roles = "Personnel User")]
     public class StudentxesController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();

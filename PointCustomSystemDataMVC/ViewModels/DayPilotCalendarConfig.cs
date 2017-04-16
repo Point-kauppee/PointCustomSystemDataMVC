@@ -92,9 +92,10 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public int TreatmentPlace_id { get; set; }
 
-        [Display(Name = "Alkaen klo")]
+       
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Alkaen klo")]
         public DateTime? Start { get; set; }
 
         [DataType(DataType.Time)]

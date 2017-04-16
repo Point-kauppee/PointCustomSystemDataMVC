@@ -24,6 +24,7 @@ using System.Text;
 
 namespace PointCustomSystemDataMVC.Controllers
 {
+    //[Authorize(Roles = "Personnel User,Student User")]
     public class ReservationsController : Controller
     {
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
@@ -31,6 +32,9 @@ namespace PointCustomSystemDataMVC.Controllers
         // GET: Reservations
         public ActionResult Index(string sortOrder)
         {
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
             List<ReservationViewModel> model = new List<ReservationViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -700,6 +704,8 @@ namespace PointCustomSystemDataMVC.Controllers
             ReservationDetailViewModel res = new ReservationDetailViewModel();
             res.Reservation_id = resdetail.Reservation_id;
             res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
+            res.FirstNameA = resdetail.Customer.FirstName;
+            res.LastNameA = resdetail.Customer.LastName;
 
             return View(res);
         }//TreatText
@@ -720,7 +726,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
 
         // Asiakkaan Palvelumaksun suoritus:
-        // GET: Reservations/TreatText/5
+        // GET: Reservations/TreatPayment/5
         public ActionResult TreatPayment(int? id)
         {
             if (id == null)
@@ -736,12 +742,12 @@ namespace PointCustomSystemDataMVC.Controllers
             ReservationDetailViewModel res = new ReservationDetailViewModel();
             res.Reservation_id = resdetail.Reservation_id;
             res.TreatmentPaid = resdetail.TreatmentPaid;
-            res.TreatmentPaidDate = resdetail.TreatmentPaidDate;
+            res.TreatmentPaidDate = DateTime.Now;
 
             return View(res);
         }//TreatText
 
-        // POST: Reservations/TreatText/5
+        // POST: Reservations/TreatPayment/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult TreatPayment(ReservationDetailViewModel model)
@@ -749,7 +755,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             Reservation res = db.Reservation.Find(model.Reservation_id);
             res.TreatmentPaid = model.TreatmentPaid;
-            res.TreatmentPaidDate = model.TreatmentPaidDate;
+            res.TreatmentPaidDate = DateTime.Now;
 
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -757,7 +763,7 @@ namespace PointCustomSystemDataMVC.Controllers
         }//TreatText
 
         // Asiakkaan Palvelutilan kuittaus:
-        // GET: Reservations/TreatText/5
+        // GET: Reservations/ReservationCompleted/5
         public ActionResult ReservationCompleted(int? id)
         {
             if (id == null)
@@ -777,7 +783,7 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(res);
         }//ReservationCompleted
 
-        // POST: Reservations/TreatText/5
+        // POST: Reservations/ReservationCompleted/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult ReservationCompleted(ReservationDetailViewModel model)

@@ -10,21 +10,23 @@ namespace PointCustomSystemDataMVC.ViewModels
     {
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
-        [Display(Name = "HoitoPvm")]
+        [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         public DateTime? Start { get; set; }
+
         [Display(Name = "Loppuu klo")]
         [DataType(DataType.Time)]
         [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
         public DateTime? End { get; set; }
 
+        [Display(Name = "Palvelu")]
         public string TreatmentName { get; set; }
 
-        [Display(Name = "Hoitoaika min.")]
+        [Display(Name = "Palveluaika min.")]
         public string TreatmentTime { get; set; }
         [Display(Name = "Palvelun hinta")]
         public string TreatmentPrice { get; set; }

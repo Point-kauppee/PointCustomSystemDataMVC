@@ -18,7 +18,8 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Hoitajaryhmä")]
         public string StudentGroupName { get; set; }
-        public Nullable<bool> Active { get; set; }
+        [Display(Name = "Tila")]
+        public bool? Active { get; set; }
 
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]

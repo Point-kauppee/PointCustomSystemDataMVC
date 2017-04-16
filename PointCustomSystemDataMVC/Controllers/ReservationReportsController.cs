@@ -11,9 +11,14 @@ namespace PointCustomSystemDataMVC.Controllers
 {
     public class ReservationReportsController : Controller
     {
+        //[Authorize(Roles = "Personnel User")]
         // GET: Reports
         public ActionResult HoursPerReservation()
         {
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
+
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {

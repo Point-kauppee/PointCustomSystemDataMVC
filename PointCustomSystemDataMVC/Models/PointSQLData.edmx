@@ -135,7 +135,7 @@
           <Property Name="TreatmentOfficeName" Type="nvarchar" MaxLength="200" />
           <Property Name="Address" Type="nvarchar" MaxLength="100" />
           <Property Name="Note" Type="nvarchar" MaxLength="1000" />
-          <Property Name="MapPlace" Type="nvarchar" MaxLength="3000" />
+          <Property Name="MapPlace" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="TreatmentPlace">
           <Key>
@@ -873,7 +873,7 @@
           <Property Name="TreatmentOfficeName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
           <Property Name="Address" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
           <Property Name="Note" Type="String" MaxLength="1000" FixedLength="false" Unicode="true" />
-          <Property Name="MapPlace" Type="String" MaxLength="3000" FixedLength="false" Unicode="true" />
+          <Property Name="MapPlace" Type="String" />
           <NavigationProperty Name="Phone" Relationship="JohaMeriSQL1Model.FK_Phone_ToTable_2" FromRole="TreatmentOffice" ToRole="Phone" />
           <NavigationProperty Name="PostOffices" Relationship="JohaMeriSQL1Model.FK_PostOffices_ToTable_6" FromRole="TreatmentOffice" ToRole="PostOffices" />
           <NavigationProperty Name="Reservation" Relationship="JohaMeriSQL1Model.FK_Reservation_ToTable_6" FromRole="TreatmentOffice" ToRole="Reservation" />
