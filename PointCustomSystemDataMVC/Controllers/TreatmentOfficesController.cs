@@ -68,11 +68,12 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<TreatmentOffice> treatoffs = entities.TreatmentOffice.ToList();
+                TreatmentOffice treatoff = entities.TreatmentOffice.Find(id);
 
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-                foreach (TreatmentOffice treatoff in treatoffs)
+                if (treatoff == null)
                 {
+                    return HttpNotFound();
+                }
                     TreatmentOfficeViewModel view = new TreatmentOfficeViewModel();
                     view.TreatmentOffice_id = treatoff.TreatmentOffice_id;
                     view.TreatmentOfficeName = treatoff.TreatmentOfficeName;
@@ -89,16 +90,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.PostOffice = treatoff.PostOffices?.FirstOrDefault()?.PostOffice;
 
                     model = view;
-                }
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                TreatmentOffice treatmentOffice = db.TreatmentOffice.Find(id);
-                if (treatmentOffice == null)
-                {
-                    return HttpNotFound();
-                }
+
             }
             finally
             {
@@ -115,7 +107,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             TreatmentOfficeViewModel model = new TreatmentOfficeViewModel();
 
-            return View();
+            return View(model);
             }//create
 
         // POST: TreatmentOffices/Create
@@ -197,14 +189,13 @@ namespace PointCustomSystemDataMVC.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public ActionResult Edit(TreatmentOfficeViewModel model)
         {
             TreatmentOffice trmoff = db.TreatmentOffice.Find(model.TreatmentOffice_id);
             trmoff.TreatmentOfficeName = model.TreatmentOfficeName;
             trmoff.Address = model.Address;
             trmoff.Note = model.Note;
-            trmoff.MapPlace = model.MapPlace;
+            //trmoff.MapPlace = model.MapPlace;
 
             if (trmoff.Phone == null)
             {

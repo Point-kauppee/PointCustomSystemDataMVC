@@ -140,12 +140,6 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                //Personnel personnel = db.Personnel.Find(id);
-                //if (personnel == null)
-                //{
-                //    return HttpNotFound();
-                //}
-
                 Personnel persdetail = entities.Personnel.Find(id);
 
                 if (persdetail == null)
@@ -304,8 +298,7 @@ namespace PointCustomSystemDataMVC.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(PersonnelViewModel model)
         {
-            Personnel per = db.Personnel.Find(model.Personnel_id);
-     
+            Personnel per = db.Personnel.Find(model.Personnel_id); 
             per.FirstName = model.FirstNameP;
             per.LastName = model.LastNameP;
             per.Identity = model.Identity;

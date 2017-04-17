@@ -109,6 +109,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
         CultureInfo fiFi = new CultureInfo("fi-FI");
 
+        //Asiakastietojen tulostus pdf lomakkeelle
         public ActionResult DownLoadCustomerPDF()
         {
 
@@ -164,7 +165,7 @@ namespace PointCustomSystemDataMVC.Controllers
             return View(model);
         }//Index
 
-        //PDF-tiedoston luominen:
+        //Asiakastietojen PDF-tiedoston luominen:
         public ActionResult DownloadViewPDF(int? id)
         {           
             CustomerViewModel model = new CustomerViewModel();

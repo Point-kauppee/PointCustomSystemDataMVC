@@ -41,7 +41,7 @@ namespace PointCustomSystemDataMVC.Controllers
             try
             {
                 List<Reservation> reservations = entities.Reservation.OrderByDescending(Reservation => Reservation.Date).ToList();
-               
+
                 // muodostetaan näkymämalli tietokannan rivien pohjalta
 
                 foreach (Reservation reservation in reservations)
@@ -55,7 +55,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Customer_id = reservation.Customer?.Customer_id;
                     res.FirstNameA = reservation.Customer?.FirstName;
                     res.LastNameA = reservation.Customer?.LastName;
-       
+
                     res.Reservation_id = reservation.Reservation_id;
                     res.Start = reservation.Start.GetValueOrDefault();
                     res.End = reservation.End.GetValueOrDefault();
@@ -66,6 +66,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.CalendarTitle2 = reservation.CalendarTitle;
                     res.TreatmentReportTexts = reservation.TreatmentReportTexts;
                     res.TreatmentCompleted = reservation.TreatmentCompleted;
+
 
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
@@ -286,51 +287,51 @@ namespace PointCustomSystemDataMVC.Controllers
                 Reservation resdetail = entities.Reservation.Find(reservation.Reservation_id);
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta      
-               
-                    ReservationViewModel res = new ReservationViewModel();
-                    res.Reservation_id = resdetail.Reservation_id;
-                    res.Start = resdetail.Start.GetValueOrDefault();
-                    res.End = resdetail.End.GetValueOrDefault();
-                    res.Date = resdetail.Date.GetValueOrDefault();
-                    res.Note = resdetail.Note;
-                    res.TreatmentPaid = resdetail.TreatmentPaid;
-                    res.TreatmentPaidDate = resdetail.TreatmentPaidDate.GetValueOrDefault();
-                    res.TreatmentCompleted = resdetail.TreatmentCompleted;
-                    res.CalendarTitle2 = resdetail.CalendarTitle;
-                    res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-                    res.User_id = resdetail.User?.User_id;
-                    res.UserIdentity = resdetail.User?.UserIdentity;
+                ReservationViewModel res = new ReservationViewModel();
+                res.Reservation_id = resdetail.Reservation_id;
+                res.Start = resdetail.Start.GetValueOrDefault();
+                res.End = resdetail.End.GetValueOrDefault();
+                res.Date = resdetail.Date.GetValueOrDefault();
+                res.Note = resdetail.Note;
+                res.TreatmentPaid = resdetail.TreatmentPaid;
+                res.TreatmentPaidDate = resdetail.TreatmentPaidDate.GetValueOrDefault();
+                res.TreatmentCompleted = resdetail.TreatmentCompleted;
+                res.CalendarTitle2 = resdetail.CalendarTitle;
+                res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
 
-                    res.Customer_id = resdetail.Customer?.Customer_id;
-                    res.FirstNameA = resdetail.Customer?.FirstName;
-                    res.LastNameA = resdetail.Customer?.LastName;
-                    res.Notes = resdetail.Customer?.Notes;
+                ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                res.User_id = resdetail.User?.User_id;
+                res.UserIdentity = resdetail.User?.UserIdentity;
 
-                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
-                    res.Treatment_id = resdetail.Treatment?.Treatment_id;
-                    res.TreatmentName = resdetail.Treatment?.TreatmentName;
-                    res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
-                    res.TreatmentPrice = resdetail.Treatment?.TreatmentPrice;
+                res.Customer_id = resdetail.Customer?.Customer_id;
+                res.FirstNameA = resdetail.Customer?.FirstName;
+                res.LastNameA = resdetail.Customer?.LastName;
+                res.Notes = resdetail.Customer?.Notes;
 
-                    ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.TreatmentPlace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
-                    res.TreatmentPlace_id = resdetail.TreatmentPlace?.TreatmentPlace_id;
-                    res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
-                    res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
+                ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
+                res.Treatment_id = resdetail.Treatment?.Treatment_id;
+                res.TreatmentName = resdetail.Treatment?.TreatmentName;
+                res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
+                res.TreatmentPrice = resdetail.Treatment?.TreatmentPrice;
 
-                    ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
-                    res.TreatmentOffice_id = resdetail.TreatmentOffice?.TreatmentOffice_id;
-                    res.TreatmentOfficeName = resdetail.TreatmentOffice?.TreatmentOfficeName;
-                    res.Address = resdetail.TreatmentOffice?.Address;
+                ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.TreatmentPlace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
+                res.TreatmentPlace_id = resdetail.TreatmentPlace?.TreatmentPlace_id;
+                res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
+                res.TreatmentPlaceNumber = resdetail.TreatmentPlace?.TreatmentPlaceNumber;
 
-                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
-                    res.Student_id = resdetail.Studentx?.Student_id;
-                    res.FirstNameH = resdetail.Studentx?.FirstName;
-                    res.LastNameH = resdetail.Studentx?.LastName;
+                ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
+                res.TreatmentOffice_id = resdetail.TreatmentOffice?.TreatmentOffice_id;
+                res.TreatmentOfficeName = resdetail.TreatmentOffice?.TreatmentOfficeName;
+                res.Address = resdetail.TreatmentOffice?.Address;
 
-                    model = res;
-        
+                ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+                res.Student_id = resdetail.Studentx?.Student_id;
+                res.FirstNameH = resdetail.Studentx?.FirstName;
+                res.LastNameH = resdetail.Studentx?.LastName;
+
+                model = res;
+
             }
             finally
             {
@@ -339,7 +340,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             return View(model);
         }//details
-       
+
 
         // GET: Reservations/Create
         public ActionResult Create()
@@ -347,7 +348,7 @@ namespace PointCustomSystemDataMVC.Controllers
             JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
             ReservationViewModel model = new ReservationViewModel();
-          
+
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
@@ -383,7 +384,7 @@ namespace PointCustomSystemDataMVC.Controllers
             if (userId > 0)
             {
                 User usr = db.User.Find(userId);
-                res.User_id = userId;        
+                res.User_id = userId;
                 res.Customer_id = usr.Customer_id;
             }
 
@@ -411,12 +412,12 @@ namespace PointCustomSystemDataMVC.Controllers
                 res.Student_id = stu.Student_id;
             }
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);       
-            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);   
-            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);        
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
             ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
-         
+
             try
             {
                 db.SaveChanges();
@@ -426,7 +427,7 @@ namespace PointCustomSystemDataMVC.Controllers
             {
             }
 
-            return RedirectToAction("Index");        
+            return RedirectToAction("Index");
         }//cr*/;
 
         CultureInfo fiFi = new CultureInfo("fi-FI");
@@ -444,7 +445,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 return HttpNotFound();
             }
 
-            ReservationViewModel res = new ReservationViewModel();          
+            ReservationViewModel res = new ReservationViewModel();
             res.Reservation_id = resdetail.Reservation_id;
             res.Start = resdetail.Start.Value;
             res.End = resdetail.End.Value;
@@ -468,7 +469,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Student_id = resdetail.Studentx?.Student_id;
             res.FirstNameH = resdetail.Studentx?.FirstName;
             res.LastNameH = resdetail.Studentx?.LastName;
-        
+
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             res.Treatment_id = resdetail.Treatment?.Treatment_id;
             res.TreatmentName = resdetail.Treatment?.TreatmentName;
@@ -553,7 +554,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);       
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
             ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
             ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
@@ -779,7 +780,7 @@ namespace PointCustomSystemDataMVC.Controllers
             ReservationDetailViewModel res = new ReservationDetailViewModel();
             res.Reservation_id = resdetail.Reservation_id;
             res.TreatmentCompleted = resdetail.TreatmentCompleted;
-           
+
             return View(res);
         }//ReservationCompleted
 
@@ -791,7 +792,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
             Reservation res = db.Reservation.Find(model.Reservation_id);
             res.TreatmentCompleted = model.TreatmentCompleted;
-          
+
             db.SaveChanges();
             return RedirectToAction("Index");
 
@@ -862,8 +863,8 @@ namespace PointCustomSystemDataMVC.Controllers
         }//CustomTreatReport
 
 
-      
-    
+
+
 
 
         //DAYPILOT VIIKKO VIIKKONÄKYMÄ
@@ -974,25 +975,35 @@ namespace PointCustomSystemDataMVC.Controllers
                 JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();              //Events = new EventManager(Controller).Data.AsEnumerable();
                 var tulokset = (from ev in db.Reservation select ev).ToList();
 
-                // tyhjien päivien tarkistus
-                DateTime tarkistusAlku = new DateTime(2017, 4, 10);
-                for (int i = 1; i <= 10; i++)
+                DateTime AlkuPvm = new DateTime(2017, 4, 1);
+                DateTime LoppuPvm = new DateTime(2017, 4, 30);
+                DateTime laskettavaPäivä = AlkuPvm;
+                while (laskettavaPäivä <= LoppuPvm)
                 {
-                    DateTime tarkistus = tarkistusAlku.AddDays(i - 1);
-                    bool löytyy = (from t in tulokset
-                                   where t.Date == tarkistus.Date
-                                   select t).Any();
-                    if (!löytyy)
-                    {
-                        tulokset.Add(new Reservation()
-                        {
-                            CalendarTitle = "Vapaa",
-                            Date = tarkistus,
-                            Start = tarkistus.AddHours(9),
-                            End = tarkistus.AddHours(11)
-                        });
-                    }
+                    MuodostaYhdenPäivänVapaidenAikojenKalenteriMerkinnät(tulokset, laskettavaPäivä);
+
+                    laskettavaPäivä = laskettavaPäivä.AddDays(1);
                 }
+
+                //// tyhjien päivien tarkistus
+                //DateTime tarkistusAlku = new DateTime(2017, 4, 10);
+                //for (int i = 1; i <= 10; i++)
+                //{
+                //    DateTime tarkistus = tarkistusAlku.AddDays(i - 1);
+                //    bool löytyy = (from t in tulokset
+                //                   where t.Date == tarkistus.Date
+                //                   select t).Any();
+                //    if (!löytyy)
+                //    {
+                //        tulokset.Add(new Reservation()
+                //        {
+                //            CalendarTitle = "Vapaa",
+                //            Date = tarkistus,
+                //            Start = tarkistus.AddHours(9),
+                //            End = tarkistus.AddHours(11)
+                //        });
+                //    }
+                //}
 
                 // käsin lisätty varaus, demottu 13.4.2017
                 //tulokset.Add(new Reservation()
@@ -1003,28 +1014,25 @@ namespace PointCustomSystemDataMVC.Controllers
                 //    End = new DateTime(2017, 4, 10, 12, 30, 0, 0)
                 //});
 
-     
-
-
-                // tyhjien päivien tarkistus
-                DateTime tarkistusAlku1 = new DateTime(2017, 4, 10);
-                for (int i = 1; i <= 10; i++)
-                {
-                    DateTime tarkistus1 = tarkistusAlku1.AddDays(i - 1);
-                    bool löytyy = (from t in tulokset
-                                   where t.Date == tarkistus1.Date
-                                   select t).Any();
-                    if (!löytyy)
-                    {
-                        tulokset.Add(new Reservation()
-                        {
-                            CalendarTitle = "Vapaa",
-                            Date = tarkistus1,
-                            Start = tarkistus1.AddHours(12),
-                            End = tarkistus1.AddHours(14)
-                        });
-                    }
-                }
+                //// tyhjien päivien tarkistus
+                //DateTime tarkistusAlku1 = new DateTime(2017, 4, 10);
+                //for (int i = 1; i <= 10; i++)
+                //{
+                //    DateTime tarkistus1 = tarkistusAlku1.AddDays(i - 1);
+                //    bool löytyy = (from t in tulokset
+                //                   where t.Date == tarkistus1.Date
+                //                   select t).Any();
+                //    if (!löytyy)
+                //    {
+                //        tulokset.Add(new Reservation()
+                //        {
+                //            CalendarTitle = "Vapaa",
+                //            Date = tarkistus1,
+                //            Start = tarkistus1.AddHours(12),
+                //            End = tarkistus1.AddHours(14)
+                //        });
+                //    }
+                //}
 
 
                 Events = tulokset;
@@ -1034,6 +1042,124 @@ namespace PointCustomSystemDataMVC.Controllers
                 DataDateField = "Date";
                 DataStartField = "Start";
                 DataEndField = "End";
+            }
+
+            private void MuodostaYhdenPäivänVapaidenAikojenKalenteriMerkinnät(List<Reservation> tulokset,
+                DateTime päivämäärä)
+            {
+                int tuolienLkm = 4;
+                int ajanjaksojenMäärä = 4;
+
+                int tuoliIndeksi;
+
+                // muodostetaan taulukko, jossa jokaiselle tuolille N kappaletta ajanjaksoja, ja merkitään jokainen ajanjakso oletuksena vapaaksi (true)
+                bool[,] vapaatAjat = new bool[tuolienLkm + 1, ajanjaksojenMäärä];
+                for (tuoliIndeksi = 0; tuoliIndeksi < tuolienLkm + 1; tuoliIndeksi++)
+                {
+                    for (int aikaIndeksi = 0; aikaIndeksi < ajanjaksojenMäärä; aikaIndeksi++)
+                    {
+                        vapaatAjat[tuoliIndeksi, aikaIndeksi] = true;
+                    }
+                }
+
+                // etsitään tietokanna tuloksista annetun päivän varaukset
+                List<Reservation> päivänVaraukset = (from v in tulokset
+                                                     where v.Date == päivämäärä
+                                                     select v).ToList();
+
+                foreach (Reservation varaus in päivänVaraukset)
+                {
+                    int aikaIndeksi = LaskeAikaIndeksi(varaus.Start);
+                    if (aikaIndeksi >= 0)
+                    {
+                        // etsitään ensimmäinen vapaa tuoli ko. jaksolla
+                        for (int tuoliIndeksi2 = 0; tuoliIndeksi2 < tuolienLkm; tuoliIndeksi2++)
+                        {
+                            // onko tuoli vapaa tällä aikajaksolla?
+                            if (vapaatAjat[tuoliIndeksi2, aikaIndeksi] == true)
+                            {
+                                vapaatAjat[tuoliIndeksi2, aikaIndeksi] = false;
+                                break;
+                            }
+                        }
+                    }
+                }
+
+
+                // nyt tiedämme tuolien vapaat ajat, muodostetaan näistä klenterimerkinnät
+                for (int aikaIndeksi = 0; aikaIndeksi < ajanjaksojenMäärä; aikaIndeksi++)
+                {
+                    int vapaitaTuoleja = 0;
+                    for (int tuoliIndeksi3 = 0; tuoliIndeksi3 < tuolienLkm; tuoliIndeksi3++)
+                    {
+                        // onko tuoli vapaa tällä aikajaksolla?
+                        if (vapaatAjat[tuoliIndeksi3, aikaIndeksi] == true)
+                        {
+                            vapaitaTuoleja++;
+                        }
+                    }
+
+                    if (vapaitaTuoleja > 0)
+                    {
+                        DateTime Start = päivämäärä;
+                        DateTime End = päivämäärä;
+                        switch (aikaIndeksi)
+                        {
+                            case 0:
+                                Start = päivämäärä.AddHours(9);
+                                End = päivämäärä.AddHours(11);
+                                break;
+                            case 1:
+                                Start = päivämäärä.AddHours(12);
+                                End = päivämäärä.AddHours(14);
+                                break;
+                            case 2:
+                                Start = päivämäärä.AddHours(14);
+                                End = päivämäärä.AddHours(16);
+                                break;
+                            case 3:
+                                Start = päivämäärä.AddHours(16);
+                                End = päivämäärä.AddHours(18);
+                                break;
+                        }
+
+                        tulokset.Add(new Reservation()
+                        {
+                            CalendarTitle = "Vapaana " + vapaitaTuoleja + " tuolia",
+                            Date = päivämäärä,
+                            Start = Start,
+                            End = End
+                        });
+                    }
+                }
+
+            }
+
+            private int LaskeAikaIndeksi(DateTime? start)
+            {
+                int indeksi = -1;
+                if (start.HasValue)
+                {
+                    int tunti = start.Value.Hour;
+                    if ((tunti >= 9) && (tunti < 11))
+                    {
+                        indeksi = 0;
+                    }
+                    else if ((tunti >= 12) && (tunti < 14))
+                    {
+                        indeksi = 1;
+                    }
+                    else if ((tunti >= 14) && (tunti < 16))
+                    {
+                        indeksi = 2;
+                    }
+                    else if ((tunti >= 16) && (tunti < 18))
+                    {
+                        indeksi = 3;
+                    }
+                }
+
+                return indeksi;
             }
         }//Dpc
 
@@ -1058,112 +1184,112 @@ namespace PointCustomSystemDataMVC.Controllers
 
         //DAYPILOT KALENTERI KUUKAUSINÄKYMÄ
 
-        public ActionResult BackMonthEnd()
-        {
-            return new Dpm().CallBack(this);
-        }
+        //public ActionResult BackMonthEnd()
+        //{
+        //    return new Dpm().CallBack(this);
+        //}
 
-        class Dpm : DayPilotMonth
-        {
-            protected override void OnTimeRangeSelected(DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedArgs e)
-            {
-                string name = (string)e.Data["name"];
-                if (String.IsNullOrEmpty(name))
-                {
-                    name = "(default)";
-                }
-                new EventManager(Controller).EventCreate(e.Start, e.End, name);
-                Update();
-            }
+        //class Dpm : DayPilotMonth
+        //{
+        //    protected override void OnTimeRangeSelected(DayPilot.Web.Mvc.Events.Month.TimeRangeSelectedArgs e)
+        //    {
+        //        string name = (string)e.Data["name"];
+        //        if (String.IsNullOrEmpty(name))
+        //        {
+        //            name = "(default)";
+        //        }
+        //        new EventManager(Controller).EventCreate(e.Start, e.End, name);
+        //        Update();
+        //    }
 
-            protected override void OnEventMove(DayPilot.Web.Mvc.Events.Month.EventMoveArgs e)
-            {
-                if (new EventManager(Controller).Get(e.Id) != null)
-                {
-                    new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
-                }
+        //    protected override void OnEventMove(DayPilot.Web.Mvc.Events.Month.EventMoveArgs e)
+        //    {
+        //        if (new EventManager(Controller).Get(e.Id) != null)
+        //        {
+        //            new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
+        //        }
 
-                Update();
-            }
+        //        Update();
+        //    }
 
-            protected override void OnEventResize(DayPilot.Web.Mvc.Events.Month.EventResizeArgs e)
-            {
-                new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
-                Update();
-            }
+        //    protected override void OnEventResize(DayPilot.Web.Mvc.Events.Month.EventResizeArgs e)
+        //    {
+        //        new EventManager(Controller).EventMove(e.Id, e.NewStart, e.NewEnd);
+        //        Update();
+        //    }
 
-            private int i = 0;
+        //    private int i = 0;
 
-            public string DataDateField { get; set; }
+        //    public string DataDateField { get; set; }
 
-            protected override void OnBeforeEventRender(DayPilot.Web.Mvc.Events.Month.BeforeEventRenderArgs e)
-            {
-                if (Id == "dp_customization")
-                {
-                    // alternating color
-                    int colorIndex = i % 4;
-                    string[] backColors = { "#FFE599", "#9FC5E8", "#B6D7A8", "#EA9999" };
-                    string[] borderColors = { "#F1C232", "#3D85C6", "#6AA84F", "#CC0000" };
-                    e.BackgroundColor = backColors[colorIndex];
-                    e.BorderColor = borderColors[colorIndex];
-                    e.FontColor = "#000";
-                    i++;
-                }
-            }
+        //    protected override void OnBeforeEventRender(DayPilot.Web.Mvc.Events.Month.BeforeEventRenderArgs e)
+        //    {
+        //        if (Id == "dp_customization")
+        //        {
+        //            // alternating color
+        //            int colorIndex = i % 4;
+        //            string[] backColors = { "#FFE599", "#9FC5E8", "#B6D7A8", "#EA9999" };
+        //            string[] borderColors = { "#F1C232", "#3D85C6", "#6AA84F", "#CC0000" };
+        //            e.BackgroundColor = backColors[colorIndex];
+        //            e.BorderColor = borderColors[colorIndex];
+        //            e.FontColor = "#000";
+        //            i++;
+        //        }
+        //    }
 
-            protected override void OnCommand(DayPilot.Web.Mvc.Events.Month.CommandArgs e)
-            {
-                switch (e.Command)
-                {
-                    case "navigate":
-                        StartDate = (DateTime)e.Data["start"];
-                        Update(CallBackUpdateType.Full);
-                        break;
+        //    protected override void OnCommand(DayPilot.Web.Mvc.Events.Month.CommandArgs e)
+        //    {
+        //        switch (e.Command)
+        //        {
+        //            case "navigate":
+        //                StartDate = (DateTime)e.Data["start"];
+        //                Update(CallBackUpdateType.Full);
+        //                break;
 
-                    case "previous":
-                        StartDate = StartDate.AddMonths(-1);
-                        Update(CallBackUpdateType.Full);
-                        break;
+        //            case "previous":
+        //                StartDate = StartDate.AddMonths(-1);
+        //                Update(CallBackUpdateType.Full);
+        //                break;
 
-                    case "next":
-                        StartDate = StartDate.AddMonths(1);
-                        Update(CallBackUpdateType.Full);
-                        break;
+        //            case "next":
+        //                StartDate = StartDate.AddMonths(1);
+        //                Update(CallBackUpdateType.Full);
+        //                break;
 
-                    case "today":
-                        StartDate = DateTime.Today;
-                        Update(CallBackUpdateType.Full);
-                        break;
+        //            case "today":
+        //                StartDate = DateTime.Today;
+        //                Update(CallBackUpdateType.Full);
+        //                break;
 
-                    case "refresh":
-                        Update();
-                        break;
-                }
-            }
+        //            case "refresh":
+        //                Update();
+        //                break;
+        //        }
+        //    }
 
-            protected override void OnInit(DayPilot.Web.Mvc.Events.Month.InitArgs initArgs)
-            {
-                Update(CallBackUpdateType.Full);
-            }
+        //    protected override void OnInit(DayPilot.Web.Mvc.Events.Month.InitArgs initArgs)
+        //    {
+        //        Update(CallBackUpdateType.Full);
+        //    }
 
-            protected override void OnFinish()
-            {
-                // only load the data if an update was requested by an Update() call
-                if (UpdateType == CallBackUpdateType.None)
-                {
-                    return;
-                }
+        //    protected override void OnFinish()
+        //    {
+        //        // only load the data if an update was requested by an Update() call
+        //        if (UpdateType == CallBackUpdateType.None)
+        //        {
+        //            return;
+        //        }
 
-                // this select is a really bad example, no where clause
-                Events = new EventManager(Controller).Data.AsEnumerable();
+        //        // this select is a really bad example, no where clause
+        //        Events = new EventManager(Controller).Data.AsEnumerable();
 
-                DataIdField = "Reservation_id";
-                DataTextField = "TreatmentName";
-                DataDateField = "Date";
-                DataStartField = "Start";
-                DataEndField = "End";
-            }//OnFinish
-        }//Dpm
+        //        DataIdField = "Reservation_id";
+        //        DataTextField = "TreatmentName";
+        //        DataDateField = "Date";
+        //        DataStartField = "Start";
+        //        DataEndField = "End";
+        //    }//OnFinish
+        //}//Dpm
 
         //Daypilot Calendar:
         public ActionResult Light()
