@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
+using System.Security.Claims;
 using System.Web;
 using System.Web.Mvc;
 
@@ -18,6 +19,17 @@ namespace PointCustomSystemDataMVC.Controllers
           
             return View();
         }
+
+        public ActionResult StartPage()
+        {
+            //string username = User.Identity.Name;
+            //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
+
+            return View();
+        }
+
+
+
         CultureInfo fiFi = new CultureInfo("fi-FI");
         public ActionResult About()
         {

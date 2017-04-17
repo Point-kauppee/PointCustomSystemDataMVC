@@ -1,0 +1,489 @@
+﻿@{
+    ViewBag.Title = "StartPage";
+}
+<title>PointCollege Ajanvarausohjelmisto</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script> 
+<script src="~/Scripts/daypilot-all.min.js"></script>
+<script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
+
+<script src="~/Scripts/modernizr-2.8.3.js"></script>    
+<script src="~/Scripts/bootstrap.min.js"></script>
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>
+
+<script src="@Url.Content("~/Scripts/DayPilot/daypilot-all.min.js")" type="text/javascript"></script>
+<link href="@Url.Content("~/Themes/calendar_white.css")" rel="stylesheet" type="text/css" />
+
+@using DayPilot.Web.Mvc;
+@using DayPilot.Web.Mvc.Events.Calendar;
+@using DayPilot.Web.Mvc.Enums.Calendar;
+
+
+<!-- Multi-statement block -->
+@{
+    var greeting = "Tervetuloa Point Collegen Jalkahoitolan varaustenhallinta sivustolle! ";
+    var weekDay = DateTime.UtcNow.ToLocalTime().DayOfWeek;
+    var pvm = DateTime.Now.Date.ToLocalTime();
+
+    var greetingMessage = greeting + " Tänään on: " + pvm +" "+ weekDay;
+}
+
+    <style>
+        .w3-sidenav a {
+            font-family: "Roboto", sans-serif;
+        }
+
+        body, h1, h2, h3, h4, h5, h6, .w3-wide {
+            font-family: "Montserrat", sans-serif;
+        }
+
+        .modal_default_main {
+            border: 5px solid #ccc !important;
+        }
+        
+        /*.modal_default_inner{
+
+        padding: 10px;}*/
+
+        #dpc{
+            /*height:1000px !important;*/
+        }
+
+        h2{
+        font-size:36px;
+        color:black;
+        }
+    </style>
+
+
+    <body class="w3-content" style="max-width:1200px">
+
+    <!-- Sidenav/menu -->
+    <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidenav">
+        <div class="w3-container w3-padding-16">
+            <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-closebtn w3-hover-text-red"></i>
+            <h3 class="w3-wide" style="margin-top:100px"><b>PointCollege</b></h3>
+        </div>
+        <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
+            <a href="/Home/Index" class="w3-bar-item w3-button">Kirjautuminen</a>
+            <a href="/Studentxes/Details" class="w3-bar-item w3-button">Omat tietoni</a>
+            <a href="/Studentxes" class="w3-bar-item w3-button">Hoitaja</a>
+            <a href="/Home/StartPage" class="w3-bar-item w3-button">PointAika etusivu</a>
+            <a href="/Customers" class="w3-bar-item w3-button">Asiakas</a>
+            <a href="/ReservationReports" class="w3-bar-item w3-button">Palveluraportit</a>
+            <a href="/Reservations" class="w3-bar-item w3-button">Palveluvaraukset</a>        
+            @*<a href="/Customers/Details" class="w3-bar-item w3-button">Asiakaslistaus</a>*@         
+            <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
+                    Tietohallinta <i class="fa fa-caret-down"></i></a>
+         <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
+            <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Henkilöt</a>
+            <a href="/Personnels" class="w3-bar-item w3-button">Henkilökuntahallinta</a>      
+            <a href="/Users" class="w3-bar-item w3-button">Käyttäjähallinta</a>
+            <a href="/StudentGroups" class="w3-bar-item w3-button">Hoitajaryhmähallinta</a>
+            <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Toiminta</a>
+            <a href="/TreatmentPlaces" class="w3-bar-item w3-button">Palvelupaikkahallinta</a>
+            <a href="/PostOffices" class="w3-bar-item w3-button">Osoitehallinta</a>
+            <a href="/Treatments" class="w3-bar-item w3-button">Palveluhallinta</a>
+            <a href="/TreatmentOffices" class="w3-bar-item w3-button">Toimipistehallinta</a>
+            
+            @*<a href="#">#</a>*@
+        </div>
+       </div>
+
+            @*<a href="#">#</a>*@
+        
+        <a href="#footer" class="w3-padding">Yhteystiedot</a>
+        <a href="javascript:void(0)" class="w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Tiedotteet</a>
+        <a href="#footer" class="w3-padding">Kirjaudu</a>
+    </nav>
+
+
+    <!-- Overlay effect when opening sidenav on small screens -->
+    @*<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>*@
+
+    <!-- !PAGE CONTENT! -->
+    <div class="w3-main" style="margin-left:252px">
+
+        <!-- Push down content on small screens -->
+        @*<div class="w3-hide-large" style="margin-top:83px"></div>*@
+
+        <!-- Top header -->
+        <header class="w3-container w3-xlarge">
+            <p class="w3-left">Point College Ajanvarausjärjestelmä</p>
+            <p class="w3-right">
+                <i class="fa fa-shopping-cart w3-margin-right"></i>
+                <i class="fa fa-search"></i>
+            </p>
+        </header>
+
+        <!-- Image header -->
+        <div class="w3-display-container w3-container">
+            <img src="~/Images/talvimarjat.jpg" alt="talvimarjat" style="width:100%">
+            <div class="w3-display-topleft w3-padding-xxlarge w3-text-white" style="padding:24px 48px">
+                <h1 class="w3-jumbo w3-hide-small">Ajanvarausjärjestelmä</h1>
+                <p>@greetingMessage</p>
+
+                @*<p>Total entries: @Model.Count().</p>*@
+                <h2 class="w3-hide-large w3-hide-medium">PointAika</h2>
+                <h2 class="w3-hide-small">PointAika</h2>
+                <p><a href="/Reservations/#dpc" class="w3-btn w3-padding-large w3-large">Kalenteri</a></p>
+            </div>
+        </div>
+
+        @*//KALENTERINÄKYMÄ*@   
+        <br />
+        <hr />
+
+            <p>Varauskalenteri</p>
+
+        @*<div style="float:left; width: 150px;">
+            <div id="nav"></div>
+        </div>*@
+            @*<div style="margin-left: 150px;">*@
+                <div>
+                    <div id="dpc" class="w3-text-grey calendar_default_main">
+
+                        @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
+               {
+                   BackendUrl = Url.Content("~/Reservations/BackEnd"),
+                   //BackendUrl = Url.Action("Backend", "Calendar"),
+                   ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
+                   CssOnly = true,
+                   //CssClassPrefix = "calendar_white",
+                   EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
+                   EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
+                   EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
+                   EventClickJavaScript = "editEvent(e.id())",
+                   TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
+                   //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });",
+                   TimeRangeSelectedJavaScript = "create(start,end)",
+                   HeightSpec = HeightSpec.BusinessHours,
+               })
+                        <br />
+                        <div class="space">
+                            Viikko:
+                            <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
+                            <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
+                        </div>
+                    </div>
+                </div>
+                @*https://code.daypilot.org/81367/daypilot-modal*@
+
+        <br />
+        <hr />
+                <!-- Subscribe section -->
+                <div class="w3-container w3-black w3-padding-4">
+                    <h1></h1>
+                    <p></p>
+                    @*<p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+                <button type="button" class="w3-btn w3-padding w3-red w3-margin-bottom"></button>*@
+                </div>
+
+                <!-- Footer -->
+                <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+                    <div class="w3-row-padding">
+                        <div class="w3-col s4">
+                            <h4>Ota yhteyttä</h4>
+                            <p>#.</p>
+                            <form action="form.asp" target="_blank">
+                                <p><input class="w3-input w3-border" type="text" placeholder="Nimi" name="Name" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Sähköposti" name="Email" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Aihe" name="Subject" required></p>
+                                <p><input class="w3-input w3-border" type="text" placeholder="Viesti" name="Message" required></p>
+                                <button type="submit" class="w3-btn-block w3-padding w3-black">Lähetä</button>
+                            </form>
+                        </div>
+
+                        <div class="w3-col s4">
+                            <h4>Info</h4>
+                            <p><a href="#">Yhteystiedot</a></p>
+                            <p><a href="#">Aikuiskoulutus</a></p>
+                            <p><a href="#">Maksaminen</a></p>
+                            <p><a href="#">Lahjakortti</a></p>
+                            <p><a href="#">Etusivu</a></p>
+                            <p><a href="#">Tuki</a></p>
+                        </div>
+
+                        <div class="w3-col s4 w3-justify">
+                            <h4>Point College jalkahoitola</h4>
+                            <p><i class="fa fa-fw fa-map-marker"></i> Porvoo International College</p>
+                            <p><i class="fa fa-fw fa-phone"></i> (019) 529 9200</p>
+                            <p><i class="fa fa-fw fa-envelope"></i> info@pointcollege.fi</p>
+                            <h4>Maksaminen</h4>
+                            @*<p><i class="fa fa-fw fa-cc-amex"></i> #</p>*@
+                            <p><i class="fa fa-fw fa-credit-card"></i> Pankkikortti</p>
+                            <br>
+                            <i class="fa fa-facebook-official w3-xlarge w3-hover-text-indigo"><a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank"></a></i>
+                            <i class="fa fa-instagram w3-xlarge w3-hover-text-purple"></i>
+                            <i class="fa fa-twitter w3-xlarge w3-hover-text-light-blue"></i>
+                            <i class="fa fa-pinterest w3-xlarge w3-hover-text-red"></i>
+                            <i class="fa fa-flickr w3-xlarge w3-hover-text-blue"></i>
+                        </div>
+                    </div>
+                </footer>
+
+                <div class="w3-black w3-center w3-padding-24">Point College <a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank" class="w3-hover-opacity">jalkahoitola</a></div>
+            </div><!-- End page content -->
+
+    <!-- Newsletter Modal -->
+    <div id="newsletter" class="w3-modal">
+        <div class="w3-modal-content w3-animate-zoom w3-padding-jumbo">
+            <div class="w3-container w3-white w3-center">
+                <i onclick="document.getElementById('newsletter').style.display='none'" class="fa fa-remove w3-closebtn w3-xlarge w3-hover-text-grey w3-margin"></i>
+                <h2 class="w3-wide">TIEDOTTEET</h2>
+                <p>Kirjautumalla järjestelmään, saat pääsyn asiakastietoihin.</p>
+                <p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+                <button type="button" class="w3-btn w3-padding-large w3-red w3-margin-bottom" onclick="document.getElementById('newsletter').style.display='none'">Subscribe</button>
+            </div>
+        </div>
+    </div>
+
+        <script src="~/Scripts/jquery-3.1.1.min.js"></script>
+        <script src="~/Scripts/jquery.validate.min.js"></script>
+        <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+        </body>
+
+    <script>
+            // Accordion
+            function myAccFunc() {
+                var x = document.getElementById("demoAcc");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
+
+            // Click on the "Kalenteri" link on page load to open the accordion for demo purposes
+            document.getElementById("myBtn").click();
+
+
+            // Script to open and close sidenav
+            function w3_open() {
+                document.getElementById("mySidenav").style.display = "block";
+                document.getElementById("myOverlay").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidenav").style.display = "none";
+                document.getElementById("myOverlay").style.display = "none";
+            }
+
+        // SCRIPT MODAL KALENTERINÄKYMÄ:
+
+            function create(start, end) {
+                var m = new DayPilot.Modal();
+                modal.top = 60;
+                modal.width = 500;
+                modal.opacity = 70;
+                modal.border = "10px solid #d0d0d0";
+                m.closed = function () {
+                    if (this.result == "OK") {
+                        db.commandCallBack('refresh');
+                    }
+                    db.clearSelection();
+                };
+                modal.height = 500;
+                modal.zIndex = 100;
+                m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
+            }
+
+            //event creating
+            var e = new DayPilot.Event({
+                date: new DayPilot.Date("2016-05-12"),
+                start: new DayPilot.Start("hh\:mm"),
+                end: new DayPilot.End("hh\:mm"),
+                id: DayPilot.guid(),
+                text: "EKA"
+            });
+
+            dp.events.add(e);
+            alert("Created");
+
+            var e = new DayPilot.Event({
+                date: new DayPilot.Date("2016-05-12"),
+                start: new DayPilot.Start("hh\:mm"),
+                end: new DayPilot.End("hh\:mm"),
+                id: DayPilot.guid(),
+                text: "TOKA"
+            });
+
+            function editEvent(id) {
+                var modal = new DayPilot.Modal();
+                modal.top = 60;
+                modal.width = 400;
+                modal.opacity = 70;
+                modal.border = "10px solid #d0d0d0";
+                modal.closed = function () {
+                    if (this.result == "OK") {
+                        db.commandCallBack('refresh');
+                    }
+                    db.clearSelection();
+                };
+                modal.height = 500;
+                modal.zIndex = 100;
+                modal.showUrl("/Reservations/Edit/" + id);
+                //modal.showUrl("http://localhost:17794/Varaus/Edit/37");
+                //modal.showUrl("http://localhost:17794/Varaus/Edit/" + id);
+            }
+
+            // event creating MODAL
+            dp.onTimeRangeSelected = function (args) {
+                create();
+                dp.update();
+            };
+
+            var modal = new DayPilot.Modal({
+                onClosed: function (args) {
+                    console.log("Modal dialog closed");
+                },
+                // ...
+            });
+
+            // SCRIPT KALENTERINÄKYMÄ:
+                var nav = new DayPilot.Navigator("nav");
+                //editoitu
+                nav.locale = "fi-fi";
+                nav.showMonths = 1;
+                nav.selectMode = "week";
+                nav.onTimeRangeSelected = function (args) {
+                    dp.startDate = args.start;
+
+                    dp.update();
+
+                    //JSON kysely
+                    LoadEvents(dp.visibleStart(), dp.visibleEnd());
+                };
+                nav.init();
+
+            //muokattu 24.2.2017
+                var dp = new DayPilot.Calendar("dpc");
+                dp.locale = "fi-fi";
+                dp.allowEventOverlap = false;
+                dp.viewType = "Week";
+                dp.init();
+
+                //// event creating
+                //dp.onTimeRangeSelected = function (args) {
+                //    var name = prompt("New event name:", "Event");
+                //    dp.clearSelection();
+                //    if (!name) return;
+                //    var e = new DayPilot.Event({
+                //        start: args.start,
+                //        end: args.end,
+                //        id: DayPilot.guid(),
+                //        resource: args.resource,
+                //        text: name
+                //    });
+                //    dp.events.add(e);
+                //    alert("Created");
+                //};
+
+                //modal.showUrl("Edit.aspx");
+
+                //var modal = new DayPilot.Modal({
+                //    onClosed: function (args) {
+                //        console.log("Modal dialog closed");
+                //    },
+                //    // ...
+                //});
+            //modal.showHtml("<h1>Hello</h1>");
+
+                dp.onEventClicked = function (args) {
+                    formatted = $.datepicker.formatDate("M d, yy", new Date("2014-07-08T09:02:21.377"));
+                    var startDate = new Date(args.e.start());
+                    var endDate = new Date(args.e.end());
+
+                    var hour = "" + startDate.getHours(); if (hour.length == 1) { hour = "0" + hour; }
+                    var minute = "" + startDate.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+                    //var sD = (startDate.getMonth() + 1) + '.' + startDate.getDate() + '.' + startDate.getFullYear() + " " + hour + ":" + minute;
+                    var sD = startDate.getDate() + '.' + (startDate.getMonth() + 1) + '.' + startDate.getFullYear() + " " + hour + ":" + minute;
+
+                    var hour = "" + endDate.getHours(); if (hour.length == 1) { hour = "0" + hour; }
+                    var minute = "" + endDate.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
+                    //var eD = (endDate.getMonth() + 1) + '.' + endDate.getDate() + '.' + endDate.getFullYear() + " " + hour + ":" + minute;
+                    var eD = endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + " " + hour + ":" + minute;
+
+                    editEvent(args.e.data.ID);
+
+                    //alert("Event clicked: Alku: " + sD + " Loppu: " + eD);
+                    //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
+                };
+
+                //Lisätty 25.2.2017: convert date "2010-01-01T00:00:00" to "2010-01-01"
+                function ConvertDate2(date) {
+                    var month = date.getMonth() + 1;
+                    if (month < 10) { month = "0" + month };
+                    var day = date.getDay();
+                    if (day < 10) { day = "0" + day };
+                    var year = date.getYear();
+                    if (year < 10) { year = "0" + year };
+                    var date = year + "-" + month + "-" + day;
+
+                    return date;
+            }
+
+            //Lisätty 25.3.2017
+            //function AddZero(t) {
+            //    if (t < 10) { t = "0" + t };
+            //    return t;
+            //}
+
+            //Lisätty 25.3.2017
+            //function UpdateEvent(args) {
+            //    a = new Date(args.e.start());
+            //    l = new Date(args.e.end());
+
+            //    var startTime = AddZero(a.getHours()) + ":" + AddZero(a.getMinutes());
+            //    var endTime = AddZero(l.getHours()) + ":" + AddZero(l.getMinutes());
+
+            //    d = a.getFullYear() + "-" + AddZero(a.getMonth() + 1) + "-" + AddZero(a.getDate());
+
+            //    url = "/Varaus/Resize/?id=" + args.e.data.ID + "&pvm=" + d + "&newStart=" + startTime + "&newEnd=" + endTime;
+
+            //    $.ajax({ url: url, cache: false }).done(function (data) {
+            //        //alert(data);
+            //    });
+            //}
+
+            //Lisätty 22.2.2017
+            function LoadEvents(Start, End) {
+
+                url = "/Reservations/Backend/?start=" + start + "&end=" + end;
+                //alert("AJAX url: " + url);
+                $.ajax({ url: url, cache: false }).done(function (data) {
+                    i = 0;
+                    //alert("JSON objects: " + data);
+                    for (var i = 0; i < data.length; i++) {
+                        data[i].Date = ConvertDate(data[i].Date);
+                        data[i].Start = data[i].Start;
+                        data[i].End = data[i].End;
+                        data[i].start = data[i].Date.substr(0, 11) + data[i].Start + ":00";
+                        data[i].end = data[i].Date.substr(0, 11) + data[i].End + ":00";
+                        //alert("Reservation start: " + data[i].start + " Reservation end: " + data[i].end);
+
+                        var Date = new Date(data[i].Date);
+                        //alert("varauksen pvm: " + data[i].Date + " startTime:" + data[i].Start + " End:" + data[i].End + " sisältö: " + data[i].text)
+                    }
+                    //alert("luodaan varaus kalenteriin: " + i);
+                    Create(data);
+                });
+            }
+    </script>
+
+@section Scripts {
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}
+
+

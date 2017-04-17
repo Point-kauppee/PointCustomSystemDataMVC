@@ -52,14 +52,14 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("PointCollege jalkahoitola", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("PointCollege jalkahoitola", "StartPage", "Home", new { area = "" }, new { @class = "navbar-brand" })
                 @*<a href="/Home/Index" class="w3-bar-item w3-button w3-dark-grey"><i class="fa fa-home"></i></a>*@
                 @*@Html.ActionLink("Point Etusivu", "Index", "Home", new { area = "" }, new { @class = "fa fa-home" })*@
               
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Point etusivu", "Index", "Home")</li>
+                    <li>@Html.ActionLink("PointAika etusivu", "StartPage", "Home")</li>
                     <li>@Html.ActionLink("Tietoja", "About", "Home")</li>
                     <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
 
@@ -68,7 +68,7 @@
                         <ul class="dropdown-menu">
                             <li>@Html.ActionLink("Omat tietoni", "Details", "Studentxes")</li>
                             <li>@Html.ActionLink("Hoitaja", "Index", "Studentxes")</li>
-                            <li>@Html.ActionLink("Aloitussivu", "Index", "Home")</li>
+                            <li>@Html.ActionLink("PointAika etusivu", "StartPage", "Home")</li>
                             <li>@Html.ActionLink("Asiakas", "Index", "Customers")</li>
                             <li>@Html.ActionLink("Hoitoraportit", "Index", "TreatmentReports")</li>
                             <li>@Html.ActionLink("Palveluvaraukset", "Index", "Reservations")</li>
