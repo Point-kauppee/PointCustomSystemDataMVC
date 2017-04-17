@@ -62,7 +62,15 @@
                             @Html.DisplayFor(modelItem => item.StudentGroupName)
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.Active)
+                            @{
+                                string True = "";
+                                if (item.Active.HasValue && (item.Active.Value == true))
+                                {
+                                    True = "checked";
+                                }
+                            }
+                            <input name="Active" type="checkbox" @True />
+                            @*@Html.DisplayFor(modelItem => item.Active)*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CreatedAt)

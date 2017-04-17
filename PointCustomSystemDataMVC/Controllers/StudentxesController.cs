@@ -549,6 +549,42 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }   
+        }
+
+        // Hoitajatietojen arkistointi:
+        // GET: Customers/Archive/5
+        public ActionResult Archive(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Studentx student = db.Studentx.Find(id);
+            if (student == null)
+            {
+                return HttpNotFound();
+            }
+
+            StudentViewModel svm = new StudentViewModel();
+            svm.Student_id =student.Student_id;
+            svm.Active = student.Active;
+            svm.DeletedAt = DateTime.Now;
+
+            return View(svm);
+        }//Archive
+
+        // POST: Customers/Archive/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Archive(StudentViewModel model)
+        {
+            Studentx svm = db.Studentx.Find(model.Student_id);
+            svm.Active = model.Active;
+            svm.DeletedAt = DateTime.Now;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }//Archive   
     }
 }

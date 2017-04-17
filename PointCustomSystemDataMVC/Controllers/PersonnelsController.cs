@@ -432,6 +432,43 @@ namespace PointCustomSystemDataMVC.Controllers
         {
             return PartialView("SideMenu");
         }
+
+
+        // Henkilökunnan tietojen arkistointi:
+        // GET: Customers/Archive/5
+        public ActionResult Archive(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Personnel personnel = db.Personnel.Find(id);
+            if (personnel == null)
+            {
+                return HttpNotFound();
+            }
+
+            PersonnelViewModel pvm = new PersonnelViewModel();
+            pvm.Personnel_id = personnel.Personnel_id;
+            pvm.Active = personnel.Active;
+            pvm.DeletedAt = DateTime.Now;
+
+            return View(pvm);
+        }//Archive
+
+        // POST: Customers/Archive/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Archive(PersonnelViewModel model)
+        {
+            Personnel pvm = db.Personnel.Find(model.Personnel_id);
+            pvm.Active = model.Active;
+            pvm.DeletedAt = DateTime.Now;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }//Archive
     }
 }
 

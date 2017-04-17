@@ -349,6 +349,7 @@
       <DependentUpon>PointSQLData.edmx</DependentUpon>
     </Content>
     <Content Include="App_Browsers\qt.browser" />
+    <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Models\PointSQLData.Context.tt">
@@ -494,10 +495,12 @@
     <Content Include="Views\Customers\DownLoadCustomerPDF.cshtml" />
     <Content Include="Views\Reservations\ReservationCompleted.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Customers\Archive.cshtml" />
+    <Content Include="Views\Personnels\Archive.cshtml" />
+    <Content Include="Views\Studentxes\Archive.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\ReservationReports\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />

@@ -22,3 +22,9 @@ select,
 textarea {
     max-width: 280px;
 }
+
+@media print { 
+textarea {
+min-height: 900px;  
+}
+}

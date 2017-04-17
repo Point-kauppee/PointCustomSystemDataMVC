@@ -31,7 +31,6 @@
 <script type="text/javascript">
 
     // SCRIPT MODAL KALENTERINÄKYMÄ:
-    //ok
             function create(start, end) {
                 var m = new DayPilot.Modal();
                 modal.top = 60;
@@ -48,26 +47,6 @@
                 modal.zIndex = 100;
                 m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
             }
-
-             ////event creating
-             //var e = new DayPilot.Event({
-             //    date: new DayPilot.Date("2017-03-21"),
-             //    start: new DayPilot.Start("HH\:mm"),
-             //    end: new DayPilot.End("HH\:mm"),
-             //    id: DayPilot.guid(),
-             //    text: "EKA"
-             //});
-
-             //dp.events.add(e);
-             //alert("Created");
-
-             //var e = new DayPilot.Event({
-             //    date: new DayPilot.Date("2017-03-21"),
-             //    start: new DayPilot.Date("HH\:mm"),
-             //    end: new DayPilot.Date("HH\:mm"),
-             //    id: DayPilot.guid(),
-             //    text: "TOKA"
-    //});
 
         //Eventin editointi, lomakkeen aukaisu
             function editEvent(id) {
@@ -171,7 +150,6 @@
             //    //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
             //};
 
-
             //Lisätty 25.2.2017: convert date "2010-01-01T00:00:00" to "2010-01-01"
             //function ConvertDate2(date) {
             //    var month = date.getMonth() + 1;
@@ -182,9 +160,27 @@
             //    if (year < 10) { year = "0" + year };
             //    var date = year + "-" + month + "-" + day;
             //    return date;
-            //}
+    //}
+    ////event creating
+    //var e = new DayPilot.Event({
+    //    date: new DayPilot.Date("2017-03-21"),
+    //    start: new DayPilot.Start("HH\:mm"),
+    //    end: new DayPilot.End("HH\:mm"),
+    //    id: DayPilot.guid(),
+    //    text: "EKA"
+    //});
 
-     
+    //dp.events.add(e);
+    //alert("Created");
+
+    //var e = new DayPilot.Event({
+    //    date: new DayPilot.Date("2017-03-21"),
+    //    start: new DayPilot.Date("HH\:mm"),
+    //    end: new DayPilot.Date("HH\:mm"),
+    //    id: DayPilot.guid(),
+    //    text: "TOKA"
+    //});
+
             //Lisätty 25.3.2017
             //function AddZero(t) {
             //    if (t < 10) { t = "0" + t };
@@ -231,19 +227,17 @@
 </script>
 
 <style>
-    /*#dpc{
-        height:600px !important;
-    }*/
-   /*.calendar_default_rowheader{
-         height:100px !important;*/
-    
+    #weekcalendar{
+        width:1200px; 
+    }
 </style>
 
-    <!-- !SIDEMENU CONTENT!
+<!-- !SIDEMENU CONTENT!
 ================================================== -->
 @{ Html.RenderAction("SideMenu", "Customers");}
 
-<!-- !PAGE CONTENT! -->
+<!-- !PAGE CONTENT!
+================================================== -->
 <div class="w3-main" style="margin-left:252px">
 
     <!-- Push down content on small screens -->
@@ -255,7 +249,9 @@
         <h2>VARAUSKALENTERI</h2>
         <p>Viikko</p>
 
+    <div id="weekcalendar">
         <div id="dpc" class="w3-text-grey calendar_default_main">
+
             @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
        {
            BackendUrl = Url.Content("~/Reservations/BackEnd"),
@@ -278,9 +274,10 @@
                 <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
             </div>
         </div>
-        <p>
+    </div>
+        @*<p>
             @Html.ActionLink("Kuukausikalenteri", "BackMonthEnd")
-        </p>
+        </p>*@
         <hr />
 
         <h2>Palveluvaraus</h2>
@@ -290,10 +287,6 @@
 
         <a href="~/Reservations/HoursPerReservationAsExcel" class="btn btn-danger">Vie Exceliin</a>
 
-
-        @*<p style="padding-left:8px;font-size:12px">
-            @Html.ActionLink("Luo uusi varaus", "Create")
-        </p>*@
 
         <table class="table">
             <thead>
@@ -393,17 +386,25 @@
                         </td>
                         <td>
                             @{
-                                string valittu = "";
+                                string checked1 = "";
                                 if (item.TreatmentCompleted.HasValue && (item.TreatmentCompleted.Value == true))
                                 {
-                                    valittu = "checked";
+                                    checked1 = "checked";
                                 }
                             }
-                            <input name="TreatmentCompelted" type="checkbox" @valittu/>
+                            <input name="TreatmentCompelted" type="checkbox" @checked1/>
                             @* @Html.DisplayFor(modelItem => item.TreatmentCompleted)*@
                         </td>
                         <td>
-                            @Html.DisplayFor(modelItem => item.TreatmentPaid)
+                            @{
+                                string checked2 = "";
+                                if (item.TreatmentCompleted.HasValue && (item.TreatmentPaid.Value == true))
+                                {
+                                    checked2 = "checked";
+                                }
+                            }
+                            <input name="TreatmentPaid" type="checkbox" @checked2 />
+                            @*@Html.DisplayFor(modelItem => item.TreatmentPaid)*@
                         </td>
                         <td>
                             @Html.DisplayFor(modelItem => item.CalendarTitle)
@@ -416,6 +417,7 @@
                             @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |
                             @Html.ActionLink("Tiedot", "Details", new { id = item.Reservation_id }) |
                             @Html.ActionLink("Poista", "Delete", new { id = item.Reservation_id }) |
+                            <br><br>
                             @Html.ActionLink(item.FirstNameA + " " + item.LastNameA, "TreatText", "Reservations", new { Reservation_id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                             <br><br>
                             @Html.ActionLink("Palveluraportti", "TreatText", new { id = item.Reservation_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
@@ -428,7 +430,7 @@
                 }
             </tbody>
         </table>
-    <p>Kirjautumisia yhteensä: @Model.Count().</p>
+
     </div> <!-- End content -->
     </div><!-- End page content -->
 

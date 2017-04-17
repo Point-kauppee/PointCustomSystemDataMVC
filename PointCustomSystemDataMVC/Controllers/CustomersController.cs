@@ -587,9 +587,44 @@ namespace PointCustomSystemDataMVC.Controllers
         }
 
 
-      
 
-       
+        // Asiakkaan tietojen arkistointi:
+        // GET: Customers/Archive/5
+        public ActionResult Archive(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customer.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            CustomerViewModel cvm = new CustomerViewModel();
+            cvm.Customer_id = customer.Customer_id;
+            cvm.Active = customer.Active;
+            cvm.DeletedAt = DateTime.Now;
+
+            return View(cvm);
+        }//Archive
+
+        // POST: Customers/Archive/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Archive(CustomerViewModel model)
+        {
+            Customer cvm = db.Customer.Find(model.Customer_id);
+            cvm.Active = model.Active;
+            cvm.DeletedAt = DateTime.Now;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }//Archive
+
+
 
         //[HttpPost]
         ////CustomerViewModel.cs - ASIAKASRAPORTIN TALLENTAMINEN (SQL) TIETOKANTAAN

@@ -23,20 +23,17 @@
 <script src="/Scripts/respond.js"></script>
 
 <style>
-    .form-control {
-        /*height: 500px;
-        width: 1000px;
-        text-align: justify;
-        padding-top: 5px;
-        display:list-item;
-        padding-right:5px*/
-    }
 
     .input {
         height: 500px;
         width: 1000px;
         text-align: justify;
         padding-top: 5px;
+    }
+    #textarea{
+        height:500px;
+        width:500px;
+       
     }
 </style>
    
@@ -60,7 +57,7 @@
             <div class="form-group">
                 @Html.LabelFor(model => model.FullNameA, "Asiakas", htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-lg-20" >
-                    @Html.EditorFor(model => model.FullNameA, new { htmlAttributes = new { @class = "form-control w3-xxxlarge" } })
+                    @Html.EditorFor(model => model.FullNameA, new { htmlAttributes = new { @class = "form-control" } })
                     @Html.ValidationMessageFor(model => model.FullNameA, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -68,8 +65,9 @@
 
             <div class="form-group">
                 @Html.LabelFor(model => model.TreatmentReportTexts, "Palveluraportti", htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-lg-20" style="width:1000px">
-                    @Html.EditorFor(model => model.TreatmentReportTexts, new { htmlAttributes = new { @class = "form-control height:500px" } })
+                <div class="col-lg-20">
+                    @Html.TextAreaFor(m => m.TreatmentReportTexts, new { @class = "form-control", rows=50, columns=150 }) 
+                    @*@Html.EditorFor(model => model.TreatmentReportTexts, new { htmlAttributes = new { @class = "form-control height:500px" } })*@
                     @Html.ValidationMessageFor(model => model.TreatmentReportTexts, "", new { @class = "text-danger" })
                 </div>
             </div>
@@ -79,8 +77,7 @@
                 <div class="col-md-offset-2 col-md-10">
                     <input type="submit" value="Tallenna" class="btn btn-default" />
                 </div>
-            </div>
-       
+            </div>  
       }
     
     <div>

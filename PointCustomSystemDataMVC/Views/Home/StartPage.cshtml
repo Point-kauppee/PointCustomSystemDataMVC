@@ -73,15 +73,14 @@
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-closebtn w3-hover-text-red"></i>
             <h3 class="w3-wide" style="margin-top:100px"><b>PointCollege</b></h3>
         </div>
+
         <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
             <a href="/Home/Index" class="w3-bar-item w3-button">Kirjautuminen</a>
-            <a href="/Studentxes/Details" class="w3-bar-item w3-button">Omat tietoni</a>
-            <a href="/Studentxes" class="w3-bar-item w3-button">Hoitaja</a>
             <a href="/Home/StartPage" class="w3-bar-item w3-button">PointAika etusivu</a>
+            <a href="/Studentxes/Details" class="w3-bar-item w3-button">Omat tietoni</a>
+            <a href="/Studentxes" class="w3-bar-item w3-button">Hoitaja</a>       
             <a href="/Customers" class="w3-bar-item w3-button">Asiakas</a>
-            <a href="/ReservationReports" class="w3-bar-item w3-button">Palveluraportit</a>
-            <a href="/Reservations" class="w3-bar-item w3-button">Palveluvaraukset</a>        
-            @*<a href="/Customers/Details" class="w3-bar-item w3-button">Asiakaslistaus</a>*@         
+            <a href="/Reservations" class="w3-bar-item w3-button">Palveluvaraukset</a>               
             <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
                     Tietohallinta <i class="fa fa-caret-down"></i></a>
          <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
@@ -110,7 +109,9 @@
     <!-- Overlay effect when opening sidenav on small screens -->
     @*<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>*@
 
-    <!-- !PAGE CONTENT! -->
+        <!-- !PAGE CONTENT!
+    ================================================== -->
+
     <div class="w3-main" style="margin-left:252px">
 
         <!-- Push down content on small screens -->
@@ -144,18 +145,13 @@
         <hr />
 
             <p>Varauskalenteri</p>
-
-        @*<div style="float:left; width: 150px;">
-            <div id="nav"></div>
-        </div>*@
-            @*<div style="margin-left: 150px;">*@
+ 
                 <div>
                     <div id="dpc" class="w3-text-grey calendar_default_main">
 
-                        @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
+                   @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
                {
                    BackendUrl = Url.Content("~/Reservations/BackEnd"),
-                   //BackendUrl = Url.Action("Backend", "Calendar"),
                    ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
                    CssOnly = true,
                    //CssClassPrefix = "calendar_white",
@@ -164,7 +160,6 @@
                    EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
                    EventClickJavaScript = "editEvent(e.id())",
                    TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
-                   //TimeRangeSelectedJavaScript = "dpm.timeRangeSelectedCallBack(start, end, null, { name: prompt('New Event Name:', 'New Event') });",
                    TimeRangeSelectedJavaScript = "create(start,end)",
                    HeightSpec = HeightSpec.BusinessHours,
                })

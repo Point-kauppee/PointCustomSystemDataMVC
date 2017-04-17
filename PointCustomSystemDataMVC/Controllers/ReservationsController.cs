@@ -60,12 +60,12 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.Start = reservation.Start.GetValueOrDefault();
                     res.End = reservation.End.GetValueOrDefault();
                     res.Date = reservation.Date.GetValueOrDefault();
-                    res.TreatmentPaid = reservation.TreatmentPaid;
+                    res.TreatmentPaid = reservation.TreatmentPaid.GetValueOrDefault();
                     res.TreatmentPaidDate = reservation.TreatmentPaidDate.GetValueOrDefault();
                     res.Note = reservation.Note;
                     res.CalendarTitle2 = reservation.CalendarTitle;
                     res.TreatmentReportTexts = reservation.TreatmentReportTexts;
-                    res.TreatmentCompleted = reservation.TreatmentCompleted;
+                    res.TreatmentCompleted = reservation.TreatmentCompleted.GetValueOrDefault();
 
 
                     ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
@@ -502,15 +502,13 @@ namespace PointCustomSystemDataMVC.Controllers
             res.End = res.Date + model.End.GetValueOrDefault().TimeOfDay;
 
             res.Note = model.Note;
-            res.TreatmentPaid = model.TreatmentPaid;
+            res.TreatmentPaid = model.TreatmentPaid.GetValueOrDefault();
             res.TreatmentPaidDate = model.TreatmentPaidDate.GetValueOrDefault();
-            res.TreatmentCompleted = model.TreatmentCompleted;
+            res.TreatmentCompleted = model.TreatmentCompleted.GetValueOrDefault();
             res.CalendarTitle = model.CalendarTitle2;
             res.TreatmentReportTexts = model.TreatmentReportTexts;
 
-
             //DateTime start = new DateTime(2017, 4, 12, time.Hour, time.Minute, 0);
-
 
             // etsitään User-rivi kannasta valitun nimen perusteella
             int userId = int.Parse(model.UserIdentity);
@@ -637,56 +635,7 @@ namespace PointCustomSystemDataMVC.Controllers
         }//dispose
 
 
-        //Asiakkaiden hoitoraportit 
-        public ActionResult TreatReport()
-        {
-            List<ReservationViewModel> model = new List<ReservationViewModel>();
-
-            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-            try
-            {
-                List<Reservation> reservations = entities.Reservation.OrderByDescending(Reservation => Reservation.Date).ToList();
-
-                // muodostetaan näkymämalli tietokannan rivien pohjalta
-                foreach (Reservation reservation in reservations)
-                {
-                    ReservationViewModel res = new ReservationViewModel();
-
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-                    res.User_id = reservation.User?.User_id;
-                    res.UserIdentity = reservation.User?.UserIdentity;
-
-                    res.Customer_id = reservation.Customer?.Customer_id;
-                    res.FirstNameA = reservation.Customer?.FirstName;
-                    res.LastNameA = reservation.Customer?.LastName;
-
-                    res.Reservation_id = reservation.Reservation_id;
-                    res.Start = reservation.Start.GetValueOrDefault();
-                    res.End = reservation.End.GetValueOrDefault();
-                    res.Date = reservation.Date.GetValueOrDefault();
-                    res.TreatmentCompleted = reservation.TreatmentCompleted;
-                    res.TreatmentReportTexts = reservation.TreatmentReportTexts;
-
-                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
-                    res.Treatment_id = reservation.Treatment?.Treatment_id;
-                    res.TreatmentName = reservation.Treatment?.TreatmentName;
-
-                    res.Student_id = reservation.Studentx?.Student_id;
-                    res.FirstNameH = reservation.Studentx?.FirstName;
-                    res.LastNameH = reservation.Studentx?.LastName;
-
-                    model.Add(res);
-                }
-            }
-            finally
-            {
-                entities.Dispose();
-            }
-
-            CultureInfo fiFi = new CultureInfo("fi-FI");
-
-            return View(model);
-        }//TreatText
+       
 
         // Asiakkaan Hoitoraportin luonti:
         // GET: Reservations/TreatText/5
@@ -746,7 +695,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.TreatmentPaidDate = DateTime.Now;
 
             return View(res);
-        }//TreatText
+        }//TreatPayment
 
         // POST: Reservations/TreatPayment/5
         [HttpPost]
@@ -761,7 +710,7 @@ namespace PointCustomSystemDataMVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
 
-        }//TreatText
+        }//TreatPayment
 
         // Asiakkaan Palvelutilan kuittaus:
         // GET: Reservations/ReservationCompleted/5
@@ -797,71 +746,6 @@ namespace PointCustomSystemDataMVC.Controllers
             return RedirectToAction("Index");
 
         }//ReservationCompleted
-
-
-
-
-        // Asiakkaan hoitoraportti
-        // GET: Reservations/ CustomTreatReport/5
-        public ActionResult CustomTreatReport(int? id)
-        {
-            ReservationViewModel model = new ReservationViewModel();
-
-            JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
-            try
-            {
-                List<Reservation> reservations = entities.Reservation.ToList();
-
-                // muodostetaan näkymämalli tietokannan rivien pohjalta      
-                foreach (Reservation resdetail in reservations)
-                {
-                    ReservationViewModel res = new ReservationViewModel();
-                    res.Reservation_id = resdetail.Reservation_id;
-                    res.Start = resdetail.Start.GetValueOrDefault();
-                    res.End = resdetail.End.GetValueOrDefault();
-                    res.Date = resdetail.Date.GetValueOrDefault();
-                    res.TreatmentCompleted = resdetail.TreatmentCompleted;
-                    res.TreatmentReportTexts = resdetail.TreatmentReportTexts;
-
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-                    res.User_id = resdetail.User?.User_id;
-                    res.UserIdentity = resdetail.User?.UserIdentity;
-
-                    res.Customer_id = resdetail.Customer?.Customer_id;
-                    res.FirstNameA = resdetail.Customer?.FirstName;
-                    res.LastNameA = resdetail.Customer?.LastName;
-                    res.Notes = resdetail.Customer?.Notes;
-
-                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
-                    res.Treatment_id = resdetail.Treatment?.Treatment_id;
-                    res.TreatmentName = resdetail.Treatment?.TreatmentName;
-                    res.TreatmentTime = resdetail.Treatment?.TreatmentTime;
-
-                    ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
-                    res.Student_id = resdetail.Studentx?.Student_id;
-                    res.FirstNameH = resdetail.Studentx?.FirstName;
-                    res.LastNameH = resdetail.Studentx?.LastName;
-
-                    model = res;
-                }
-                if (id == null)
-                {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                }
-                Reservation reservation = db.Reservation.Find(id);
-                if (reservation == null)
-                {
-                    return HttpNotFound();
-                }
-            }
-            finally
-            {
-                entities.Dispose();
-            }
-
-            return View(model);
-        }//CustomTreatReport
-
 
 
 

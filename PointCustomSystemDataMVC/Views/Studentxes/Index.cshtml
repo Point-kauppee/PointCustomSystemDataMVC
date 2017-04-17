@@ -130,8 +130,16 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.EnrollmentDateOFF)
                     </td>
-                    <td class="list-box" style="line-height:unset"  @*hidden="hidden"*@>
-                        @Html.DisplayFor(modelItem => item.Active)
+                    <td>
+                        @{
+                            string True = "";
+                            if (item.Active.HasValue && (item.Active.Value == true))
+                            {
+                                True = "checked";
+                            }
+                        }
+                        <input name="Active" type="checkbox" @True />
+                        @*@Html.DisplayFor(modelItem => item.Active)*@
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.StudentGroupName)
@@ -141,6 +149,8 @@
                         @Html.ActionLink("Muokkaa", "Edit", new { id = item.Student_id }) |
                         @Html.ActionLink("Tiedot", "Details", new { id = item.Student_id }) |
                         @Html.ActionLink("Poista", "Delete", new { id = item.Student_id })
+                        <br><br>
+                        @Html.ActionLink("Arkistointi", "Archive", new { id = item.Student_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                     </td>
                 </tr>
             }
