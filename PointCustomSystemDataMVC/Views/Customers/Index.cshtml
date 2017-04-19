@@ -35,9 +35,9 @@
         <br />
         <p>Asiakkaita yhteensä: @Model.Count()</p>
 
-        <p><a href="/Customers/Create" class="w3-btn w3-small">Uusi asiakas</a></p>
+        <p><a href="/Customers/Create" class="w3-btn w3-large">Uusi asiakas</a></p>
         
-        <div><a href="@Url.Action("DownLoadCustomerPDF", "Customers", new { @class = "w3-btn w3-small" })">Asiakasraportti</a></div>
+        <div><a href="@Url.Action("DownLoadCustomerPDF", "Customers", new { @class = "w3-btn w3-small w3-grey" })">Asiakasraportti</a></div>
 
         <input type="button" onclick="location.href = '/Customers/DownLoadCustomerPDF';" value="Asiakasraportti" />
 

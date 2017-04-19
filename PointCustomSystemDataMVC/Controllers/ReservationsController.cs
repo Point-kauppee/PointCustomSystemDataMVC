@@ -450,6 +450,7 @@ namespace PointCustomSystemDataMVC.Controllers
             res.Start = resdetail.Start.Value;
             res.End = resdetail.End.Value;
             res.Date = resdetail.Date.Value;
+            res.Note = resdetail.Note;
             res.TreatmentPaid = resdetail.TreatmentPaid;
             res.TreatmentPaidDate = resdetail.TreatmentPaidDate;
             res.TreatmentCompleted = resdetail.TreatmentCompleted;
@@ -461,28 +462,32 @@ namespace PointCustomSystemDataMVC.Controllers
             res.LastNameA = resdetail.Customer?.LastName;
             res.Notes = resdetail.Customer?.Notes;
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             res.User_id = resdetail.User?.User_id;
             res.UserIdentity = resdetail.User?.UserIdentity;
+            var käyttäjät = (from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }).ToList();
 
-            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            var käyttäjäLista = new SelectList(käyttäjät, "User_id", "UserIdentity", null);
+            var valittuKäyttäjä = (from k in käyttäjäLista where k.Value == res.User_id.Value.ToString() select k).FirstOrDefault();
+            if (valittuKäyttäjä != null) valittuKäyttäjä.Selected = true;
+            ViewBag.UserIdentity = käyttäjäLista;
+
             res.Student_id = resdetail.Studentx?.Student_id;
             res.FirstNameH = resdetail.Studentx?.FirstName;
             res.LastNameH = resdetail.Studentx?.LastName;
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", res.Student_id);
 
-            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
             res.Treatment_id = resdetail.Treatment?.Treatment_id;
             res.TreatmentName = resdetail.Treatment?.TreatmentName;
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", res.Treatment_id);
 
-            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
             res.TreatmentPlace_id = resdetail.TreatmentPlace?.TreatmentPlace_id;
             res.TreatmentPlaceName = resdetail.TreatmentPlace?.TreatmentPlaceName;
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", res.TreatmentPlace_id);
 
-            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
             res.TreatmentOffice_id = resdetail.TreatmentOffice?.TreatmentOffice_id;
             res.TreatmentOfficeName = resdetail.TreatmentOffice?.TreatmentOfficeName;
             res.Address = resdetail.TreatmentOffice?.Address;
-
+            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", res.TreatmentOffice_id);
             return View(res);
 
         }//edit
@@ -500,7 +505,6 @@ namespace PointCustomSystemDataMVC.Controllers
             //res.End = model.End.GetValueOrDefault();
             res.Start = res.Date + model.Start.GetValueOrDefault().TimeOfDay;
             res.End = res.Date + model.End.GetValueOrDefault().TimeOfDay;
-
             res.Note = model.Note;
             res.TreatmentPaid = model.TreatmentPaid.GetValueOrDefault();
             res.TreatmentPaidDate = model.TreatmentPaidDate.GetValueOrDefault();
@@ -551,11 +555,11 @@ namespace PointCustomSystemDataMVC.Controllers
                 res.Student_id = stu.Student_id;
             }
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
-            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", null);
-            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", null);
-            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
-            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", res.User_id);
+            ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", res.Treatment_id);
+            ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", res.TreatmentPlace_id);
+            ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", res.TreatmentOffice_id);
+            ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", res.Student_id);
 
             db.SaveChanges();
             return RedirectToAction("Index");

@@ -84,16 +84,16 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         [Display(Name = "Alkaen klo")]
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH\\:mm}", ApplyFormatInEditMode = true)]
         public DateTime? Start { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH\\:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
         public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy\\-MM\\-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
