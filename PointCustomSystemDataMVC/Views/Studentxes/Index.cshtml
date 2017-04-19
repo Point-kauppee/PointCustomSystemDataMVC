@@ -9,6 +9,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+
 <script src="~/Scripts/modernizr-2.8.3.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -29,11 +31,21 @@
         <h2>Hoitaja</h2>
         <p>Hoitajia yhteensä: @Model.Count()</p>
 
-        <p><a href="/Studentxes/Create" class="w3-btn w3-small">Uusi hoitaja</a></p>
+        <p><a href="/Studentxes/Create" class="w3-btn w3-large">Uusi hoitaja</a></p>
 
         @*<p style="padding-left:8px;font-size:12px">
             @Html.ActionLink("Luo uusi hoitajatieto", "Create")
         </p>*@
+
+
+        <button id="hide">Aktiiviset</button>
+        <button id="show">Arkistoidut</button>
+        <a href="~/Studentxes/Index" class="w3-btn w3-small">Aktiiviset</a>
+
+        @*<input type="image" src="~/Images/hevosenkenkä.png" onsubmit="submit();" id="Active" />*@
+
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
 
         <table class="table">
             <tr>
@@ -138,7 +150,7 @@
                                 True = "checked";
                             }
                         }
-                        <input name="Active" type="checkbox" @True />
+                        <input id ="Active" name="Active" type="checkbox" @True />
                         @*@Html.DisplayFor(modelItem => item.Active)*@
                     </td>
                     <td>
@@ -147,8 +159,10 @@
 
                     <td>
                         @Html.ActionLink("Muokkaa", "Edit", new { id = item.Student_id }) |
-                        @Html.ActionLink("Tiedot", "Details", new { id = item.Student_id }) |
+                        @*@Html.ActionLink("Tiedot", "Details", new { id = item.Student_id }) |*@
                         @Html.ActionLink("Poista", "Delete", new { id = item.Student_id })
+                        <br><br>
+                        @Html.ActionLink(item.FirstNameH + " " + item.LastNameH, "Details", "Studentxes", new { id = item.Student_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                         <br><br>
                         @Html.ActionLink("Arkistointi", "Archive", new { id = item.Student_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                     </td>
@@ -159,8 +173,28 @@
     </div><!-- End content -->
 </div><!-- End page content -->
 
+@section Scripts {
 
-<script>
+  
+
+
+    <script>
+
+
+        $("#Active").click(function () {
+            //alert("nappia painettu");
+            var x = document.getElementById('myTable');
+            if (x.style.display == 'false') {
+                x.style.display = 'false';
+                x.style.color = "grey"; 
+                $("#Active").text("Piilota lista");
+            }
+            else {
+                x.style.display = 'true';
+                $("#Active").text("Näytä lista");
+            }
+
+        });
         //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen.
         //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
         function searchByCustomer() {
@@ -178,8 +212,8 @@
                         tr[i].style.display = "none";
                     }
                 }
-            }
-        }
+            
+        
 
         // Asiakasnäkymän suodatus Aktiivisuuden mukaan:
         function filterText() {
@@ -197,14 +231,54 @@
             $('.content').show();
         }
 
+
+        $(document).ready(function () {
+            $("#hide").click(function () {
+                //$("true").hide();
+                var selected = $("#Active").is(":checked");
+            });
+            $("#show").click(function () {
+                var selected = $("#Active").is("");
+                //$("false").show();
+            });
+        });
+
+
+        function lataaDataPalvelimelta(url) {
+
+            $.get(url, function (data) {
+                myChart.config.data.datasets[0].data = data.Counts;
+                myChart.config.data.labels = data.Labels;
+                myChart.update();
+
+            });
+
+        }
+
+        $(function () {
+            // sivun alustus      
+            lataaDataPalvelimelta("/studentxes/Index");
+
+            $("#Active").change(function () {
+                var selected = $("#Active").is(":checked");
+
+                var url = "/studentxes/Index";
+                if (selected) {
+                    url += "?onlyComplete=1"
+                }
+                lataaDataPalvelimelta(url);
+            })
+        });
+
+     
+      
+
+
 </script>
+
+@Scripts.Render("~/bundles/jqueryval")
+}
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-
-@section Scripts {
-
-    @Scripts.Render("~/bundles/jqueryval")
-
-}

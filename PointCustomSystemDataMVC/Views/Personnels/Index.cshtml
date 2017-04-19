@@ -28,9 +28,11 @@
     <div class="w3-container">
         <h2>Henkilökunta</h2>
 
-        <p style="padding-left:8px;font-size:12px">
+        <p><a href="/Personnels/Create" class="w3-btn w3-large">Uusi henkilökuntatieto</a></p>
+
+        @*<p style="padding-left:8px;font-size:12px">
             @Html.ActionLink("Luo uusi henkilökuntatieto", "Create")
-        </p>
+        </p>*@
 
         <table class="table">
             <tr>
@@ -113,8 +115,10 @@
 
                     <td>
                         @Html.ActionLink("Muokkaa", "Edit", new { id = item.Personnel_id }) |
-                        @Html.ActionLink("Tiedot", "Details", new { id = item.Personnel_id }) |
+                        @*@Html.ActionLink("Tiedot", "Details", new { id = item.Personnel_id }) |*@
                         @Html.ActionLink("Poista", "Delete", new { id = item.Personnel_id })
+                        <br><br>
+                        @Html.ActionLink(item.FirstNameP + " " + item.LastNameP, "Details", "Personnels", new { id = item.Personnel_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                         <br><br>
                         @Html.ActionLink("Arkistointi", "Archive", new { id = item.Personnel_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
                     </td>

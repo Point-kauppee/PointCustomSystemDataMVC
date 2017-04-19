@@ -3,7 +3,7 @@
     ViewBag.Title = "Index";
 }
 <title>PointCollege Ajanvarausohjelmisto</title>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
@@ -53,3 +53,18 @@
         <p><a href="/Home/StartPage" class="w3-btn w3-padding-large w3-large">PointAika etusivu</a></p>
     </div>
 </div>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+@Styles.Render("~/Content/css")
+@Scripts.Render("~/bundles/modernizr")
+
+@section Scripts {
+
+
+
+    @Scripts.Render("~/bundles/jqueryval")
+
+}

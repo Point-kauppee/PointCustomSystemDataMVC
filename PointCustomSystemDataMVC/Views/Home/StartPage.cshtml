@@ -2,7 +2,7 @@
     ViewBag.Title = "StartPage";
 }
 <title>PointCollege Ajanvarausohjelmisto</title>
-<meta charset="UTF-8">
+<meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <link rel="stylesheet" href="https://www.w3schools.com/lib/w3.css">
@@ -48,14 +48,6 @@
 
         .modal_default_main {
             border: 5px solid #ccc !important;
-        }
-        
-        /*.modal_default_inner{
-
-        padding: 10px;}*/
-
-        #dpc{
-            /*height:1000px !important;*/
         }
 
         h2{
@@ -273,8 +265,7 @@
                 document.getElementById("myOverlay").style.display = "none";
             }
 
-        // SCRIPT MODAL KALENTERINÄKYMÄ:
-
+            // SCRIPT MODAL KALENTERINÄKYMÄ:
             function create(start, end) {
                 var m = new DayPilot.Modal();
                 modal.top = 60;
@@ -292,26 +283,8 @@
                 m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
             }
 
-            //event creating
-            var e = new DayPilot.Event({
-                date: new DayPilot.Date("2016-05-12"),
-                start: new DayPilot.Start("hh\:mm"),
-                end: new DayPilot.End("hh\:mm"),
-                id: DayPilot.guid(),
-                text: "EKA"
-            });
-
-            dp.events.add(e);
-            alert("Created");
-
-            var e = new DayPilot.Event({
-                date: new DayPilot.Date("2016-05-12"),
-                start: new DayPilot.Start("hh\:mm"),
-                end: new DayPilot.End("hh\:mm"),
-                id: DayPilot.guid(),
-                text: "TOKA"
-            });
-
+    
+            //Eventin editointi, lomakkeen aukaisu
             function editEvent(id) {
                 var modal = new DayPilot.Modal();
                 modal.top = 60;
@@ -327,152 +300,9 @@
                 modal.height = 500;
                 modal.zIndex = 100;
                 modal.showUrl("/Reservations/Edit/" + id);
-                //modal.showUrl("http://localhost:17794/Varaus/Edit/37");
-                //modal.showUrl("http://localhost:17794/Varaus/Edit/" + id);
+              
             }
 
-            // event creating MODAL
-            dp.onTimeRangeSelected = function (args) {
-                create();
-                dp.update();
-            };
-
-            var modal = new DayPilot.Modal({
-                onClosed: function (args) {
-                    console.log("Modal dialog closed");
-                },
-                // ...
-            });
-
-            // SCRIPT KALENTERINÄKYMÄ:
-                var nav = new DayPilot.Navigator("nav");
-                //editoitu
-                nav.locale = "fi-fi";
-                nav.showMonths = 1;
-                nav.selectMode = "week";
-                nav.onTimeRangeSelected = function (args) {
-                    dp.startDate = args.start;
-
-                    dp.update();
-
-                    //JSON kysely
-                    LoadEvents(dp.visibleStart(), dp.visibleEnd());
-                };
-                nav.init();
-
-            //muokattu 24.2.2017
-                var dp = new DayPilot.Calendar("dpc");
-                dp.locale = "fi-fi";
-                dp.allowEventOverlap = false;
-                dp.viewType = "Week";
-                dp.init();
-
-                //// event creating
-                //dp.onTimeRangeSelected = function (args) {
-                //    var name = prompt("New event name:", "Event");
-                //    dp.clearSelection();
-                //    if (!name) return;
-                //    var e = new DayPilot.Event({
-                //        start: args.start,
-                //        end: args.end,
-                //        id: DayPilot.guid(),
-                //        resource: args.resource,
-                //        text: name
-                //    });
-                //    dp.events.add(e);
-                //    alert("Created");
-                //};
-
-                //modal.showUrl("Edit.aspx");
-
-                //var modal = new DayPilot.Modal({
-                //    onClosed: function (args) {
-                //        console.log("Modal dialog closed");
-                //    },
-                //    // ...
-                //});
-            //modal.showHtml("<h1>Hello</h1>");
-
-                dp.onEventClicked = function (args) {
-                    formatted = $.datepicker.formatDate("M d, yy", new Date("2014-07-08T09:02:21.377"));
-                    var startDate = new Date(args.e.start());
-                    var endDate = new Date(args.e.end());
-
-                    var hour = "" + startDate.getHours(); if (hour.length == 1) { hour = "0" + hour; }
-                    var minute = "" + startDate.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
-                    //var sD = (startDate.getMonth() + 1) + '.' + startDate.getDate() + '.' + startDate.getFullYear() + " " + hour + ":" + minute;
-                    var sD = startDate.getDate() + '.' + (startDate.getMonth() + 1) + '.' + startDate.getFullYear() + " " + hour + ":" + minute;
-
-                    var hour = "" + endDate.getHours(); if (hour.length == 1) { hour = "0" + hour; }
-                    var minute = "" + endDate.getMinutes(); if (minute.length == 1) { minute = "0" + minute; }
-                    //var eD = (endDate.getMonth() + 1) + '.' + endDate.getDate() + '.' + endDate.getFullYear() + " " + hour + ":" + minute;
-                    var eD = endDate.getDate() + '.' + (endDate.getMonth() + 1) + '.' + endDate.getFullYear() + " " + hour + ":" + minute;
-
-                    editEvent(args.e.data.ID);
-
-                    //alert("Event clicked: Alku: " + sD + " Loppu: " + eD);
-                    //alert( dp.visibleStart().toString() + " - " + dp.visibleEnd().toString() );
-                };
-
-                //Lisätty 25.2.2017: convert date "2010-01-01T00:00:00" to "2010-01-01"
-                function ConvertDate2(date) {
-                    var month = date.getMonth() + 1;
-                    if (month < 10) { month = "0" + month };
-                    var day = date.getDay();
-                    if (day < 10) { day = "0" + day };
-                    var year = date.getYear();
-                    if (year < 10) { year = "0" + year };
-                    var date = year + "-" + month + "-" + day;
-
-                    return date;
-            }
-
-            //Lisätty 25.3.2017
-            //function AddZero(t) {
-            //    if (t < 10) { t = "0" + t };
-            //    return t;
-            //}
-
-            //Lisätty 25.3.2017
-            //function UpdateEvent(args) {
-            //    a = new Date(args.e.start());
-            //    l = new Date(args.e.end());
-
-            //    var startTime = AddZero(a.getHours()) + ":" + AddZero(a.getMinutes());
-            //    var endTime = AddZero(l.getHours()) + ":" + AddZero(l.getMinutes());
-
-            //    d = a.getFullYear() + "-" + AddZero(a.getMonth() + 1) + "-" + AddZero(a.getDate());
-
-            //    url = "/Varaus/Resize/?id=" + args.e.data.ID + "&pvm=" + d + "&newStart=" + startTime + "&newEnd=" + endTime;
-
-            //    $.ajax({ url: url, cache: false }).done(function (data) {
-            //        //alert(data);
-            //    });
-            //}
-
-            //Lisätty 22.2.2017
-            function LoadEvents(Start, End) {
-
-                url = "/Reservations/Backend/?start=" + start + "&end=" + end;
-                //alert("AJAX url: " + url);
-                $.ajax({ url: url, cache: false }).done(function (data) {
-                    i = 0;
-                    //alert("JSON objects: " + data);
-                    for (var i = 0; i < data.length; i++) {
-                        data[i].Date = ConvertDate(data[i].Date);
-                        data[i].Start = data[i].Start;
-                        data[i].End = data[i].End;
-                        data[i].start = data[i].Date.substr(0, 11) + data[i].Start + ":00";
-                        data[i].end = data[i].Date.substr(0, 11) + data[i].End + ":00";
-                        //alert("Reservation start: " + data[i].start + " Reservation end: " + data[i].end);
-
-                        var Date = new Date(data[i].Date);
-                        //alert("varauksen pvm: " + data[i].Date + " startTime:" + data[i].Start + " End:" + data[i].End + " sisältö: " + data[i].text)
-                    }
-                    //alert("luodaan varaus kalenteriin: " + i);
-                    Create(data);
-                });
-            }
     </script>
 
 @section Scripts {

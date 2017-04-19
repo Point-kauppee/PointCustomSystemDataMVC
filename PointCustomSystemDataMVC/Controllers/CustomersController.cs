@@ -626,6 +626,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
 
 
+
         //[HttpPost]
         ////CustomerViewModel.cs - ASIAKASRAPORTIN TALLENTAMINEN (SQL) TIETOKANTAAN
         //public JsonResult SavedReport(string TreatmentReport)
