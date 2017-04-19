@@ -84,8 +84,18 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Arkistointi pvm")]
         public DateTime? DeletedAt { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [Display(Name = "Asiakasluvan tallennus pvm")]
+        public DateTime? PermissionCheckDate { get; set; }
+
+        
         [Display(Name = "Tila")]
         public bool? Active { get; set; }
+
+        [Display(Name = "Lupatieto")]
+        public bool? Permission { get; set; }
+        
 
         [Display(Name = "Tiedot")]
         public string Information { get; set; }

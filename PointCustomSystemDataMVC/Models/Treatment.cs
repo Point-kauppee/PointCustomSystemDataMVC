@@ -18,7 +18,6 @@ namespace PointCustomSystemDataMVC.Models
         public Treatment()
         {
             this.Reservation = new HashSet<Reservation>();
-            this.TreatmentReport = new HashSet<TreatmentReport>();
         }
     
         public int Treatment_id { get; set; }
@@ -28,7 +27,5 @@ namespace PointCustomSystemDataMVC.Models
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Reservation> Reservation { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
     }
 }

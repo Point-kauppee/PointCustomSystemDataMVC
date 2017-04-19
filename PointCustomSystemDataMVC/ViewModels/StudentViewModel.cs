@@ -15,7 +15,6 @@ namespace PointCustomSystemDataMVC.ViewModels
             this.PostOffices = new HashSet<PostOffices>();
             this.Reservation = new HashSet<Reservation>();
             //this.StudentGroup = new HashSet<StudentGroup>();
-            this.TreatmentReport = new HashSet<TreatmentReport>();
             this.User = new HashSet<User>();
         }
 
@@ -160,7 +159,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public virtual ICollection<Phone> Phone { get; set; }
         public virtual ICollection<PostOffices> PostOffices { get; set; }
         public virtual ICollection<Reservation> Reservation { get; set; }
-        public virtual ICollection<TreatmentReport> TreatmentReport { get; set; }
+    
         public virtual ICollection<User> User { get; set; }
     }
 }

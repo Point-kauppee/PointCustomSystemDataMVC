@@ -77,6 +77,9 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "Tila")]
         public bool? Active { get; set; }
 
+        [Display(Name = "Lupatieto")]
+        public bool? Permission { get; set; }
+
         [Display(Name = "Tiedot")]
         public string Information { get; set; }
 

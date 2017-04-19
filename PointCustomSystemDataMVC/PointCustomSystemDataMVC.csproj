@@ -261,9 +261,6 @@
     <Compile Include="Models\TreatmentPlace.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\TreatmentReport.cs">
-      <DependentUpon>PointSQLData.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\User.cs">
       <DependentUpon>PointSQLData.tt</DependentUpon>
     </Compile>
@@ -498,6 +495,7 @@
     <Content Include="Views\Customers\Archive.cshtml" />
     <Content Include="Views\Personnels\Archive.cshtml" />
     <Content Include="Views\Studentxes\Archive.cshtml" />
+    <Content Include="Views\Customers\CustomerPermission.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

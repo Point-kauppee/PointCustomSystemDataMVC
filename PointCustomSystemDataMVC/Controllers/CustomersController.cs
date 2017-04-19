@@ -57,7 +57,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.LastModifiedAt = customer.LastModifiedAt;
                     view.DeletedAt = customer.DeletedAt;
                     view.Active = customer.Active;
-                    //view.Information = customer.Information;
+                    view.Permission = customer.Permission;
 
                     view.Phone_id = customer.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = customer.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -140,7 +140,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.LastModifiedAt = customer.LastModifiedAt;
                     view.DeletedAt = customer.DeletedAt;
                     view.Active = customer.Active;
-                    //view.Information = customer.Information;
+                    view.Permission = customer.Permission;
 
                     view.Phone_id = customer.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = customer.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -195,7 +195,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     cview.LastModifiedAt = custdetail.LastModifiedAt;
                     cview.DeletedAt = custdetail.DeletedAt;
                     cview.Active = custdetail.Active;
-                    cview.Information = custdetail.Information;
+                    cview.Permission = custdetail.Permission;
+
 
                     cview.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     cview.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -264,7 +265,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.LastModifiedAt = custdetail.LastModifiedAt;
                     view.DeletedAt = custdetail.DeletedAt;
                     view.Active = custdetail.Active;
-                    view.Information = custdetail.Information;
+                    view.Permission = custdetail.Permission;
+
 
                     view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -350,7 +352,7 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.LastModifiedAt = DateTime.Now;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
-            //cus.Information = model.Information;
+            cus.Permission = model.Permission;
 
             db.Customer.Add(cus);
 
@@ -414,7 +416,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.LastModifiedAt = DateTime.Now;
             view.DeletedAt = custdetail.DeletedAt;
             view.Active = custdetail.Active;
-            //view.Information = custdetail.Information;
+            view.Permission = custdetail.Permission;
 
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
@@ -454,7 +456,7 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.LastModifiedAt = DateTime.Now;
             cus.DeletedAt = model.DeletedAt;
             cus.Active = model.Active;
-            //cus.Information = model.Information;
+            cus.Permission = model.Permission;
 
             ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             if (cus.User == null)
@@ -540,7 +542,7 @@ namespace PointCustomSystemDataMVC.Controllers
             view.LastModifiedAt = custdetail.LastModifiedAt;
             view.DeletedAt = custdetail.DeletedAt;
             view.Active = custdetail.Active;
-            //view.Information = custdetail.Information;
+            view.Permission = custdetail.Permission;
 
             view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -623,6 +625,54 @@ namespace PointCustomSystemDataMVC.Controllers
             return RedirectToAction("Index");
 
         }//Archive
+
+        // Asiakkaan asiakastietojen tallennuslupa:
+        // GET: Customers/Archive/5
+        public ActionResult CustomerPermission(int? id)
+        {
+            if (id == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Customer customer = db.Customer.Find(id);
+            if (customer == null)
+            {
+                return HttpNotFound();
+            }
+
+            CustomerViewModel cvm = new CustomerViewModel();
+            cvm.Customer_id = customer.Customer_id;
+            cvm.Permission = customer.Permission;
+            cvm.PermissionCheckDate = DateTime.Now;
+
+            return View(cvm);
+        }//Archive
+
+        // POST: Customers/Archive/5
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult CustomerPermission(CustomerViewModel model)
+        {
+            Customer cvm = db.Customer.Find(model.Customer_id);
+            cvm.Permission = model.Permission;
+            cvm.PermissionCheckDate = DateTime.Now;
+
+            db.SaveChanges();
+            return RedirectToAction("Index");
+
+        }//Archive
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
