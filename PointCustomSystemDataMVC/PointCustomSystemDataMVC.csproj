@@ -351,7 +351,6 @@
     <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC - Web Deploy %285%29.pubxml" />
     <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\PointCustomSystemDataMVC2 - Web Deploy.pubxml" />
-    <None Include="Scripts\jquery-3.1.1.intellisense.js" />
     <Content Include="Models\PointSQLData.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>PointSQLData.edmx</DependentUpon>
@@ -368,11 +367,18 @@
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\Chart.js" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.css" />
+    <Content Include="Scripts\DataTables\dataTables.bootstrap.js" />
+    <Content Include="Scripts\DataTables\datatables.css" />
+    <Content Include="Scripts\DataTables\datatables.js" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.css" />
+    <Content Include="Scripts\DataTables\jquery.dataTables.js" />
     <Content Include="Scripts\DayPilot\daypilot-all.min.js" />
+    <None Include="Scripts\jquery-2.2.4.intellisense.js" />
+    <Content Include="Scripts\jquery-2.2.4.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
-    <Content Include="Scripts\jquery-3.1.1.min.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.js" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <Content Include="Scripts\jquery-2.2.4.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -421,8 +427,6 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Service References\Application Insights\ConnectedService.json" />
-    <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
-    <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Personnels\Create.cshtml" />
     <Content Include="Views\Personnels\Delete.cshtml" />
     <Content Include="Views\Personnels\Details.cshtml" />
