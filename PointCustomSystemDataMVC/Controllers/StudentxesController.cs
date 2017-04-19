@@ -100,10 +100,9 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     ReservationDetailViewModel stu = new ReservationDetailViewModel();
 
-                    //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     stu.User_id = studetail.User?.FirstOrDefault()?.User_id;
                     stu.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     //stu.Password = studetail.User?.FirstOrDefault()?.Password; 
 
                     stu.Student_id = studetail.Student_id;
@@ -119,8 +118,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.CreatedAt = studetail.CreatedAt;
                     stu.LastModifiedAt = studetail.LastModifiedAt;
                     stu.DeletedAt = studetail.DeletedAt;
-                    ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
                     stu.Active = studetail.Active;
+                    ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
                     stu.Information = studetail.Information;
 
                     stu.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
@@ -130,9 +129,9 @@ namespace PointCustomSystemDataMVC.Controllers
                     stu.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
                     stu.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                    ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
                     stu.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
                     stu.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
+                    ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
 
                     // muodostetaan Studentx - näkymän alitiedostona asiakkaan palvelutiedot
                     stu.Studentreservations = new List<StudentDetailViewModel>();
@@ -189,9 +188,9 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta             
                 ReservationDetailViewModel view = new ReservationDetailViewModel();
-                ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                 view.User_id = studetail.User?.FirstOrDefault()?.User_id;
                 view.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+                ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                 //stu.Password = studetail.User?.FirstOrDefault()?.Password; 
 
                 view.Student_id = studetail.Student_id;
@@ -207,8 +206,8 @@ namespace PointCustomSystemDataMVC.Controllers
                 view.CreatedAt = studetail.CreatedAt;
                 view.LastModifiedAt = studetail.LastModifiedAt;
                 view.DeletedAt = studetail.DeletedAt;
-                ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
                 view.Active = studetail.Active;
+                ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
                 view.Information = studetail.Information;
 
                 view.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
@@ -218,9 +217,9 @@ namespace PointCustomSystemDataMVC.Controllers
                 view.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
                 view.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-                ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
                 view.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
                 view.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
+                ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
 
                 // muodostetaan Studentx - näkymän alitiedostona asiakkaan palvelutiedot
                 view.Studentreservations = new List<StudentDetailViewModel>();
@@ -363,13 +362,13 @@ namespace PointCustomSystemDataMVC.Controllers
             view.CreatedAt = studetail.CreatedAt;
             view.LastModifiedAt = DateTime.Now;
             view.DeletedAt = studetail.DeletedAt;
-            ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
             view.Active = studetail.Active;
+            ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", view.Student_id);
             view.Information = studetail.Information;
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = studetail.User?.FirstOrDefault()?.User_id;
             view.UserIdentity = studetail.User?.FirstOrDefault()?.UserIdentity;
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", view.User_id);
             //stu.Password = studetail.User?.FirstOrDefault()?.Password;
 
             view.Phone_id = studetail.Phone?.FirstOrDefault()?.Phone_id;
@@ -379,9 +378,9 @@ namespace PointCustomSystemDataMVC.Controllers
             view.PostalCode = studetail.PostOffices?.FirstOrDefault()?.PostalCode;
             view.PostOffice = studetail.PostOffices?.FirstOrDefault()?.PostOffice;
 
-            ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
             view.StudentGroup_id = studetail.StudentGroup?.StudentGroup_id;
             view.StudentGroupName = studetail.StudentGroup?.StudentGroupName;
+            ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", view.StudentGroup_id);
 
             return View(view);
         }
@@ -407,12 +406,11 @@ namespace PointCustomSystemDataMVC.Controllers
             stu.CreatedAt = model.CreatedAt;
             stu.LastModifiedAt = DateTime.Now;
             stu.DeletedAt = model.DeletedAt;
-            ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", null);
             stu.Active = model.Active;
+            ViewBag.Active = new SelectList((from a in db.Studentx select new { Student_id = a.Student_id, Active = a.Active }), "Student_id", "Active", stu.Student_id);
             stu.Information = model.Information;
 
             //ViewBag.User_id = new SelectList(db.User, "User_id", "UserIdentity");
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             if (stu.User == null)
             {
                 User usr = new User();
@@ -430,6 +428,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     user.UserIdentity = model.UserIdentity;
                 }
             }
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             if (stu.Phone == null)
             {
@@ -468,13 +467,13 @@ namespace PointCustomSystemDataMVC.Controllers
                 }
             }
 
-            ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
             int studentgroupId = int.Parse(model.StudentGroupName);
             if (studentgroupId > 0)
             {
                 StudentGroup stg = db.StudentGroup.Find(studentgroupId);
                 stu.StudentGroup_id = stg.StudentGroup_id;
             }
+            ViewBag.StudentGroupName = new SelectList((from s in db.StudentGroup select new { StudentGroup_id = s.StudentGroup_id, StudentGroupName = s.StudentGroupName }), "StudentGroup_id", "StudentGroupName", null);
 
             db.SaveChanges();
             return RedirectToAction("Index");

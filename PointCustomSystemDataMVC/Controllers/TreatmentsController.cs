@@ -111,9 +111,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 return RedirectToAction("Index");
             }
        
-            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
-           
-            //return View(treatment);
 
         // GET: Treatments/Edit/5
         public ActionResult Edit(int? id)
@@ -127,9 +124,6 @@ namespace PointCustomSystemDataMVC.Controllers
             {
                 return HttpNotFound();
             }
-      
-       
-            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
         
             return View(treatment);
         }
@@ -147,10 +141,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-         
-         
-            //ViewBag.TreatmentOffice_id = new SelectList(db.TreatmentOffice, "TreatmentOffice_id", "TreatmentOfficeName", treatment.TreatmentOffice_id);
-            //ViewBag.TreatmentPlace_id = new SelectList(db.TreatmentPlace, "Treatmentplace_id", "TreatmentPlaceName", treatment.TreatmentPlace_id);
          
             return View(treatment);
         }
