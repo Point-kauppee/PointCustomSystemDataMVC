@@ -123,11 +123,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 {
                     return HttpNotFound();
                 }
-                //List<Customer> customers = entities.Customer.OrderBy(Customer => Customer.LastName).ToList();
-
-                //// muodostetaan näkymämalli tietokannan rivien pohjalta       
-                //foreach (Customer customer in customers)
-                //{
+        
                     ReservationDetailViewModel view = new ReservationDetailViewModel();
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
@@ -159,32 +155,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.End = customer.Reservation?.FirstOrDefault()?.End.Value;
                     view.Date = customer.Reservation?.FirstOrDefault()?.Date.Value;
 
-
-                //muodostetaan Customer -näkymän alitiedostona asiakkaan palvelutiedot
-                view.Customreservations = new List<TreatmentDetailViewModel>();
-                //foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Date).ThenBy(r => r.Start))
-
-                foreach (Reservation res in customer.Reservation.OrderByDescending(r => r.Date))
-                {
-                    view.Customreservations.Add(new TreatmentDetailViewModel()
-                    {
-                        Date = res.Date,
-                        Start = res.Start,
-                        End = res.End,
-                        TreatmentName = res.Treatment?.TreatmentName,
-                        TreatmentTime = res.Treatment?.TreatmentTime,
-                        TreatmentCompleted = res.TreatmentCompleted,
-                        TreatmentPrice = res.Treatment?.TreatmentPrice,
-                        TreatmentPaidDate = res.TreatmentPaidDate,
-                        FirstNameH = res.Studentx?.FirstName,
-                        LastNameH = res.Studentx?.LastName,
-                        Notes = res.Note,
-                        TreatmentReportTexts = res.TreatmentReportTexts
-
-                    });
-                }
-
-                model = view;
+                    model = view;
 
             }
             finally
@@ -195,8 +166,8 @@ namespace PointCustomSystemDataMVC.Controllers
             return new ViewAsPdf(model);
         }//DownLoadCustomerPDF
 
-//Asiakastietojen PDF-tiedoston luominen:
-public ActionResult DownloadViewPDF(int? id)
+        //Asiakastietojen PDF-tiedoston luominen:
+        public ActionResult DownloadViewPDF(int? id)
         {
             ReservationDetailViewModel model = new ReservationDetailViewModel();
 
@@ -209,9 +180,6 @@ public ActionResult DownloadViewPDF(int? id)
                     return HttpNotFound();
                 }
 
-                // muodostetaan näkymämalli tietokannan rivien pohjalta          
-                //foreach (Customer custdetail in customers)
-                //{
                     ReservationDetailViewModel cview = new ReservationDetailViewModel();
                     cview.User_id = custdetail.User?.FirstOrDefault()?.User_id;
                     cview.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
@@ -271,9 +239,9 @@ public ActionResult DownloadViewPDF(int? id)
 
             }
             finally
-            {
-                entities.Dispose();
-            }
+                {
+                    entities.Dispose();
+                }
 
             return new ViewAsPdf(model);
         }//DownloadViewPDF

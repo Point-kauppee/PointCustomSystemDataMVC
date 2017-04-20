@@ -3,7 +3,7 @@
 @{
     ViewBag.Title = "Index";
 }
-<title>PointCollege Ajanvarausohjelmisto</title>
+
 <link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
@@ -13,16 +13,107 @@
 
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<script src="~/Scripts/modernizr-2.8.3.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/respond.js"></script>
+@section scripts {
 
-    <!-- !SIDEMENU CONTENT! -->
+<script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+<script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+<script type="text/javascript">
+    // oma filtteröintifunktio asiakkaille, jotka ovat aktiivisia
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        // luetaan valintaruudun asetus
+        var showArchive = $("#showArchiveCustomersCheckbox").is(":checked");
+
+        // luetaan 11. solun arvo: tämä on "Tila"
+        var activeCustomer = settings.aoData[dataIndex].anCells[10].children[0].checked;
+
+        /* Jos käyttäjä on valinnut asetuksen "Näytä aktiiviset", otetaan listalle
+         * mukaan myös arkistoidut asiakkaat. Muussa tapauksessa (oletusarvo) ei näytetä.
+         * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
+        if (showArchive) {
+            // näytetään kaikki asiakkaat, myös arkistoidut
+            return true;
+        }
+        else {
+            if (activeCustomer) {
+                // ei näytetä arkistoituja asiakkaita
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+    });
+
+    $(function () {
+        // sivun alustus
+        //alert("Sivun alustus");
+        var activeTaulu = $("#customerTable").DataTable();
+
+        $("#showArchiveCustomersCheckbox").change(function () {
+            // kun käyttäjä napsauttaa valintaruutua, päivitetään asiakastaulukko
+            activeTaulu.draw();
+        });
+    });
+
+    // oma filtteröintifunktio asiakkaillelupatiedoille
+    $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+        // luetaan valintaruudun asetus
+        var showPermission = $("#showCustomersPermissionCheckbox").is(":checked");
+
+        // luetaan 11. solun arvo: tämä on "Lupatieto"
+        var customerPermission = settings.aoData[dataIndex].anCells[11].children[0].checked;
+
+        /* Jos käyttäjä on valinnut asetuksen "Näytä ei lupatietoa antaneet", otetaan listalle
+         * mukaan myös arkistoidut asiakkaat. Muussa tapauksessa (oletusarvo) ei näytetä.
+         * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
+        if (showPermission) {
+            // näytetään kaikki asiakkaat, myös ei luvan antaneet
+            return false;
+        }
+        else {
+            if (customerPermission) {
+                // näytetään luvan antaneet asiakkaat
+                return true;
+            }
+            else {
+                return true;
+            }
+        }
+    });
+
+    $(function () {
+        // sivun alustus
+        //alert("Sivun alustus");
+        var permissionTaulu = $("#customerTable").DataTable();
+
+        $("#showCustomersPermissionCheckbox").change(function () {
+            // kun käyttäjä napsauttaa valintaruutua, päivitetään asiakastaulukko
+            permissionTaulu.draw();
+        });
+    });
+</script>
+
+}
+
+@section head {
+@*<script src="~/Scripts/modernizr-2.8.3.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>*@
+<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+<link href="~/Scripts/DataTables/datatables.css" rel="stylesheet" />
+<link href="~/Scripts/DataTables/dataTables.bootstrap.css" rel="stylesheet" />
+@*<script src="/Scripts/bootstrap.js"></script>
+<script src="/Scripts/respond.js"></script>*@
+
+}
+<title>PointCollege Ajanvarausohjelmisto</title>
+
+    <!-- !SIDEMENU CONTENT!
+================================================== -->
 @{ Html.RenderAction("SideMenu", "Customers");}
 
-   <!-- !PAGE CONTENT! -->
+ <!-- !PAGE CONTENT!
+================================================== -->
 <div class="w3-main" style="margin-left:250px">
 
     <!-- Push down content on small screens -->
@@ -41,21 +132,19 @@
 
         <input type="button" onclick="location.href = '/Customers/DownLoadCustomerPDF';" value="Asiakasraportti" />
 
-        <div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>
+        @*<div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>*@
 
-        <table class="table" id="myTable">
+     <p>&nbsp;</p>
+
+     <p>Näytä myös arkistoidut asiakkaat: <input id="showArchiveCustomersCheckbox" type="checkbox" /></p>
+     <p>Näytä ei lupatietoa antaneet: <input id="showCustomersPermissionCheckbox" type="checkbox" /></p>
+        <table class="table" id="customerTable">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.UserIdentity)
                     </th>
-                    @*<th>
-                        @Html.ActionLink("FirstNameA", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
-                    </th>
                     <th>
-                        @Html.ActionLink("LastNameA", "Index", new { sortOrder = ViewBag.LastnameSortParm })
-                    </th>*@
-                    <th onclick="sortTable(1)">
                         @Html.DisplayNameFor(model => model.FirstNameA)
                     </th>
                     <th>
@@ -82,16 +171,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.Notes)
                     </th>
-                    <th onclick="sortTable(0)"><select id='filterText' style='display:inline-block' onchange='filterText()'>
-                    <option disabled selected>Valitse</option>
-                    <option value='True'>Cheked</option>
-                    <option value='False'>False</option>
-                    <option value='Kaikki'>Kaikki</option>
-                    </select>
-                       
+                    <th>                       
                         @Html.DisplayNameFor(model => model.Active)
                     </th>
-
                     <th>
                         @Html.DisplayNameFor(model => model.Permission)
                     </th>
@@ -182,127 +264,5 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
-    <script>
-        //TIETOJEN ETSINTÄ
-        //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen.
-        //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
-        function searchByCustomer() {
-                                var input, filter, table, tr, td, i;
-                                input = document.getElementById("myInput");
-                                filter = input.value.toUpperCase();
-                                table = document.getElementById("myTable");
-                                tr = table.getElementsByTagName("tr");
-                                for (i = 0; i < tr.length; i++) {
-                                    td
-                                        = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                                    if (td) {
-                                        if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                                            tr[i].style.display = "";
-                                        } else {
-                                            tr[i].style.display = "none";
-                                        }
-                                    }
-                                }
-                            }
-
-                            //NÄKYMÄN SUODATUS (FILTER)
-                            function sortTable(n) {
-                                var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
-                                table = document.getElementById("myTable");
-                                switching = true;
-                                //Set the sorting direction to ascending:
-                                dir = "asc";
-                                /*Make a loop that will continue until
-                                no switching has been done:*/
-                                while (switching) {
-                                    //start by saying: no switching is done:
-                                    switching = false;
-                                    rows = table.getElementsByTagName("TR");
-                                    /*Loop through all table rows (except the
-                                    first, which contains table headers):*/
-                                    for (i = 1; i < (rows.length - 1) ; i++) {
-                                        //start by saying there should be no switching:
-                                        shouldSwitch = false;
-                                        /*Get the two elements you want to compare,
-                                        one from current row and one from the next:*/
-                                        x = rows[i].getElementsByTagName("TD")[n];
-                                        y = rows[i + 1].getElementsByTagName("TD")[n];
-                                        /*check if the two rows should switch place,
-                                        based on the direction, asc or desc:*/
-                                        if (dir == "asc") {
-                                            if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
-                                                //if so, mark as a switch and break the loop:
-                                                shouldSwitch = true;
-                                                break;
-                                            }
-                                        } else if (dir == "desc") {
-                                            if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
-                                                //if so, mark as a switch and break the loop:
-                                                shouldSwitch = true;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                    if (shouldSwitch) {
-                                        /*If a switch has been marked, make the switch
-                                        and mark that a switch has been done:*/
-                                        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
-                                        switching = true;
-                                        //Each time a switch is done, increase this count by 1:
-                                        switchcount++;
-                                    } else {
-                                        /*If no switching has been done AND the direction is "asc",
-                                        set the direction to "desc" and run the while loop again.*/
-                                        if (switchcount == 0 && dir == "asc") {
-                                            dir = "desc";
-                                            switching = true;
-                                        }
-                                    }
-                                }
-                            }
-
-                            // Create a "close" button and append it to each list item
-                            var myNodelist = document.getElementsByTagName("TR");
-                            var i;
-                            for (i = 0; i < myNodelist.length; i++) {
-                                var span = document.createElement("SPAN");
-                                var txt = document.createTextNode("\u00D7");
-                                span.className = "close";
-                                span.appendChild(txt);
-                                myNodelist[i].appendChild(span);
-                            }
-
-                            // Click on a close button to hide the current list item
-                            var close = document.getElementsByClassName("close");
-                            var i;
-                            for (i = 0; i < close.length; i++) {
-                                close[i].onclick = function () {
-                                    var div = this.parentElement;
-                                    div.style.display = "none";
-                                }
-                            }
-
-                            // Asiakasnäkymän suodatus Aktiivisuuden mukaan:
-                            function filterText() {
-                                var rex = new RegExp($('#filterText').val());
-                                if (rex == "/Kaikki/") { clearFilter() } else {
-                                $('.content').hide();
-                                $('.content').filter(function () {
-                                        return rex.test($(this).text());
-                                    }).show();
-                                }
-                            }
-
-                            function clearFilter() {
-                                $('.filterText').val('');
-                                $('.content').show();
-                            }
-
-    </script>
-
-    @section Scripts {
-
-        @Scripts.Render("~/bundles/jqueryval")
-        @*document.getElementById("myBtn").click();*@
-        @*document.getElementById("myAccFunc").click();*@
-    }
+   
+ 

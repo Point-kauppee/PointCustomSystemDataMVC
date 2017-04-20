@@ -22,7 +22,7 @@
             // luetaan 11. solun arvo: tämä on "palvelu suoritettu"
             var reservationComplete = settings.aoData[dataIndex].anCells[10].children[0].checked;
 
-            /* Jos käyttäjä on valinnut asetuksen "Näytä suoritetut varaukset", otetaan listalle
+            /* Jos käyttäjä on valinnut asetuksen "Näytä kaikki palvelusuoritukset", otetaan listalle
              * mukaan myös valmistuneet suoritukset. Muussa tapauksessa (oletusarvo) ei näytetä.
              * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
             if (showCompleted) {
@@ -297,28 +297,19 @@
 
         <p>&nbsp;</p>
 
-        <p>Näytä suoritetut varaukset: <input id="showCompletedReservationsCheckbox" type="checkbox" /></p>
+        <p>Näytä kaikki palvelusuoritukset: <input id="showCompletedReservationsCheckbox" type="checkbox" /></p>
         <table class="table" id="reservationsTable">
             <thead>
                 <tr>
                     <th>
                         @Html.DisplayNameFor(model => model.UserIdentity)
                     </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.FullNameA)
-                        </th>*@
                     <th>
-                        @Html.ActionLink("Etunimi", "Index", new { sortOrder = ViewBag.FirstnameSortParm })
+                        @Html.DisplayNameFor(model => model.FirstNameA)
                     </th>
                     <th>
-                        @Html.ActionLink("Sukunimi", "Index", new { sortOrder = ViewBag.LastnameSortParm })
+                        @Html.DisplayNameFor(model => model.LastNameA)
                     </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.FirstNameA)
-                        </th>
-                        <th>
-                            @Html.DisplayNameFor(model => model.LastNameA)
-                        </th>*@
                     <th>
                         @Html.DisplayNameFor(model => model.TreatmentName)
                     </th>
@@ -346,12 +337,7 @@
                     <th>
                         @Html.DisplayNameFor(model => model.TreatmentPaid)
                     </th>
-                    <th>
-                        @Html.DisplayNameFor(model => model.CalendarTitle)
-                    </th>
-                    @*<th>
-                            @Html.DisplayNameFor(model => model.TreatmentReportTexts)
-                        </th>*@
+                 
 
                     <th></th>
                 </tr>
@@ -364,9 +350,6 @@
                         <td>
                             @Html.DisplayFor(modelItem => item.UserIdentity)
                         </td>
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.FullNameA)
-                            </td>*@
                         <td>
                             @Html.DisplayFor(modelItem => item.FirstNameA)
                         </td>
@@ -416,12 +399,7 @@
                             <input name="TreatmentPaid" type="checkbox" @checked2 />
                             @*@Html.DisplayFor(modelItem => item.TreatmentPaid)*@
                         </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.CalendarTitle)
-                        </td>
-                        @*<td>
-                                @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
-                            </td>*@
+                  
 
                         <td>
                             @Html.ActionLink("Muokkaa", "Edit", new { id = item.Reservation_id }) |

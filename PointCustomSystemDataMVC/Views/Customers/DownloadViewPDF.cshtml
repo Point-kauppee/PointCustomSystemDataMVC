@@ -137,9 +137,12 @@
                     <th>Päivämäärä</th>
                     <th>Varausaika alkaa</th>
                     <th>Varausaika loppuu</th>
+                    <th>Palvelu suoritettu</th>
                     <th>Palvelun nimi</th>
                     <th>Palvelun kesto</th>
                     <th>Palvelun hinta</th>
+                    <th>Palvelu maksettu</th>
+                    <th>Palvelu maksu pvm</th>
                     <th>Hoitaja</th>
                     <th>Tiedot</th>
                     <th>Hoitoraportti</th>
@@ -163,15 +166,15 @@
                         </td>
 
                         <td>
+                            @Html.DisplayFor(modelItem => item.TreatmentCompleted)
+                        </td>
+
+                        <td>
                             @Html.DisplayFor(modelItem => item.TreatmentName)
                         </td>
 
                         <td>
                             @Html.DisplayFor(modelItem => item.TreatmentTime)
-                        </td>
-
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TreatmentCompleted)
                         </td>
 
                         <td>

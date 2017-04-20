@@ -108,14 +108,6 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.LastModifiedAt)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.LastModifiedAt)
-        </dd>
-
-        <dt>
             @Html.DisplayNameFor(model => model.DeletedAt)
         </dt>
 
@@ -137,7 +129,7 @@
                @Html.ActionLink("Muokkaa", "Edit", new { id = Model.Customer_id }) |
                @Html.ActionLink("Takaisin asiakastietoihin", "Index") |
                @*//Linkki asiakastietojen tallennukseen:*@
-               @Html.ActionLink("Asiakastietojen tallennus", "Index")
+               @Html.ActionLink("Asiakastietojen tallennus", "Create")
            </p>
              
            <hr />

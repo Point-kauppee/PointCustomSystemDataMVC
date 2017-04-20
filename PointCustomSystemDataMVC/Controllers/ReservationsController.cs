@@ -68,20 +68,20 @@ namespace PointCustomSystemDataMVC.Controllers
                     res.TreatmentCompleted = reservation.TreatmentCompleted.GetValueOrDefault();
 
 
-                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
                     res.Treatment_id = reservation.Treatment?.Treatment_id;
                     res.TreatmentName = reservation.Treatment?.TreatmentName;
                     res.TreatmentPrice = reservation.Treatment?.TreatmentPrice;
+                    ViewBag.TreatmentName = new SelectList((from r in db.Treatment select new { Treatment_id = r.Treatment_id, TreatmentName = r.TreatmentName }), "Treatment_id", "TreatmentName", null);
 
-                    ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.TreatmentPlace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
                     res.TreatmentPlace_id = reservation.TreatmentPlace?.TreatmentPlace_id;
                     res.TreatmentPlaceName = reservation.TreatmentPlace?.TreatmentPlaceName;
                     res.TreatmentPlaceNumber = reservation.TreatmentPlace?.TreatmentPlaceNumber;
+                    ViewBag.TreatmentPlaceName = new SelectList((from t in db.TreatmentPlace select new { Treatmentplace_id = t.TreatmentPlace_id, TreatmentPlaceName = t.TreatmentPlaceName }), "Treatmentplace_id", "TreatmentPlaceName", null);
 
-                    ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
                     res.TreatmentOffice_id = reservation.TreatmentOffice?.TreatmentOffice_id;
                     res.TreatmentOfficeName = reservation.TreatmentOffice?.TreatmentOfficeName;
                     res.Address = reservation.TreatmentOffice?.Address;
+                    ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", null);
 
                     res.Student_id = reservation.Studentx?.Student_id;
                     res.FirstNameH = reservation.Studentx?.FirstName;
@@ -267,24 +267,15 @@ namespace PointCustomSystemDataMVC.Controllers
                     ViewBag.FullNameH = new SelectList((from s in db.Studentx select new { Student_id = s.Student_id, FullNameH = s.FirstName + " " + s.LastName }), "Student_id", "FullNameH", null);
 
                     model = res;
-                //}
-                //if (id == null)
-                //{
-                //    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-                //}
-                //Reservation reservation = db.Reservation.Find(id);
-                //if (reservation == null)
-                //{
-                //    return HttpNotFound();
-                //}
+         
             }
             finally
-            {
-                entities.Dispose();
-            }
+                {
+                    entities.Dispose();
+                }
 
             return new ViewAsPdf(model);
-        }//
+        }//DownloadBill
 
         // GET: Reservations/Details/5
         public ActionResult Details(int? id)
@@ -444,7 +435,7 @@ namespace PointCustomSystemDataMVC.Controllers
             }
 
             return RedirectToAction("Index");
-        }//cr*/;
+        }//create*/;
 
         CultureInfo fiFi = new CultureInfo("fi-FI");
 
@@ -480,12 +471,12 @@ namespace PointCustomSystemDataMVC.Controllers
 
             res.User_id = resdetail.User?.User_id;
             res.UserIdentity = resdetail.User?.UserIdentity;
-            var käyttäjät = (from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }).ToList();
-
-            var käyttäjäLista = new SelectList(käyttäjät, "User_id", "UserIdentity", null);
-            var valittuKäyttäjä = (from k in käyttäjäLista where k.Value == res.User_id.Value.ToString() select k).FirstOrDefault();
-            if (valittuKäyttäjä != null) valittuKäyttäjä.Selected = true;
-            ViewBag.UserIdentity = käyttäjäLista;
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", res.User_id);
+            //var käyttäjät = (from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }).ToList();
+            //var käyttäjäLista = new SelectList(käyttäjät, "User_id", "UserIdentity", null);
+            //var valittuKäyttäjä = (from k in käyttäjäLista where k.Value == res.User_id.Value.ToString() select k).FirstOrDefault();
+            //if (valittuKäyttäjä != null) valittuKäyttäjä.Selected = true;
+            //ViewBag.UserIdentity = käyttäjäLista;
 
             res.Student_id = resdetail.Studentx?.Student_id;
             res.FirstNameH = resdetail.Studentx?.FirstName;
@@ -531,13 +522,14 @@ namespace PointCustomSystemDataMVC.Controllers
             //DateTime start = new DateTime(2017, 4, 12, time.Hour, time.Minute, 0);
 
             // etsitään User-rivi kannasta valitun nimen perusteella
-            int userId = int.Parse(model.UserIdentity);
+            int userId = model.User_id ?? 0;
             if (userId > 0)
             {
                 User usr = db.User.Find(userId);
                 res.User_id = userId;
                 res.Customer_id = usr.Customer_id;
             }
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", res.User_id);
 
             // etsitään Treatment-rivi kannasta valitun nimen perusteella
             int treatmentId = int.Parse(model.TreatmentName);
@@ -571,7 +563,6 @@ namespace PointCustomSystemDataMVC.Controllers
                 res.Student_id = stu.Student_id;
             }
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", res.User_id);
             ViewBag.TreatmentName = new SelectList((from t in db.Treatment select new { Treatment_id = t.Treatment_id, TreatmentName = t.TreatmentName }), "Treatment_id", "TreatmentName", res.Treatment_id);
             ViewBag.TreatmentPlaceName = new SelectList((from tp in db.TreatmentPlace select new { TreatmentPlace_id = tp.TreatmentPlace_id, TreatmentPlaceName = tp.TreatmentPlaceName }), "TreatmentPlace_id", "TreatmentPlaceName", res.TreatmentPlace_id);
             ViewBag.TreatmentOfficeName = new SelectList((from to in db.TreatmentOffice select new { TreatmentOffice_id = to.TreatmentOffice_id, TreatmentOfficeName = to.TreatmentOfficeName }), "TreatmentOffice_id", "TreatmentOfficeName", res.TreatmentOffice_id);
@@ -859,10 +850,7 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 var toBeCreated = new Reservation { Start = e.Start, End = e.End, CalendarTitle = (string)e.Data["CalendarTitle"] }; //muokattu 26.33.2017 "name" > "CalendarTitle"
 
-                //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = Convert.ToString(e.Data["name"]) };
-                //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = "Nettivaraus + [e.name]" };
-                //var toBeCreated = new Varaus { Alku = e.Start, Loppu = e.End, Palvelun_nimi = edata};
-
+                
                 db.Reservation.Add(toBeCreated);
                 db.SaveChanges();
 
