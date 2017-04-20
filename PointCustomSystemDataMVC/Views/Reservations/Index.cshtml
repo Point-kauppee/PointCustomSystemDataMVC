@@ -12,6 +12,45 @@
 
     <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
     <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        // oma filtteröintifunktio varauksille, jotka on jo suoritettu
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+            // luetaan valintaruudun asetus
+            var showCompleted = $("#showCompletedReservationsCheckbox").is(":checked");
+
+            // luetaan 11. solun arvo: tämä on "palvelu suoritettu"
+            var reservationComplete = settings.aoData[dataIndex].anCells[10].children[0].checked;
+
+            /* Jos käyttäjä on valinnut asetuksen "Näytä suoritetut varaukset", otetaan listalle
+             * mukaan myös valmistuneet suoritukset. Muussa tapauksessa (oletusarvo) ei näytetä.
+             * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
+            if (showCompleted) {
+                // näytetään kaikki varaukset, myös valmistuneet
+                return true;
+            }
+            else {
+                if (reservationComplete) {
+                    // ei näytetä valmistuneita varauksia
+                    return false;
+                }
+                else {
+                    return true;
+                }
+            }
+        });
+
+        $(function () {
+            // sivun alustus
+            //alert("Sivun alustus");
+            var varausTaulu = $("#reservationsTable").DataTable();
+
+            $("#showCompletedReservationsCheckbox").change(function () {
+                // kun käyttäjä napsauttaa valintaruutua, päivitetään varaustaulukko
+                varausTaulu.draw();
+            });
+        });
+    </script>
 }
 @section head {
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
@@ -27,12 +66,6 @@
 <title>PointCollege Ajanvarausohjelmisto</title>
 
 <script type="text/javascript">
-
-    $(function () {
-        // sivun alustus
-        //alert("Sivun alustus");
-        $("#reservationsTable").DataTable();
-    });
 
     // SCRIPT MODAL KALENTERINÄKYMÄ:
     function create(start, end) {
@@ -260,10 +293,11 @@
         <p>Varauksia yhteensä: @Model.Count()</p>
 
         <p><a href="/Reservations/Create" class="w3-btn w3-large">Uusi palveluvaraus</a></p>
-
-        <a href="~/Reservations/HoursPerReservationAsExcel" class="w3-btn w3-grey disabled">Asiakastiedot Exceliin</a>
+        <p><a href="~/Reservations/HoursPerReservationAsExcel" class="w3-btn w3-grey disabled">Asiakastiedot Exceliin</a></p>
 
         <p>&nbsp;</p>
+
+        <p>Näytä suoritetut varaukset: <input id="showCompletedReservationsCheckbox" type="checkbox" /></p>
         <table class="table" id="reservationsTable">
             <thead>
                 <tr>
@@ -312,9 +346,9 @@
                     <th>
                         @Html.DisplayNameFor(model => model.TreatmentPaid)
                     </th>
-                    @*<th>
+                    <th>
                         @Html.DisplayNameFor(model => model.CalendarTitle)
-                    </th>*@
+                    </th>
                     @*<th>
                             @Html.DisplayNameFor(model => model.TreatmentReportTexts)
                         </th>*@
@@ -382,9 +416,9 @@
                             <input name="TreatmentPaid" type="checkbox" @checked2 />
                             @*@Html.DisplayFor(modelItem => item.TreatmentPaid)*@
                         </td>
-                        @*<td>
+                        <td>
                             @Html.DisplayFor(modelItem => item.CalendarTitle)
-                        </td>*@
+                        </td>
                         @*<td>
                                 @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
                             </td>*@
