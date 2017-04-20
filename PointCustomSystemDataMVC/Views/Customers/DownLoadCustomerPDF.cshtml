@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PointCustomSystemDataMVC.Models.Customer>
+﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.ReservationDetailViewModel>
 
 @{
     ViewBag.Title = "DownLoadCustomerPDF";
@@ -12,10 +12,10 @@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.FirstName)
+            @Html.DisplayNameFor(model => model.FirstNameA)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.LastName)
+            @Html.DisplayNameFor(model => model.LastNameA)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Identity)
@@ -50,10 +50,10 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.FirstName)
+            @Html.DisplayFor(modelItem => item.FirstNameA)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.LastName)
+            @Html.DisplayFor(modelItem => item.LastNameA)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Identity)

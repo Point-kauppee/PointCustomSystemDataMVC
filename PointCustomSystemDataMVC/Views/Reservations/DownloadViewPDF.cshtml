@@ -1,14 +1,164 @@
-﻿@model IEnumerable<PointCustomSystemDataMVC.Models.Reservation>
+﻿@model PointCustomSystemDataMVC.ViewModels.ReservationViewModel
 
 @{
     ViewBag.Title = "DownloadViewPDF";
 }
 
-<h2>DownloadViewPDF</h2>
+<h2>Asiakastiedot</h2>
 
+<div>
+    <h4>Palveluvaraus</h4>
+    <hr />
+    <dl class="dl-horizontal">
 
-<table class="table">
+        <dt>
+            @Html.DisplayNameFor(model => model.UserIdentity)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.UserIdentity)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FirstNameA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FirstNameA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.LastNameA)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.LastNameA)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPlaceName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPlaceName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentOfficeName)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentOfficeName)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Start)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Start)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.End)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.End)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Date)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Date)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentCompleted)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentCompleted)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FullNameH)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FullNameH)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Note)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Note)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPaid)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPaid)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPrice)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPrice)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentPaidDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentPaidDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TreatmentReportTexts)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TreatmentReportTexts)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CalendarTitle)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CalendarTitle)
+        </dd>
+
+    </dl>
+</div>
+
+<script src="~/Scripts/jquery-3.1.1.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+
+@*<table class="table">
     <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.User.UserIdentity)
+        </th>
         <th>
             @Html.DisplayNameFor(model => model.Start)
         </th>
@@ -28,22 +178,13 @@
             @Html.DisplayNameFor(model => model.TreatmentPaidDate)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Type)
-        </th>
-        <th>
             @Html.DisplayNameFor(model => model.Note)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.CalendarTitle)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.TreatmentReportTexts)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Customer.FirstName)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Personnel.FirstName)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Studentx.FirstName)
@@ -54,9 +195,7 @@
         <th>
             @Html.DisplayNameFor(model => model.Treatment.TreatmentName)
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.User.UserIdentity)
-        </th>
+      
         <th>
             @Html.DisplayNameFor(model => model.TreatmentOffice.TreatmentOfficeName)
         </th>
@@ -65,6 +204,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.User.UserIdentity)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.Start)
         </td>
@@ -84,22 +226,13 @@
             @Html.DisplayFor(modelItem => item.TreatmentPaidDate)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Type)
-        </td>
-        <td>
             @Html.DisplayFor(modelItem => item.Note)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CalendarTitle)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.TreatmentReportTexts)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Customer.FirstName)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Personnel.FirstName)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Studentx.FirstName)
@@ -110,9 +243,7 @@
         <td>
             @Html.DisplayFor(modelItem => item.Treatment.TreatmentName)
         </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.User.UserIdentity)
-        </td>
+     
         <td>
             @Html.DisplayFor(modelItem => item.TreatmentOffice.TreatmentOfficeName)
         </td>
@@ -122,4 +253,4 @@
     </tr>
 }
 
-</table>
+</table>*@

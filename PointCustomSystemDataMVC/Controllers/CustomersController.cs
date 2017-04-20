@@ -110,24 +110,28 @@ namespace PointCustomSystemDataMVC.Controllers
         CultureInfo fiFi = new CultureInfo("fi-FI");
 
         //Asiakastietojen tulostus pdf lomakkeelle
-        public ActionResult DownLoadCustomerPDF()
+        public ActionResult DownLoadCustomerPDF(int? id)
         {
-
-            List<CustomerViewModel> model = new List<CustomerViewModel>();
+            ReservationDetailViewModel model = new ReservationDetailViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
             try
             {
-                List<Customer> customers = entities.Customer.OrderBy(Customer => Customer.LastName).ToList();
-
-                // muodostetaan näkymämalli tietokannan rivien pohjalta       
-                foreach (Customer customer in customers)
+                Customer customer = entities.Customer.Find(id);
+                if (customer == null)
                 {
-                    CustomerViewModel view = new CustomerViewModel();
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                    return HttpNotFound();
+                }
+                //List<Customer> customers = entities.Customer.OrderBy(Customer => Customer.LastName).ToList();
+
+                //// muodostetaan näkymämalli tietokannan rivien pohjalta       
+                //foreach (Customer customer in customers)
+                //{
+                    ReservationDetailViewModel view = new ReservationDetailViewModel();
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
                     view.Customer_id = customer.Customer_id;
                     view.FirstNameA = customer.FirstName;
@@ -155,34 +159,63 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.End = customer.Reservation?.FirstOrDefault()?.End.Value;
                     view.Date = customer.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    model.Add(view);
+
+                //muodostetaan Customer -näkymän alitiedostona asiakkaan palvelutiedot
+                view.Customreservations = new List<TreatmentDetailViewModel>();
+                //foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Date).ThenBy(r => r.Start))
+
+                foreach (Reservation res in customer.Reservation.OrderByDescending(r => r.Date))
+                {
+                    view.Customreservations.Add(new TreatmentDetailViewModel()
+                    {
+                        Date = res.Date,
+                        Start = res.Start,
+                        End = res.End,
+                        TreatmentName = res.Treatment?.TreatmentName,
+                        TreatmentTime = res.Treatment?.TreatmentTime,
+                        TreatmentCompleted = res.TreatmentCompleted,
+                        TreatmentPrice = res.Treatment?.TreatmentPrice,
+                        TreatmentPaidDate = res.TreatmentPaidDate,
+                        FirstNameH = res.Studentx?.FirstName,
+                        LastNameH = res.Studentx?.LastName,
+                        Notes = res.Note,
+                        TreatmentReportTexts = res.TreatmentReportTexts
+
+                    });
                 }
+
+                model = view;
+
             }
             finally
             {
                 entities.Dispose();
             }
-            return View(model);
-        }//Index
 
-        //Asiakastietojen PDF-tiedoston luominen:
-        public ActionResult DownloadViewPDF(int? id)
-        {           
-            CustomerViewModel model = new CustomerViewModel();
+            return new ViewAsPdf(model);
+        }//DownLoadCustomerPDF
+
+//Asiakastietojen PDF-tiedoston luominen:
+public ActionResult DownloadViewPDF(int? id)
+        {
+            ReservationDetailViewModel model = new ReservationDetailViewModel();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
             try
             {
-                List<Customer> customers = entities.Customer.ToList();
+                Customer custdetail = entities.Customer.Find(id);
+                if (custdetail == null)
+                {
+                    return HttpNotFound();
+                }
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta          
-                foreach (Customer custdetail in customers)
-                {
-                    CustomerViewModel cview = new CustomerViewModel();
-
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
+                //foreach (Customer custdetail in customers)
+                //{
+                    ReservationDetailViewModel cview = new ReservationDetailViewModel();
                     cview.User_id = custdetail.User?.FirstOrDefault()?.User_id;
                     cview.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
                     cview.Customer_id = custdetail.Customer_id;
                     cview.FirstNameA = custdetail.FirstName;
@@ -197,7 +230,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     cview.Active = custdetail.Active;
                     cview.Permission = custdetail.Permission;
 
-
                     cview.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     cview.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
 
@@ -211,23 +243,38 @@ namespace PointCustomSystemDataMVC.Controllers
                     cview.End = custdetail.Reservation?.FirstOrDefault()?.End.Value;
                     cview.Date = custdetail.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    model = cview;
-                }
-                if (id == null)
+                    //muodostetaan Customer -näkymän alitiedostona asiakkaan palvelutiedot
+                    cview.Customreservations = new List<TreatmentDetailViewModel>();
+                    //foreach (Reservation res in custdetail.Reservation.OrderBy(r => r.Date).ThenBy(r => r.Start))
+
+                foreach (Reservation res in custdetail.Reservation.OrderByDescending(r => r.Date))
                 {
-                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                    cview.Customreservations.Add(new TreatmentDetailViewModel()
+                    {
+                        Date = res.Date,
+                        Start = res.Start,
+                        End = res.End,
+                        TreatmentName = res.Treatment?.TreatmentName,
+                        TreatmentTime = res.Treatment?.TreatmentTime,
+                        TreatmentCompleted = res.TreatmentCompleted,
+                        TreatmentPrice = res.Treatment?.TreatmentPrice,
+                        TreatmentPaidDate = res.TreatmentPaidDate,
+                        FirstNameH = res.Studentx?.FirstName,
+                        LastNameH = res.Studentx?.LastName,
+                        Notes = res.Note,
+                        TreatmentReportTexts = res.TreatmentReportTexts
+
+                    });
                 }
-                Customer customer = db.Customer.Find(id);
-                if (customer == null)
-                {
-                    return HttpNotFound();
-                }
+
+                model = cview;
+
             }
             finally
             {
                 entities.Dispose();
             }
-     
+
             return new ViewAsPdf(model);
         }//DownloadViewPDF
 
@@ -250,9 +297,9 @@ namespace PointCustomSystemDataMVC.Controllers
 
                 // muodostetaan näkymämalli tietokannan rivien pohjalta        
                     ReservationDetailViewModel view = new ReservationDetailViewModel();          
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
                     view.Customer_id = custdetail.Customer_id;
                     view.FirstNameA = custdetail.FirstName;
@@ -266,7 +313,6 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.DeletedAt = custdetail.DeletedAt;
                     view.Active = custdetail.Active;
                     view.Permission = custdetail.Permission;
-
 
                     view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
                     view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
