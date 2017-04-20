@@ -277,9 +277,9 @@ namespace PointCustomSystemDataMVC.Controllers
             view.DeletedAt = persdetail.DeletedAt;
             view.Active = persdetail.Active;
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = persdetail.User?.FirstOrDefault()?.User_id;
             view.UserIdentity = persdetail.User?.FirstOrDefault()?.UserIdentity;
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", view.User_id);
 
             view.Phone_id = persdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = persdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -309,7 +309,6 @@ namespace PointCustomSystemDataMVC.Controllers
             per.DeletedAt = model.DeletedAt;
             per.Active = model.Active;
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             if (per.User == null)
             {
                 User usr = new User();
@@ -327,6 +326,7 @@ namespace PointCustomSystemDataMVC.Controllers
                     user.UserIdentity = model.UserIdentity;
                 }
             }
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             if (per.Phone == null)
             {

@@ -356,11 +356,11 @@ namespace PointCustomSystemDataMVC.Controllers
 
             db.Customer.Add(cus);
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             User usr = new User();
             usr.UserIdentity = model.UserIdentity;
             usr.Password = "joku@joku.fi";
             usr.Customer = cus;
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             db.User.Add(usr);
 
@@ -418,9 +418,9 @@ namespace PointCustomSystemDataMVC.Controllers
             view.Active = custdetail.Active;
             view.Permission = custdetail.Permission;
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             view.User_id = custdetail.User?.FirstOrDefault()?.User_id;
             view.UserIdentity = custdetail.User?.FirstOrDefault()?.UserIdentity;
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", view.User_id);
 
             view.Phone_id = custdetail.Phone?.FirstOrDefault()?.Phone_id;
             view.PhoneNum_1 = custdetail.Phone?.FirstOrDefault()?.PhoneNum_1;
@@ -458,7 +458,6 @@ namespace PointCustomSystemDataMVC.Controllers
             cus.Active = model.Active;
             cus.Permission = model.Permission;
 
-            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
             if (cus.User == null)
             {
                 User usr = new User();
@@ -512,6 +511,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     po.PostOffice = model.PostOffice;
                 }
             }
+
+            ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
             db.SaveChanges();       
             return RedirectToAction("Index");
@@ -627,7 +628,7 @@ namespace PointCustomSystemDataMVC.Controllers
         }//Archive
 
         // Asiakkaan asiakastietojen tallennuslupa:
-        // GET: Customers/Archive/5
+        // GET: Customers/CustomerPermission/5
         public ActionResult CustomerPermission(int? id)
         {
             if (id == null)
@@ -646,9 +647,9 @@ namespace PointCustomSystemDataMVC.Controllers
             cvm.PermissionCheckDate = DateTime.Now;
 
             return View(cvm);
-        }//Archive
+        }//CustomerPermission
 
-        // POST: Customers/Archive/5
+        // POST: Customers/CustomerPermission/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult CustomerPermission(CustomerViewModel model)
@@ -660,7 +661,7 @@ namespace PointCustomSystemDataMVC.Controllers
             db.SaveChanges();
             return RedirectToAction("Index");
 
-        }//Archive
+        }//CustomerPermission
 
 
 

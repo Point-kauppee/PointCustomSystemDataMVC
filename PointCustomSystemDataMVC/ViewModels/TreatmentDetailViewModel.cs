@@ -9,17 +9,17 @@ namespace PointCustomSystemDataMVC.ViewModels
     public class TreatmentDetailViewModel
     {
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH\\:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Alkaen klo")]
         public DateTime? Start { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH\\:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Loppuu klo")]
         public DateTime? End { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy\\-MM\\-dd}", ApplyFormatInEditMode = true)]
         [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
@@ -48,7 +48,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         public string TreatmentReportTexts { get; set; }
 
         [DataType(DataType.Time)]
-        [DisplayFormat(DataFormatString = "{0:HH:MM}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:HH\\:mm}", ApplyFormatInEditMode = true)]
         [Display(Name = "Palvelu maksettu pvm")]
         public DateTime? TreatmentPaidDate { get; set; }
 
