@@ -4,15 +4,6 @@
     ViewBag.Title = "Index";
 }
 
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/lib/w3.css">
-<script src="/lib/w3.js"></script>
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
 @section scripts {
 
 <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
@@ -48,11 +39,11 @@
     $(function () {
         // sivun alustus
         //alert("Sivun alustus");
-        var activeTaulu = $("#customerTable").DataTable();
+        var customerTaulu = $("#customerTable").DataTable();
 
         $("#showArchiveCustomersCheckbox").change(function () {
             // kun käyttäjä napsauttaa valintaruutua, päivitetään asiakastaulukko
-            activeTaulu.draw();
+            customerTaulu.draw();
         });
     });
 
@@ -61,7 +52,7 @@
         // luetaan valintaruudun asetus
         var showPermission = $("#showCustomersPermissionCheckbox").is(":checked");
 
-        // luetaan 11. solun arvo: tämä on "Lupatieto"
+        // luetaan 12. solun arvo: tämä on "Lupatieto"
         var customerPermission = settings.aoData[dataIndex].anCells[11].children[0].checked;
 
         /* Jos käyttäjä on valinnut asetuksen "Näytä ei lupatietoa antaneet", otetaan listalle
@@ -85,11 +76,11 @@
     $(function () {
         // sivun alustus
         //alert("Sivun alustus");
-        var permissionTaulu = $("#customerTable").DataTable();
+        var customerTaulu = $("#customerTable").DataTable();
 
         $("#showCustomersPermissionCheckbox").change(function () {
             // kun käyttäjä napsauttaa valintaruutua, päivitetään asiakastaulukko
-            permissionTaulu.draw();
+            customerTaulu.draw();
         });
     });
 </script>
@@ -97,14 +88,18 @@
 }
 
 @section head {
-@*<script src="~/Scripts/modernizr-2.8.3.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>*@
+
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
 <link href="~/Scripts/DataTables/datatables.css" rel="stylesheet" />
 <link href="~/Scripts/DataTables/dataTables.bootstrap.css" rel="stylesheet" />
-@*<script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/respond.js"></script>*@
 
+
+    <style>
+
+        div.dataTables_wrapper div.dataTables_filter input{
+            width:400px;
+        }
+    </style>
 }
 <title>PointCollege Ajanvarausohjelmisto</title>
 
@@ -123,7 +118,7 @@
  <div class="w3-container">
 
         <h2>Asiakas</h2>
-        <br />
+        <p>&nbsp;</p>
         <p>Asiakkaita yhteensä: @Model.Count()</p>
 
         <p><a href="/Customers/Create" class="w3-btn w3-large">Uusi asiakas</a></p>
@@ -133,12 +128,14 @@
         <input type="button" onclick="location.href = '/Customers/DownLoadCustomerPDF';" value="Asiakasraportti" />
 
         @*<div><i class="fa fa-search"></i><input class="w3-input w3-border w3-padding" type="text" placeholder="Etsi asiakastieto..." id="myInput" onkeyup="searchByCustomer()"></div>*@
-
-     <p>&nbsp;</p>
+     
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
 
      <p>Näytä myös arkistoidut asiakkaat: <input id="showArchiveCustomersCheckbox" type="checkbox" /></p>
      <p>Näytä ei lupatietoa antaneet: <input id="showCustomersPermissionCheckbox" type="checkbox" /></p>
-        <table class="table" id="customerTable">
+        
+    <table class="table" id="customerTable">
             <thead>
                 <tr>
                     <th>
@@ -258,11 +255,6 @@
     </div><!-- End content -->
 </div><!-- End page content -->
 
-<script src="~/Scripts/jquery-3.1.1.min.js"></script>
-<script src="~/Scripts/jquery.validate.min.js"></script>
-<script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 
    
  

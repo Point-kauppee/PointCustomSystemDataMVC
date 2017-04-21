@@ -1,7 +1,9 @@
-﻿@{
+﻿@using DayPilot.Web.Mvc;
+@using DayPilot.Web.Mvc.Enums.Calendar;
+@{
     ViewBag.Title = "StartPage";
 }
-<title>PointCollege Ajanvarausohjelmisto</title>
+
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
@@ -9,57 +11,129 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-
-<script src="~/Scripts/DayPilot/daypilot-all.min.js"></script> 
-<script src="~/Scripts/daypilot-all.min.js"></script>
-<script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
-
-<script src="~/Scripts/modernizr-2.8.3.js"></script>    
-<script src="~/Scripts/bootstrap.min.js"></script>
 <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/respond.js"></script>
 
 <script src="@Url.Content("~/Scripts/DayPilot/daypilot-all.min.js")" type="text/javascript"></script>
-<link href="@Url.Content("~/Themes/calendar_white.css")" rel="stylesheet" type="text/css" />
+@section scripts {
+    <script src="~/Scripts/DayPilot/daypilot-all.min.js"></script>
+    <script src="~/Scripts/daypilot-all.min.js"></script>
+    <script src="~/Scripts/DayPilot/daypilot-calendar.src.js"></script>
+    <script src="~/Scripts/modernizr-2.8.3.js"></script>
+    <script src="~/Scripts/bootstrap.min.js"></script>
+    <script src="/Scripts/bootstrap.js"></script>
+    <script src="/Scripts/respond.js"></script>
+    
 
-@using DayPilot.Web.Mvc;
-@using DayPilot.Web.Mvc.Events.Calendar;
-@using DayPilot.Web.Mvc.Enums.Calendar;
+    <script type="text/javascript">
+             //Accordion
+            function myAccFunc() {
+                var x = document.getElementById("demoAcc");
+                if (x.className.indexOf("w3-show") == -1) {
+                    x.className += " w3-show";
+                } else {
+                    x.className = x.className.replace(" w3-show", "");
+                }
+            }
 
+            // Script to open and close sidenav:
+            function w3_open() {
+                document.getElementById("mySidenav").style.display = "block";
+                document.getElementById("myOverlay").style.display = "block";
+            }
+
+            function w3_close() {
+                document.getElementById("mySidenav").style.display = "none";
+                document.getElementById("myOverlay").style.display = "none";
+            }
+
+
+            //SCRIPT MODAL KALENTERINÄKYMÄ:
+            function create(start, end) {
+                var m = new DayPilot.Modal();
+                modal.top = 60;
+                modal.width = 500;
+                modal.opacity = 70;
+                modal.border = "10px solid #d0d0d0";
+                m.closed = function () {
+                    if (this.result == "OK") {
+                        db.commandCallBack('refresh');
+                    }
+                    db.clearSelection();
+                };
+                modal.height = 500;
+                modal.zIndex = 100;
+                m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
+            }
+
+
+            //Eventin editointi, lomakkeen aukaisu
+            function editEvent(id) {
+                var modal = new DayPilot.Modal();
+                modal.top = 60;
+                modal.width = 400;
+                modal.opacity = 70;
+                modal.border = "10px solid #d0d0d0";
+                modal.closed = function () {
+                    if (this.result == "OK") {
+                        db.commandCallBack('refresh');
+                    }
+                    db.clearSelection();
+                };
+                modal.height = 500;
+                modal.zIndex = 100;
+                modal.showUrl("/Reservations/Edit/" + id);
+
+            }
+
+    </script>
+@Scripts.Render("~/bundles/jqueryval")
+}
+
+@section head {
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="@Url.Content("~/Themes/calendar_white.css")" rel="stylesheet" type="text/css" />
+
+    <style>
+
+    .w3-sidenav a {
+        font-family: "Roboto", sans-serif;
+    }
+
+    body, h1, h2, h3, h4, h5, h6, .w3-wide {
+        font-family: "Montserrat", sans-serif;
+    }
+
+    .modal_default_main {
+        border: 5px solid #ccc !important;
+    }
+
+    h2 {
+        font-size: 36px;
+        color: black;
+    }
+
+</style>
+
+}
 
 <!-- Multi-statement block -->
 @{
     var greeting = "Tervetuloa Point Collegen Jalkahoitolan varaustenhallinta sivustolle! ";
     var weekDay = DateTime.UtcNow.ToLocalTime().DayOfWeek;
     var pvm = DateTime.Now.Date.ToLocalTime();
-
     var greetingMessage = greeting + " Tänään on: " + pvm +" "+ weekDay;
 }
 
-    <style>
-        .w3-sidenav a {
-            font-family: "Roboto", sans-serif;
-        }
+<title>PointCollege Ajanvarausohjelmisto</title>
 
-        body, h1, h2, h3, h4, h5, h6, .w3-wide {
-            font-family: "Montserrat", sans-serif;
-        }
-
-        .modal_default_main {
-            border: 5px solid #ccc !important;
-        }
-
-        h2{
-        font-size:36px;
-        color:black;
-        }
-    </style>
-
-
+<!-- !BODY CONTENT!
+================================================== -->
     <body class="w3-content" style="max-width:1200px">
 
-    <!-- Sidenav/menu -->
+
+<!-- !SIDENAV/MENU
+================================================== -->
+
     <nav class="w3-sidebar w3-bar-block w3-white w3-collapse w3-top" style="z-index:3;width:250px" id="mySidenav">
         <div class="w3-container w3-padding-16">
             <i onclick="w3_close()" class="fa fa-remove w3-hide-large w3-closebtn w3-hover-text-red"></i>
@@ -69,15 +143,15 @@
         <div class="w3-padding-64 w3-large w3-text-grey" style="font-weight:bold">
             <a href="/Home/Index" class="w3-bar-item w3-button">Kirjautuminen</a>
             <a href="/Home/StartPage" class="w3-bar-item w3-button">PointAika etusivu</a>
-            <a href="/Studentxes/Details" class="w3-bar-item w3-button">Omat tietoni</a>
-            <a href="/Studentxes" class="w3-bar-item w3-button">Hoitaja</a>       
+            <a href="/Studentxes" class="w3-bar-item w3-button">Omat tietoni</a>
+            <a href="/Studentxes" class="w3-bar-item w3-button">Hoitaja</a>
             <a href="/Customers" class="w3-bar-item w3-button">Asiakas</a>
-            <a href="/Reservations" class="w3-bar-item w3-button">Palveluvaraukset</a>               
+            <a href="/Reservations" class="w3-bar-item w3-button">Palveluvaraukset</a>
             <a onclick="myAccFunc()" href="javascript:void(0)" class="w3-button w3-block w3-white w3-left-align" id="myBtn">
                     Tietohallinta <i class="fa fa-caret-down"></i></a>
          <div id="demoAcc" class="w3-bar-block w3-hide w3-padding-large w3-medium">
             <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Henkilöt</a>
-            <a href="/Personnels" class="w3-bar-item w3-button">Henkilökuntahallinta</a>      
+            <a href="/Personnels" class="w3-bar-item w3-button">Henkilökuntahallinta</a>
             <a href="/Users" class="w3-bar-item w3-button">Käyttäjähallinta</a>
             <a href="/StudentGroups" class="w3-bar-item w3-button">Hoitajaryhmähallinta</a>
             <a href="#" class="w3-bar-item w3-button w3-light-grey"><i class="fa fa-caret-right w3-margin-right"></i>Toiminta</a>
@@ -85,13 +159,13 @@
             <a href="/PostOffices" class="w3-bar-item w3-button">Osoitehallinta</a>
             <a href="/Treatments" class="w3-bar-item w3-button">Palveluhallinta</a>
             <a href="/TreatmentOffices" class="w3-bar-item w3-button">Toimipistehallinta</a>
-            
+
             @*<a href="#">#</a>*@
         </div>
        </div>
 
             @*<a href="#">#</a>*@
-        
+
         <a href="#footer" class="w3-padding">Yhteystiedot</a>
         <a href="javascript:void(0)" class="w3-padding" onclick="document.getElementById('newsletter').style.display='block'">Tiedotteet</a>
         <a href="#footer" class="w3-padding">Kirjaudu</a>
@@ -101,9 +175,8 @@
     <!-- Overlay effect when opening sidenav on small screens -->
     @*<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>*@
 
-        <!-- !PAGE CONTENT!
-    ================================================== -->
-
+<!-- !PAGE CONTENT!
+================================================== -->
     <div class="w3-main" style="margin-left:252px">
 
         <!-- Push down content on small screens -->
@@ -125,103 +198,109 @@
                 <h1 class="w3-jumbo w3-hide-small">Ajanvarausjärjestelmä</h1>
                 <p>@greetingMessage</p>
 
-                @*<p>Total entries: @Model.Count().</p>*@
                 <h2 class="w3-hide-large w3-hide-medium">PointAika</h2>
                 <h2 class="w3-hide-small">PointAika</h2>
                 <p><a href="/Reservations/#dpc" class="w3-btn w3-padding-large w3-large">Kalenteri</a></p>
             </div>
         </div>
 
-        @*//KALENTERINÄKYMÄ*@   
-        <br />
+<!-- !KALENTERINÄKYMÄ!
+================================================== -->
+      
         <hr />
-
             <p>Varauskalenteri</p>
- 
-                <div>
-                    <div id="dpc" class="w3-text-grey calendar_default_main">
+            <div id="weekcalendar" class="w3-padding-64 w3-small w3-center">
+                <div id="dpc" class="w3-text-grey calendar_default_main">
 
-                   @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
-               {
-                   BackendUrl = Url.Content("~/Reservations/BackEnd"),
-                   ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
-                   CssOnly = true,
-                   //CssClassPrefix = "calendar_white",
-                   EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
-                   EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
-                   EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
-                   EventClickJavaScript = "editEvent(e.id())",
-                   TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
-                   TimeRangeSelectedJavaScript = "create(start,end)",
-                   HeightSpec = HeightSpec.BusinessHours,
-               })
-                        <br />
-                        <div class="space">
-                            Viikko:
-                            <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
-                            <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
-                        </div>
+                    @Html.DayPilotCalendar("dpc", new DayPilotCalendarConfig
+              {
+                  BackendUrl = Url.Content("~/Reservations/BackEnd"),
+                  ViewType = DayPilot.Web.Mvc.Enums.Calendar.ViewType.WorkWeek,
+                  CssOnly = true,
+                  //CssClassPrefix = "calendar_white",
+                  EventMoveHandling = DayPilot.Web.Mvc.Events.Calendar.EventMoveHandlingType.CallBack,
+                  EventResizeHandling = DayPilot.Web.Mvc.Events.Calendar.EventResizeHandlingType.CallBack,
+                  EventClickHandling = DayPilot.Web.Mvc.Events.Calendar.EventClickHandlingType.JavaScript,
+                  EventClickJavaScript = "editEvent(e.id())",
+                  TimeRangeSelectedHandling = DayPilot.Web.Mvc.Events.Calendar.TimeRangeSelectedHandlingType.JavaScript,
+                  TimeRangeSelectedJavaScript = "create(start,end)",
+                  HeightSpec = HeightSpec.BusinessHours,
+              })
+                    @*<br />*@
+                    <div class="space">
+                        Viikko:
+                        <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
+                        <a href="javascript:dpc.commandCallBack('next');">Seuraava</a>
                     </div>
                 </div>
-                @*https://code.daypilot.org/81367/daypilot-modal*@
+            </div>
+            @*https://code.daypilot.org/81367/daypilot-modal*@
 
-        <br />
-        <hr />
-                <!-- Subscribe section -->
-                <div class="w3-container w3-black w3-padding-4">
-                    <h1></h1>
-                    <p></p>
-                    @*<p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
+            <p>&nbsp;</p>
+            <hr />
+
+            <!-- !SUBSCRIBE SECTION!
+        ================================================== -->
+
+            <div class="w3-container w3-black w3-padding-4">
+                <h1></h1>
+                <p></p>
+                @*<p><input class="w3-input w3-border" type="text" placeholder="Enter e-mail"></p>
                 <button type="button" class="w3-btn w3-padding w3-red w3-margin-bottom"></button>*@
-                </div>
+            </div>
 
-                <!-- Footer -->
-                <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
-                    <div class="w3-row-padding">
-                        <div class="w3-col s4">
-                            <h4>Ota yhteyttä</h4>
-                            <p>#.</p>
-                            <form action="form.asp" target="_blank">
-                                <p><input class="w3-input w3-border" type="text" placeholder="Nimi" name="Name" required></p>
-                                <p><input class="w3-input w3-border" type="text" placeholder="Sähköposti" name="Email" required></p>
-                                <p><input class="w3-input w3-border" type="text" placeholder="Aihe" name="Subject" required></p>
-                                <p><input class="w3-input w3-border" type="text" placeholder="Viesti" name="Message" required></p>
-                                <button type="submit" class="w3-btn-block w3-padding w3-black">Lähetä</button>
-                            </form>
-                        </div>
+            <!-- !FOOTER!
+        ================================================== -->
 
-                        <div class="w3-col s4">
-                            <h4>Info</h4>
-                            <p><a href="#">Yhteystiedot</a></p>
-                            <p><a href="#">Aikuiskoulutus</a></p>
-                            <p><a href="#">Maksaminen</a></p>
-                            <p><a href="#">Lahjakortti</a></p>
-                            <p><a href="#">Etusivu</a></p>
-                            <p><a href="#">Tuki</a></p>
-                        </div>
-
-                        <div class="w3-col s4 w3-justify">
-                            <h4>Point College jalkahoitola</h4>
-                            <p><i class="fa fa-fw fa-map-marker"></i> Porvoo International College</p>
-                            <p><i class="fa fa-fw fa-phone"></i> (019) 529 9200</p>
-                            <p><i class="fa fa-fw fa-envelope"></i> info@pointcollege.fi</p>
-                            <h4>Maksaminen</h4>
-                            @*<p><i class="fa fa-fw fa-cc-amex"></i> #</p>*@
-                            <p><i class="fa fa-fw fa-credit-card"></i> Pankkikortti</p>
-                            <br>
-                            <i class="fa fa-facebook-official w3-xlarge w3-hover-text-indigo"><a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank"></a></i>
-                            <i class="fa fa-instagram w3-xlarge w3-hover-text-purple"></i>
-                            <i class="fa fa-twitter w3-xlarge w3-hover-text-light-blue"></i>
-                            <i class="fa fa-pinterest w3-xlarge w3-hover-text-red"></i>
-                            <i class="fa fa-flickr w3-xlarge w3-hover-text-blue"></i>
-                        </div>
+            <footer class="w3-padding-64 w3-light-grey w3-small w3-center" id="footer">
+                <div class="w3-row-padding">
+                    <div class="w3-col s4">
+                        <h4>Ota yhteyttä</h4>
+                        <p>#.</p>
+                        <form action="form.asp" target="_blank">
+                            <p><input class="w3-input w3-border" type="text" placeholder="Nimi" name="Name" required></p>
+                            <p><input class="w3-input w3-border" type="text" placeholder="Sähköposti" name="Email" required></p>
+                            <p><input class="w3-input w3-border" type="text" placeholder="Aihe" name="Subject" required></p>
+                            <p><input class="w3-input w3-border" type="text" placeholder="Viesti" name="Message" required></p>
+                            <button type="submit" class="w3-btn-block w3-padding w3-black">Lähetä</button>
+                        </form>
                     </div>
-                </footer>
 
-                <div class="w3-black w3-center w3-padding-24">Point College <a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank" class="w3-hover-opacity">jalkahoitola</a></div>
-            </div><!-- End page content -->
+                    <div class="w3-col s4">
+                        <h4>Info</h4>
+                        <p><a href="#">Yhteystiedot</a></p>
+                        <p><a href="#">Aikuiskoulutus</a></p>
+                        <p><a href="#">Maksaminen</a></p>
+                        <p><a href="#">Lahjakortti</a></p>
+                        <p><a href="#">Etusivu</a></p>
+                        <p><a href="#">Tuki</a></p>
+                    </div>
 
-    <!-- Newsletter Modal -->
+                    <div class="w3-col s4 w3-justify">
+                        <h4>Point College jalkahoitola</h4>
+                        <p><i class="fa fa-fw fa-map-marker"></i> Porvoo International College</p>
+                        <p><i class="fa fa-fw fa-phone"></i> (019) 529 9200</p>
+                        <p><i class="fa fa-fw fa-envelope"></i> info@pointcollege.fi</p>
+                        <h4>Maksaminen</h4>
+                        @*<p><i class="fa fa-fw fa-cc-amex"></i> #</p>*@
+                        <p><i class="fa fa-fw fa-credit-card"></i> Pankkikortti</p>
+                        <br>
+                        <i class="fa fa-facebook-official w3-xlarge w3-hover-text-indigo"><a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank"></a></i>
+                        <i class="fa fa-instagram w3-xlarge w3-hover-text-purple"></i>
+                        <i class="fa fa-twitter w3-xlarge w3-hover-text-light-blue"></i>
+                        <i class="fa fa-pinterest w3-xlarge w3-hover-text-red"></i>
+                        <i class="fa fa-flickr w3-xlarge w3-hover-text-blue"></i>
+                    </div>
+                </div>
+            </footer>
+
+            <div class="w3-black w3-center w3-padding-24">Point College <a href="http://www.pointcollege.fi" title="jalkahoitola" target="_blank" class="w3-hover-opacity">jalkahoitola</a></div>
+        </div><!-- End page content -->
+
+
+        <!-- !NEWSLETTER MODAL!
+================================================== -->
+
     <div id="newsletter" class="w3-modal">
         <div class="w3-modal-content w3-animate-zoom w3-padding-jumbo">
             <div class="w3-container w3-white w3-center">
@@ -239,76 +318,6 @@
         <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
         </body>
 
-    <script>
-            // Accordion
-            function myAccFunc() {
-                var x = document.getElementById("demoAcc");
-                if (x.className.indexOf("w3-show") == -1) {
-                    x.className += " w3-show";
-                } else {
-                    x.className = x.className.replace(" w3-show", "");
-                }
-            }
-
-            // Click on the "Kalenteri" link on page load to open the accordion for demo purposes
-            document.getElementById("myBtn").click();
-
-
-            // Script to open and close sidenav
-            function w3_open() {
-                document.getElementById("mySidenav").style.display = "block";
-                document.getElementById("myOverlay").style.display = "block";
-            }
-
-            function w3_close() {
-                document.getElementById("mySidenav").style.display = "none";
-                document.getElementById("myOverlay").style.display = "none";
-            }
-
-            // SCRIPT MODAL KALENTERINÄKYMÄ:
-            function create(start, end) {
-                var m = new DayPilot.Modal();
-                modal.top = 60;
-                modal.width = 500;
-                modal.opacity = 70;
-                modal.border = "10px solid #d0d0d0";
-                m.closed = function () {
-                    if (this.result == "OK") {
-                        db.commandCallBack('refresh');
-                    }
-                    db.clearSelection();
-                };
-                modal.height = 500;
-                modal.zIndex = 100;
-                m.showUrl('@Url.Action("Create", "Reservations")?start=' + start + '&end=' + end);
-            }
-
     
-            //Eventin editointi, lomakkeen aukaisu
-            function editEvent(id) {
-                var modal = new DayPilot.Modal();
-                modal.top = 60;
-                modal.width = 400;
-                modal.opacity = 70;
-                modal.border = "10px solid #d0d0d0";
-                modal.closed = function () {
-                    if (this.result == "OK") {
-                        db.commandCallBack('refresh');
-                    }
-                    db.clearSelection();
-                };
-                modal.height = 500;
-                modal.zIndex = 100;
-                modal.showUrl("/Reservations/Edit/" + id);
-              
-            }
-
-    </script>
-
-@section Scripts {
-
-    @Scripts.Render("~/bundles/jqueryval")
-
-}
 
 

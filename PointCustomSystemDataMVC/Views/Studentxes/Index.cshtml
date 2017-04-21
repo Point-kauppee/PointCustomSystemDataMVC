@@ -17,10 +17,79 @@
 <script src="/Scripts/bootstrap.js"></script>
 <script src="/Scripts/respond.js"></script>
 
-<!-- !SIDEMENU CONTENT! -->
+@section scripts {
+
+    <script src="~/Scripts/DataTables/jquery.dataTables.js"></script>
+    <script src="~/Scripts/DataTables/dataTables.bootstrap.js"></script>
+
+    <script type="text/javascript">
+        // oma filtteröintifunktio opiskelijoille, jotka ovat aktiivisia
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+            // luetaan valintaruudun asetus
+            var showArchive = $("#showArchiveStudentsCheckbox").is(":checked");
+
+            // luetaan 12. solun arvo: tämä on "Tila"
+            var activeStudent = settings.aoData[dataIndex].anCells[12].children[0].checked;
+
+            /* Jos käyttäjä on valinnut asetuksen "Näytä aktiiviset", otetaan listalle
+             * mukaan myös arkistoidut opiskelijat. Muussa tapauksessa (oletusarvo) ei näytetä.
+             * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
+            if (showArchive) {
+                // näytetään kaikki opiskelijat, myös arkistoidut
+                return true;
+            }
+            else {
+                if (activeStudent) {
+                    // ei näytetä arkistoituja opiskelijoita
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+
+        $(function () {
+            // sivun alustus
+            //alert("Sivun alustus");
+            var studentTaulu = $("#studentTable").DataTable();
+
+            $("#showArchiveStudentsCheckbox").change(function () {
+                // kun käyttäjä napsauttaa valintaruutua, päivitetään opiskelijataulukko
+                studentTaulu.draw();
+            });
+        });
+
+       
+    </script>
+
+}
+
+@section head {
+    @*<script src="~/Scripts/modernizr-2.8.3.js"></script>
+        <script src="~/Scripts/bootstrap.min.js"></script>*@
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/datatables.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/dataTables.bootstrap.css" rel="stylesheet" />
+    @*<script src="/Scripts/bootstrap.js"></script>
+        <script src="/Scripts/respond.js"></script>*@
+
+    <style>
+        div.dataTables_wrapper div.dataTables_filter input {
+            width: 400px;
+        }
+    </style>
+}
+<title>PointCollege Ajanvarausohjelmisto</title>
+
+<!-- !SIDEMENU CONTENT!
+================================================== -->
+
 @{ Html.RenderAction("SideMenu", "Customers");}
 
-<!-- !PAGE CONTENT! -->
+<!-- !PAGE CONTENT!
+================================================== -->
+
 <div class="w3-main" style="margin-left:250px">
 
     <!-- Push down content on small screens -->
@@ -28,257 +97,143 @@
 
     <!-- Container -->
     <div class="w3-container">
+
         <h2>Hoitaja</h2>
+        <p>&nbsp;</p>
         <p>Hoitajia yhteensä: @Model.Count()</p>
 
         <p><a href="/Studentxes/Create" class="w3-btn w3-large">Uusi hoitaja</a></p>
 
-        @*<p style="padding-left:8px;font-size:12px">
-            @Html.ActionLink("Luo uusi hoitajatieto", "Create")
-        </p>*@
-
-
-        <button id="hide">Aktiiviset</button>
-        <button id="show">Arkistoidut</button>
-        <a href="~/Studentxes/Index" class="w3-btn w3-small">Aktiiviset</a>
-
-        @*<input type="image" src="~/Images/hevosenkenkä.png" onsubmit="submit();" id="Active" />*@
 
         <p>&nbsp;</p>
         <p>&nbsp;</p>
-
-        <table class="table">
-            <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserIdentity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FirstNameH)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.LastNameH)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Identity)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Email)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PhoneNum_1)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostalCode)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.PostOffice)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Notes)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EnrollmentDateIN)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EnrollmentDateOUT)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.EnrollmentDateOFF)
-                </th>
-                <th onclick="sortTable(0)">
-                    <select id='filterText' style='display:inline-block' onchange='filterText()'>
-                        <option disabled selected>Valitse</option>
-                        <option value='True'>True</option>
-                        <option value='False'>False</option>
-                        <option value='Kaikki'>Kaikki</option>
-                    </select>
-
-                    @Html.DisplayNameFor(model => model.Active)
-                </th>
-
-                <th>
-                    @Html.DisplayNameFor(model => model.StudentGroupName)
-                </th>
-          
-                <th></th>
-            </tr>
-
-            @foreach (var item in Model)
-            {
+        <p>Näytä myös arkistoidut opiskelijat: <input id="showArchiveStudentsCheckbox" type="checkbox" /></p>
+        <table class="table" id="studentTable">
+            <thead>
                 <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.UserIdentity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.FirstNameH)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.LastNameH)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Identity)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Email)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PhoneNum_1)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostalCode)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PostOffice)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.Notes)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EnrollmentDateIN)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EnrollmentDateOUT)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.EnrollmentDateOFF)
-                    </td>
-                    <td>
-                        @{
-                            string True = "";
-                            if (item.Active.HasValue && (item.Active.Value == true))
-                            {
-                                True = "checked";
-                            }
-                        }
-                        <input id ="Active" name="Active" type="checkbox" @True />
-                        @*@Html.DisplayFor(modelItem => item.Active)*@
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.StudentGroupName)
-                    </td>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserIdentity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.FirstNameH)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.LastNameH)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Identity)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Email)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PhoneNum_1)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostalCode)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.PostOffice)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Notes)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EnrollmentDateIN)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EnrollmentDateOUT)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.EnrollmentDateOFF)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.Active)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.StudentGroupName)
+                    </th>
 
-                    <td>
-                        @Html.ActionLink("Muokkaa", "Edit", new { id = item.Student_id }) |
-                        @*@Html.ActionLink("Tiedot", "Details", new { id = item.Student_id }) |*@
-                        @Html.ActionLink("Poista", "Delete", new { id = item.Student_id })
-                        <br><br>
-                        @Html.ActionLink(item.FirstNameH + " " + item.LastNameH, "Details", "Studentxes", new { id = item.Student_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                        <br><br>
-                        @Html.ActionLink("Arkistointi", "Archive", new { id = item.Student_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
-                    </td>
+                    <th></th>
                 </tr>
-            }
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserIdentity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.FirstNameH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.LastNameH)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Identity)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PhoneNum_1)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostalCode)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.PostOffice)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Notes)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnrollmentDateIN)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnrollmentDateOUT)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.EnrollmentDateOFF)
+                        </td>
+                        <td>
+                            @{
+                                string True = "";
+                                if (item.Active.HasValue && (item.Active.Value == true))
+                                {
+                                    True = "checked";
+                                }
+                            }
+                            <input id="Active" name="Active" type="checkbox" @True />
+                            @*@Html.DisplayFor(modelItem => item.Active)*@
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.StudentGroupName)
+                        </td>
 
+                        <td>
+                            @Html.ActionLink("Muokkaa", "Edit", new { id = item.Student_id }) |
+                            @*@Html.ActionLink("Tiedot", "Details", new { id = item.Student_id }) |*@
+                            @Html.ActionLink("Poista", "Delete", new { id = item.Student_id })
+                            <br><br>
+                            @Html.ActionLink(item.FirstNameH + " " + item.LastNameH, "Details", "Studentxes", new { id = item.Student_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                            <br><br>
+                            @Html.ActionLink("Arkistointi", "Archive", new { id = item.Student_id }, new { @class = "w3-btn btn-success w3-grey w3-small" })
+                        </td>
+                    </tr>
+               }
+            </tbody>
         </table>
     </div><!-- End content -->
 </div><!-- End page content -->
 
-@section Scripts {
-
-  
 
 
-    <script>
 
-
-        $("#Active").click(function () {
-            //alert("nappia painettu");
-            var x = document.getElementById('myTable');
-            if (x.style.display == 'false') {
-                x.style.display = 'false';
-                x.style.color = "grey"; 
-                $("#Active").text("Piilota lista");
-            }
-            else {
-                x.style.display = 'true';
-                $("#Active").text("Näytä lista");
-            }
-
-        });
-        //Etsintä ominaisuuden scripti, luku[0] viittaa ensimmäiseen sarakkeeseen.
-        //Vaihda lukua, jos etsintä kohdennetaan johonkin toiseen sarakkeeseen
-        function searchByCustomer() {
-            var input, filter, table, tr, td, i;
-            input = document.getElementById("myInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("myTable");
-            tr = table.getElementsByTagName("tr");
-            for (i = 0; i < tr.length; i++) {
-                td = tr[i].getElementsByTagName("td")[0, 1, 2, 3, 4, 5, 6, 7, 8, 9];
-                if (td) {
-                    if (td.innerHTML.toUpperCase().indexOf(filter) > -1) {
-                        tr[i].style.display = "";
-                    } else {
-                        tr[i].style.display = "none";
-                    }
-                }
-            
-        
-
-        // Asiakasnäkymän suodatus Aktiivisuuden mukaan:
-        function filterText() {
-            var rex = new RegExp($('#filterText').val());
-            if (rex == "/Kaikki/") { clearFilter() } else {
-                $('.content').hide();
-                $('.content').filter(function () {
-                    return rex.test($(this).text());
-                }).show();
-            }
-        }
-
-        function clearFilter() {
-            $('.filterText').val('');
-            $('.content').show();
-        }
-
-
-        $(document).ready(function () {
-            $("#hide").click(function () {
-                //$("true").hide();
-                var selected = $("#Active").is(":checked");
-            });
-            $("#show").click(function () {
-                var selected = $("#Active").is("");
-                //$("false").show();
-            });
-        });
-
-
-        function lataaDataPalvelimelta(url) {
-
-            $.get(url, function (data) {
-                myChart.config.data.datasets[0].data = data.Counts;
-                myChart.config.data.labels = data.Labels;
-                myChart.update();
-
-            });
-
-        }
-
-        $(function () {
-            // sivun alustus      
-            lataaDataPalvelimelta("/studentxes/Index");
-
-            $("#Active").change(function () {
-                var selected = $("#Active").is(":checked");
-
-                var url = "/studentxes/Index";
-                if (selected) {
-                    url += "?onlyComplete=1"
-                }
-                lataaDataPalvelimelta(url);
-            })
-        });
-
-     
-      
-
-
-</script>
-
-@Scripts.Render("~/bundles/jqueryval")
-}
 
 <script src="~/Scripts/jquery-3.1.1.min.js"></script>
 <script src="~/Scripts/jquery.validate.min.js"></script>
 <script src="~/Scripts/jquery.validate.unobtrusive.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>

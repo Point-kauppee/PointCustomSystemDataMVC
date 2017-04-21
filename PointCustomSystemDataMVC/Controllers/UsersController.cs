@@ -83,7 +83,11 @@ namespace PointCustomSystemDataMVC.Controllers
             User usr = new User();   
             usr.UserIdentity = model.UserIdentity;
             usr.Password = "Customer";
-        
+            usr.CreatedAt = DateTime.Now;
+            usr.LastModifiedAt = DateTime.Now;
+            usr.DeletedAt = model.DeletedAt;
+            usr.Active = model.Active;
+
             db.User.Add(usr);
  
             try
@@ -117,6 +121,11 @@ namespace PointCustomSystemDataMVC.Controllers
             User usr = new User();
             usr.User_id = userdetail.User_id;
             usr.UserIdentity = userdetail.UserIdentity;
+            usr.CreatedAt = DateTime.Now;
+            usr.LastModifiedAt = DateTime.Now;
+            usr.DeletedAt = userdetail.DeletedAt;
+            usr.Active = userdetail.Active;
+
             //usr.Password = "Customer";
 
             return View(usr);
@@ -133,6 +142,10 @@ namespace PointCustomSystemDataMVC.Controllers
             User usr = db.User.Find(model.User_id);
 
             usr.UserIdentity = model.UserIdentity;
+            usr.CreatedAt = DateTime.Now;
+            usr.LastModifiedAt = DateTime.Now;
+            usr.DeletedAt = model.DeletedAt;
+            usr.Active = model.Active;
 
             db.SaveChanges();
     

@@ -122,7 +122,7 @@ namespace PointCustomSystemDataMVC.ViewModels
         [Display(Name = "PalveluPvm")]
         public DateTime? Date { get; set; }
 
-        [Display(Name = "Palvelu suoritettu")]
+        [Display(Name = "Palvelusuoritus")]
         public bool? TreatmentCompleted { get; set; }
       
         public int? Phone_id { get; set; }

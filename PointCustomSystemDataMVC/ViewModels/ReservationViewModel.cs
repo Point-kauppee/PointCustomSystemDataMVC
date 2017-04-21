@@ -167,7 +167,7 @@ namespace PointCustomSystemDataMVC.ViewModels
 
         public string Reservations { get; set; }
 
-        [Display(Name = "Palvelu suoritettu")]
+        [Display(Name = "Palvelusuoritus")]
         public bool? TreatmentCompleted { get; set; }
 
 

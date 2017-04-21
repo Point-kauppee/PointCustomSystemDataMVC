@@ -50,22 +50,43 @@
                 varausTaulu.draw();
             });
         });
-    </script>
-}
-@section head {
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Scripts/DataTables/datatables.css" rel="stylesheet" />
-    <link href="~/Scripts/DataTables/dataTables.bootstrap.css" rel="stylesheet" />
 
-    <style>
-        #weekcalendar {
-            width: 1200px;
-        }
-    </style>
-}
-<title>PointCollege Ajanvarausohjelmisto</title>
+        // oma filtteröintifunktio maksuille, joita ei ole vielä suoritettu
+        $.fn.dataTable.ext.search.push(function (settings, data, dataIndex) {
+            // luetaan valintaruudun asetus
+            var showNotPaid = $("#showNotPaidCheckbox").is(":checked");
 
-<script type="text/javascript">
+            // luetaan 12. solun arvo: tämä on "Maksettu"
+            var treatmentPaid = settings.aoData[dataIndex].anCells[11].children[0].checked;
+
+            /* Jos käyttäjä on valinnut asetuksen "Näytä kaikki maksetut / maksamattomat", otetaan listalle
+             * mukaan myös maksetut suoritukset. Muussa tapauksessa (oletusarvo) ei näytetä.
+             * Tämän funktion paluuarvo kertoo, näytetäänkö rivi taulukossa vai ei. */
+            if (showNotPaid) {
+                // näytetään kaikki varaukset, myös maksetut
+                return true;
+            }
+            else {
+                if (treatmentPaid) {
+                    // ei näytetä maksettuja hoitoja
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        });
+
+        $(function () {
+            // sivun alustus
+            //alert("Sivun alustus");
+            var varausTaulu = $("#reservationsTable").DataTable();
+
+            $("#showNotPaidCheckbox").change(function () {
+                // kun käyttäjä napsauttaa valintaruutua, päivitetään varaustaulukko
+                varausTaulu.draw();
+            });
+        });
 
     // SCRIPT MODAL KALENTERINÄKYMÄ:
     function create(start, end) {
@@ -238,6 +259,20 @@
     //    });
     //}
 </script>
+    
+}
+@section head {
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/datatables.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <style>
+        #weekcalendar {
+            width: 1200px;
+        }
+    </style>
+}
+<title>PointCollege Ajanvarausohjelmisto</title>
 
 
 
@@ -254,6 +289,9 @@
 
     <!-- Container -->
     <div class="w3-container">
+
+<!-- !KALENTERINÄKYMÄ!
+================================================== -->
 
         <h2>VARAUSKALENTERI</h2>
         <p>Viikko</p>
@@ -276,7 +314,7 @@
                TimeRangeSelectedJavaScript = "create(start,end)",
                HeightSpec = HeightSpec.BusinessHours,
            })
-
+                <br />
                 <div class="space">
                     Viikko:
                     <a href="javascript:dpc.commandCallBack('previous');">Edellinen</a>
@@ -287,6 +325,7 @@
         @*<p>
                 @Html.ActionLink("Kuukausikalenteri", "BackMonthEnd")
             </p>*@
+        <p>&nbsp;</p>
         <hr />
 
         <h2>Palveluvaraus</h2>
@@ -298,7 +337,9 @@
         <p>&nbsp;</p>
 
         <p>Näytä kaikki palvelusuoritukset: <input id="showCompletedReservationsCheckbox" type="checkbox" /></p>
-        <table class="table" id="reservationsTable">
+        <p>Näytä kaikki maksetut / maksamattomat: <input id="showNotPaidCheckbox" type="checkbox" /></p>
+        <p>&nbsp;</p>
+    <table class="table" id="reservationsTable">
             <thead>
                 <tr>
                     <th>
@@ -391,7 +432,7 @@
                         <td>
                             @{
                                 string checked2 = "";
-                                if (item.TreatmentCompleted.HasValue && (item.TreatmentPaid.Value == true))
+                                if (item.TreatmentPaid.HasValue && (item.TreatmentPaid.Value == true))
                                 {
                                     checked2 = "checked";
                                 }
