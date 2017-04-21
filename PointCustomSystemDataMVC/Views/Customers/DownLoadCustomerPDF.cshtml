@@ -1,4 +1,4 @@
-﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.ReservationDetailViewModel>
+﻿@model IEnumerable<PointCustomSystemDataMVC.ViewModels.CustomerViewModel>
 
 @{
     ViewBag.Title = "DownLoadCustomerPDF";
@@ -12,6 +12,9 @@
 <table class="table">
     <tr>
         <th>
+            @Html.DisplayNameFor(model => model.UserIdentity)
+        </th>
+        <th>
             @Html.DisplayNameFor(model => model.FirstNameA)
         </th>
         <th>
@@ -21,22 +24,28 @@
             @Html.DisplayNameFor(model => model.Identity)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Notes)
+            @Html.DisplayNameFor(model => model.Email)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Email)
+            @Html.DisplayNameFor(model => model.PhoneNum_1)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Address)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.CreatedAt)
+            @Html.DisplayNameFor(model => model.PostalCode)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.DeletedAt)
+            @Html.DisplayNameFor(model => model.PostOffice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Notes)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Active)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Permission)
         </th>
     
         <th></th>
@@ -44,6 +53,9 @@
 
 @foreach (var item in Model) {
     <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserIdentity)
+        </td>
         <td>
             @Html.DisplayFor(modelItem => item.FirstNameA)
         </td>
@@ -54,29 +66,30 @@
             @Html.DisplayFor(modelItem => item.Identity)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Notes)
+            @Html.DisplayFor(modelItem => item.Email)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Email)
+            @Html.DisplayFor(modelItem => item.PhoneNum_1)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Address)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.CreatedAt)
+            @Html.DisplayFor(modelItem => item.PostalCode)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.DeletedAt)
+            @Html.DisplayFor(modelItem => item.PostOffice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Notes)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Active)
         </td>
- 
         <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.Customer_id }) |
-            @Html.ActionLink("Details", "Details", new { id=item.Customer_id }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.Customer_id })
+            @Html.DisplayFor(modelItem => item.Permission)
         </td>
+
     </tr>
 }
 

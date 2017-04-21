@@ -24,12 +24,11 @@ namespace PointCustomSystemDataMVC.Controllers
         private JohaMeriSQL1Entities db = new JohaMeriSQL1Entities();
 
         // GET: Customers
-        public ActionResult Index(string sortOrder)
+        public ActionResult Index()
         {
             //string username = User.Identity.Name;
             //string userid = ((ClaimsPrincipal)User).Claims?.Where(c => c.Type == ClaimTypes.GroupSid).FirstOrDefault()?.Value ?? "";
-
-            //31.1.2017 Lisätty tietokantataulujen suodatukset:       
+     
             List<CustomerViewModel> model = new List<CustomerViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
@@ -42,9 +41,9 @@ namespace PointCustomSystemDataMVC.Controllers
                 foreach (Customer customer in customers)
                 {
                     CustomerViewModel view = new CustomerViewModel();
-                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
+                    ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
 
                     view.Customer_id = customer.Customer_id;
                     view.FirstNameA = customer.FirstName;
@@ -80,29 +79,7 @@ namespace PointCustomSystemDataMVC.Controllers
                 entities.Dispose();
             }
 
-            //25.3.2017 Lisätty sort -toiminto
-            ViewBag.FirstnameSortParm = String.IsNullOrEmpty(sortOrder) ? "firstname_desc" : "";
-            ViewBag.LastnameSortParm = sortOrder == "LastNameA" ? "lastname_desc" : "LastNameA";
-
-            var custom = from c in db.Customer
-                         orderby c.FirstName ascending
-                         select c;
-
-            switch (sortOrder)
-            {
-                case "firstname_desc":
-                    custom = custom.OrderByDescending(c => c.FirstName);
-                    break;
-                case "LastNameA":
-                    custom = custom.OrderBy(c => c.LastName);
-                    break;
-                case "lastname_desc":
-                    custom = custom.OrderByDescending(c => c.LastName);
-                    break;
-                default:
-                    custom = custom.OrderBy(c => c.FirstName);
-                    break;
-            }
+           
 
             return View(model);
         }//Index
@@ -112,19 +89,18 @@ namespace PointCustomSystemDataMVC.Controllers
         //Asiakastietojen tulostus pdf lomakkeelle
         public ActionResult DownLoadCustomerPDF(int? id)
         {
-            ReservationDetailViewModel model = new ReservationDetailViewModel();
+            List<CustomerViewModel> model = new List<CustomerViewModel>();
 
             JohaMeriSQL1Entities entities = new JohaMeriSQL1Entities();
 
             try
             {
-                Customer customer = entities.Customer.Find(id);
-                if (customer == null)
+                List<Customer> customers = entities.Customer.OrderBy(Customer => Customer.LastName).ToList();
+
+                // muodostetaan näkymämalli tietokannan rivien pohjalta       
+                foreach (Customer customer in customers)
                 {
-                    return HttpNotFound();
-                }
-        
-                    ReservationDetailViewModel view = new ReservationDetailViewModel();
+                    CustomerViewModel view = new CustomerViewModel();
                     view.User_id = customer.User?.FirstOrDefault()?.User_id;
                     view.UserIdentity = customer.User?.FirstOrDefault()?.UserIdentity;
                     ViewBag.UserIdentity = new SelectList((from u in db.User select new { User_id = u.User_id, UserIdentity = u.UserIdentity }), "User_id", "UserIdentity", null);
@@ -155,8 +131,8 @@ namespace PointCustomSystemDataMVC.Controllers
                     view.End = customer.Reservation?.FirstOrDefault()?.End.Value;
                     view.Date = customer.Reservation?.FirstOrDefault()?.Date.Value;
 
-                    model = view;
-
+                    model.Add(view);
+                }
             }
             finally
             {

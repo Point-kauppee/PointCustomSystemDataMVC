@@ -3,32 +3,33 @@
 @{
     ViewBag.Title = "Index";
 }
+
+@section head {
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/datatables.css" rel="stylesheet" />
+    <link href="~/Scripts/DataTables/dataTables.bootstrap.css" rel="stylesheet" />
+
+    <style>
+        #weekcalendar {
+            width: 1200px;
+        }
+    </style>
+}
 <title>PointCollege Ajanvarausohjelmisto</title>
-<link rel="stylesheet" href="http://www.w3schools.com/lib/w3.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="/lib/w3.css">
-<script src="/lib/w3.js"></script>
 
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-<script src="~/Scripts/modernizr-2.8.3.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-<link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-<script src="/Scripts/bootstrap.js"></script>
-<script src="/Scripts/respond.js"></script>
-
-<!-- !SIDEMENU CONTENT! -->
+<!-- !SIDEMENU CONTENT!
+================================================== -->
 @{ Html.RenderAction("SideMenu", "Customers");}
 
-<!-- !PAGE CONTENT! -->
-<div class="w3-main" style="margin-left:250px">
+<!-- !PAGE CONTENT!
+================================================== -->
+<div class="w3-main" style="margin-left:252px">
 
     <!-- Push down content on small screens -->
     <div class="w3-hide-large" style="margin-top:83px"></div>
 
-    <!-- Container -->
+<!-- !CONTAINER!
+================================================== -->
     <div class="w3-container">
         <h2>Opiskelijaryhmähallinta</h2>
         <br />
@@ -89,8 +90,3 @@
         </table>
     </div><!-- End content -->
 </div><!-- End page content -->
-
-@section Scripts {
-
-    @Scripts.Render("~/bundles/jqueryval")
-}
